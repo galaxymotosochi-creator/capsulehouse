@@ -4,571 +4,111 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>888.ESTATE — Модульные дома премиум-класса</title>
-  <meta name="description" content="Каталог модульных домов из КНР. Полный цикл: от выбора до установки. 30 моделей от 12.5 до 74.5 м²." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: #fafaf9;
-      color: #1c1917;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    img { max-width: 100%; display: block; }
-    a { text-decoration: none; color: inherit; }
-
-    /* ===== TYPOGRAPHY ===== */
-    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: -0.02em; }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-
-    /* ===== HEADER ===== */
-    .header {
-      padding: 20px 0;
-      border-bottom: 1px solid #e7e5e4;
-      background: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .header .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-    .logo span { color: #a65e24; }
-    .logo small {
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      color: #78716c;
-      letter-spacing: 0.08em;
-      display: block;
-    }
-    .nav { display: flex; gap: 32px; align-items: center; }
-    .nav a {
-      font-size: 14px;
-      font-weight: 500;
-      color: #57534e;
-      transition: color 0.2s;
-    }
-    .nav a:hover { color: #a65e24; }
-    .nav .btn {
-      background: #1c1917;
-      color: #fff;
-      padding: 10px 24px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-    .nav .btn:hover { background: #a65e24; color: #fff; }
-
-    /* ===== HERO ===== */
-    .hero {
-      padding: 100px 0 80px;
-      text-align: center;
-      background: linear-gradient(135deg, #fafaf9 0%, #f5f0eb 100%);
-    }
-    .hero h1 {
-      font-size: clamp(36px, 5vw, 64px);
-      max-width: 800px;
-      margin: 0 auto 16px;
-      line-height: 1.15;
-    }
-    .hero h1 em { font-style: normal; color: #a65e24; }
-    .hero p {
-      font-size: 18px;
-      color: #78716c;
-      max-width: 600px;
-      margin: 0 auto 36px;
-    }
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-    }
-    .hero-stat { text-align: center; }
-    .hero-stat .num {
-      font-family: 'Playfair Display', serif;
-      font-size: 32px;
-      font-weight: 500;
-      color: #1c1917;
-    }
-    .hero-stat .label {
-      font-size: 13px;
-      color: #78716c;
-      margin-top: 4px;
-    }
-
-    /* ===== FILTERS ===== */
-    .filters {
-      padding: 32px 0;
-      background: #fff;
-      border-bottom: 1px solid #e7e5e4;
-    }
-    .filters .container { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-    .filters .label { font-size: 14px; font-weight: 500; color: #78716c; margin-right: 8px; }
-    .filter-btn {
-      padding: 8px 20px;
-      border-radius: 100px;
-      border: 1px solid #d6d3d1;
-      background: #fff;
-      font-size: 13px;
-      font-weight: 500;
-      color: #57534e;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .filter-btn:hover { border-color: #a65e24; color: #a65e24; }
-    .filter-btn.active { background: #1c1917; color: #fff; border-color: #1c1917; }
-
-    /* ===== CATALOG GRID ===== */
-    .catalog {
-      padding: 48px 0 80px;
-    }
-    .catalog .container { position: relative; }
-    .catalog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-    }
-
-    /* ===== HOUSE CARD ===== */
-    .house-card {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e7e5e4;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .house-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-      border-color: #d6d3d1;
-    }
-    .house-card .image {
-      height: 200px;
-      background: #f5f0eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .house-card .image .placeholder {
-      font-size: 48px;
-      opacity: 0.3;
-    }
-    .house-card .image .badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: #1c1917;
-      color: #fff;
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-    .house-card .info {
-      padding: 20px;
-    }
-    .house-card .info .model {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-    .house-card .info .series-tag {
-      font-size: 12px;
-      color: #a65e24;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-    }
-    .house-card .info .specs {
-      display: flex;
-      gap: 16px;
-      margin: 12px 0;
-      font-size: 14px;
-      color: #57534e;
-    }
-    .house-card .info .specs span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .house-card .info .price {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 500;
-      color: #1c1917;
-    }
-    .house-card .info .price small {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      color: #78716c;
-    }
-    .house-card .info .note {
-      font-size: 12px;
-      color: #a65e24;
-      font-weight: 500;
-      margin-top: 6px;
-    }
-
-    /* ===== EMPTY STATE ===== */
-    .empty-state {
-      text-align: center;
-      padding: 80px 20px;
-      color: #78716c;
-    }
-    .empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
-
-    /* ===== ORDER BUTTON ===== */
-    .order-btn {
-      display: inline-block;
-      width: 100%;
-      margin-top: 16px;
-      padding: 12px;
-      background: #1c1917;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .order-btn:hover { background: #a65e24; }
-
-    /* ===== FEATURES SECTION ===== */
-    .features {
-      padding: 80px 0;
-      background: #fff;
-    }
-    .features h2 {
-      text-align: center;
-      font-size: 36px;
-      margin-bottom: 48px;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 32px;
-    }
-    .feature-card {
-      text-align: center;
-      padding: 32px 24px;
-    }
-    .feature-card .icon { font-size: 36px; margin-bottom: 16px; }
-    .feature-card h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-    .feature-card p {
-      font-size: 14px;
-      color: #78716c;
-      line-height: 1.7;
-    }
-
-    /* ===== FOOTER ===== */
-    .footer {
-      padding: 48px 0;
-      background: #1c1917;
-      color: #a8a29e;
-      font-size: 14px;
-    }
-    .footer .container {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-    .footer .logo span { color: #d9a06b; }
-    .footer .logo small { color: #a8a29e; }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: #a8a29e; transition: color 0.2s; }
-    .footer-links a:hover { color: #fff; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .header .container { flex-direction: column; gap: 12px; }
-      .nav { flex-wrap: wrap; justify-content: center; gap: 16px; }
-      .hero { padding: 60px 0 48px; }
-      .hero-stats { gap: 24px; }
-      .catalog-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ===== ANIMATIONS ===== */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ===== CONTACT DETAILS ON CARD ===== */
-    .contact-strip {
-      background: #a65e24;
-      color: #fff;
-      text-align: center;
-      padding: 16px;
-      font-size: 15px;
-      font-weight: 500;
-    }
-    .contact-strip a { color: #fff; text-decoration: underline; }
-    .contact-strip a:hover { text-decoration: none; }
-    .house-card .bottom-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#fff;--bg2:#f5f5f7;--t1:#1d1d1f;--t2:#86868b;--t3:#aeaeb2;--brd:#d2d2d7;--r:18px;--mw:1200px;--hh:52px}
+    html{-webkit-font-smoothing:antialiased}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;background:var(--bg);color:var(--t1);line-height:1.5}
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%)blur(20px);-webkit-backdrop-filter:saturate(180%)blur(20px);border-bottom:1px solid rgba(0,0,0,.04)}
+    .hi{max-width:var(--mw);margin:0 auto;padding:0 24px;height:var(--hh);display:flex;align-items:center;justify-content:space-between}
+    .logo{font-weight:700;font-size:15px;letter-spacing:-.3px;color:var(--t1);text-decoration:none}
+    .cnt{font-size:13px;color:var(--t2)}
+    .hero{padding:80px 24px 48px;text-align:center;max-width:680px;margin:0 auto}
+    .hero h1{font-size:clamp(32px,5.5vw,56px);font-weight:700;letter-spacing:-1.2px;line-height:1.1;margin-bottom:16px}
+    .hero p{font-size:clamp(16px,2vw,20px);color:var(--t2);line-height:1.6;max-width:560px;margin:0 auto}
+    .stats{display:flex;justify-content:center;gap:40px;padding:32px 24px 48px;flex-wrap:wrap}
+    .stat-item{text-align:center}
+    .stat-value{font-size:28px;font-weight:700;letter-spacing:-.5px}
+    .stat-label{font-size:13px;color:var(--t2);margin-top:2px}
+    .filters{max-width:var(--mw);margin:0 auto;padding:0 24px 20px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .filters::-webkit-scrollbar{display:none}
+    .fr{display:flex;gap:8px;flex-wrap:nowrap;padding-bottom:4px}
+    .fb{flex-shrink:0;padding:6px 16px;border-radius:20px;border:1px solid var(--brd);background:var(--bg);font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .2s;font-family:inherit;-webkit-tap-highlight-color:transparent}
+    .fb:hover{border-color:var(--t2);color:var(--t1)}
+    .fb.on{background:var(--t1);color:var(--bg);border-color:var(--t1)}
+    .grid{max-width:var(--mw);margin:0 auto;padding:8px 24px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .card{background:var(--bg);border-radius:var(--r);border:1px solid var(--brd);padding:24px;transition:all .25s;cursor:default;opacity:0;animation:fi .4s ease forwards}
+    .card:hover{box-shadow:0 4px 24px rgba(0,0,0,.06);border-color:#c7c7cc;transform:translateY(-2px)}
+    .ci{width:100%;aspect-ratio:16/10;background:var(--bg2);border-radius:12px;margin-bottom:16px;display:flex;align-items:center;justify-content:center}
+    .cip{font-size:13px;color:var(--t3);letter-spacing:.3px;text-transform:uppercase}
+    .cs{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+    .cn{font-size:17px;font-weight:600;letter-spacing:-.2px;margin-bottom:4px}
+    .cd{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--bg2)}
+    .ca{font-size:14px;color:var(--t2)}
+    .cp{font-size:17px;font-weight:700;letter-spacing:-.3px}
+    .empty{grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--t3);font-size:15px}
+    @keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .card:nth-child(1){animation-delay:.02s}.card:nth-child(2){animation-delay:.04s}.card:nth-child(3){animation-delay:.06s}
+    .card:nth-child(4){animation-delay:.08s}.card:nth-child(5){animation-delay:.10s}.card:nth-child(6){animation-delay:.12s}
+    .card:nth-child(7){animation-delay:.14s}.card:nth-child(8){animation-delay:.16s}.card:nth-child(9){animation-delay:.18s}
+    .card:nth-child(10){animation-delay:.20s}.card:nth-child(11){animation-delay:.22s}.card:nth-child(12){animation-delay:.24s}
+    .card:nth-child(13){animation-delay:.26s}.card:nth-child(14){animation-delay:.28s}.card:nth-child(15){animation-delay:.30s}
+    .card:nth-child(16){animation-delay:.32s}.card:nth-child(17){animation-delay:.34s}.card:nth-child(18){animation-delay:.36s}
+    .card:nth-child(19){animation-delay:.38s}.card:nth-child(20){animation-delay:.40s}.card:nth-child(21){animation-delay:.42s}
+    .card:nth-child(22){animation-delay:.44s}.card:nth-child(23){animation-delay:.46s}.card:nth-child(24){animation-delay:.48s}
+    .card:nth-child(25){animation-delay:.50s}.card:nth-child(26){animation-delay:.52s}.card:nth-child(27){animation-delay:.54s}
+    .card:nth-child(28){animation-delay:.56s}.card:nth-child(29){animation-delay:.58s}.card:nth-child(30){animation-delay:.60s}
+    footer{text-align:center;padding:32px 24px 48px;border-top:1px solid var(--bg2);font-size:12px;color:var(--t3)}
+    @media(max-width:640px){.hero{padding:48px 20px 32px}.stats{gap:24px;padding:20px 16px 32px}.stat-value{font-size:24px}.grid{grid-template-columns:1fr;padding:8px 16px 48px;gap:12px}.hi{padding:0 16px}}
+    @media(min-width:641px)and (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
 <body>
-
-  <!-- ===== HEADER ===== -->
-  <header class="header">
-    <div class="container">
-      <div class="logo">
-        888.ESTATE
-        <small>МОДУЛЬНЫЕ ДОМА ПРЕМИУМ-КЛАССА</small>
-      </div>
-      <nav class="nav">
-        <a href="#catalog">Каталог</a>
-        <a href="#features">Почему мы</a>
-        <a href="https://t.me/iuliiashimanskaia" target="_blank" class="btn">Связаться</a>
-      </nav>
+  <header>
+    <div class="hi">
+      <a href="/" class="logo">888.ESTATE</a>
+      <span class="cnt" id="cnt">30</span>
     </div>
   </header>
-
-  <!-- ===== HERO ===== -->
   <section class="hero">
-    <div class="container">
-      <h1>Дом, который <em>приедет</em> к вам</h1>
-      <p>Премиальные модульные дома из Китая под ключ. От выбора модели до установки на вашем участке — один цикл, одна ответственность.</p>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="num" id="statModels">30</div>
-          <div class="label">моделей</div>
-        </div>
-        <div class="hero-stat">
-          <div class="num">12.5–74.5</div>
-          <div class="label">м² площадь</div>
-        </div>
-        <div class="hero-stat">
-          <div class="num" id="statMinPrice">455K</div>
-          <div class="label">₽ от</div>
-        </div>
-        <div class="hero-stat">
-          <div class="num">9</div>
-          <div class="label">серий</div>
-        </div>
-      </div>
-    </div>
+    <h1>Дом, который приедет к вам</h1>
+    <p>Премиальные модульные дома из Китая под ключ. От выбора модели до установки на вашем участке.</p>
   </section>
-
-  <!-- ===== CONTACT STRIP ===== -->
-  <div class="contact-strip">
-    📞 Свяжитесь с нами: <a href="https://t.me/iuliiashimanskaia" target="_blank">@iuliiashimanskaia</a> в Telegram
+  <section class="stats">
+    <div class="stat-item"><div class="stat-value">30</div><div class="stat-label">моделей</div></div>
+    <div class="stat-item"><div class="stat-value">12,5–74,5 м²</div><div class="stat-label">площадь</div></div>
+    <div class="stat-item"><div class="stat-value">от 456 тыс. ₽</div><div class="stat-label">цена</div></div>
+    <div class="stat-item"><div class="stat-value">9</div><div class="stat-label">серий</div></div>
+  </section>
+  <div class="filters">
+    <div class="fr" id="filters">
+      <button class="fb on" data-f="all">Все</button>
+      <button class="fb" data-f="AC">Атомные</button>
+      <button class="fb" data-f="V">Серия V</button>
+      <button class="fb" data-f="PX">Серия PX</button>
+      <button class="fb" data-f="E">Серия E</button>
+      <button class="fb" data-f="X">Серия X</button>
+      <button class="fb" data-f="T">Серия T</button>
+      <button class="fb" data-f="FT">Фортуна</button>
+      <button class="fb" data-f="Z">Серия Z</button>
+      <button class="fb" data-f="M9">Флагман</button>
+    </div>
   </div>
-
-  <!-- ===== FILTERS ===== -->
-  <section class="filters" id="catalog">
-    <div class="container">
-      <span class="label">Серия:</span>
-      <button class="filter-btn active" data-filter="all">Все</button>
-      <button class="filter-btn" data-filter="AC">Атомные</button>
-      <button class="filter-btn" data-filter="V">Серия V</button>
-      <button class="filter-btn" data-filter="PX">Серия PX</button>
-      <button class="filter-btn" data-filter="E">Серия E</button>
-      <button class="filter-btn" data-filter="X">Серия X</button>
-      <button class="filter-btn" data-filter="T">Серия T</button>
-      <button class="filter-btn" data-filter="FT">Фортуна</button>
-      <button class="filter-btn" data-filter="Z">Серия Z</button>
-      <button class="filter-btn" data-filter="M9">Флагман</button>
-    </div>
-  </section>
-
-  <!-- ===== CATALOG ===== -->
-  <section class="catalog">
-    <div class="container">
-      <div class="catalog-grid" id="catalogGrid"></div>
-    </div>
-  </section>
-
-  <!-- ===== FEATURES ===== -->
-  <section class="features" id="features">
-    <div class="container">
-      <h2>Почему 888.ESTATE</h2>
-      <div class="features-grid">
-        <div class="feature-card fade-in">
-          <div class="icon">🏗️</div>
-          <h3>Полный цикл</h3>
-          <p>От подбора модели до установки на участке. Мы сопровождаем проект на всех этапах.</p>
-        </div>
-        <div class="feature-card fade-in">
-          <div class="icon">🌏</div>
-          <h3>Прямые поставки из КНР</h3>
-          <p>Работаем напрямую с производителями. Никаких посредников — лучшие цены при премиальном качестве.</p>
-        </div>
-        <div class="feature-card fade-in">
-          <div class="icon">📦</div>
-          <h3>Под ключ</h3>
-          <p>Доставка, таможня, сборка, установка — мы берём на себя всё. Вы получаете готовый дом.</p>
-        </div>
-        <div class="feature-card fade-in">
-          <div class="icon">🧮</div>
-          <h3>Прозрачные цены</h3>
-          <p>Фиксированная стоимость на каждую модель. Никаких скрытых платежей — вы знаете цену с первого клика.</p>
-        </div>
-        <div class="feature-card fade-in">
-          <div class="icon">⚡</div>
-          <h3>Быстро</h3>
-          <p>От заказа до установки — от 2 месяцев. Модульная технология работает быстрее традиционного строительства в разы.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="logo">
-        888.ESTATE
-        <small>МОДУЛЬНЫЕ ДОМА ПРЕМИУМ-КЛАССА</small>
-      </div>
-      <div class="footer-links">
-        <a href="#catalog">Каталог</a>
-        <a href="#features">Почему мы</a>
-        <a href="https://t.me/iuliiashimanskaia" target="_blank">Telegram</a>
-      </div>
-    </div>
-  </footer>
-
+  <div class="grid" id="grid"></div>
+  <footer>888.ESTATE — модульные дома премиум-класса из Китая</footer>
   <script>
-    // ===== DATA =====
-    const houses = [
-      { id: 1, name: "AC02-1", area: 12.5, price: 466281, series: "AC", seriesName: "Атомные", note: null },
-      { id: 2, name: "AC02-2", area: 12.5, price: 455684, series: "AC", seriesName: "Атомные", note: null },
-      { id: 3, name: "AC02-3", area: 12.5, price: 802184, series: "AC", seriesName: "Атомные", note: null },
-      { id: 4, name: "AC02-4", area: 12.5, price: 782033, series: "AC", seriesName: "Атомные", note: null },
-      { id: 5, name: "AC03-1", area: 25.3, price: 1011882, series: "AC", seriesName: "Атомные", note: null },
-      { id: 6, name: "AC03-2", area: 25.3, price: 1236673, series: "AC", seriesName: "Атомные", note: null },
-      { id: 7, name: "AC05", area: 38.1, price: 1780347, series: "AC", seriesName: "Атомные", note: null },
-      { id: 8, name: "V2", area: 18.5, price: 1420109, series: "V", seriesName: "Серия V", note: null },
-      { id: 9, name: "V3", area: 21, price: 1670688, series: "V", seriesName: "Серия V", note: null },
-      { id: 10, name: "V7", area: 23, price: 1790023, series: "V", seriesName: "Серия V", note: null },
-      { id: 11, name: "V6", area: 28, price: 2148028, series: "V", seriesName: "Серия V", note: null },
-      { id: 12, name: "V8", area: 32, price: 2386697, series: "V", seriesName: "Серия V", note: null },
-      { id: 13, name: "V9", area: 38, price: 2816319, series: "V", seriesName: "Серия V", note: null },
-      { id: 14, name: "V11", area: 38, price: 2565741, series: "V", seriesName: "Серия V", note: null },
-      { id: 15, name: "PX3", area: 18.5, price: 1622970, series: "PX", seriesName: "Серия PX", note: null },
-      { id: 16, name: "PX5", area: 28, price: 2088401, series: "PX", seriesName: "Серия PX", note: null },
-      { id: 17, name: "PX7", area: 38, price: 2780511, series: "PX", seriesName: "Серия PX", note: null },
-      { id: 18, name: "E3", area: 18.5, price: 1730396, series: "E", seriesName: "Серия E", note: null },
-      { id: 19, name: "E5", area: 28, price: 2088401, series: "E", seriesName: "Серия E", note: null },
-      { id: 20, name: "X5", area: 29, price: 2183836, series: "X", seriesName: "Серия X", note: null },
-      { id: 21, name: "X7", area: 39, price: 2864037, series: "X", seriesName: "Серия X", note: null },
-      { id: 22, name: "T5", area: 12.6, price: 1348492, series: "T", seriesName: "Серия T", note: null },
-      { id: 23, name: "T7", area: 26, price: 2028693, series: "T", seriesName: "Серия T", note: null },
-      { id: 24, name: "FT10", area: 18.5, price: 693943, series: "FT", seriesName: "Фортуна", note: null },
-      { id: 25, name: "FT20", area: 37, price: 838145, series: "FT", seriesName: "Фортуна", note: null },
-      { id: 26, name: "FT30", area: 56, price: 1193123, series: "FT", seriesName: "Фортуна", note: null },
-      { id: 27, name: "FT40", area: 73, price: 1508678, series: "FT", seriesName: "Фортуна", note: null },
-      { id: 28, name: "Z7", area: 28, price: 1462428, series: "Z", seriesName: "Серия Z", note: "Без террасы" },
-      { id: 29, name: "ZD5", area: 38, price: 2522159, series: "Z", seriesName: "Серия Z", note: "С террасой" },
-      { id: 30, name: "M9", area: 74.5, price: 5239894, series: "M9", seriesName: "Флагман", note: null }
-    ];
-
-    const seriesIcons = {
-      "AC": ["▣", "#a8a29e", "Мини-дом"],
-      "V": ["◈", "#a65e24", "Классика"],
-      "PX": ["◇", "#78716c", "Премиум"],
-      "E": ["○", "#57534e", "Эконом"],
-      "X": ["✦", "#854d0e", "Экстра"],
-      "T": ["▴", "#a8a29e", "Тандем"],
-      "FT": ["■", "#a65e24", "Простор"],
-      "Z": ["⬡", "#57534e", "Уют"],
-      "M9": ["★", "#f59e0b", "Флагман"]
-    };
-
-    function formatPrice(num) {
-      return num.toLocaleString("ru-RU") + " ₽";
-    }
-
-    function renderHouses(filter = "all") {
-      const grid = document.getElementById("catalogGrid");
-      const filtered = filter === "all" ? houses : houses.filter(h => h.series === filter);
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="empty-state"><div class="icon">🏠</div><p>Нет домов в этой серии</p></div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(h => {
-        const icon = seriesIcons[h.series] || ["▣", "#a8a29e", h.seriesName];
-        return `
-          <div class="house-card">
-            <div class="image">
-              <span class="placeholder" style="color:${icon[1]}">${icon[0]}</span>
-              <span class="badge">${h.seriesName}</span>
-            </div>
-            <div class="info">
-              <div class="model">${h.name}</div>
-              <div class="series-tag">${icon[2]}</div>
-              <div class="specs">
-                <span>📐 ${h.area} м²</span>
-                <span>🏷️ ${h.series}</span>
-              </div>
-              <div class="price">
-                ${formatPrice(h.price)}
-                <small>заводская цена</small>
-              </div>
-              ${h.note ? `<div class="note">${h.note}</div>` : ''}
-              <a href="https://t.me/iuliiashimanskaia" target="_blank" class="order-btn">Узнать стоимость</a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // ===== FILTERS =====
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderHouses(btn.dataset.filter);
-      });
-    });
-
-    // ===== INIT =====
-    renderHouses();
-
-    // ===== FADE-IN ANIMATION =====
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+const H=[{n:"AC02-1",a:12.5,p:466281,s:"AC"},{n:"AC02-2",a:12.5,p:455684,s:"AC"},{n:"AC02-3",a:12.5,p:802184,s:"AC"},{n:"AC02-4",a:12.5,p:782033,s:"AC"},{n:"AC03-1",a:25.3,p:1011882,s:"AC"},{n:"AC03-2",a:25.3,p:1236673,s:"AC"},{n:"AC05",a:38.1,p:1780347,s:"AC"},{n:"V2",a:18.5,p:1420109,s:"V"},{n:"V3",a:21,p:1670688,s:"V"},{n:"V7",a:23,p:1790023,s:"V"},{n:"V6",a:28,p:2148028,s:"V"},{n:"V8",a:32,p:2386697,s:"V"},{n:"V9",a:38,p:2816319,s:"V"},{n:"V11",a:38,p:2565741,s:"V"},{n:"PX3",a:18.5,p:1622970,s:"PX"},{n:"PX5",a:28,p:2088401,s:"PX"},{n:"PX7",a:38,p:2780511,s:"PX"},{n:"E3",a:18.5,p:1730396,s:"E"},{n:"E5",a:28,p:2088401,s:"E"},{n:"X5",a:29,p:2183836,s:"X"},{n:"X7",a:39,p:2864037,s:"X"},{n:"T5",a:12.6,p:1348492,s:"T"},{n:"T7",a:26,p:2028693,s:"T"},{n:"FT10",a:18.5,p:693943,s:"FT"},{n:"FT20",a:37,p:838145,s:"FT"},{n:"FT30",a:56,p:1193123,s:"FT"},{n:"FT40",a:73,p:1508678,s:"FT"},{n:"Z7",a:28,p:1462428,s:"Z"},{n:"ZD5",a:38,p:2522159,s:"Z"},{n:"M9",a:74.5,p:5239894,s:"M9"}];
+const SN={AC:"Атомные",V:"Серия V",PX:"Серия PX",E:"Серия E",X:"Серия X",T:"Серия T",FT:"Фортуна",Z:"Серия Z",M9:"Флагман"};
+function fmt(n){return n.toLocaleString("ru-RU")}
+function render(f){
+  const g=document.getElementById("grid");
+  const items=f==="all"?H:H.filter(h=>h.s===f);
+  const c=document.getElementById("cnt");
+  if(!items.length){g.innerHTML='<div class="empty">Нет домов в этой серии</div>';c.textContent="0";return}
+  c.textContent=items.length;
+  g.innerHTML=items.map(h=>'<div class="card"><div class="ci"><div class="cip">Фото</div></div><div class="cs">'+(SN[h.s]||h.s)+'</div><div class="cn">'+h.n+'</div><div class="cd"><span class="ca">'+h.a+' м²</span><span class="cp">'+fmt(h.p)+' ₽</span></div></div>').join("");
+}
+document.querySelectorAll(".fb").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".fb").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    render(b.dataset.f);
+  });
+});
+render("all");
   </script>
 </body>
 </html>
