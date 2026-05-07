@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>888.ESTATE — Модульные дома премиум-класса</title>
+  <meta name="description" content="Каталог модульных домов из КНР. Полный цикл: от выбора до установки. 30 моделей от 12.5 до 74.5 м²." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #fafaf9;
+      color: #1c1917;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== HEADER ===== */
+    .header {
+      padding: 20px 0;
+      border-bottom: 1px solid #e7e5e4;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .logo span { color: #a65e24; }
+    .logo small {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #78716c;
+      letter-spacing: 0.08em;
+      display: block;
+    }
+    .nav { display: flex; gap: 32px; align-items: center; }
+    .nav a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #57534e;
+      transition: color 0.2s;
+    }
+    .nav a:hover { color: #a65e24; }
+    .nav .btn {
+      background: #1c1917;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .nav .btn:hover { background: #a65e24; color: #fff; }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+      background: linear-gradient(135deg, #fafaf9 0%, #f5f0eb 100%);
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      max-width: 800px;
+      margin: 0 auto 16px;
+      line-height: 1.15;
+    }
+    .hero h1 em { font-style: normal; color: #a65e24; }
+    .hero p {
+      font-size: 18px;
+      color: #78716c;
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 500;
+      color: #1c1917;
+    }
+    .hero-stat .label {
+      font-size: 13px;
+      color: #78716c;
+      margin-top: 4px;
+    }
+
+    /* ===== FILTERS ===== */
+    .filters {
+      padding: 32px 0;
+      background: #fff;
+      border-bottom: 1px solid #e7e5e4;
+    }
+    .filters .container { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .filters .label { font-size: 14px; font-weight: 500; color: #78716c; margin-right: 8px; }
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1px solid #d6d3d1;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      color: #57534e;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: #a65e24; color: #a65e24; }
+    .filter-btn.active { background: #1c1917; color: #fff; border-color: #1c1917; }
+
+    /* ===== CATALOG GRID ===== */
+    .catalog {
+      padding: 48px 0 80px;
+    }
+    .catalog .container { position: relative; }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    /* ===== HOUSE CARD ===== */
+    .house-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e7e5e4;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .house-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      border-color: #d6d3d1;
+    }
+    .house-card .image {
+      height: 200px;
+      background: #f5f0eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .house-card .image .placeholder {
+      font-size: 48px;
+      opacity: 0.3;
+    }
+    .house-card .image .badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #1c1917;
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .house-card .info {
+      padding: 20px;
+    }
+    .house-card .info .model {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .house-card .info .series-tag {
+      font-size: 12px;
+      color: #a65e24;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .house-card .info .specs {
+      display: flex;
+      gap: 16px;
+      margin: 12px 0;
+      font-size: 14px;
+      color: #57534e;
+    }
+    .house-card .info .specs span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .house-card .info .price {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: #1c1917;
+    }
+    .house-card .info .price small {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #78716c;
+    }
+    .house-card .info .note {
+      font-size: 12px;
+      color: #a65e24;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #78716c;
+    }
+    .empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+
+    /* ===== ORDER BUTTON ===== */
+    .order-btn {
+      display: inline-block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px;
+      background: #1c1917;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .order-btn:hover { background: #a65e24; }
+
+    /* ===== FEATURES SECTION ===== */
+    .features {
+      padding: 80px 0;
+      background: #fff;
+    }
+    .features h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 48px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+    }
+    .feature-card {
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .feature-card .icon { font-size: 36px; margin-bottom: 16px; }
+    .feature-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: #78716c;
+      line-height: 1.7;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 48px 0;
+      background: #1c1917;
+      color: #a8a29e;
+      font-size: 14px;
+    }
+    .footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer .logo span { color: #d9a06b; }
+    .footer .logo small { color: #a8a29e; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: #a8a29e; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header .container { flex-direction: column; gap: 12px; }
+      .nav { flex-wrap: wrap; justify-content: center; gap: 16px; }
+      .hero { padding: 60px 0 48px; }
+      .hero-stats { gap: 24px; }
+      .catalog-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== CONTACT DETAILS ON CARD ===== */
+    .contact-strip {
+      background: #a65e24;
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .contact-strip a { color: #fff; text-decoration: underline; }
+    .contact-strip a:hover { text-decoration: none; }
+    .house-card .bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        888.ESTATE
+        <small>МОДУЛЬНЫЕ ДОМА ПРЕМИУМ-КЛАССА</small>
+      </div>
+      <nav class="nav">
+        <a href="#catalog">Каталог</a>
+        <a href="#features">Почему мы</a>
+        <a href="https://t.me/iuliiashimanskaia" target="_blank" class="btn">Связаться</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container">
+      <h1>Дом, который <em>приедет</em> к вам</h1>
+      <p>Премиальные модульные дома из Китая под ключ. От выбора модели до установки на вашем участке — один цикл, одна ответственность.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="num" id="statModels">30</div>
+          <div class="label">моделей</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">12.5–74.5</div>
+          <div class="label">м² площадь</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num" id="statMinPrice">455K</div>
+          <div class="label">₽ от</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">9</div>
+          <div class="label">серий</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT STRIP ===== -->
+  <div class="contact-strip">
+    📞 Свяжитесь с нами: <a href="https://t.me/iuliiashimanskaia" target="_blank">@iuliiashimanskaia</a> в Telegram
+  </div>
+
+  <!-- ===== FILTERS ===== -->
+  <section class="filters" id="catalog">
+    <div class="container">
+      <span class="label">Серия:</span>
+      <button class="filter-btn active" data-filter="all">Все</button>
+      <button class="filter-btn" data-filter="AC">Атомные</button>
+      <button class="filter-btn" data-filter="V">Серия V</button>
+      <button class="filter-btn" data-filter="PX">Серия PX</button>
+      <button class="filter-btn" data-filter="E">Серия E</button>
+      <button class="filter-btn" data-filter="X">Серия X</button>
+      <button class="filter-btn" data-filter="T">Серия T</button>
+      <button class="filter-btn" data-filter="FT">Фортуна</button>
+      <button class="filter-btn" data-filter="Z">Серия Z</button>
+      <button class="filter-btn" data-filter="M9">Флагман</button>
+    </div>
+  </section>
+
+  <!-- ===== CATALOG ===== -->
+  <section class="catalog">
+    <div class="container">
+      <div class="catalog-grid" id="catalogGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2>Почему 888.ESTATE</h2>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="icon">🏗️</div>
+          <h3>Полный цикл</h3>
+          <p>От подбора модели до установки на участке. Мы сопровождаем проект на всех этапах.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="icon">🌏</div>
+          <h3>Прямые поставки из КНР</h3>
+          <p>Работаем напрямую с производителями. Никаких посредников — лучшие цены при премиальном качестве.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="icon">📦</div>
+          <h3>Под ключ</h3>
+          <p>Доставка, таможня, сборка, установка — мы берём на себя всё. Вы получаете готовый дом.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="icon">🧮</div>
+          <h3>Прозрачные цены</h3>
+          <p>Фиксированная стоимость на каждую модель. Никаких скрытых платежей — вы знаете цену с первого клика.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="icon">⚡</div>
+          <h3>Быстро</h3>
+          <p>От заказа до установки — от 2 месяцев. Модульная технология работает быстрее традиционного строительства в разы.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="logo">
+        888.ESTATE
+        <small>МОДУЛЬНЫЕ ДОМА ПРЕМИУМ-КЛАССА</small>
+      </div>
+      <div class="footer-links">
+        <a href="#catalog">Каталог</a>
+        <a href="#features">Почему мы</a>
+        <a href="https://t.me/iuliiashimanskaia" target="_blank">Telegram</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== DATA =====
+    const houses = [
+      { id: 1, name: "AC02-1", area: 12.5, price: 466281, series: "AC", seriesName: "Атомные", note: null },
+      { id: 2, name: "AC02-2", area: 12.5, price: 455684, series: "AC", seriesName: "Атомные", note: null },
+      { id: 3, name: "AC02-3", area: 12.5, price: 802184, series: "AC", seriesName: "Атомные", note: null },
+      { id: 4, name: "AC02-4", area: 12.5, price: 782033, series: "AC", seriesName: "Атомные", note: null },
+      { id: 5, name: "AC03-1", area: 25.3, price: 1011882, series: "AC", seriesName: "Атомные", note: null },
+      { id: 6, name: "AC03-2", area: 25.3, price: 1236673, series: "AC", seriesName: "Атомные", note: null },
+      { id: 7, name: "AC05", area: 38.1, price: 1780347, series: "AC", seriesName: "Атомные", note: null },
+      { id: 8, name: "V2", area: 18.5, price: 1420109, series: "V", seriesName: "Серия V", note: null },
+      { id: 9, name: "V3", area: 21, price: 1670688, series: "V", seriesName: "Серия V", note: null },
+      { id: 10, name: "V7", area: 23, price: 1790023, series: "V", seriesName: "Серия V", note: null },
+      { id: 11, name: "V6", area: 28, price: 2148028, series: "V", seriesName: "Серия V", note: null },
+      { id: 12, name: "V8", area: 32, price: 2386697, series: "V", seriesName: "Серия V", note: null },
+      { id: 13, name: "V9", area: 38, price: 2816319, series: "V", seriesName: "Серия V", note: null },
+      { id: 14, name: "V11", area: 38, price: 2565741, series: "V", seriesName: "Серия V", note: null },
+      { id: 15, name: "PX3", area: 18.5, price: 1622970, series: "PX", seriesName: "Серия PX", note: null },
+      { id: 16, name: "PX5", area: 28, price: 2088401, series: "PX", seriesName: "Серия PX", note: null },
+      { id: 17, name: "PX7", area: 38, price: 2780511, series: "PX", seriesName: "Серия PX", note: null },
+      { id: 18, name: "E3", area: 18.5, price: 1730396, series: "E", seriesName: "Серия E", note: null },
+      { id: 19, name: "E5", area: 28, price: 2088401, series: "E", seriesName: "Серия E", note: null },
+      { id: 20, name: "X5", area: 29, price: 2183836, series: "X", seriesName: "Серия X", note: null },
+      { id: 21, name: "X7", area: 39, price: 2864037, series: "X", seriesName: "Серия X", note: null },
+      { id: 22, name: "T5", area: 12.6, price: 1348492, series: "T", seriesName: "Серия T", note: null },
+      { id: 23, name: "T7", area: 26, price: 2028693, series: "T", seriesName: "Серия T", note: null },
+      { id: 24, name: "FT10", area: 18.5, price: 693943, series: "FT", seriesName: "Фортуна", note: null },
+      { id: 25, name: "FT20", area: 37, price: 838145, series: "FT", seriesName: "Фортуна", note: null },
+      { id: 26, name: "FT30", area: 56, price: 1193123, series: "FT", seriesName: "Фортуна", note: null },
+      { id: 27, name: "FT40", area: 73, price: 1508678, series: "FT", seriesName: "Фортуна", note: null },
+      { id: 28, name: "Z7", area: 28, price: 1462428, series: "Z", seriesName: "Серия Z", note: "Без террасы" },
+      { id: 29, name: "ZD5", area: 38, price: 2522159, series: "Z", seriesName: "Серия Z", note: "С террасой" },
+      { id: 30, name: "M9", area: 74.5, price: 5239894, series: "M9", seriesName: "Флагман", note: null }
+    ];
+
+    const seriesIcons = {
+      "AC": ["▣", "#a8a29e", "Мини-дом"],
+      "V": ["◈", "#a65e24", "Классика"],
+      "PX": ["◇", "#78716c", "Премиум"],
+      "E": ["○", "#57534e", "Эконом"],
+      "X": ["✦", "#854d0e", "Экстра"],
+      "T": ["▴", "#a8a29e", "Тандем"],
+      "FT": ["■", "#a65e24", "Простор"],
+      "Z": ["⬡", "#57534e", "Уют"],
+      "M9": ["★", "#f59e0b", "Флагман"]
+    };
+
+    function formatPrice(num) {
+      return num.toLocaleString("ru-RU") + " ₽";
+    }
+
+    function renderHouses(filter = "all") {
+      const grid = document.getElementById("catalogGrid");
+      const filtered = filter === "all" ? houses : houses.filter(h => h.series === filter);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty-state"><div class="icon">🏠</div><p>Нет домов в этой серии</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(h => {
+        const icon = seriesIcons[h.series] || ["▣", "#a8a29e", h.seriesName];
+        return `
+          <div class="house-card">
+            <div class="image">
+              <span class="placeholder" style="color:${icon[1]}">${icon[0]}</span>
+              <span class="badge">${h.seriesName}</span>
+            </div>
+            <div class="info">
+              <div class="model">${h.name}</div>
+              <div class="series-tag">${icon[2]}</div>
+              <div class="specs">
+                <span>📐 ${h.area} м²</span>
+                <span>🏷️ ${h.series}</span>
+              </div>
+              <div class="price">
+                ${formatPrice(h.price)}
+                <small>заводская цена</small>
+              </div>
+              ${h.note ? `<div class="note">${h.note}</div>` : ''}
+              <a href="https://t.me/iuliiashimanskaia" target="_blank" class="order-btn">Узнать стоимость</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ===== FILTERS =====
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderHouses(btn.dataset.filter);
+      });
+    });
+
+    // ===== INIT =====
+    renderHouses();
+
+    // ===== FADE-IN ANIMATION =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
