@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — Light Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#ffffff;--bg2:#faf8f5;--bg3:#f5f2ed;--t1:#1a1614;--t2:#6b6258;--t3:#a0988c;--g:#b8964a;--g2:#c9a95e;--g3:#f7f0e0;--gd:#6b5941;--b:#e8e0d4;--r:12px;--mw:1200px}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:'Cabin',sans-serif;background:var(--bg);color:var(--t1);line-height:1.6}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);box-shadow:0 1px 3px rgba(0,0,0,.02)}
+.hi{max-width:var(--mw);margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;color:var(--t1);text-decoration:none;letter-spacing:.5px}.logo span{color:var(--g)}
+.hc{font-size:12px;color:var(--t3);letter-spacing:1px}.hc strong{color:var(--g);font-weight:600}
+.hero{padding:120px 32px 0;text-align:center;position:relative;overflow:hidden}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(185,150,74,.04),rgba(107,89,65,.03) 50%,transparent 100%);pointer-events:none}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6vw,64px);font-weight:600;letter-spacing:-.3px;line-height:1.05;margin-bottom:16px;position:relative}
+.hero h1 span{color:var(--g);font-style:italic;font-weight:400}
+.hero p{font-size:clamp(15px,1.5vw,17px);color:var(--t2);max-width:560px;margin:0 auto 36px;position:relative;line-height:1.7}
+.hbs{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
+.hb{display:inline-flex;align-items:center;gap:8px;padding:16px 40px;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;font-weight:600;font-size:14px;letter-spacing:.3px;border-radius:0;text-decoration:none;transition:all .3s}
+.hb:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(185,150,74,.2)}
+.hb:after{content:'\2192';margin-left:4px;font-size:16px}
+.hbo{padding:16px 40px;border:1px solid var(--b);color:var(--t2);font-weight:500;font-size:14px;text-decoration:none;transition:all .3s;background:transparent}
+.hbo:hover{border-color:var(--g);color:var(--g)}
+.sr{display:flex;justify-content:center;padding:64px 32px 48px;flex-wrap:wrap;max-width:900px;margin:0 auto;gap:0}
+.si{text-align:center;padding:24px 40px;flex:1;min-width:120px;position:relative}
+.si:not(:last-child):after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:1px;height:40px;background:var(--b)}
+.sv{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:var(--g);line-height:1}
+.sl{font-size:11px;color:var(--t3);letter-spacing:1.5px;margin-top:6px;text-transform:uppercase}
+.fg{padding:40px 32px 60px;max-width:var(--mw);margin:0 auto}
+.fgh{text-align:center;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin-bottom:40px;letter-spacing:-.2px}
+.fgh:after{content:'';display:block;width:48px;height:1px;background:var(--g);margin:14px auto 0}
+.fgg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.fc{padding:32px 24px;background:var(--bg2);transition:all .3s;text-align:left}
+.fc:hover{background:var(--g3);transform:translateY(-4px)}
+.fi{font-size:24px;margin-bottom:10px;display:block}
+.ft{font-size:16px;font-weight:600;margin-bottom:6px;font-family:'Cormorant Garamond',serif;letter-spacing:.2px}
+.fd{font-size:13px;color:var(--t2);line-height:1.6}
+.filters{max-width:var(--mw);margin:0 auto;padding:0 32px 20px}
+.fr{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.fb{padding:12px 28px;border:1px solid var(--b);background:var(--bg2);font-size:12px;font-weight:500;letter-spacing:.5px;color:var(--t2);cursor:pointer;transition:all .2s;font-family:inherit}
+.fb:hover{background:var(--g3);color:var(--g);border-color:var(--g)}
+.fb.on{background:var(--g);color:#fff;border-color:var(--g);font-weight:600}
+.grid{max-width:var(--mw);margin:0 auto;padding:4px 32px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.card{background:var(--bg2);border:1px solid var(--b);transition:all .35s;opacity:0;animation:fi .4s ease forwards}
+.card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.06)}
+.card:hover .ci .cip{background:var(--g);color:#fff}
+.ci{width:100%;aspect-ratio:16/9;background:var(--bg3);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.ci .cip{padding:8px 16px;background:var(--b);font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:all .3s;color:var(--t3)}
+.cinf{padding:20px 24px 24px}
+.cs{font-size:10px;font-weight:600;color:var(--g);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
+.cn{font-size:19px;font-weight:600;letter-spacing:-.2px;font-family:'Cormorant Garamond',serif}
+.cd{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--b)}
+.ca{font-size:13px;color:var(--t2)}.cp{font-size:18px;font-weight:700;color:var(--g);font-family:'Cormorant Garamond',serif}
+.empty{grid-column:1/-1;text-align:center;padding:60px;color:var(--t3)}
+.ct{padding:80px 32px;background:var(--bg2);margin-top:40px;border-top:1px solid var(--b)}
+.cti{max-width:480px;margin:0 auto;text-align:center}
+.ct h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;margin-bottom:8px;color:var(--t1)}
+.ct p{color:var(--t2);font-size:14px;margin-bottom:28px}
+.ctf{display:flex;flex-direction:column;gap:12px}
+.ctf input,.ctf textarea{padding:14px 18px;border:1px solid var(--b);background:var(--bg);color:var(--t1);font-family:inherit;font-size:14px;outline:none;transition:border .3s}
+.ctf input:focus,.ctf textarea:focus{border-color:var(--g)}
+.ctf textarea{height:80px;resize:none}
+.ctf button{padding:14px;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;font-weight:600;font-size:14px;border:none;cursor:pointer;transition:all .3s;letter-spacing:.5px}
+.ctf button:hover{opacity:.9;transform:translateY(-1px)}
+footer{text-align:center;padding:32px;font-size:12px;color:var(--t3);border-top:1px solid var(--b)}
+footer span{color:var(--g);font-weight:600}
+@keyframes fi{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.card:nth-child(1){animation-delay:.02s}.card:nth-child(2){animation-delay:.04s}
+.card:nth-child(3){animation-delay:.06s}.card:nth-child(4){animation-delay:.08s}
+.card:nth-child(5){animation-delay:.10s}.card:nth-child(6){animation-delay:.12s}
+.card:nth-child(7){animation-delay:.14s}.card:nth-child(8){animation-delay:.16s}
+.card:nth-child(9){animation-delay:.18s}.card:nth-child(10){animation-delay:.20s}
+.card:nth-child(11){animation-delay:.22s}.card:nth-child(12){animation-delay:.24s}
+.card:nth-child(13){animation-delay:.26s}.card:nth-child(14){animation-delay:.28s}
+.card:nth-child(15){animation-delay:.30s}.card:nth-child(16){animation-delay:.32s}
+.card:nth-child(17){animation-delay:.34s}.card:nth-child(18){animation-delay:.36s}
+.card:nth-child(19){animation-delay:.38s}.card:nth-child(20){animation-delay:.40s}
+.card:nth-child(21){animation-delay:.42s}.card:nth-child(22){animation-delay:.44s}
+.card:nth-child(23){animation-delay:.46s}.card:nth-child(24){animation-delay:.48s}
+.card:nth-child(25){animation-delay:.50s}.card:nth-child(26){animation-delay:.52s}
+.card:nth-child(27){animation-delay:.54s}.card:nth-child(28){animation-delay:.56s}
+.card:nth-child(29){animation-delay:.58s}.card:nth-child(30){animation-delay:.60s}
+@media(max-width:640px){.hero{padding:80px 20px 0}.si{padding:16px 12px}.grid{grid-template-columns:1fr;gap:12px;padding:4px 16px 48px}.fg{padding:24px 16px 40px}.ct{padding:48px 20px}}
+@media(min-width:641px)and (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="hi"><a href="/" class="logo">888<span>.ESTATE</span></a><div class="hc">Моделей: <strong>30</strong></div></div></header>
+<div class="hero"><h1>Премиальные дома <span>из Китая</span></h1><p>Модульные дома премиум-класса. 30 моделей на выбор. Доставка и установка под ключ.</p><div class="hbs"><a href="#grid" class="hb">Смотреть коллекцию</a><a href="#contact" class="hbo">Заказать</a></div></div>
+<div class="sr"><div class="si"><div class="sv">30</div><div class="sl">Моделей</div></div><div class="si"><div class="sv">9</div><div class="sl">Серий</div></div><div class="si"><div class="sv">Китай</div><div class="sl">Прямые поставки</div></div><div class="si"><div class="sv">Под ключ</div><div class="sl">Доставка + монтаж</div></div></div>
+<div class="fg"><div class="fgh">Преимущества</div><div class="fgg"><div class="fc"><span class="fi">&#x1F3ED;</span><div class="ft">Премиум качество</div><div class="fd">Контроль на всех этапах производства в Китае</div></div><div class="fc"><span class="fi">&#x1F6A2;</span><div class="ft">Доставка из Китая</div><div class="fd">Прямые поставки, полная логистика под ключ</div></div><div class="fc"><span class="fi">&#x1F527;</span><div class="ft">Монтаж под ключ</div><div class="fd">Установка на участке, инженерные системы</div></div><div class="fc"><span class="fi">&#x1F33F;</span><div class="ft">Экологично</div><div class="fd">Современные материалы и технологии</div></div><div class="fc"><span class="fi">&#x1F3AF;</span><div class="ft">Кастомизация</div><div class="fd">Любой цвет, планировка, материалы</div></div><div class="fc"><span class="fi">&#x1F91D;</span><div class="ft">Поддержка</div><div class="fd">Консультация на всех этапах</div></div></div></div>
+<div class="filters"><div class="fr"><button class="fb on" data-f="all">Все</button><button class="fb" data-f="AC">AC</button><button class="fb" data-f="V">V</button><button class="fb" data-f="PX">PX</button><button class="fb" data-f="E">E</button><button class="fb" data-f="X">X</button><button class="fb" data-f="T">T</button><button class="fb" data-f="FT">FT</button><button class="fb" data-f="Z">Z</button><button class="fb" data-f="M9">M9</button></div></div>
+<div class="grid" id="grid"></div>
+<div class="ct" id="contact"><div class="cti"><h3>Связаться с нами</h3><p>Оставьте заявку — мы подберём модель под ваш участок</p><div class="ctf"><input type="text" placeholder="Ваше имя"><input type="text" placeholder="Телефон или Telegram"><textarea placeholder="Площадь, бюджет, пожелания..."></textarea><button>Отправить</button></div></div></div>
+<footer>&copy; 888.ESTATE &mdash; <span>Премиальные модульные дома</span></footer>
+<script>
+const H=[{"n":"AC02-1","a":12.5,"p":466281,"s":"AC"},{"n":"AC02-2","a":12.5,"p":455684,"s":"AC"},{"n":"AC02-3","a":12.5,"p":802184,"s":"AC"},{"n":"AC02-4","a":16,"p":1350087,"s":"AC"},{"n":"AC02-5","a":20,"p":1630463,"s":"AC"},{"n":"AC02-6","a":20,"p":1925310,"s":"AC"},{"n":"V01-1","a":10,"p":1168297,"s":"V"},{"n":"V02-1","a":12.5,"p":1625230,"s":"V"},{"n":"V02-4","a":16,"p":2060707,"s":"V"},{"n":"V02-5","a":20,"p":2632774,"s":"V"},{"n":"V03-2","a":16,"p":2377306,"s":"V"},{"n":"V04-2","a":16,"p":2601152,"s":"V"},{"n":"PX2-1","a":12,"p":1813363,"s":"PX"},{"n":"PX3-1","a":12,"p":1865014,"s":"PX"},{"n":"PX3-2","a":16,"p":2796339,"s":"PX"},{"n":"PX3-3","a":20,"p":4972779,"s":"PX"},{"n":"E02-1","a":12.5,"p":1475102,"s":"E"},{"n":"E02-2","a":12.5,"p":1194666,"s":"E"},{"n":"E05-1","a":12.5,"p":1475102,"s":"E"},{"n":"X01-1","a":12.5,"p":1475102,"s":"X"},{"n":"X02-1","a":12.5,"p":1455415,"s":"X"},{"n":"T02-1","a":12.5,"p":1784197,"s":"T"},{"n":"T02-2","a":16,"p":2382183,"s":"T"},{"n":"FT01-1","a":12.5,"p":1054409,"s":"FT"},{"n":"Z01-1","a":12.5,"p":1762758,"s":"Z"},{"n":"Z02-1","a":14.2,"p":3375612,"s":"Z"},{"n":"Z02-2","a":20,"p":5165742,"s":"Z"},{"n":"Z02-3","a":20,"p":5239894,"s":"Z"},{"n":"M9-1","a":14,"p":3654603,"s":"M9"},{"n":"M9-2","a":20,"p":5071275,"s":"M9"}];const SN={"AC":"AC Series","V":"V Series","PX":"PX Series","E":"E Series","X":"X Series","T":"T Series","FT":"FT Series","Z":"Z Series","M9":"M9"};
+function render(f){var items=f==='all'?H:H.filter(function(d){return d.s===f;});var g=document.getElementById('grid');if(items.length===0){g.innerHTML='<div class="empty">Нет моделей в этой серии</div>';return;}g.innerHTML=items.map(function(d){var c=SN[d.s]||'';return'<div class="card"><div class="ci"><div class="cip">Фото</div></div><div class="cinf"><div class="cs">'+c+'</div><div class="cn">'+d.n+'</div><div class="cd"><span class="ca">'+d.a+' m&#178;</span><span class="cp">'+d.p.toLocaleString('ru-RU')+' руб</span></div></div></div>';}).join('');}
+document.querySelectorAll('.fb').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.fb').forEach(function(x){x.classList.remove('on');});b.classList.add('on');render(b.dataset.f);});});
+render('all');
+</script>
+</body>
+</html>
