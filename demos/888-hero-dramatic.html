@@ -256,6 +256,36 @@
   <div class="mouse"></div>
 </div>
 
+<!-- независимая подсветка (работает даже если Three.js не загрузился) -->
+<script>
+setTimeout(() => {
+  const logo = document.querySelector('.logo');
+  const title = document.querySelector('.hero-title');
+  const sub = document.querySelector('.hero-sub');
+  if (!logo) return;
+  
+  logo.style.textShadow = '0 0 30px rgba(201,168,76,0.7), 0 0 60px rgba(201,168,76,0.35), 0 0 100px rgba(201,168,76,0.12)';
+  if (title) title.style.textShadow = '0 0 20px rgba(201,168,76,0.5), 0 0 40px rgba(201,168,76,0.2)';
+  if (sub) sub.style.textShadow = '0 0 15px rgba(201,168,76,0.3)';
+  
+  let phase = 0;
+  const pulse = () => {
+    phase++;
+    const t = 0.4 + Math.sin(phase * 0.04) * 0.6;
+    if (logo) {
+      logo.style.filter = 'drop-shadow(0 0 ' + (18 + t * 32) + 'px rgba(201,168,76,' + (0.4 + t * 0.5) + ')) drop-shadow(0 0 ' + (35 + t * 65) + 'px rgba(201,168,76,' + (0.15 + t * 0.3) + ')) drop-shadow(0 0 ' + (60 + t * 100) + 'px rgba(201,168,76,' + (0.05 + t * 0.12) + '))';
+    }
+    if (title) {
+      title.style.filter = 'drop-shadow(0 0 ' + (10 + t * 20) + 'px rgba(201,168,76,' + (0.2 + t * 0.4) + ')) drop-shadow(0 0 ' + (20 + t * 40) + 'px rgba(201,168,76,' + (0.1 + t * 0.2) + '))';
+    }
+    if (sub) {
+      sub.style.filter = 'drop-shadow(0 0 ' + (5 + t * 15) + 'px rgba(201,168,76,' + (0.1 + t * 0.2) + '))';
+    }
+    setTimeout(pulse, 60);
+  };
+  pulse();
+}, 4800);
+</script>
 <script type="importmap">
 {
   "imports": {
@@ -348,37 +378,7 @@ const glowMat = new THREE.PointsMaterial({
 const glowPoints = new THREE.Points(glowGeo, glowMat);
 scene.add(glowPoints);
 
-// TEXT GLOW - яркое золотое свечение (drop-shadow видно даже на телефонах)
-setTimeout(() => {
-  const logo = document.querySelector('.logo');
-  const title = document.querySelector('.hero-title');
-  const sub = document.querySelector('.hero-sub');
-  
-  // Мгновенное включение text-shadow для быстрого эффекта
-  if (logo) logo.style.textShadow = '0 0 30px rgba(201,168,76,0.7), 0 0 60px rgba(201,168,76,0.35), 0 0 100px rgba(201,168,76,0.12)';
-  if (title) title.style.textShadow = '0 0 20px rgba(201,168,76,0.5), 0 0 40px rgba(201,168,76,0.2)';
-  if (sub) sub.style.textShadow = '0 0 15px rgba(201,168,76,0.3)';
-  
-  // Пульсирующий filter: drop-shadow для заметного свечения
-  let phase = 0;
-  const pulse = () => {
-    phase++;
-    const t = 0.4 + Math.sin(phase * 0.04) * 0.6;
-    
-    if (logo) {
-      logo.style.filter = 'drop-shadow(0 0 ' + (18 + t * 32) + 'px rgba(201,168,76,' + (0.4 + t * 0.5) + ')) drop-shadow(0 0 ' + (35 + t * 65) + 'px rgba(201,168,76,' + (0.15 + t * 0.3) + ')) drop-shadow(0 0 ' + (60 + t * 100) + 'px rgba(201,168,76,' + (0.05 + t * 0.12) + '))';
-    }
-    if (title) {
-      title.style.filter = 'drop-shadow(0 0 ' + (10 + t * 20) + 'px rgba(201,168,76,' + (0.2 + t * 0.4) + ')) drop-shadow(0 0 ' + (20 + t * 40) + 'px rgba(201,168,76,' + (0.1 + t * 0.2) + '))';
-    }
-    if (sub) {
-      sub.style.filter = 'drop-shadow(0 0 ' + (5 + t * 15) + 'px rgba(201,168,76,' + (0.1 + t * 0.2) + '))';
-    }
-    
-    setTimeout(pulse, 60);
-  };
-  pulse();
-}, 4800);
+
 
 // ANIMATION
 let time = 0;
