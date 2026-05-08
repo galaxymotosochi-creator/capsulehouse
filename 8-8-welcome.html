@@ -350,9 +350,146 @@
     .btn-lg { font-size: 0.9rem; padding: 0.6rem 1.5rem; }
     .section-title { font-size: 1.4rem; }
   }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.2);
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-close {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--gray-500);
+    padding: 0;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--body-color); }
+  .modal h2 { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .modal p { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: var(--body-color);
+  }
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    font-family: var(--font);
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--white);
+    color: var(--body-color);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+  }
+  .form-group .hint { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
+  .btn-block { width: 100%; }
+  .modal-footer { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--gray-500); }
+  .modal-footer a { cursor: pointer; }
+
+  /* ===== SUCCESS SCREEN ===== */
+  .success-screen { text-align: center; padding: 1rem 0; }
+  .success-screen .check {
+    width: 4rem; height: 4rem;
+    background: var(--success-bg);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .success-screen h3 { font-size: 1.3rem; font-weight: 500; margin-bottom: 0.3rem; }
+
+  /* ===== DASHBOARD ===== */
+  .app-view { display: none; }
+  .app-view.active { display: block; }
+  .landing-view { display: block; }
+  .landing-view.hidden { display: none; }
+  .dash-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dash-body {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
+  .dash-body h1 { font-size: 1.5rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .dash-body .sub { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .dash-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .dash-card:hover { transform: translateY(-2px); }
+  .dash-card .icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+  .dash-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .dash-card p { font-size: 0.8rem; color: var(--gray-500); }
+  .dash-tip {
+    background: var(--hero-bg);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    border: 1px solid rgba(var(--primary-rgb), 0.15);
+  }
+  .dash-tip .tip-icon { font-size: 1.2rem; }
 </style>
 </head>
 <body>
+
+<div id="landingView">
 
 <!-- ===== HEADER ===== -->
 <header class="header">
@@ -520,6 +657,203 @@
     &copy; 2026 8:8 — Универсальная система учёта для бизнеса
   </div>
 </footer>
+
+</div><!-- /landingView -->
+
+<!-- ===== МОДАЛКА РЕГИСТРАЦИИ ===== -->
+<div class="modal-overlay" id="regModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeReg()">&times;</button>
+    
+    <!-- Форма -->
+    <div id="regForm">
+      <h2>Создать аккаунт</h2>
+      <p>Начните управлять бизнесом за 2 минуты</p>
+      
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="regEmail" placeholder="your@email.com" autocomplete="email">
+      </div>
+      
+      <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" id="regPass" placeholder="Не менее 6 символов" autocomplete="new-password">
+      </div>
+      
+      <div class="form-group">
+        <label>Название компании</label>
+        <input type="text" id="regCompany" placeholder="Моя компания">
+      </div>
+      
+      <div class="form-group">
+        <label>Ваш бизнес</label>
+        <select id="regBusiness">
+          <option value="">Выберите...</option>
+          <option value="store">Магазин</option>
+          <option value="clothing">Одежда и обувь</option>
+          <option value="flowers">Цветочный магазин</option>
+          <option value="construction">Строительство</option>
+          <option value="books">Книжный магазин</option>
+          <option value="autoparts">Автозапчасти</option>
+          <option value="pharmacy">Аптека</option>
+          <option value="cafe">Кафе / кофейня</option>
+          <option value="jewelry">Ювелирный магазин</option>
+          <option value="services">Сфера услуг</option>
+          <option value="online">Интернет-магазин</option>
+          <option value="other">Другое</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary btn-block btn-lg" onclick="handleRegister()">Создать аккаунт</button>
+      
+      <div class="modal-footer">
+        Уже есть аккаунт? <a onclick="alert('Форма входа появится позже')">Войти</a>
+      </div>
+    </div>
+
+    <!-- Успех -->
+    <div id="regSuccess" style="display:none">
+      <div class="success-screen">
+        <div class="check">✅</div>
+        <h3>Добро пожаловать!</h3>
+        <p style="color:var(--gray-500);margin-bottom:1.5rem">Ваш аккаунт создан. Уже всё готово для первого товара.</p>
+        <button class="btn btn-primary btn-block btn-lg" onclick="goToDashboard()">Войти в систему</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ДАШБОРД ===== -->
+<div class="app-view" id="dashboardView">
+  <div class="dash-header">
+    <a href="#" class="logo" style="font-size:1.2rem">
+      <span class="logo-mark" style="width:1.8rem;height:1.8rem;font-size:0.8rem">8:8</span>
+      <span>8</span>:8
+    </a>
+    <div style="display:flex;gap:0.5rem;align-items:center">
+      <span style="font-size:0.85rem;color:var(--gray-500)" id="dashEmail"></span>
+      <button class="btn btn-outline" style="padding:0.3rem 0.8rem;font-size:0.8rem" onclick="handleLogout()">Выйти</button>
+    </div>
+  </div>
+  <div class="dash-body">
+    <h1>Доброе утро!</h1>
+    <div class="sub" id="dashCompany"></div>
+    
+    <div class="dash-grid">
+      <div class="dash-card" onclick="alert('Склад — в разработке')">
+        <div class="icon">📦</div>
+        <h3>Склад</h3>
+        <p>Добавьте первый товар</p>
+      </div>
+      <div class="dash-card" onclick="alert('Продажи — в разработке')">
+        <div class="icon">💰</div>
+        <h3>Продажи</h3>
+        <p>Оформите первую продажу</p>
+      </div>
+      <div class="dash-card" onclick="alert('Финансы — в разработке')">
+        <div class="icon">📊</div>
+        <h3>Финансы</h3>
+        <p>Посмотрите отчёты</p>
+      </div>
+      <div class="dash-card" onclick="alert('Сотрудники — в разработке')">
+        <div class="icon">👥</div>
+        <h3>Команда</h3>
+        <p>Пригласите сотрудников</p>
+      </div>
+    </div>
+
+    <div class="dash-tip">
+      <span class="tip-icon">💡</span>
+      <span>Подсказка: Начните с добавления товаров на склад. После этого сможете оформлять продажи и следить за прибылью.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== РЕГИСТРАЦИЯ =====
+function openReg() {
+  document.getElementById('regModal').classList.add('active');
+}
+function closeReg() {
+  document.getElementById('regModal').classList.remove('active');
+}
+
+function handleRegister() {
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const company = document.getElementById('regCompany').value.trim();
+  const business = document.getElementById('regBusiness').value;
+  
+  // Простейшая валидация
+  if (!email || !pass || !company || !business) {
+    alert('Заполните все поля');
+    return;
+  }
+  if (pass.length < 6) {
+    alert('Пароль должен быть не менее 6 символов');
+    return;
+  }
+  if (!email.includes('@')) {
+    alert('Введите корректный email');
+    return;
+  }
+  
+  // Сохраняем
+  const user = {
+    email: email,
+    password: pass,
+    company: company,
+    business: business,
+    createdAt: new Date().toISOString(),
+    role: 'founder'
+  };
+  localStorage.setItem('user8', JSON.stringify(user));
+  
+  // Показываем успех
+  document.getElementById('regForm').style.display = 'none';
+  document.getElementById('regSuccess').style.display = 'block';
+}
+
+function goToDashboard() {
+  closeReg();
+  const user = JSON.parse(localStorage.getItem('user8'));
+  if (!user) return;
+  
+  document.getElementById('landingView').classList.add('hidden');
+  document.getElementById('dashboardView').classList.add('active');
+  document.getElementById('dashEmail').textContent = user.email;
+  document.getElementById('dashCompany').textContent = user.company;
+}
+
+// ===== ВХОД / ВЫХОД =====
+function handleLogout() {
+  if (confirm('Выйти из аккаунта?')) {
+    document.getElementById('dashboardView').classList.remove('active');
+    document.getElementById('landingView').classList.remove('hidden');
+  }
+}
+
+// ===== АВТО-ВХОД если есть сессия =====
+window.addEventListener('DOMContentLoaded', () => {
+  const user = JSON.parse(localStorage.getItem('user8'));
+  if (user) {
+    document.getElementById('landingView').classList.add('hidden');
+    document.getElementById('dashboardView').classList.add('active');
+    document.getElementById('dashEmail').textContent = user.email;
+    document.getElementById('dashCompany').textContent = user.company;
+  }
+  
+  // Навешиваем открытие модалки на все кнопки регистрации
+  document.querySelectorAll('.open-reg').forEach(el => {
+    el.addEventListener('click', openReg);
+  });
+});
+
+// Закрытие по клику вне модалки
+document.getElementById('regModal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeReg();
+});
+</script>
 
 </body>
 </html>
