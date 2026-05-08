@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — Masonry Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;color:#fff;font-family:'Cormorant Garamond',serif;min-height:100vh;overflow-x:hidden}
+.f{position:fixed;background:rgba(201,168,76,0.07);z-index:100;pointer-events:none}
+.f-t,.f-b{left:24px;right:24px;height:1px}.f-l,.f-r{top:24px;bottom:24px;width:1px}
+.f-t{top:24px}.f-b{bottom:24px}.f-l{left:24px}.f-r{right:24px}
+header{position:sticky;top:0;z-index:50;background:rgba(7,7,7,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.08);padding:16px 48px}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.4rem;letter-spacing:0.25em;color:#fff;text-decoration:none}
+.logo span{color:#c9a84c;font-weight:600}
+nav{font-family:'Montserrat',sans-serif;font-weight:300;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase}
+nav a{color:rgba(255,255,255,0.5);text-decoration:none;margin-left:28px;transition:color 0.3s}
+nav a:hover{color:#c9a84c}
+.section-title{text-align:center;padding:64px 24px 8px}
+.section-title h1{font-weight:300;font-size:clamp(1.4rem,2.2vw,2.4rem);letter-spacing:0.2em}
+.section-title h1 span{color:#c9a84c;font-weight:600}
+.section-title .gl{width:50px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:14px auto}
+.section-title .sub{font-family:'Montserrat',sans-serif;font-weight:200;font-size:0.65rem;letter-spacing:0.35em;color:rgba(255,255,255,0.35);text-transform:uppercase}
+.masonry{columns:3;column-gap:16px;max-width:1280px;margin:0 auto;padding:28px 48px 80px}
+.card{break-inside:avoid;margin-bottom:16px;border:1px solid rgba(201,168,76,0.06);background:rgba(255,255,255,0.015);overflow:hidden;transition:all 0.4s;cursor:pointer}
+.card:hover{border-color:rgba(201,168,76,0.25);background:rgba(255,255,255,0.03)}
+.card-img{width:100%;position:relative;overflow:hidden}
+.card-img .ph{width:100%;display:block}
+.card-img .badge{position:absolute;top:10px;left:10px;font-family:'Montserrat',sans-serif;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;background:rgba(201,168,76,0.9);color:#070707;font-weight:500;z-index:2}
+.card-body{padding:14px 16px 18px}
+.card-title{font-weight:400;font-size:0.95rem;letter-spacing:0.05em;margin-bottom:2px}
+.card-loc{font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.card-price{font-weight:600;font-size:1rem;color:#c9a84c}
+.card-price span{font-weight:300;font-size:0.6rem;color:rgba(255,255,255,0.25)}
+.card-features{display:flex;gap:10px;font-family:'Montserrat',sans-serif;font-size:0.5rem;color:rgba(255,255,255,0.35);margin-top:6px}
+@media(max-width:1024px){.masonry{columns:2}}
+@media(max-width:768px){
+  header{padding:12px 20px}.header-inner{flex-direction:column;gap:10px}
+  nav a{margin:0 10px;font-size:0.65rem}
+  .masonry{columns:1;padding:20px 20px 60px}
+  .section-title{padding-top:56px}.f-t,.f-b{left:12px;right:12px}.f-l,.f-r{top:12px;bottom:12px}
+}
+</style></head>
+<body>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<header><div class="header-inner">
+<a href="#" class="logo"><span>888</span>.ESTATE</a>
+<nav><a href="#" class="active">Все</a><a href="#">Дома</a><a href="#">Апартаменты</a><a href="#">VIP</a></nav>
+</div></header>
+<section class="section-title">
+<h1><span>Галерея</span> объектов</h1><div class="gl"></div><div class="sub">Masonry layout</div>
+</section>
+<div class="masonry" id="masonGrid"></div>
+<script>
+// Masonry data — mixed heights
+const items=[
+  {t:'Вилла «Золотой берег»',l:'Красная Поляна',p:'28,5 млн ₽',ty:'Вилла',h:'340',cl:'gold'},
+  {t:'Пентхаус «Панорама»',l:'Адлер',p:'47,8 млн ₽',ty:'Пентхаус',h:'280',cl:'warm'},
+  {t:'Апартаменты «Лазурный»',l:'Центральный Сочи',p:'14,2 млн ₽',ty:'Апартаменты',h:'220',cl:'blue'},
+  {t:'Особняк «Горный ручей»',l:'Эстосадок',p:'65 млн ₽',ty:'Особняк',h:'380',cl:'gold'},
+  {t:'Вилла «Чайный дом»',l:'Дагомыс',p:'38,9 млн ₽',ty:'Вилла',h:'300',cl:'gold'},
+  {t:'Апартаменты «Морской бриз»',l:'Имеретинка',p:'19,6 млн ₽',ty:'Апартаменты',h:'240',cl:'blue'},
+  {t:'Вилла «Сосновая аллея»',l:'Красная Поляна',p:'52 млн ₽',ty:'Вилла',h:'360',cl:'gold'},
+  {t:'Таунхаус «Парковый»',l:'Хоста',p:'22,3 млн ₽',ty:'Таунхаус',h:'260',cl:'green'},
+  {t:'Апартаменты «Атриум»',l:'Центральный Сочи',p:'11,8 млн ₽',ty:'Апартаменты',h:'200',cl:'warm'},
+  {t:'Дуплекс «Олимпийский»',l:'Адлер',p:'31,5 млн ₽',ty:'Дуплекс',h:'310',cl:'green'},
+  {t:'Резиденция «Император»',l:'Красная Поляна',p:'89 млн ₽',ty:'Резиденция',h:'420',cl:'gold'},
+  {t:'Апартаменты «Аквамарин»',l:'Имеретинка',p:'16,8 млн ₽',ty:'Апартаменты',h:'230',cl:'blue'}
+];
+const pal={gold:'linear-gradient(135deg,#1a140a,#2a1f0d,#3d2a10,#c9a84c20)',blue:'linear-gradient(135deg,#0d121a,#1a1f2a,#0d1a14,#c9a84c15)',warm:'linear-gradient(135deg,#1a0d0d,#2a1410,#3d1a10,#c9a84c18)',green:'linear-gradient(135deg,#0d1a14,#142a1a,#0d1a0d,#c9a84c12)'};
+const grid=document.getElementById('masonGrid');
+items.forEach(c=>{
+  const d=document.createElement('div');d.className='card';
+  d.innerHTML=`<div class="card-img"><div class="ph" style="height:${c.h/2}px;background:${pal[c.cl]}"></div><div class="badge">${c.ty}</div></div><div class="card-body"><div class="card-title">${c.t}</div><div class="card-loc">${c.l}</div><div class="card-price">${c.p}</div><div class="card-features"><span>🏠 ${c.ty}</span></div></div>`;
+  grid.appendChild(d);
+});
+</script></body></html>

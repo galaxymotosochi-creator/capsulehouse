@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — Каталог</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;color:#fff;font-family:'Cormorant Garamond',serif;min-height:100vh;overflow-x:hidden}
+.f{position:fixed;background:rgba(201,168,76,0.07);z-index:100;pointer-events:none}
+.f-t,.f-b{left:24px;right:24px;height:1px}.f-l,.f-r{top:24px;bottom:24px;width:1px}
+.f-t{top:24px}.f-b{bottom:24px}.f-l{left:24px}.f-r{right:24px}
+header{position:sticky;top:0;z-index:50;background:rgba(7,7,7,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.08);padding:16px 48px}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.4rem;letter-spacing:0.25em;color:#fff;text-decoration:none}
+.logo span{color:#c9a84c;font-weight:600}
+nav{font-family:'Montserrat',sans-serif;font-weight:300;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase}
+nav a{color:rgba(255,255,255,0.5);text-decoration:none;margin-left:28px;transition:color 0.3s}
+nav a:hover,nav a.active{color:#c9a84c}
+.section-title{text-align:center;padding:80px 24px 12px}
+.section-title h1{font-weight:300;font-size:clamp(1.6rem,2.5vw,2.8rem);letter-spacing:0.2em}
+.section-title h1 span{color:#c9a84c;font-weight:600}
+.section-title .gl{width:60px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:16px auto}
+.section-title .sub{font-family:'Montserrat',sans-serif;font-weight:200;font-size:0.7rem;letter-spacing:0.35em;color:rgba(255,255,255,0.35);margin-top:8px;text-transform:uppercase}
+.filters{max-width:1280px;margin:32px auto 40px;padding:0 48px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.filter-btn{font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:8px 20px;border:1px solid rgba(201,168,76,0.2);background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.3s}
+.filter-btn:hover,.filter-btn.active{color:#c9a84c;border-color:#c9a84c;background:rgba(201,168,76,0.06)}
+.grid{max-width:1280px;margin:0 auto;padding:0 48px 80px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.card{background:rgba(255,255,255,0.02);border:1px solid rgba(201,168,76,0.06);transition:all 0.4s;cursor:pointer}
+.card:hover{border-color:rgba(201,168,76,0.25);transform:translateY(-4px)}
+.card-img{width:100%;height:220px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card-img .ph{width:100%;height:100%}
+.card-img .badge{position:absolute;top:12px;left:12px;font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;background:#c9a84c;color:#070707;font-weight:500}
+.card-body{padding:20px 22px 24px}
+.card-title{font-weight:300;font-size:1.1rem;letter-spacing:0.08em;margin-bottom:4px}
+.card-loc{font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.12em;color:rgba(255,255,255,0.35);margin-bottom:12px}
+.card-price{font-weight:600;font-size:1.15rem;color:#c9a84c;margin-bottom:10px}
+.card-price span{font-weight:300;font-size:0.7rem;color:rgba(255,255,255,0.3)}
+.card-features{display:flex;gap:16px;font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.08em;color:rgba(255,255,255,0.4)}
+.card-features span{display:flex;align-items:center;gap:4px}
+.card-features .num{color:rgba(255,255,255,0.7);font-weight:400}
+@media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr);gap:24px}}
+@media(max-width:768px){
+  header{padding:12px 20px}.header-inner{flex-direction:column;gap:10px}
+  nav a{margin:0 10px;font-size:0.65rem}
+  .filters{padding:0 20px}.grid{padding:0 20px 60px;grid-template-columns:1fr;gap:20px}
+  .section-title{padding-top:60px}.f-t,.f-b{left:12px;right:12px}.f-l,.f-r{top:12px;bottom:12px}
+}
+</style></head>
+<body>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<header><div class="header-inner">
+<a href="#" class="logo"><span>888</span>.ESTATE</a>
+<nav>
+<a href="#" class="active">Все объекты</a><a href="#">Квартиры</a><a href="#">Дома</a><a href="#">Участки</a><a href="#">Коммерция</a>
+</nav>
+</div></header>
+<section class="section-title">
+<h1><span>Каталог</span> объектов</h1><div class="gl"></div><div class="sub">Премиальная недвижимость в Сочи</div>
+</section>
+<div class="filters">
+<button class="filter-btn active">Все</button>
+<button class="filter-btn">Дома</button>
+<button class="filter-btn">Апартаменты</button>
+<button class="filter-btn">Пентхаусы</button>
+<button class="filter-btn">Участки</button>
+<button class="filter-btn">Коммерция</button>
+</div>
+<div class="grid" id="catalogGrid"></div>
+<script>
+const props = [
+  {t:'Вилла «Золотой берег»',l:'Красная Поляна',p:'28 500 000 ₽',a:'320 м²',b:'4',ba:'3',ty:'Дома',cl:'gold'},
+  {t:'Апартаменты «Лазурный»',l:'Центральный Сочи',p:'14 200 000 ₽',a:'95 м²',b:'2',ba:'1',ty:'Апартаменты',cl:'blue'},
+  {t:'Пентхаус «Панорама»',l:'Адлер',p:'47 800 000 ₽',a:'210 м²',b:'3',ba:'2',ty:'Пентхаусы',cl:'warm'},
+  {t:'Особняк «Горный ручей»',l:'Эстосадок',p:'65 000 000 ₽',a:'480 м²',b:'6',ba:'4',ty:'Дома',cl:'green'},
+  {t:'Апартаменты «Морской бриз»',l:'Имеретинка',p:'19 600 000 ₽',a:'120 м²',b:'2',ba:'1',ty:'Апартаменты',cl:'blue'},
+  {t:'Вилла «Сосновая аллея»',l:'Красная Поляна',p:'52 000 000 ₽',a:'380 м²',b:'5',ba:'3',ty:'Дома',cl:'gold'},
+  {t:'Таунхаус «Парковый»',l:'Хоста',p:'22 300 000 ₽',a:'170 м²',b:'3',ba:'2',ty:'Дома',cl:'green'},
+  {t:'Апартаменты «Атриум»',l:'Центральный Сочи',p:'11 800 000 ₽',a:'78 м²',b:'1',ba:'1',ty:'Апартаменты',cl:'warm'},
+  {t:'Вилла «Чайный дом»',l:'Дагомыс',p:'38 900 000 ₽',a:'290 м²',b:'4',ba:'2',ty:'Дома',cl:'gold'}
+];
+const pal = {gold:'linear-gradient(135deg,#1a140a,#2a1f0d,#3d2a10,#c9a84c20)',blue:'linear-gradient(135deg,#0d121a,#1a1f2a,#0d1a14,#c9a84c15)',warm:'linear-gradient(135deg,#1a0d0d,#2a1410,#3d1a10,#c9a84c18)',green:'linear-gradient(135deg,#0d1a14,#142a1a,#0d1a0d,#c9a84c12)'};
+const grid = document.getElementById('catalogGrid');
+props.forEach(c=>{
+  const d = document.createElement('div');d.className='card';
+  d.innerHTML=`<div class="card-img"><div class="ph" style="background:${pal[c.cl]}"></div><div class="badge">${c.ty}</div></div><div class="card-body"><div class="card-title">${c.t}</div><div class="card-loc">${c.l}</div><div class="card-price">${c.p} <span>· ${c.a}</span></div><div class="card-features"><span>🛏 <span class="num">${c.b}</span></span><span>🛁 <span class="num">${c.ba}</span></span><span>📐 <span class="num">${c.a}</span></span></div></div>`;
+  grid.appendChild(d);
+});
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const f = this.textContent;
+    grid.innerHTML='';
+    props.filter(c=>f==='Все'||c.ty===f).forEach(c=>{
+      const d=document.createElement('div');d.className='card';
+      d.innerHTML=`<div class="card-img"><div class="ph" style="background:${pal[c.cl]}"></div><div class="badge">${c.ty}</div></div><div class="card-body"><div class="card-title">${c.t}</div><div class="card-loc">${c.l}</div><div class="card-price">${c.p} <span>· ${c.a}</span></div><div class="card-features"><span>🛏 <span class="num">${c.b}</span></span><span>🛁 <span class="num">${c.ba}</span></span><span>📐 <span class="num">${c.a}</span></span></div></div>`;
+      grid.appendChild(d);
+    });
+  });
+});
+</script></body></html>
