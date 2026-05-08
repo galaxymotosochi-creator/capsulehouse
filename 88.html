@@ -4,14 +4,16 @@
 <meta charset="UTF-8"><script>
 (function(){
   try {
-    localStorage.setItem('user8', JSON.stringify({
-      email: 'demo@8-8.app',
-      password: 'demo123',
-      company: 'Демо-компания',
-      business: 'construction',
-      role: 'founder',
-      createdAt: new Date().toISOString()
-    }));
+    if (!localStorage.getItem('user8')) {
+      localStorage.setItem('user8', JSON.stringify({
+        email: 'demo@8-8.app',
+        password: 'demo123',
+        company: 'Демо-компания',
+        business: 'construction',
+        role: 'founder',
+        createdAt: new Date().toISOString()
+      }));
+    }
   } catch(e){}
 })();
 </script>
