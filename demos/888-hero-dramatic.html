@@ -256,168 +256,111 @@
   <div class="mouse"></div>
 </div>
 
-<!-- независимая подсветка (работает даже если Three.js не загрузился) -->
 <script>
+// ----- ЗВЁЗДЫ + ТЕКСТОВАЯ ПОДСВЕТКА -----
+// Всё в одном обычном скрипте — без CDN, без модулей, работает всегда
+
+(function() {
+  // 1. ЗВЁЗДЫ НА CANVAS 2D
+  const canvas = document.getElementById('threeCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  
+  const stars = [];
+  for (let i = 0; i < 500; i++) {
+    stars.push({
+      x: (Math.random() - 0.5) * 2,
+      y: (Math.random() - 0.5) * 1.4,
+      z: Math.random() * 0.8 + 0.2,
+      size: Math.random() * 2 + 0.5,
+      twinkle: 0.3 + Math.random() * 0.7,
+      phase: Math.random() * Math.PI * 2,
+    });
+  }
+  
+  const golds = [];
+  for (let i = 0; i < 60; i++) {
+    golds.push({
+      x: (Math.random() - 0.5) * 5,
+      y: (Math.random() - 0.5) * 3,
+      z: Math.random() * 3 + 1,
+      size: Math.random() * 2 + 1,
+      angle: Math.random() * Math.PI * 2,
+      radius: Math.random() * 2 + 1,
+      speed: 0.1 + Math.random() * 0.2,
+      floatS: 0.2 + Math.random() * 0.3,
+      floatOff: Math.random() * Math.PI * 2,
+    });
+  }
+  
+  let time = 0;
+  
+  function drawScene() {
+    requestAnimationFrame(drawScene);
+    time += 0.01;
+    
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, W, H);
+    
+    // Stars
+    for (const s of stars) {
+      const tw = 0.3 + Math.sin(time * s.twinkle + s.phase) * 0.3;
+      const sx = W * (0.5 + s.x * s.z * 15);
+      const sy = H * (0.5 + s.y * s.z * 12);
+      const sz = s.size * s.z * 2 * tw;
+      ctx.beginPath();
+      ctx.arc(sx, sy, sz * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + (0.3 + tw * 0.5) + ')';
+      ctx.fill();
+    }
+    
+    // Gold particles
+    for (const g of golds) {
+      const a = g.angle + time * g.speed;
+      const px = W * (0.5 + (Math.cos(a) * g.radius + Math.sin(time * 0.5 + g.floatOff) * 0.3) * 0.06);
+      const py = H * (0.5 + (Math.sin(a) * g.radius * 0.5 + Math.sin(time * g.floatS + g.floatOff) * 0.4) * 0.06);
+      ctx.beginPath();
+      ctx.arc(px, py, g.size * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(201,168,76,' + (0.2 + Math.sin(time + g.floatOff) * 0.12) + ')';
+      ctx.fill();
+    }
+  }
+  
+  drawScene();
+})();
+
+// 2. ТЕКСТОВАЯ ПОДСВЕТКА (равномерная для всего слова 888.ESTATE)
 setTimeout(() => {
   const logo = document.querySelector('.logo');
   const title = document.querySelector('.hero-title');
   const sub = document.querySelector('.hero-sub');
   if (!logo) return;
   
-  logo.style.textShadow = '0 0 30px rgba(201,168,76,0.7), 0 0 60px rgba(201,168,76,0.35), 0 0 100px rgba(201,168,76,0.12)';
-  if (title) title.style.textShadow = '0 0 20px rgba(201,168,76,0.5), 0 0 40px rgba(201,168,76,0.2)';
-  if (sub) sub.style.textShadow = '0 0 15px rgba(201,168,76,0.3)';
-  
   let phase = 0;
   const pulse = () => {
     phase++;
-    const t = 0.4 + Math.sin(phase * 0.04) * 0.6;
-    if (logo) {
-      logo.style.filter = 'drop-shadow(0 0 ' + (18 + t * 32) + 'px rgba(201,168,76,' + (0.4 + t * 0.5) + ')) drop-shadow(0 0 ' + (35 + t * 65) + 'px rgba(201,168,76,' + (0.15 + t * 0.3) + ')) drop-shadow(0 0 ' + (60 + t * 100) + 'px rgba(201,168,76,' + (0.05 + t * 0.12) + '))';
-    }
+    const t = 0.3 + Math.sin(phase * 0.04) * 0.3;
+    // Единое свечение для всего слова 888.ESTATE
+    const a1 = 0.2 + t * 0.25;
+    const a2 = 0.08 + t * 0.12;
+    logo.style.textShadow = '0 0 ' + (15 + t * 20) + 'px rgba(201,168,76,' + a1 + '), 0 0 ' + (30 + t * 40) + 'px rgba(201,168,76,' + a2 + ')';
     if (title) {
-      title.style.filter = 'drop-shadow(0 0 ' + (10 + t * 20) + 'px rgba(201,168,76,' + (0.2 + t * 0.4) + ')) drop-shadow(0 0 ' + (20 + t * 40) + 'px rgba(201,168,76,' + (0.1 + t * 0.2) + '))';
+      title.style.textShadow = '0 0 ' + (10 + t * 15) + 'px rgba(201,168,76,' + (0.15 + t * 0.15) + '), 0 0 ' + (20 + t * 30) + 'px rgba(201,168,76,' + (0.08 + t * 0.08) + ')';
     }
     if (sub) {
-      sub.style.filter = 'drop-shadow(0 0 ' + (5 + t * 15) + 'px rgba(201,168,76,' + (0.1 + t * 0.2) + '))';
+      sub.style.textShadow = '0 0 ' + (8 + t * 10) + 'px rgba(201,168,76,' + (0.08 + t * 0.1) + ')';
     }
     setTimeout(pulse, 60);
   };
   pulse();
 }, 4800);
-</script>
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
-  }
-}
-</script>
-
-<script type="module">
-import * as THREE from 'three';
-
-const canvas = document.getElementById('threeCanvas');
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0a0a0a);
-
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 1, 8);
-camera.lookAt(0, 0, 0);
-
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-// STARS
-const starsGeo = new THREE.BufferGeometry();
-const starsCount = 1500;
-const starsPos = new Float32Array(starsCount * 3);
-const starsSize = new Float32Array(starsCount);
-for (let i = 0; i < starsCount; i++) {
-  const radius = 15 + Math.random() * 30;
-  const theta = Math.random() * Math.PI * 2;
-  const phi = Math.acos(2 * Math.random() - 1);
-  starsPos[i*3] = radius * Math.sin(phi) * Math.cos(theta);
-  starsPos[i*3+1] = Math.abs(radius * Math.cos(phi)) * 0.4;
-  starsPos[i*3+2] = -radius * Math.sin(phi) * Math.sin(theta) - 5;
-  starsSize[i] = Math.random() * 2 + 0.5;
-}
-starsGeo.setAttribute('position', new THREE.BufferAttribute(starsPos, 3));
-starsGeo.setAttribute('size', new THREE.BufferAttribute(starsSize, 1));
-
-const starMat = new THREE.PointsMaterial({
-  color: 0xffffff,
-  size: 0.04,
-  transparent: true,
-  opacity: 0.6,
-  blending: THREE.AdditiveBlending,
-  depthWrite: false,
-});
-const stars = new THREE.Points(starsGeo, starMat);
-scene.add(stars);
-
-// GRID
-const gridHelper = new THREE.GridHelper(12, 20, 0x1a1a1a, 0x1a1a1a);
-gridHelper.position.y = -1.5;
-gridHelper.material.transparent = true;
-gridHelper.material.opacity = 0.15;
-scene.add(gridHelper);
-
-// GOLD PARTICLES
-const glowCount = 120;
-const glowGeo = new THREE.BufferGeometry();
-const glowPos = new Float32Array(glowCount * 3);
-const glowData = [];
-for (let i = 0; i < glowCount; i++) {
-  const theta = Math.random() * Math.PI * 2;
-  const r = 2 + Math.random() * 4;
-  const y = (Math.random() - 0.5) * 5;
-  glowPos[i*3] = Math.cos(theta) * r;
-  glowPos[i*3+1] = y;
-  glowPos[i*3+2] = Math.sin(theta) * r - 1;
-  glowData.push({
-    theta, r, y,
-    speed: 0.1 + Math.random() * 0.2,
-    floatSpeed: 0.3 + Math.random() * 0.5,
-    floatOff: Math.random() * Math.PI * 2,
-    size: 0.03 + Math.random() * 0.06,
-  });
-}
-glowGeo.setAttribute('position', new THREE.BufferAttribute(glowPos, 3));
-
-const glowMat = new THREE.PointsMaterial({
-  color: 0xc9a84c,
-  size: 0.04,
-  transparent: true,
-  opacity: 0.5,
-  blending: THREE.AdditiveBlending,
-  depthWrite: false,
-  sizeAttenuation: true,
-});
-const glowPoints = new THREE.Points(glowGeo, glowMat);
-scene.add(glowPoints);
-
-
-
-// ANIMATION
-let time = 0;
-
-function animate() {
-  requestAnimationFrame(animate);
-  time += 0.01;
-
-  stars.rotation.y += 0.0002;
-
-  const positions = glowPoints.geometry.attributes.position.array;
-  for (let i = 0; i < glowCount; i++) {
-    const d = glowData[i];
-    const a = d.theta + time * d.speed * 0.05;
-    positions[i*3] = Math.cos(a) * d.r;
-    positions[i*3+1] = d.y + Math.sin(time * d.floatSpeed + d.floatOff) * 0.3;
-    positions[i*3+2] = Math.sin(a) * d.r - 1;
-  }
-  glowPoints.geometry.attributes.position.needsUpdate = true;
-
-  starMat.opacity = 0.4 + Math.sin(time * 0.5) * 0.15;
-
-  camera.position.x = Math.sin(time * 0.03) * 0.5;
-  camera.position.y = 1 + Math.sin(time * 0.02) * 0.1;
-  camera.lookAt(0, 0, 0);
-
-  renderer.render(scene, camera);
-}
-
-animate();
-
-// RESIZE
-window.addEventListener('resize', () => {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
-});
 </script>
 </body>
 </html>
