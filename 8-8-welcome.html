@@ -508,6 +508,103 @@
   .dash-card .icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
   .dash-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.3rem; }
   .dash-card p { font-size: 0.8rem; color: var(--gray-500); }
+
+  /* ===== DASHBOARD LAYOUT ===== */
+  .dash-layout {
+    display: flex;
+    height: 100vh;
+  }
+  .sidebar {
+    width: var(--sidebar-width);
+    background: var(--white);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .sidebar-logo-mark {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+  }
+  .sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem 0;
+  }
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.85rem;
+    color: var(--body-color);
+    cursor: pointer;
+    transition: all 0.1s;
+    text-decoration: none;
+    border-radius: 0;
+    border-left: 3px solid transparent;
+  }
+  .sidebar-item:hover { background: var(--gray-100); }
+  .sidebar-item.active {
+    background: var(--hero-bg);
+    border-left-color: var(--primary);
+    color: var(--primary);
+    font-weight: 500;
+  }
+  .s-icon { width: 1.2rem; text-align: center; font-size: 0.9rem; }
+  .sidebar-footer { padding: 0.8rem 1.2rem; border-top: 1px solid var(--border-color); }
+  .dash-main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+  .dash-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 2rem; background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .dash-content { padding: 1.5rem 2rem; flex: 1; }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--white); border-radius: var(--border-radius);
+    padding: 1.2rem 1.5rem; box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 0.3rem; }
+  .stat-value { font-size: 1.6rem; font-weight: 600; color: var(--body-color); }
+  .quick-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem; margin-bottom: 1.5rem;
+  }
+  .quick-card {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: var(--white); border-radius: var(--border-radius);
+    padding: 1rem 1.2rem; box-shadow: var(--shadow);
+    border: 1px solid var(--border-color); cursor: pointer;
+    transition: transform 0.15s; font-size: 0.9rem; font-weight: 500;
+  }
+  .quick-card:hover { transform: translateY(-1px); box-shadow: 0 .3rem .6rem rgba(0,0,0,.1); }
+  .quick-icon {
+    width: 2rem; height: 2rem; display: inline-flex;
+    align-items: center; justify-content: center;
+    background: var(--hero-bg); border-radius: 0.5rem;
+    font-size: 1.1rem; font-weight: 600; color: var(--primary);
+  }
+  .dash-page h1 { font-size: 1.4rem; font-weight: 500; margin-bottom: 1.2rem; }
+  @media (max-width: 768px) {
+    .sidebar { width: 60px; }
+    .sidebar-item span:not(.s-icon) { display: none; }
+    .sidebar-item { justify-content: center; padding: 0.7rem; }
+    .sidebar-logo { text-align: center; }
+    .sidebar-footer { display: none; }
+    .dash-content { padding: 1rem; }
+    .dash-topbar { padding: 0.6rem 1rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
   .dash-tip {
     background: var(--hero-bg);
     border-radius: var(--border-radius);
@@ -518,6 +615,7 @@
     font-size: 0.85rem;
     border: 1px solid rgba(var(--primary-rgb), 0.15);
   }
+
   .dash-tip .tip-icon { font-size: 1.2rem; }
 </style>
 </head>
@@ -760,6 +858,213 @@
 
 <!-- ===== ДАШБОРД ===== -->
 <div class="app-view" id="dashboardView">
+  <div class="dash-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-mark">8:8</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-item active" onclick="switchPage('dashboard', this)">
+          <span class="s-icon">&#9783;</span>
+          <span>Панель управления</span>
+        </a>
+        <a class="sidebar-item" onclick="switchPage('products', this)">
+          <span class="s-icon">&#9744;</span>
+          <span>Товары и услуги</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Категории - в разработке')">
+          <span class="s-icon">&#9776;</span>
+          <span>Категории</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Клиенты - в разработке')">
+          <span class="s-icon">&#9787;</span>
+          <span>Клиенты</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Поставщики - в разработке')">
+          <span class="s-icon">&#9881;</span>
+          <span>Поставщики</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Закупки - в разработке')">
+          <span class="s-icon">&#8593;</span>
+          <span>Закупки</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Продажи / Касса - в разработке')">
+          <span class="s-icon">&#36;</span>
+          <span>Продажи / Касса</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Возвраты - в разработке')">
+          <span class="s-icon">&#8634;</span>
+          <span>Возвраты</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Магазины - в разработке')">
+          <span class="s-icon">&#9733;</span>
+          <span>Магазины</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Смены - в разработке')">
+          <span class="s-icon">&#9201;</span>
+          <span>Смены</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Счета - в разработке')">
+          <span class="s-icon">&#9998;</span>
+          <span>Счета</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Документы - в разработке')">
+          <span class="s-icon">&#9997;</span>
+          <span>Документы</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Сотрудники - в разработке')">
+          <span class="s-icon">&#9898;</span>
+          <span>Сотрудники</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Роли и доступы - в разработке')">
+          <span class="s-icon">&#9913;</span>
+          <span>Роли и доступы</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Отчеты - в разработке')">
+          <span class="s-icon">&#8730;</span>
+          <span>Отчеты</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Настройки - в разработке')">
+          <span class="s-icon">&#9881;</span>
+          <span>Настройки</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Корзина - в разработке')">
+          <span class="s-icon">&#9899;</span>
+          <span>Корзина</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div style="font-size:0.75rem;color:var(--gray-500)" id="dashEmail"></div>
+        <button class="btn btn-sm btn-outline" onclick="handleLogout()" style="margin-top:0.3rem">Выйти</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="dash-main">
+      <div class="dash-topbar">
+        <span id="dashCompany" style="font-weight:600;font-size:1rem"></span>
+        <span style="font-size:0.8rem;color:var(--gray-500)" id="dashDate"></span>
+      </div>
+      <div class="dash-content">
+        <div class="dash-page" id="page-dashboard">
+          <h1>Панель управления</h1>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Выручка сегодня</div>
+              <div class="stat-value">0 &#8381;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Товаров на складе</div>
+              <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Прибыль</div>
+              <div class="stat-value">0 &#8381;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Клиентов</div>
+              <div class="stat-value">0</div>
+            </div>
+          </div>
+          <div class="quick-grid">
+            <div class="quick-card" onclick="alert('Добавить товар')">
+              <span class="quick-icon">+</span>
+              <span>Добавить товар</span>
+            </div>
+            <div class="quick-card" onclick="alert('Новая продажа')">
+              <span class="quick-icon">+</span>
+              <span>Новая продажа</span>
+            </div>
+            <div class="quick-card" onclick="alert('Закупка')">
+              <span class="quick-icon">+</span>
+              <span>Закупка</span>
+            </div>
+            <div class="quick-card" onclick="alert('Новый клиент')">
+              <span class="quick-icon">+</span>
+              <span>Новый клиент</span>
+            </div>
+          </div>
+          <div class="dash-tip">
+            <span>Начните с добавления товаров на склад. После этого сможете оформлять продажи и следить за прибылью.</span>
+          </div>
+        </div>
+        <div class="dash-page" id="page-products" style="display:none">
+          <h1>Товары и услуги</h1>
+          <p style="color:var(--gray-500)">Список товаров и услуг появится здесь</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</div><!-- /landingView -->
+
+<!-- ===== МОДАЛКА РЕГИСТРАЦИИ ===== -->
+<div class="modal-overlay" id="regModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeReg()">&times;</button>
+    
+    <!-- Форма -->
+    <div id="regForm">
+      <h2>Создать аккаунт</h2>
+      <p>Начните управлять бизнесом за 2 минуты</p>
+      
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="regEmail" placeholder="your@email.com" autocomplete="email">
+      </div>
+      
+      <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" id="regPass" placeholder="Не менее 6 символов" autocomplete="new-password">
+      </div>
+      
+      <div class="form-group">
+        <label>Название компании</label>
+        <input type="text" id="regCompany" placeholder="Моя компания">
+      </div>
+      
+      <div class="form-group">
+        <label>Ваш бизнес</label>
+        <div class="biz-grid" id="bizGrid">
+          <div class="biz-tile" data-value="store" onclick="selectBiz(this)">🏪 Магазин</div>
+          <div class="biz-tile" data-value="clothing" onclick="selectBiz(this)">👕 Одежда</div>
+          <div class="biz-tile" data-value="flowers" onclick="selectBiz(this)">💐 Цветы</div>
+          <div class="biz-tile" data-value="construction" onclick="selectBiz(this)">🏠 Стройка</div>
+          <div class="biz-tile" data-value="books" onclick="selectBiz(this)">📚 Книги</div>
+          <div class="biz-tile" data-value="autoparts" onclick="selectBiz(this)">🔧 Авто</div>
+          <div class="biz-tile" data-value="pharmacy" onclick="selectBiz(this)">💊 Аптека</div>
+          <div class="biz-tile" data-value="cafe" onclick="selectBiz(this)">☕ Кафе</div>
+          <div class="biz-tile" data-value="jewelry" onclick="selectBiz(this)">💍 Ювелирка</div>
+          <div class="biz-tile" data-value="services" onclick="selectBiz(this)">✂️ Услуги</div>
+          <div class="biz-tile" data-value="online" onclick="selectBiz(this)">📱 Онлайн</div>
+          <div class="biz-tile" data-value="other" onclick="selectBiz(this)">⋯ Другое</div>
+        </div>
+        <input type="hidden" id="regBusiness" value="">
+        <div class="hint" id="bizHint" style="opacity:0">Выберите тип бизнеса</div>
+      </div>
+
+      <button class="btn btn-primary btn-block btn-lg" onclick="handleRegister()">Создать аккаунт</button>
+      
+      <div class="modal-footer">
+        Уже есть аккаунт? <a onclick="alert('Форма входа появится позже')">Войти</a>
+      </div>
+    </div>
+
+    <!-- Успех -->
+    <div id="regSuccess" style="display:none">
+      <div class="success-screen">
+        <div class="check">✅</div>
+        <h3>Добро пожаловать!</h3>
+        <p style="color:var(--gray-500);margin-bottom:1.5rem">Ваш аккаунт создан. Уже всё готово для первого товара.</p>
+        <button class="btn btn-primary btn-block btn-lg" onclick="goToDashboard()">Войти в систему</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ДАШБОРД ===== -->
+<div class="app-view" id="dashboardView">
   <div class="dash-header">
     <a href="#" class="logo" style="font-size:1.2rem">
       <span class="logo-mark" style="width:1.8rem;height:1.8rem;font-size:0.8rem">8:8</span>
@@ -811,6 +1116,14 @@ function selectBiz(el) {
   el.classList.add('selected');
   document.getElementById('regBusiness').value = el.dataset.value;
   document.getElementById('bizHint').style.opacity = '0';
+}
+
+function switchPage(page, el) {
+  document.querySelectorAll('.sidebar-item').forEach(function(i) { i.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.dash-page').forEach(function(p) { p.style.display = 'none'; });
+  var target = document.getElementById('page-' + page);
+  if (target) target.style.display = 'block';
 }
 
 function openReg() {
@@ -867,6 +1180,7 @@ function goToDashboard() {
   document.getElementById('dashboardView').classList.add('active');
   document.getElementById('dashEmail').textContent = user.email;
   document.getElementById('dashCompany').textContent = user.company;
+    document.getElementById('dashDate').textContent = new Date().toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 // ===== ВХОД / ВЫХОД =====
@@ -885,6 +1199,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('dashboardView').classList.add('active');
     document.getElementById('dashEmail').textContent = user.email;
     document.getElementById('dashCompany').textContent = user.company;
+    document.getElementById('dashDate').textContent = new Date().toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   }
   
 
