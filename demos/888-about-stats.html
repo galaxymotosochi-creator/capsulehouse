@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — О нас | Цифры</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;color:#fff;font-family:'Cormorant Garamond',serif;min-height:100vh;overflow-x:hidden}
+.f{position:fixed;background:rgba(201,168,76,0.07);z-index:100;pointer-events:none}
+.f-t,.f-b{left:24px;right:24px;height:1px}.f-l,.f-r{top:24px;bottom:24px;width:1px}
+.f-t{top:24px}.f-b{bottom:24px}.f-l{left:24px}.f-r{right:24px}
+header{position:sticky;top:0;z-index:50;background:rgba(7,7,7,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.08);padding:16px 48px}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.4rem;letter-spacing:0.25em;color:#fff;text-decoration:none}
+.logo span{color:#c9a84c;font-weight:600}
+nav{font-family:'Montserrat',sans-serif;font-weight:300;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase}
+nav a{color:rgba(255,255,255,0.5);text-decoration:none;margin-left:28px;transition:color 0.3s}
+nav a:hover,nav a.active{color:#c9a84c}
+.hero{max-width:1280px;margin:0 auto;padding:80px 48px 20px;text-align:center}
+.hero .label{font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.35em;color:rgba(201,168,76,0.5);text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-weight:300;font-size:clamp(1.8rem,3vw,3.2rem);letter-spacing:0.12em}
+.hero h1 span{color:#c9a84c;font-weight:600}
+.hero .gl{width:50px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:16px auto}
+.stats-grid{max-width:900px;margin:0 auto;padding:40px 48px 60px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat-card{border:1px solid rgba(201,168,76,0.06);padding:32px 16px;text-align:center;transition:border 0.3s}
+.stat-card:hover{border-color:rgba(201,168,76,0.15)}
+.stat-card .num{font-weight:600;font-size:clamp(1.6rem,2.5vw,2.4rem);color:#c9a84c;letter-spacing:0.02em}
+.stat-card .num .plus{font-weight:300;font-size:0.6em;color:rgba(201,168,76,0.4);vertical-align:super}
+.stat-card .label{font-family:'Montserrat',sans-serif;font-size:0.45rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:8px}
+.mission{max-width:740px;margin:0 auto;padding:20px 48px 60px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.mission-block{padding:24px;border:1px solid rgba(201,168,76,0.04)}
+.mission-block h2{font-weight:400;font-size:0.85rem;letter-spacing:0.06em;color:#c9a84c;margin-bottom:12px}
+.mission-block p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:0.55rem;line-height:1.8;color:rgba(255,255,255,0.4)}
+.values{max-width:900px;margin:0 auto;padding:20px 48px 80px}
+.values h3{text-align:center;font-weight:300;font-size:0.8rem;letter-spacing:0.12em;margin-bottom:28px;color:rgba(255,255,255,0.3)}
+.values .gl{width:40px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:0 auto 28px}
+.val-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.val-item{text-align:center;padding:20px 12px;border:1px solid rgba(201,168,76,0.04)}
+.val-item .icon{font-size:1.2rem;margin-bottom:6px;color:#c9a84c}
+.val-item .title{font-weight:400;font-size:0.65rem;letter-spacing:0.05em;margin-bottom:4px}
+.val-item .desc{font-family:'Montserrat',sans-serif;font-size:0.45rem;color:rgba(255,255,255,0.3);line-height:1.5}
+@media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr)}.mission{grid-template-columns:1fr}.val-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  header{padding:12px 20px}.header-inner{flex-direction:column;gap:10px}
+  nav a{margin:0 10px;font-size:0.65rem}
+  .hero{padding:50px 20px 20px}.stats-grid,.mission,.values{padding-left:20px;padding-right:20px}
+  .f-t,.f-b{left:12px;right:12px}.f-l,.f-r{top:12px;bottom:12px}
+}
+@media(max-width:480px){.val-grid{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<header><div class="header-inner">
+<a href="#" class="logo"><span>888</span>.ESTATE</a>
+<nav><a href="#">Каталог</a><a href="#" class="active">О нас</a><a href="#">Контакты</a></nav>
+</div></header>
+<section class="hero">
+<div class="label">888.ESTATE в цифрах</div>
+<h1>Результаты,<br>которыми <span>мы гордимся</span></h1>
+<div class="gl"></div>
+</section>
+<div class="stats-grid">
+<div class="stat-card"><div class="num">1 200<span class="plus">+</span></div><div class="label">Сделок проведено</div></div>
+<div class="stat-card"><div class="num">25<span class="plus">+</span></div><div class="label">Сотрудников</div></div>
+<div class="stat-card"><div class="num">12</div><div class="label">Эксклюзивных проектов</div></div>
+<div class="stat-card"><div class="num">10</div><div class="label">Лет на рынке</div></div>
+<div class="stat-card"><div class="num">85<span class="plus">%</span></div><div class="label">Клиентов по рекомендации</div></div>
+<div class="stat-card"><div class="num">3</div><div class="label">Офиса в Сочи</div></div>
+<div class="stat-card"><div class="num">500</div><div class="label">Объектов в базе</div></div>
+<div class="stat-card"><div class="num">0</div><div class="label">Судебных исков</div></div>
+</div>
+<div class="mission">
+<div class="mission-block"><h2>Миссия</h2><p>Создавать пространства, которые становятся домом для лучшей версии жизни. Мы соединяем людей с местами их силы — через красоту, качество и безупречный сервис.</p></div>
+<div class="mission-block"><h2>Видение</h2><p>Стать главным партнёром по премиальной недвижимости на Юге России, задавая стандарты качества, прозрачности и эстетики для всего рынка.</p></div>
+</div>
+<div class="values">
+<div class="gl"></div>
+<h3>Ценности</h3>
+<div class="val-grid">
+<div class="val-item"><div class="icon">◇</div><div class="title">Эстетика</div><div class="desc">Красота — не роскошь, а необходимость. Каждый проект — произведение искусства.</div></div>
+<div class="val-item"><div class="icon">●</div><div class="title">Прозрачность</div><div class="desc">Абсолютная честность в каждой сделке. Никаких скрытых комиссий и двусмысленностей.</div></div>
+<div class="val-item"><div class="icon">▲</div><div class="title">Экспертиза</div><div class="desc">Глубокое знание рынка. Мы не продаём — мы консультируем и рекомендуем.</div></div>
+<div class="val-item"><div class="icon">◆</div><div class="title">Ответственность</div><div class="desc">Сопровождаем клиента от первой встречи до момента, когда он входит в свой дом.</div></div>
+</div>
+</div>
+</body></html>

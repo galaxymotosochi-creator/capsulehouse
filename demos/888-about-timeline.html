@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — О нас | Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;color:#fff;font-family:'Cormorant Garamond',serif;min-height:100vh;overflow-x:hidden}
+.f{position:fixed;background:rgba(201,168,76,0.07);z-index:100;pointer-events:none}
+.f-t,.f-b{left:24px;right:24px;height:1px}.f-l,.f-r{top:24px;bottom:24px;width:1px}
+.f-t{top:24px}.f-b{bottom:24px}.f-l{left:24px}.f-r{right:24px}
+header{position:sticky;top:0;z-index:50;background:rgba(7,7,7,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.08);padding:16px 48px}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.4rem;letter-spacing:0.25em;color:#fff;text-decoration:none}
+.logo span{color:#c9a84c;font-weight:600}
+nav{font-family:'Montserrat',sans-serif;font-weight:300;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase}
+nav a{color:rgba(255,255,255,0.5);text-decoration:none;margin-left:28px;transition:color 0.3s}
+nav a:hover,nav a.active{color:#c9a84c}
+.hero{max-width:1280px;margin:0 auto;padding:80px 48px 20px;text-align:center}
+.hero .label{font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.35em;color:rgba(201,168,76,0.5);text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-weight:300;font-size:clamp(1.8rem,3vw,3.2rem);letter-spacing:0.12em}
+.hero h1 span{color:#c9a84c;font-weight:600}
+.hero .gl{width:50px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:16px auto}
+.hero p{max-width:600px;margin:16px auto 0;font-weight:300;font-size:0.7rem;line-height:1.7;color:rgba(255,255,255,0.5);font-family:'Montserrat',sans-serif}
+.timeline{max-width:800px;margin:0 auto;padding:40px 48px 80px;position:relative}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,0.2),rgba(201,168,76,0.2),transparent);transform:translateX(-50%)}
+.tl-item{display:flex;align-items:flex-start;margin-bottom:48px;position:relative}
+.tl-item:nth-child(odd){flex-direction:row-reverse}
+.tl-dot{position:absolute;left:50%;top:4px;width:10px;height:10px;border-radius:50%;background:#c9a84c;transform:translateX(-50%);box-shadow:0 0 12px rgba(201,168,76,0.3);z-index:2}
+.tl-content{width:calc(50% - 40px);padding:20px 24px;border:1px solid rgba(201,168,76,0.08);background:rgba(255,255,255,0.012)}
+.tl-year{font-weight:600;font-size:1.1rem;color:#c9a84c;margin-bottom:4px;letter-spacing:0.05em}
+.tl-title{font-weight:400;font-size:0.8rem;letter-spacing:0.04em;margin-bottom:6px}
+.tl-desc{font-family:'Montserrat',sans-serif;font-size:0.5rem;line-height:1.6;color:rgba(255,255,255,0.4)}
+@media(max-width:768px){
+  header{padding:12px 20px}.header-inner{flex-direction:column;gap:10px}
+  nav a{margin:0 10px;font-size:0.65rem}
+  .hero{padding:50px 20px 20px}.timeline{padding:20px 20px 60px}
+  .timeline::before{left:20px}
+  .tl-item,.tl-item:nth-child(odd){flex-direction:row!important}
+  .tl-content{width:calc(100% - 50px);margin-left:50px}
+  .tl-dot{left:20px}
+  .f-t,.f-b{left:12px;right:12px}.f-l,.f-r{top:12px;bottom:12px}
+}
+</style></head>
+<body>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<header><div class="header-inner">
+<a href="#" class="logo"><span>888</span>.ESTATE</a>
+<nav><a href="#">Каталог</a><a href="#" class="active">О нас</a><a href="#">Контакты</a></nav>
+</div></header>
+<section class="hero">
+<div class="label">С 2015 года</div>
+<h1>История <span>888.ESTATE</span></h1>
+<div class="gl"></div>
+<p>От первой сделки до крупнейшего девелопера премиальной недвижимости Сочи — путь, построенный на доверии.</p>
+</section>
+<div class="timeline">
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-year">2015</div><div class="tl-title">Основание компании</div><div class="tl-desc">888.ESTATE начинается с одной сделки — продажи виллы в Красной Поляне. Команда — 3 человека, один офис.</div></div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-year">2017</div><div class="tl-title">Первая премиальная сделка > 50 млн</div><div class="tl-desc">Выход в сегмент luxury-недвижимости. Подписание эксклюзивного договора с застройщиком «Горки Город».</div></div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-year">2019</div><div class="tl-title">Открытие офиса в центре Сочи</div><div class="tl-desc">Команда выросла до 25 человек. Собственный отдел аналитики и маркетинга. Более 200 сделок в год.</div></div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-year">2021</div><div class="tl-title">Собственные проекты</div><div class="tl-desc">888.ESTATE выходит в девелопмент: первый клубный дом в Имеретинке. Старт строительства.</div></div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-year">2023</div><div class="tl-title">Топ-3 агентства Сочи</div><div class="tl-desc">Портфель: 12 эксклюзивных проектов. Собственный отдел дизайна и архитектурного надзора. > 500 млн руб. оборот.</div></div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-year">2025</div><div class="tl-title">Международный уровень</div><div class="tl-desc">Партнёрства с ведущими архитектурными бюро. Премиальные проекты в Сочи, Красной Поляне, Абхазии.</div></div></div>
+</div>
+</body></html>

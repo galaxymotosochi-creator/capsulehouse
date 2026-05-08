@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — Команда</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;color:#fff;font-family:'Cormorant Garamond',serif;min-height:100vh;overflow-x:hidden}
+.f{position:fixed;background:rgba(201,168,76,0.07);z-index:100;pointer-events:none}
+.f-t,.f-b{left:24px;right:24px;height:1px}.f-l,.f-r{top:24px;bottom:24px;width:1px}
+.f-t{top:24px}.f-b{bottom:24px}.f-l{left:24px}.f-r{right:24px}
+header{position:sticky;top:0;z-index:50;background:rgba(7,7,7,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.08);padding:16px 48px}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.4rem;letter-spacing:0.25em;color:#fff;text-decoration:none}
+.logo span{color:#c9a84c;font-weight:600}
+nav{font-family:'Montserrat',sans-serif;font-weight:300;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase}
+nav a{color:rgba(255,255,255,0.5);text-decoration:none;margin-left:28px;transition:color 0.3s}
+nav a:hover,nav a.active{color:#c9a84c}
+.hero{max-width:1280px;margin:0 auto;padding:80px 48px 20px;text-align:center}
+.hero .label{font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.35em;color:rgba(201,168,76,0.5);text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-weight:300;font-size:clamp(1.8rem,3vw,3.2rem);letter-spacing:0.12em}
+.hero h1 span{color:#c9a84c;font-weight:600}
+.hero .gl{width:50px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:16px auto}
+.hero p{max-width:560px;margin:16px auto 0;font-weight:300;font-size:0.7rem;line-height:1.7;color:rgba(255,255,255,0.5);font-family:'Montserrat',sans-serif}
+.team{max-width:1000px;margin:0 auto;padding:40px 48px 80px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.person{border:1px solid rgba(201,168,76,0.06);background:rgba(255,255,255,0.012);transition:border 0.3s;text-align:center;padding:32px 20px 28px}
+.person:hover{border-color:rgba(201,168,76,0.2)}
+.avatar{width:80px;height:80px;border-radius:50%;margin:0 auto 16px;background:linear-gradient(135deg,rgba(201,168,76,0.06),rgba(201,168,76,0.12));display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:300;color:#c9a84c;border:1px solid rgba(201,168,76,0.12)}
+.person .name{font-weight:400;font-size:0.85rem;letter-spacing:0.04em;margin-bottom:2px}
+.person .role{font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.12em;color:rgba(201,168,76,0.5);text-transform:uppercase;margin-bottom:8px}
+.person .bio{font-family:'Montserrat',sans-serif;font-size:0.5rem;line-height:1.6;color:rgba(255,255,255,0.35);max-width:240px;margin:0 auto}
+.person .exp{font-family:'Montserrat',sans-serif;font-size:0.4rem;letter-spacing:0.1em;color:rgba(255,255,255,0.2);margin-top:10px}
+@media(max-width:900px){.team{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  header{padding:12px 20px}.header-inner{flex-direction:column;gap:10px}
+  nav a{margin:0 10px;font-size:0.65rem}
+  .hero{padding:50px 20px 20px}.team{padding:20px 20px 60px;grid-template-columns:1fr}
+  .f-t,.f-b{left:12px;right:12px}.f-l,.f-r{top:12px;bottom:12px}
+}
+</style></head>
+<body>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<header><div class="header-inner">
+<a href="#" class="logo"><span>888</span>.ESTATE</a>
+<nav><a href="#">Каталог</a><a href="#" class="active">О нас</a><a href="#">Контакты</a></nav>
+</div></header>
+<section class="hero">
+<div class="label">Лица компании</div>
+<h1>Наша <span>команда</span></h1>
+<div class="gl"></div>
+<p>Профессионалы с многолетним опытом в недвижимости, архитектуре и девелопменте.</p>
+</section>
+<div class="team" id="teamGrid"></div>
+<script>
+const team=[
+  {n:'Александр Шимон',r:'Генеральный директор',b:'Основатель 888.ESTATE. Более 15 лет в девелопменте премиум-класса. Реализовал проекты общей площадью свыше 50 000 м².',e:'15 лет в luxury-девелопменте'},
+  {n:'Юлия Валерьевна',r:'CEO холдинга',b:'Стратегическое управление, развитие бренда и международные партнёрства. Привела компанию в топ-3 рейтинга Сочи.',e:'12 лет в управлении'},
+  {n:'Анна Белова',r:'Арт-директор',b:'Курирует дизайн всех проектов. Работала с бюро Заха Хадид и UNStudio. Создаёт эстетику премиум-сегмента.',e:'10 лет в архитектуре'},
+  {n:'Михаил Ковалёв',r:'Руководитель отдела продаж',b:'Личный рекорд — 2,3 млрд руб. продаж за год. Эксперт по премиальной недвижимости Сочи и Красной Поляны.',e:'14 лет в недвижимости'},
+  {n:'Елена Соколова',r:'Главный юрист',b:'Специализация — сделки с недвижимостью премиум-класса, due diligence, сопровождение инвестиционных проектов.',e:'11 лет юрпрактики'},
+  {n:'Дмитрий Орлов',r:'Технический директор',b:'Цифровая трансформация компании. Создал собственную CRM и систему аналитики рынка недвижимости.',e:'8 лет в PropTech'}
+];
+const grid=document.getElementById('teamGrid');
+team.forEach(function(p){
+  var d=document.createElement('div');d.className='person';
+  var initials=p.n.split(' ').map(function(s){return s[0];}).join('');
+  d.innerHTML='<div class="avatar">'+initials+'</div><div class="name">'+p.n+'</div><div class="role">'+p.r+'</div><div class="bio">'+p.b+'</div><div class="exp">'+p.e+'</div>';
+  grid.appendChild(d);
+});
+</script>
+</body></html>

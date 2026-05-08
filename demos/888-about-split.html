@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — О нас</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;color:#fff;font-family:'Cormorant Garamond',serif;min-height:100vh;overflow-x:hidden}
+.f{position:fixed;background:rgba(201,168,76,0.07);z-index:100;pointer-events:none}
+.f-t,.f-b{left:24px;right:24px;height:1px}.f-l,.f-r{top:24px;bottom:24px;width:1px}
+.f-t{top:24px}.f-b{bottom:24px}.f-l{left:24px}.f-r{right:24px}
+header{position:sticky;top:0;z-index:50;background:rgba(7,7,7,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.08);padding:16px 48px}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.4rem;letter-spacing:0.25em;color:#fff;text-decoration:none}
+.logo span{color:#c9a84c;font-weight:600}
+nav{font-family:'Montserrat',sans-serif;font-weight:300;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase}
+nav a{color:rgba(255,255,255,0.5);text-decoration:none;margin-left:28px;transition:color 0.3s}
+nav a:hover,nav a.active{color:#c9a84c}
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 68px)}
+.split-left{display:flex;flex-direction:column;justify-content:center;padding:60px 60px 60px 80px}
+.split-left .num{font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.35em;color:rgba(201,168,76,0.4);text-transform:uppercase;margin-bottom:10px}
+.split-left h1{font-weight:300;font-size:clamp(1.6rem,2.8vw,2.8rem);letter-spacing:0.08em;margin-bottom:6px}
+.split-left h1 span{color:#c9a84c;font-weight:600}
+.split-left .gl{width:50px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:20px 0}
+.split-left p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:0.55rem;line-height:1.9;color:rgba(255,255,255,0.4);max-width:400px}
+.split-left .cta-link{display:inline-block;margin-top:24px;padding:8px 28px;border:1px solid rgba(201,168,76,0.15);color:#c9a84c;text-decoration:none;font-family:'Montserrat',sans-serif;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;transition:all 0.3s;align-self:flex-start}
+.split-left .cta-link:hover{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.3)}
+.split-right{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.split-right .bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a140a 0%,#2a1f0d 30%,#3d2a10 60%,#c9a84c15 100%)}
+.split-right .overlay{position:relative;z-index:1;text-align:center}
+.split-right .big-text{font-weight:600;font-size:clamp(3rem,6vw,6rem);color:rgba(201,168,76,0.04);letter-spacing:0.04em;user-select:none}
+.split-right .sub{font-family:'Montserrat',sans-serif;font-size:0.45rem;letter-spacing:0.35em;color:rgba(201,168,76,0.15);text-transform:uppercase;margin-top:-8px}
+.section{max-width:1280px;margin:0 auto;padding:80px 48px}
+.section h2{font-weight:300;font-size:clamp(1.2rem,2vw,2rem);letter-spacing:0.1em;text-align:center;margin-bottom:40px}
+.section h2 span{color:#c9a84c;font-weight:600}
+.section .gl{width:40px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:0 auto 40px}
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.adv-item{text-align:center;padding:28px 20px;border:1px solid rgba(201,168,76,0.05);transition:border 0.3s}
+.adv-item:hover{border-color:rgba(201,168,76,0.15)}
+.adv-item .icon{font-size:1.4rem;color:#c9a84c;margin-bottom:10px}
+.adv-item h3{font-weight:400;font-size:0.75rem;letter-spacing:0.04em;margin-bottom:8px}
+.adv-item p{font-family:'Montserrat',sans-serif;font-size:0.5rem;line-height:1.6;color:rgba(255,255,255,0.35)}
+@media(max-width:900px){.split{grid-template-columns:1fr}.split-right{display:none}.split-left{padding:50px 40px;text-align:center}.split-left p{max-width:100%}.split-left .gl{margin:20px auto}.split-left .cta-link{align-self:center}}
+@media(max-width:768px){
+  header{padding:12px 20px}.header-inner{flex-direction:column;gap:10px}
+  nav a{margin:0 10px;font-size:0.65rem}
+  .split-left{padding:40px 20px}.section{padding:50px 20px}.adv-grid{grid-template-columns:1fr}
+  .f-t,.f-b{left:12px;right:12px}.f-l,.f-r{top:12px;bottom:12px}
+}
+</style></head>
+<body>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<header><div class="header-inner">
+<a href="#" class="logo"><span>888</span>.ESTATE</a>
+<nav><a href="#">Каталог</a><a href="#" class="active">О нас</a><a href="#">Контакты</a></nav>
+</div></header>
+<div class="split">
+<div class="split-left">
+<div class="num">888.ESTATE</div>
+<h1>Премиальная недвижимость<br><span>на Юге России</span></h1>
+<div class="gl"></div>
+<p>Мы не просто продаём объекты — мы создаём экосистему премиального сервиса. От подбора до полного сопровождения сделки. Каждый проект — уникальный, каждый клиент — особенный.</p>
+<a href="#" class="cta-link">Связаться</a>
+</div>
+<div class="split-right">
+<div class="bg"></div>
+<div class="overlay">
+<div class="big-text">888</div>
+<div class="sub">Премиум. Честность. Качество</div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="gl"></div>
+<h2>Почему <span>выбирают нас</span></h2>
+<div class="adv-grid">
+<div class="adv-item"><div class="icon">◇</div><h3>Эксклюзивность</h3><p>Только премиальные объекты. Мы не работаем с масс-маркетом — каждый объект в нашем портфеле проходит строгий отбор.</p></div>
+<div class="adv-item"><div class="icon">●</div><h3>Полный цикл</h3><p>От анализа рынка до юридического сопровождения и дизайн-проекта. Закрываем все этапы сделки.</p></div>
+<div class="adv-item"><div class="icon">▲</div><h3>Прозрачность</h3><p>Никаких скрытых комиссий. Полная юридическая чистота. Каждая сделка страхуется.</p></div>
+<div class="adv-item"><div class="icon">◆</div><h3>Аналитика</h3><p>Собственный отдел исследований. Знаем динамику рынка, ликвидность и перспективы каждого объекта.</p></div>
+<div class="adv-item"><div class="icon">✦</div><h3>Партнёрства</h3><p>Работаем с ведущими застройщиками, архитектурными бюро и дизайнерами Сочи и Москвы.</p></div>
+<div class="adv-item"><div class="icon">◈</div><h3>Сервис</h3><p>Персональный менеджер на всю сделку. 24/7 поддержка. Даже после подписания договора.</p></div>
+</div>
+</div>
+</body></html>
