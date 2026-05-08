@@ -12,17 +12,13 @@
     --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
     --radius:.75rem;--shadow:0 .5rem 1rem rgba(0,0,0,.08);
     --border:#dee2e6;--white:#fff;--muted:#6c757d;
-    --sidebar-width:270px;--sidebar-active:#1983dd;
+    --sidebar-width:270px;
   }
   html{font-size:17px}
   body{font-family:var(--font);background:var(--body-bg);color:var(--body-color);line-height:1.5;display:flex;min-height:100vh}
   
   .sidebar{width:var(--sidebar-width);background:var(--white);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:100;border-right:1px solid var(--border)}
-  .sidebar-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border)}
-  .sidebar-logo{font-size:1.2rem;font-weight:700;color:var(--body-color)}
-  .sidebar-logo span{color:var(--primary)}
-  
-  .sidebar-user{padding:.85rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .sidebar-user{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
   .sidebar-user-info{font-size:.75rem}
   .sidebar-user-name{font-weight:600;color:var(--body-color)}
   .sidebar-user-email{color:var(--muted)}
@@ -34,18 +30,13 @@
   
   .sidebar-item{display:flex;align-items:center;gap:.75rem;padding:.55rem 1.25rem;font-size:.85rem;color:var(--body-color);cursor:pointer;transition:all .12s;border-left:3px solid transparent;text-decoration:none}
   .sidebar-item:hover{background:var(--body-bg)}
-  .sidebar-item.active{background:var(--primary-light);border-left-color:var(--sidebar-active);color:var(--primary);font-weight:500}
+  .sidebar-item.active{background:var(--primary-light);border-left-color:var(--primary);color:var(--primary);font-weight:500}
   .sidebar-item .ic{width:1.5rem;text-align:center;font-size:.8rem;color:var(--muted);flex-shrink:0}
   .sidebar-item.active .ic{color:var(--primary)}
   .sidebar-footer{padding:.8rem 1.25rem;border-top:1px solid var(--border);font-size:.7rem;color:var(--muted)}
   
   .main{flex:1;margin-left:var(--sidebar-width);display:flex;flex-direction:column;min-height:100vh}
-  .topbar{background:var(--white);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-  .topbar-title{font-weight:600}
-  .topbar-badge{font-size:.75rem;background:#dcfce7;color:#166534;padding:.2rem .7rem;border-radius:20px;font-weight:500}
-  .topbar-toggle{display:none;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--body-color);padding:.2rem}
-  
-  .content{padding:1.5rem 2rem;flex:1}
+  .content{padding:2rem;flex:1}
   .content h1{font-size:1.5rem;font-weight:600;margin-bottom:.25rem}
   .content .sub{font-size:.85rem;color:var(--muted);margin-bottom:1.5rem}
   
@@ -68,12 +59,11 @@
     .sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.3);z-index:99}
     .sidebar-overlay.show{display:block}
     .main{margin-left:0}
-    .topbar-toggle{display:block}
+    .topbar-toggle{display:block;position:fixed;top:.5rem;left:.5rem;z-index:51;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:.4rem .6rem;cursor:pointer;font-size:1.1rem;color:var(--body-color)}
+    .content{padding:1rem;padding-top:3rem}
     .stats{grid-template-columns:repeat(2,1fr);gap:.6rem}
     .stat-card{padding:.9rem 1rem}
     .stat-card .val{font-size:1.2rem}
-    .topbar{padding:.7rem 1rem}
-    .content{padding:1rem}
   }
   @media(max-width:480px){
     .stats{grid-template-columns:1fr 1fr;gap:.5rem}
@@ -86,9 +76,6 @@
 <div class="sidebar-overlay" id="overlay" onclick="toggle()"></div>
 
 <aside class="sidebar" id="sidebar">
-  <div class="sidebar-header">
-    <div class="sidebar-logo"><span>8</span>:8</div>
-  </div>
   <div class="sidebar-user">
     <div class="sidebar-user-info">
       <div class="sidebar-user-name">Демо-компания</div>
@@ -119,13 +106,7 @@
 </aside>
 
 <div class="main">
-  <div class="topbar">
-    <div style="display:flex;align-items:center;gap:.75rem">
-      <button class="topbar-toggle" onclick="toggle()">&#9776;</button>
-      <span class="topbar-title">Панель управления</span>
-    </div>
-    <span class="topbar-badge">Демо</span>
-  </div>
+  <button class="topbar-toggle" id="hamburger" onclick="toggle()">&#9776;</button>
 
   <div class="content">
     <h1>Панель управления</h1>
@@ -155,10 +136,8 @@
 
 <script>
 function toggle(){
-  var s=document.getElementById('sidebar');
-  var o=document.getElementById('overlay');
-  s.classList.toggle('open');
-  o.classList.toggle('show');
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
 }
 </script>
 </body>
