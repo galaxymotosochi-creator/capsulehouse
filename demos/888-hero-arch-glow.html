@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — АРХИТЕКТУРА В СВЕЧЕНИИ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600;700&family=Montserrat:wght@200;300;400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;overflow:hidden;height:100vh;font-family:'Cormorant Garamond',serif}
+#c{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
+.overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;pointer-events:none}
+.v{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;background:radial-gradient(ellipse at 50% 60%,transparent 10%,rgba(0,0,0,0.9) 100%)}
+.f{position:fixed;background:rgba(201,168,76,0.06);z-index:1;animation:fa 2.5s ease forwards;animation-delay:2.5s;opacity:0}
+.f-t,.f-b{left:30px;right:30px;height:1px}.f-l,.f-r{top:30px;bottom:30px;width:1px}
+.f-t{top:30px}.f-b{bottom:30px}.f-l{left:30px}.f-r{right:30px}
+@keyframes fa{to{opacity:1}}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(4rem,12vw,10rem);letter-spacing:0.35em;color:#fff;opacity:0;animation:lr 2.5s ease forwards;animation-delay:1s}
+.logo span{color:#c9a84c;font-weight:700;text-shadow:0 0 80px rgba(201,168,76,0.2)}
+@keyframes lr{0%{opacity:0;transform:scale(0.92);filter:blur(3px)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+.tag{font-family:'Montserrat',sans-serif;font-weight:200;font-size:clamp(0.75rem,1.2vw,1rem);letter-spacing:0.7em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:20px;opacity:0;animation:tr 2s ease forwards;animation-delay:2.5s}
+@keyframes tr{0%{opacity:0;transform:translateY(15px)}100%{opacity:1;transform:translateY(0)}}
+.gl{width:0;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:24px auto 16px;animation:le 2s ease forwards;animation-delay:3.2s}
+@keyframes le{to{width:120px}}
+.sub{font-family:'Montserrat',sans-serif;font-weight:200;font-size:clamp(0.6rem,0.9vw,0.8rem);letter-spacing:0.4em;color:rgba(255,255,255,0.3);opacity:0;animation:tr 2s ease forwards;animation-delay:3.8s}
+.sh{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);z-index:3;opacity:0;animation:tr 2s ease forwards;animation-delay:4.5s;text-align:center}
+.sh span{display:block;font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.sh .m{width:18px;height:28px;border:1px solid rgba(201,168,76,0.3);border-radius:9px;margin:0 auto;position:relative}
+.sh .m::after{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:2px;height:5px;background:#c9a84c;border-radius:2px;animation:w 1.5s ease infinite}
+@keyframes w{0%{opacity:1;transform:translateX(-50%)translateY(0)}100%{opacity:0;transform:translateX(-50%)translateY(8px)}}
+@media(max-width:768px){.f-t,.f-b{left:15px;right:15px}.f-l,.f-r{top:15px;bottom:15px}.logo{letter-spacing:0.2em}.tag{letter-spacing:0.3em}}
+</style></head><body>
+<canvas id="c"></canvas><div class="v"></div>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<div class="overlay">
+<div class="logo"><span>888</span>.ESTATE</div>
+<div class="tag">Архитектура света</div>
+<div class="gl"></div>
+<div class="sub">Сочи · Красная Поляна · Побережье</div>
+</div>
+<div class="sh"><span>Листайте</span><div class="m"></div></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import*as THREE from 'three';
+import{EffectComposer}from 'three/addons/postprocessing/EffectComposer.js';
+import{RenderPass}from 'three/addons/postprocessing/RenderPass.js';
+import{UnrealBloomPass}from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+const c=document.getElementById('c');
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x070707);
+const camera=new THREE.PerspectiveCamera(40,window.innerWidth/window.innerHeight,0.1,100);
+camera.position.set(5,3,9);camera.lookAt(0,0.3,0);
+const renderer=new THREE.WebGLRenderer({canvas:c,antialias:true,alpha:false});
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.2;
+
+// Post-processing
+const composer=new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+const bloom=new UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),0.5,0.4,0.15);
+composer.addPass(bloom);
+
+// Bottom warm wash
+const washMat=new THREE.MeshBasicMaterial({color:0xc9a84c,transparent:true,opacity:0.05,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide});
+const wash=new THREE.Mesh(new THREE.PlaneGeometry(14,3),washMat);
+wash.position.set(0,-2.5,-1);wash.rotation.x=-Math.PI/2;scene.add(wash);
+
+// === BUILDING ===
+const bg=new THREE.Group();scene.add(bg);
+const L=6,W=2.5,D=1.8,TH=4,LH=TH/L;
+
+for(let i=0;i<L;i++){
+  const y=-TH/2+i*LH+LH/2;
+  const w=W*(1-i*0.03),d=D*(1-i*0.03),f=i/L;
+  const b=new THREE.BoxGeometry(w,LH*0.9,d);
+  const e=new THREE.EdgesGeometry(b);
+  const m=new THREE.LineBasicMaterial({color:0x8a7a5a,transparent:true,opacity:0.1+f*0.2});
+  const box=new THREE.LineSegments(e,m);box.position.y=y;bg.add(box);
+  if(i<L-1){
+    const c=[[-w/2,-LH/2,-d/2],[w/2,-LH/2,-d/2],[-w/2,-LH/2,d/2],[w/2,-LH/2,d/2]];
+    const nW=W*(1-(i+1)*0.03),nD=D*(1-(i+1)*0.03);
+    const nc=[[-nW/2,LH/2,-nD/2],[nW/2,LH/2,-nD/2],[-nW/2,LH/2,nD/2],[nW/2,LH/2,nD/2]];
+    for(let ci=0;ci<4;ci++){
+      const g=new THREE.BufferGeometry();
+      g.setAttribute('position',new THREE.BufferAttribute(new Float32Array([c[ci][0],y+c[ci][1],c[ci][2],nc[ci][0],y+nc[ci][1],nc[ci][2]]),3));
+      bg.add(new THREE.Line(g,new THREE.LineBasicMaterial({color:0xc9a84c,transparent:true,opacity:0.05+f*0.12})));
+    }
+  }
+}
+
+// Pyramid top
+const tW=W*(1-(L-1)*0.03),tD=D*(1-(L-1)*0.03),tip=TH/2+0.8,base=TH/2-LH/2;
+const pe=[[-tW/2,base,-tD/2,0,tip,0],[tW/2,base,-tD/2,0,tip,0],[-tW/2,base,tD/2,0,tip,0],[tW/2,base,tD/2,0,tip,0]];
+for(const pts of pe){
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(pts),3));
+  bg.add(new THREE.Line(g,new THREE.LineBasicMaterial({color:0xc9a84c,transparent:true,opacity:0.3})));
+}
+
+// === WINDOWS — glowing dots on each floor ===
+const windows=new THREE.Group();bg.add(windows);
+for(let i=0;i<L;i++){
+  const y=-TH/2+i*LH+LH/2;
+  const w=W*(1-i*0.03)*0.7,d=D*(1-i*0.03)*0.7;
+  const cols=Math.floor(3+i*0.2),rows=i>0&&i<L-1?2:1;
+  for(let r=0;r<rows;r++){
+    for(let col=0;col<cols;col++){
+      const side=Math.floor(Math.random()*4);
+      const wx=col/(cols-1)-0.5,wy=(r/(rows-1)-0.5)*0.5;
+      let px,py,pz;
+      if(side===0){px=wx*w;py=y+wy;pz=-d/2-0.01}
+      else if(side===1){px=wx*w;py=y+wy;pz=d/2+0.01}
+      else if(side===2){px=-w/2-0.01;py=y+wy;pz=wx*d}
+      else{px=w/2+0.01;py=y+wy;pz=wx*d}
+      const win=new THREE.Mesh(
+        new THREE.SphereGeometry(0.015+Math.random()*0.01,6,6),
+        new THREE.MeshBasicMaterial({color:0xffd080,transparent:true,opacity:0.3+Math.random()*0.5})
+      );
+      win.position.set(px,py,pz);
+      win.userData={phase:Math.random()*Math.PI*2,sp:0.3+Math.random()*0.5};
+      windows.add(win);
+    }
+  }
+}
+
+// Top glow sphere
+const glowSph=new THREE.Mesh(new THREE.SphereGeometry(0.1,12,12),new THREE.MeshBasicMaterial({color:0xc9a84c,transparent:true,opacity:0.5}));
+glowSph.position.set(0,tip,0);bg.add(glowSph);
+
+// === PARTICLES ===
+const PC=600;const pg=new THREE.BufferGeometry();const pp=new Float32Array(PC*3);const pd=[];
+for(let i=0;i<PC;i++){
+  const t=Math.random()*Math.PI*2,r=2.5+Math.random()*5;
+  pp[i*3]=r*Math.cos(t);pp[i*3+1]=(Math.random()-0.5)*5;pp[i*3+2]=r*Math.sin(t);
+  pd.push({t,r,oy:pp[i*3+1],sp:0.06+Math.random()*0.12,fo:Math.random()*Math.PI*2});
+}
+pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
+const pm=new THREE.PointsMaterial({color:0xc9a84c,size:0.015,transparent:true,opacity:0.3,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true});
+const particles=new THREE.Points(pg,pm);bg.add(particles);
+
+// === STARS ===
+const SG=1000;const sg=new THREE.BufferGeometry();const sp2=new Float32Array(SG*3);
+for(let i=0;i<SG;i++){const r=12+Math.random()*35,t=Math.random()*Math.PI*2,p=Math.acos(2*Math.random()-1);sp2[i*3]=r*Math.sin(p)*Math.cos(t);sp2[i*3+1]=Math.abs(r*Math.cos(p))*0.3;sp2[i*3+2]=-r*Math.sin(p)*Math.sin(t)-5}
+sg.setAttribute('position',new THREE.BufferAttribute(sp2,3));
+scene.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:0.02,transparent:true,opacity:0.2,blending:THREE.AdditiveBlending,depthWrite:false})));
+
+// Grid floor
+const grid=new THREE.GridHelper(12,40,0x1a1a1a,0x1a1a1a);
+grid.position.y=-TH/2-0.3;grid.material.transparent=true;grid.material.opacity=0.06;
+scene.add(grid);
+scene.fog=new THREE.FogExp2(0x070707,0.035);
+
+// Animation
+let time=0;
+function animate(){
+  requestAnimationFrame(animate);time+=0.006;
+  
+  bg.rotation.y=time*0.04;
+  const b=1+Math.sin(time*0.25)*0.008;
+  bg.scale.set(b,b,b);
+  
+  // Windows flicker
+  windows.children.forEach(w=>{w.material.opacity=0.2+0.6*(0.5+0.5*Math.sin(time*w.userData.sp+w.userData.phase))});
+  
+  // Top glow pulse
+  glowSph.material.opacity=0.3+Math.sin(time*0.6)*0.25;
+  glowSph.scale.setScalar(1+Math.sin(time*0.6)*0.2);
+  
+  // Particles orbit
+  const pos=particles.geometry.attributes.position.array;
+  for(let i=0;i<PC;i++){const d=pd[i];const a=d.t+time*d.sp;pos[i*3]=Math.cos(a)*d.r;pos[i*3+1]=d.oy+Math.sin(time*d.sp*0.3+d.fo)*0.3;pos[i*3+2]=Math.sin(a)*d.r;}
+  particles.geometry.attributes.position.needsUpdate=true;
+  
+  // Camera drift
+  camera.position.x=5+Math.sin(time*0.03)*1;
+  camera.position.y=3+Math.sin(time*0.02)*0.15;
+  camera.position.z=9+Math.sin(time*0.025)*0.4;
+  camera.lookAt(0,0.3,0);
+  
+  bloom.strength=0.4+Math.sin(time*0.15)*0.08;
+  
+  composer.render();
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  const w=window.innerWidth,h=window.innerHeight;
+  camera.aspect=w/h;camera.updateProjectionMatrix();
+  renderer.setSize(w,h);composer.setSize(w,h);
+});
+</script></body></html>

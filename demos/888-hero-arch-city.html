@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — ГОРОД СВЕТА</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600;700&family=Montserrat:wght@200;300;400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;overflow:hidden;height:100vh;font-family:'Cormorant Garamond',serif}
+#c{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
+.overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;pointer-events:none}
+.v{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;background:radial-gradient(ellipse at 50% 50%,transparent 5%,rgba(0,0,0,0.9) 100%)}
+.f{position:fixed;background:rgba(201,168,76,0.06);z-index:1;animation:fa 2.5s ease forwards;animation-delay:2.5s;opacity:0}
+.f-t,.f-b{left:30px;right:30px;height:1px}.f-l,.f-r{top:30px;bottom:30px;width:1px}
+.f-t{top:30px}.f-b{bottom:30px}.f-l{left:30px}.f-r{right:30px}
+@keyframes fa{to{opacity:1}}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(4rem,12vw,10rem);letter-spacing:0.35em;color:#fff;opacity:0;animation:lr 2.5s ease forwards;animation-delay:1s}
+.logo span{color:#c9a84c;font-weight:700;text-shadow:0 0 80px rgba(201,168,76,0.2)}
+@keyframes lr{0%{opacity:0;transform:scale(0.92);filter:blur(3px)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+.tag{font-family:'Montserrat',sans-serif;font-weight:200;font-size:clamp(0.75rem,1.2vw,1rem);letter-spacing:0.7em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:20px;opacity:0;animation:tr 2s ease forwards;animation-delay:2.5s}
+@keyframes tr{0%{opacity:0;transform:translateY(15px)}100%{opacity:1;transform:translateY(0)}}
+.gl{width:0;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:24px auto 16px;animation:le 2s ease forwards;animation-delay:3.2s}
+@keyframes le{to{width:120px}}
+.sub{font-family:'Montserrat',sans-serif;font-weight:200;font-size:clamp(0.6rem,0.9vw,0.8rem);letter-spacing:0.4em;color:rgba(255,255,255,0.3);opacity:0;animation:tr 2s ease forwards;animation-delay:3.8s}
+.sh{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);z-index:3;opacity:0;animation:tr 2s ease forwards;animation-delay:4.5s;text-align:center}
+.sh span{display:block;font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.sh .m{width:18px;height:28px;border:1px solid rgba(201,168,76,0.3);border-radius:9px;margin:0 auto;position:relative}
+.sh .m::after{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:2px;height:5px;background:#c9a84c;border-radius:2px;animation:w 1.5s ease infinite}
+@keyframes w{0%{opacity:1;transform:translateX(-50%)translateY(0)}100%{opacity:0;transform:translateX(-50%)translateY(8px)}}
+@media(max-width:768px){.f-t,.f-b{left:15px;right:15px}.f-l,.f-r{top:15px;bottom:15px}.logo{letter-spacing:0.2em}.tag{letter-spacing:0.3em}}
+</style></head><body>
+<canvas id="c"></canvas><div class="v"></div>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<div class="overlay">
+<div class="logo"><span>888</span>.ESTATE</div>
+<div class="tag">Горизонты будущего</div>
+<div class="gl"></div>
+<div class="sub">Сочи · Красная Поляна · Побережье</div>
+</div>
+<div class="sh"><span>Листайте</span><div class="m"></div></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import*as THREE from 'three';
+import{EffectComposer}from 'three/addons/postprocessing/EffectComposer.js';
+import{RenderPass}from 'three/addons/postprocessing/RenderPass.js';
+import{UnrealBloomPass}from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+const c=document.getElementById('c');
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x070707);
+const camera=new THREE.PerspectiveCamera(35,window.innerWidth/window.innerHeight,0.1,100);
+camera.position.set(0,4,12);camera.lookAt(0,1,0);
+const renderer=new THREE.WebGLRenderer({canvas:c,antialias:true,alpha:false});
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.0;
+
+// Post-processing
+const composer=new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+const bloom=new UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),0.4,0.5,0.1);
+composer.addPass(bloom);
+
+// Bottom warm wash
+const washMat=new THREE.MeshBasicMaterial({color:0xc9a84c,transparent:true,opacity:0.04,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide});
+const wash=new THREE.Mesh(new THREE.PlaneGeometry(16,4),washMat);
+wash.position.set(0,-2,-1);wash.rotation.x=-Math.PI/2;scene.add(wash);
+
+// === BUILD CITY LINE ===
+const cityGroup=new THREE.Group();scene.add(cityGroup);
+const buildingDefs=[
+  {x:-4.5,z:-2,w:0.8,d:0.8,h:1.2,color:0x6a5a3a},
+  {x:-3.2,z:-1.5,w:0.6,d:0.6,h:1.8,color:0x8a7a5a},
+  {x:-2,z:-2.5,w:1,d:1,h:2.2,color:0x7a6a4a},
+  {x:-1,z:-1,w:0.8,d:0.8,h:0.9,color:0x6a5a3a},
+  {x:0,z:-2,w:1.2,d:1.2,h:3.5,color:0x8a7a5a,tip:true},  // Main tower
+  {x:1.2,z:-1.5,w:0.7,d:0.7,h:1.5,color:0x7a6a4a},
+  {x:2.3,z:-2.3,w:0.9,d:0.9,h:1,color:0x6a5a3a},
+  {x:3.5,z:-1.2,w:0.6,d:0.6,h:2,color:0x8a7a5a},
+  {x:4.8,z:-2,w:0.8,d:0.8,h:1.4,color:0x7a6a4a},
+  // Back row
+  {x:-3.8,z:-4,w:0.9,d:0.9,h:1.5,color:0x5a4a2a},
+  {x:-1.5,z:-4.5,w:0.7,d:0.7,h:2.5,color:0x7a6a4a},
+  {x:1.8,z:-4,w:1,d:1,h:1.8,color:0x6a5a3a},
+  {x:4,z:-4.5,w:0.6,d:0.6,h:2.2,color:0x5a4a2a},
+  // Side
+  {x:-3,z:1,w:0.7,d:0.7,h:1.3,color:0x6a5a3a},
+  {x:-0.5,z:1.5,w:0.8,d:0.8,h:0.7,color:0x7a6a4a},
+  {x:2,z:1,w:0.6,d:0.6,h:1.1,color:0x6a5a3a},
+  {x:4,z:1.5,w:0.9,d:0.9,h:0.8,color:0x5a4a2a},
+];
+
+for(const bd of buildingDefs){
+  const g=new THREE.Group();
+  const box=new THREE.BoxGeometry(bd.w,bd.h,bd.d);
+  const edge=new THREE.EdgesGeometry(box);
+  const mat=new THREE.LineBasicMaterial({color:bd.color,transparent:true,opacity:0.15+bd.h*0.04});
+  const mesh=new THREE.LineSegments(edge,mat);
+  mesh.position.y=bd.h/2;
+  g.add(mesh);
+  
+  // Pyramid tip for main tower
+  if(bd.tip){
+    const tg=new THREE.BufferGeometry();
+    const tw=bd.w*0.5,td=bd.d*0.5;
+    tg.setAttribute('position',new THREE.BufferAttribute(new Float32Array([
+      -tw,bd.h,td,0,bd.h+0.6,0,tw,bd.h,td,0,bd.h+0.6,0,
+      tw,bd.h,-td,0,bd.h+0.6,0,-tw,bd.h,-td,0,bd.h+0.6,0
+    ]),3));
+    const tipLine=new THREE.Line(tg,new THREE.LineBasicMaterial({color:0xc9a84c,transparent:true,opacity:0.4}));
+    g.add(tipLine);
+    
+    // Top glow
+    const gs=new THREE.Mesh(new THREE.SphereGeometry(0.08,8,8),new THREE.MeshBasicMaterial({color:0xc9a84c,transparent:true,opacity:0.6}));
+    gs.position.set(0,bd.h+0.6,0);g.add(gs);
+  }
+  
+  g.position.set(bd.x,0,bd.z);
+  cityGroup.add(g);
+}
+
+// === WINDOWS ON BUILDINGS ===
+const winGroup=new THREE.Group();scene.add(winGroup);
+for(const bd of buildingDefs){
+  const floors=Math.floor(bd.h/0.3);
+  for(let f=0;f<floors;f++){
+    const y=f*0.3+0.2;
+    const sides=Math.floor(Math.random()*2)+1;
+    for(let s=0;s<sides;s++){
+      const wx=(Math.random()-0.5)*bd.w*0.5;
+      const wz=(Math.random()-0.5)*bd.d*0.5;
+      const side=Math.floor(Math.random()*4);
+      let px,py,pz;
+      if(side===0){px=wx;py=y;pz=-bd.d/2-0.01}
+      else if(side===1){px=wx;py=y;pz=bd.d/2+0.01}
+      else if(side===2){px=-bd.w/2-0.01;py=y;pz=wz}
+      else{px=bd.w/2+0.01;py=y;pz=wz}
+      const wg=new THREE.Mesh(new THREE.SphereGeometry(0.01+Math.random()*0.008,4,4),new THREE.MeshBasicMaterial({color:0xffd080,transparent:true,opacity:0.1+Math.random()*0.4}));
+      wg.position.set(px,py,pz);
+      wg.userData={phase:Math.random()*Math.PI*2,sp:0.2+Math.random()*0.4};
+      winGroup.add(wg);
+    }
+  }
+}
+
+// === FLOATING PARTICLES ===
+const PC=400;const pg=new THREE.BufferGeometry();const pp=new Float32Array(PC*3);const pd=[];
+for(let i=0;i<PC;i++){
+  const r=2+Math.random()*7,t=Math.random()*Math.PI*2;
+  pp[i*3]=r*Math.cos(t);pp[i*3+1]=(Math.random()-0.3)*4;pp[i*3+2]=r*Math.sin(t)-1.5;
+  pd.push({t,r:r,oy:pp[i*3+1],sp:0.04+Math.random()*0.1,fo:Math.random()*Math.PI*2});
+}
+pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
+const pm=new THREE.PointsMaterial({color:0xc9a84c,size:0.015,transparent:true,opacity:0.2,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true});
+const particles=new THREE.Points(pg,pm);scene.add(particles);
+
+// === STARS ===
+const SG=1500;const sg=new THREE.BufferGeometry();const sp2=new Float32Array(SG*3);
+for(let i=0;i<SG;i++){const r=15+Math.random()*40,t=Math.random()*Math.PI*2,p=Math.acos(2*Math.random()-1);sp2[i*3]=r*Math.sin(p)*Math.cos(t);sp2[i*3+1]=Math.abs(r*Math.cos(p))*0.5;sp2[i*3+2]=-r*Math.sin(p)*Math.sin(t)-6}
+sg.setAttribute('position',new THREE.BufferAttribute(sp2,3));
+scene.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:0.02,transparent:true,opacity:0.25,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true})));
+
+// Grid
+const grid=new THREE.GridHelper(14,50,0x1a1a1a,0x1a1a1a);
+grid.position.y=-0.1;grid.material.transparent=true;grid.material.opacity=0.04;
+scene.add(grid);
+scene.fog=new THREE.FogExp2(0x070707,0.03);
+
+// Animation
+let time=0;
+function animate(){
+  requestAnimationFrame(animate);time+=0.005;
+  
+  cityGroup.rotation.y=time*0.03;
+  winGroup.rotation.y=time*0.03;
+  
+  // Windows flicker
+  winGroup.children.forEach(w=>{w.material.opacity=0.1+0.5*(0.5+0.5*Math.sin(time*w.userData.sp+w.userData.phase))});
+  
+  // Particles drift
+  const pos=particles.geometry.attributes.position.array;
+  for(let i=0;i<PC;i++){const d=pd[i];const a=d.t+time*d.sp;pos[i*3]=Math.cos(a)*d.r;pos[i*3+1]=d.oy+Math.sin(time*d.sp*0.3+d.fo)*0.3;pos[i*3+2]=Math.sin(a)*d.r-1.5;}
+  particles.geometry.attributes.position.needsUpdate=true;
+  
+  // Camera drift
+  camera.position.x=Math.sin(time*0.02)*2;
+  camera.position.y=4+Math.sin(time*0.015)*0.15;
+  camera.position.z=12+Math.sin(time*0.018)*0.5;
+  camera.lookAt(0,1,0);
+  
+  bloom.strength=0.35+Math.sin(time*0.12)*0.05;
+  
+  composer.render();
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  const w=window.innerWidth,h=window.innerHeight;
+  camera.aspect=w/h;camera.updateProjectionMatrix();
+  renderer.setSize(w,h);composer.setSize(w,h);
+});
+</script></body></html>
