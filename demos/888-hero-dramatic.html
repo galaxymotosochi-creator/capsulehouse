@@ -63,6 +63,7 @@
     text-align: center;
     line-height: 1;
     margin-bottom: 0;
+    transition: filter 2s ease;
   }
   .logo span {
     color: #c9a84c;
@@ -347,55 +348,36 @@ const glowMat = new THREE.PointsMaterial({
 const glowPoints = new THREE.Points(glowGeo, glowMat);
 scene.add(glowPoints);
 
-// TEXT GLOW - яркая пульсирующая подсветка, старт после анимаций
-// TEXT GLOW - старт после появления кнопок
+// TEXT GLOW - яркое золотое свечение (drop-shadow видно даже на телефонах)
 setTimeout(() => {
+  const logo = document.querySelector('.logo');
+  const title = document.querySelector('.hero-title');
+  const sub = document.querySelector('.hero-sub');
+  
+  // Мгновенное включение text-shadow для быстрого эффекта
+  if (logo) logo.style.textShadow = '0 0 30px rgba(201,168,76,0.7), 0 0 60px rgba(201,168,76,0.35), 0 0 100px rgba(201,168,76,0.12)';
+  if (title) title.style.textShadow = '0 0 20px rgba(201,168,76,0.5), 0 0 40px rgba(201,168,76,0.2)';
+  if (sub) sub.style.textShadow = '0 0 15px rgba(201,168,76,0.3)';
+  
+  // Пульсирующий filter: drop-shadow для заметного свечения
   let phase = 0;
-  const glow = () => {
+  const pulse = () => {
     phase++;
-    const t = 0.6 + Math.sin(phase * 0.03) * 0.4; // 0.2-1.0 пульсация (всегда минимум видно)
-    const logo = document.querySelector('.logo');
-    const title = document.querySelector('.hero-title');
-    if (!logo || !title) return;
+    const t = 0.4 + Math.sin(phase * 0.04) * 0.6;
     
-    // Лого: 3 слоя свечения
-    const g1 = 10 + t * 40;       // 10-50px blur
-    const a1 = 0.3 + t * 0.5;     // 0.3-0.8 alpha
-    const g2 = 30 + t * 80;       // 30-110px blur
-    const a2 = 0.15 + t * 0.35;   // 0.15-0.5 alpha
-    const g3 = 60 + t * 140;      // 60-200px blur
-    const a3 = 0.05 + t * 0.15;   // 0.05-0.2 alpha
-    
-    logo.style.textShadow = `
-      0 0 ${g1}px rgba(201,168,76,${a1}),
-      0 0 ${g2}px rgba(201,168,76,${a2}),
-      0 0 ${g3}px rgba(201,168,76,${a3})
-    `;
-    
-    // Золотая часть (888)
-    const span = logo.querySelector('span');
-    if (span) {
-      const sa1 = 0.3 + t * 0.6;
-      const sa2 = 0.15 + t * 0.35;
-      span.style.textShadow = `
-        0 0 ${10 + t * 50}px rgba(201,168,76,${sa1}),
-        0 0 ${30 + t * 100}px rgba(201,168,76,${sa2})
-      `;
+    if (logo) {
+      logo.style.filter = 'drop-shadow(0 0 ' + (18 + t * 32) + 'px rgba(201,168,76,' + (0.4 + t * 0.5) + ')) drop-shadow(0 0 ' + (35 + t * 65) + 'px rgba(201,168,76,' + (0.15 + t * 0.3) + ')) drop-shadow(0 0 ' + (60 + t * 100) + 'px rgba(201,168,76,' + (0.05 + t * 0.12) + '))';
+    }
+    if (title) {
+      title.style.filter = 'drop-shadow(0 0 ' + (10 + t * 20) + 'px rgba(201,168,76,' + (0.2 + t * 0.4) + ')) drop-shadow(0 0 ' + (20 + t * 40) + 'px rgba(201,168,76,' + (0.1 + t * 0.2) + '))';
+    }
+    if (sub) {
+      sub.style.filter = 'drop-shadow(0 0 ' + (5 + t * 15) + 'px rgba(201,168,76,' + (0.1 + t * 0.2) + '))';
     }
     
-    // Таглайн
-    title.style.textShadow = `
-      0 0 ${8 + t * 25}px rgba(201,168,76,${0.15 + t * 0.35}),
-      0 0 ${20 + t * 50}px rgba(201,168,76,${0.08 + t * 0.15})
-    `;
-    const sb = document.querySelector('.hero-sub');
-    if (sb) {
-      sb.style.textShadow = `0 0 ${6 + t * 15}px rgba(201,168,76,${0.08 + t * 0.15})`;
-    }
-    
-    setTimeout(glow, 50);
+    setTimeout(pulse, 60);
   };
-  glow();
+  pulse();
 }, 4800);
 
 // ANIMATION
