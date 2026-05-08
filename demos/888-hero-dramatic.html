@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>888.ESTATE — Премиум недвижимость</title>
+<title>888.ESTATE — Премиальная недвижимость</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600;700&family=Montserrat:wght@200;300;400&display=swap');
 
@@ -307,33 +307,32 @@ const glowMat = new THREE.PointsMaterial({
 const glowPoints = new THREE.Points(glowGeo, glowMat);
 scene.add(glowPoints);
 
-// TEXT GLOW - soft pulsing glow via JS + CSS transition
-let glowPhase = 0;
-setInterval(() => {
-  const logo = document.querySelector('.logo');
-  if (!logo) return;
-  glowPhase = (glowPhase + 1) % 100;
-  const t = (Math.sin(glowPhase * 0.06) + 1) / 2; // 0..1
-  const r1 = Math.round(10 + t * 30);
-  const r2 = Math.round(30 + t * 50);
-  const r3 = Math.round(60 + t * 80);
-  logo.style.textShadow = `
-    0 0 ${r1}px rgba(201, 168, 76, ${0.2 + t * 0.2}),
-    0 0 ${r2}px rgba(201, 168, 76, ${0.08 + t * 0.1}),
-    0 0 ${r3}px rgba(201, 168, 76, ${0.03 + t * 0.05})
-  `;
-  const span = logo.querySelector('span');
-  if (span) {
-    span.style.textShadow = `
-      0 0 ${15 + t * 35}px rgba(201, 168, 76, ${0.2 + t * 0.25}),
-      0 0 ${30 + t * 70}px rgba(201, 168, 76, ${0.1 + t * 0.15})
+// TEXT GLOW - soft pulsing glow, starts after all CSS animations finish
+setTimeout(() => {
+  let phase = 0;
+  const glow = () => {
+    phase++;
+    const t = (Math.sin(phase * 0.06) + 1) / 2; // 0..1
+    const logo = document.querySelector('.logo');
+    const tag = document.querySelector('.tagline');
+    if (!logo || !tag) return;
+    logo.style.textShadow = `
+      0 0 ${10 + t * 30}px rgba(201,168,76,${0.2 + t * 0.25}),
+      0 0 ${30 + t * 50}px rgba(201,168,76,${0.08 + t * 0.12}),
+      0 0 ${60 + t * 80}px rgba(201,168,76,${0.03 + t * 0.05})
     `;
-  }
-  const tag = document.querySelector('.tagline');
-  if (tag) {
-    tag.style.textShadow = `0 0 ${10 + t * 20}px rgba(201, 168, 76, ${0.1 + t * 0.2})`;
-  }
-}, 50);
+    const span = logo.querySelector('span');
+    if (span) {
+      span.style.textShadow = `
+        0 0 ${15 + t * 35}px rgba(201,168,76,${0.2 + t * 0.3}),
+        0 0 ${30 + t * 70}px rgba(201,168,76,${0.1 + t * 0.2})
+      `;
+    }
+    tag.style.textShadow = `0 0 ${10 + t * 20}px rgba(201,168,76,${0.1 + t * 0.2})`;
+    setTimeout(glow, 50);
+  };
+  glow();
+}, 4200);
 
 // ANIMATION
 let time = 0;
