@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — Город света</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600;700&family=Montserrat:wght@200;300;400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;overflow:hidden;height:100vh;font-family:'Cormorant Garamond',serif;color:#fff}
+#bg{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
+.v{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;background:radial-gradient(ellipse at 50% 50%,transparent 5%,rgba(0,0,0,0.9) 100%)}
+.f{position:fixed;background:rgba(201,168,76,0.06);z-index:1;animation:fa 2.5s ease forwards;animation-delay:2.5s;opacity:0}
+.f-t,.f-b{left:30px;right:30px;height:1px}.f-l,.f-r{top:30px;bottom:30px;width:1px}
+.f-t{top:30px}.f-b{bottom:30px}.f-l{left:30px}.f-r{right:30px}
+@keyframes fa{to{opacity:1}}
+.overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;pointer-events:none}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(4rem,12vw,10rem);letter-spacing:0.35em;color:#fff;opacity:0;animation:lr 2.5s ease forwards;animation-delay:1s}
+.logo span{color:#c9a84c;font-weight:700;text-shadow:0 0 80px rgba(201,168,76,0.2)}
+@keyframes lr{0%{opacity:0;transform:scale(0.92);filter:blur(3px)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+.tag{font-family:'Montserrat',sans-serif;font-weight:200;font-size:clamp(0.75rem,1.2vw,1rem);letter-spacing:0.7em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:20px;opacity:0;animation:tr 2s ease forwards;animation-delay:2.5s}
+@keyframes tr{0%{opacity:0;transform:translateY(15px)}100%{opacity:1;transform:translateY(0)}}
+.gl{width:0;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:24px auto 16px;animation:le 2s ease forwards;animation-delay:3.2s}
+@keyframes le{to{width:120px}}
+.sub{font-family:'Montserrat',sans-serif;font-weight:200;font-size:clamp(0.6rem,0.9vw,0.8rem);letter-spacing:0.4em;color:rgba(255,255,255,0.3);opacity:0;animation:tr 2s ease forwards;animation-delay:3.8s}
+.sh{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);z-index:3;opacity:0;animation:tr 2s ease forwards;animation-delay:4.5s;text-align:center}
+.sh span{display:block;font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.sh .m{width:18px;height:28px;border:1px solid rgba(201,168,76,0.3);border-radius:9px;margin:0 auto;position:relative}
+.sh .m::after{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:2px;height:5px;background:#c9a84c;border-radius:2px;animation:w 1.5s ease infinite}
+@keyframes w{0%{opacity:1;transform:translateX(-50%)translateY(0)}100%{opacity:0;transform:translateX(-50%)translateY(8px)}}
+@media(max-width:768px){.f-t,.f-b{left:15px;right:15px}.f-l,.f-r{top:15px;bottom:15px}.logo{letter-spacing:0.2em}.tag{letter-spacing:0.3em}}
+</style></head><body>
+<canvas id="bg"></canvas><div class="v"></div>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<div class="overlay">
+<div class="logo"><span>888</span>.ESTATE</div>
+<div class="tag">Горизонты будущего</div>
+<div class="gl"></div>
+<div class="sub">Сочи · Красная Поляна · Побережье</div>
+</div>
+<div class="sh"><span>Листайте</span><div class="m"></div></div>
+<script>
+const canvas=document.getElementById('bg'),ctx=canvas.getContext('2d');
+let W,H;function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+const gC=document.createElement('canvas'),gX=gC.getContext('2d');
+function rG2(){gC.width=W;gC.height=H}
+rG2();window.addEventListener('resize',rG2);
+
+// === CITY SKYLINE (2.5D isometric) ===
+const buildings=[];
+function addBld(x,z,w,d,h,hasTip){
+  const verts=[],edges=[];
+  verts.push([-w/2,0,-d/2],[w/2,0,-d/2],[w/2,0,d/2],[-w/2,0,d/2]); // bottom
+  verts.push([-w/2,h,-d/2],[w/2,h,-d/2],[w/2,h,d/2],[-w/2,h,d/2]); // top
+  for(let c=0;c<4;c++)edges.push([c,4+c]); // verticals
+  for(let c=0;c<4;c++)edges.push([c,(c+1)%4]); // bottom ring
+  for(let c=0;c<4;c++)edges.push([4+c,4+(c+1)%4]); // top ring
+  if(hasTip){
+    verts.push([0,h+0.5,0]);const ti=verts.length-1;
+    edges.push([4,ti],[5,ti],[6,ti],[7,ti]);
+  }
+  // Windows
+  const wins=[];
+  const floors=Math.floor(h/0.3);
+  for(let f=0;f<floors;f++){
+    const y=f*0.3+0.15;
+    for(let side=0;side<4;side++)for(let c=0;c<3;c++){
+      const wx=c/2-0.5;let px,py,pz;
+      if(side===0){px=wx*w*0.5;py=y;pz=-d/2-0.01}else if(side===1){px=wx*w*0.5;py=y;pz=d/2+0.01}else if(side===2){px=-w/2-0.01;py=y;pz=wx*d*0.5}else{px=w/2+0.01;py=y;pz=wx*d*0.5}
+      wins.push({x:px,y:py,z:pz,ph:Math.random()*Math.PI*2,sp:0.2+Math.random()*0.4});
+    }
+  }
+  buildings.push({x,z,verts,edges,wins,hasTip});
+}
+
+addBld(-4,-2.5,0.7,0.7,1.2);
+addBld(-2.8,-2,0.6,0.6,1.8);
+addBld(-1.5,-3,0.9,0.9,2.2,true);
+addBld(-0.5,-1.5,0.7,0.7,0.9);
+addBld(0.5,-2.5,1,1,3.5,true); // main
+addBld(1.8,-2,0.6,0.6,1.5);
+addBld(3,-2.8,0.8,0.8,1);
+addBld(4.2,-1.8,0.5,0.5,2);
+addBld(5.5,-2.5,0.7,0.7,1.4);
+addBld(-3.5,-4.5,0.8,0.8,1.5);
+addBld(-1.2,-5,0.6,0.6,2.5);
+addBld(2,-4.5,0.9,0.9,1.8);
+addBld(4.5,-5,0.5,0.5,2.2);
+addBld(-2.5,0.5,0.6,0.6,1.3);
+addBld(0,1,0.7,0.7,0.7);
+addBld(2.5,0.5,0.5,0.5,1.1);
+addBld(5,1,0.8,0.8,0.8);
+// Extra back row
+addBld(-3,-6,1,1,1.8);
+addBld(0,-6.5,0.8,0.8,2.8,true);
+addBld(3,-6,0.7,0.7,2);
+
+// === PARTICLES ===
+const particles=[];
+for(let i=0;i<150;i++){const a=Math.random()*Math.PI*2;particles.push({x:Math.cos(a)*(2+Math.random()*5),y:(Math.random()-0.3)*4,z:Math.sin(a)*(2+Math.random()*5)-2,sp:0.03+Math.random()*0.08,ph:Math.random()*Math.PI*2,oy:(Math.random()-0.3)*4,a})}
+
+// === STARS ===
+const stars=[];
+for(let i=0;i<200;i++){stars.push({x:(Math.random()-0.5)*30,y:(Math.random()-0.3)*8,z:-5-Math.random()*15,s:0.5+Math.random()*1.5,o:0.1+Math.random()*0.3,ph:Math.random()*Math.PI*2})}
+
+function project(x,y,z,scale){
+  const d=8,fov=3,sz=fov/(d+z);
+  return{x:x*sz*scale+W/2,y:-y*sz*scale+H*0.55,sz};
+}
+function rotY(x,y,z,a){
+  const c=Math.cos(a),s=Math.sin(a);
+  return{x:x*c-z*s,y,z:x*s+z*c};
+}
+
+let time=0;
+function draw(){
+  time+=0.003;const rot=time*0.2,sc=Math.min(W/900,H/600)*1.1;
+  ctx.fillStyle='#070707';ctx.fillRect(0,0,W,H);
+  const bg=ctx.createRadialGradient(W/2,H*0.3,0,W/2,H*0.3,W);
+  bg.addColorStop(0,'rgba(15,12,8,0.3)');bg.addColorStop(1,'rgba(7,7,7,0)');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const wg=ctx.createRadialGradient(W/2,H+20,0,W/2,H+20,W*0.7);
+  wg.addColorStop(0,'rgba(201,168,76,0.03)');wg.addColorStop(1,'rgba(201,168,76,0)');
+  ctx.fillStyle=wg;ctx.fillRect(0,H-80,W,80);
+  
+  // Stars
+  for(const s of stars){const r=rotY(s.x,s.y,s.z,rot*0.01);const p=project(r.x,r.y,r.z,sc);if(p.sz>0){ctx.globalAlpha=s.o*(0.5+0.5*Math.sin(time*0.2+s.ph))*p.sz;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(p.x,p.y,s.s*p.sz*1.5,0,6);ctx.fill()}}
+  ctx.globalAlpha=1;
+  
+  // Grid
+  for(let i=-25;i<=25;i++){const p=i/25*7;const x1=project(p,-0.1,-7,sc),x2=project(p,-0.1,7,sc);ctx.strokeStyle='rgba(60,55,40,0.03)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(x1.x,x1.y);ctx.lineTo(x2.x,x2.y);ctx.stroke();const z1=project(-7,-0.1,p,sc),z2=project(7,-0.1,p,sc);ctx.beginPath();ctx.moveTo(z1.x,z1.y);ctx.lineTo(z2.x,z2.y);ctx.stroke()}
+  
+  // Buildings
+  for(const b of buildings){
+    for(const e of b.edges){
+      const v1=b.verts[e[0]],v2=b.verts[e[1]];
+      const r1=rotY(v1[0]+b.x,v1[1],v1[2]+b.z,rot);
+      const r2=rotY(v2[0]+b.x,v2[1],v2[2]+b.z,rot);
+      const p1=project(r1.x,r1.y,r1.z,sc),p2=project(r2.x,r2.y,r2.z,sc);
+      if(p1.sz>0&&p2.sz>0){
+        const az=(p1.sz+p2.sz)/2;
+        const isTop=e[0]>=4||e[1]>=4;
+        ctx.globalAlpha=az*(isTop?0.12:0.04);
+        ctx.strokeStyle=isTop?'#8a7a5a':'#5a4a2a';
+        ctx.lineWidth=0.5+isTop*0.3;
+        ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();
+      }
+    }
+  }
+  
+  // Windows on glow canvas
+  gX.clearRect(0,0,W,H);
+  for(const b of buildings){
+    for(const w of b.wins){
+      const r=rotY(w.x+b.x,w.y,w.z+b.z,rot);
+      const p=project(r.x,r.y,r.z,sc);
+      if(p.sz>0&&r.z>-3){
+        const tw=0.2+0.8*(0.5+0.5*Math.sin(time*w.sp+w.ph));
+        gX.globalAlpha=tw*p.sz*0.5;
+        const gg=gX.createRadialGradient(p.x,p.y,0,p.x,p.y,2.5*p.sz);
+        gg.addColorStop(0,'rgb(255,218,140)');gg.addColorStop(1,'rgba(255,218,140,0)');
+        gX.fillStyle=gg;gX.beginPath();gX.arc(p.x,p.y,2.5*p.sz,0,6);gX.fill();
+      }
+    }
+  }
+  gX.globalAlpha=1;ctx.drawImage(gC,0,0);
+  
+  // Particles
+  for(const p of particles){
+    const r=rotY(Math.cos(p.a+time*p.sp)*(2+Math.sin(time*0.05+p.a)*0.5),p.oy+Math.sin(time*p.sp*0.2+p.ph)*0.3,Math.sin(p.a+time*p.sp)*(2+Math.sin(time*0.05+p.a)*0.5)-2,rot);
+    const pp=project(r.x,r.y,r.z,sc);
+    if(pp.sz>0){ctx.globalAlpha=pp.sz*0.1;ctx.fillStyle='#c9a84c';ctx.beginPath();ctx.arc(pp.x,pp.y,1.5*pp.sz,0,6);ctx.fill()}
+  }
+  ctx.globalAlpha=1;
+  requestAnimationFrame(draw);
+}
+draw();
+</script></body></html>
