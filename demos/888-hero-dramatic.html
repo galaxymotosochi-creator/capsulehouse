@@ -310,7 +310,7 @@ setTimeout(() => {
   let phase = 0;
   const glow = () => {
     phase++;
-    const t = (Math.sin(phase * 0.05) + 1) / 2; // 0..1 пульсация
+    const t = 0.6 + Math.sin(phase * 0.03) * 0.4; // 0.2-1.0 пульсация (всегда минимум видно)
     const logo = document.querySelector('.logo');
     const tag = document.querySelector('.tagline');
     if (!logo || !tag) return;
