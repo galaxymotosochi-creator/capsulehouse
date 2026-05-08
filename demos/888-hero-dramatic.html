@@ -75,29 +75,6 @@
     100% { opacity: 1; transform: scale(1) translateY(0); letter-spacing: 0.35em; }
   }
 
-  @keyframes textGlow {
-    0%, 100% {
-      text-shadow:
-        0 0 30px rgba(201, 168, 76, 0.25),
-        0 0 60px rgba(201, 168, 76, 0.1);
-    }
-    50% {
-      text-shadow:
-        0 0 50px rgba(201, 168, 76, 0.45),
-        0 0 100px rgba(201, 168, 76, 0.2),
-        0 0 150px rgba(201, 168, 76, 0.08);
-    }
-  }
-  .logo.glow {
-    animation: textGlow 3s ease-in-out infinite;
-  }
-  .logo.glow span {
-    text-shadow:
-      0 0 40px rgba(201, 168, 76, 0.4),
-      0 0 80px rgba(201, 168, 76, 0.2),
-      0 0 120px rgba(201, 168, 76, 0.1);
-  }
-
   .tagline {
     font-family: 'Montserrat', sans-serif;
     font-weight: 200;
@@ -110,13 +87,6 @@
     animation: tagReveal 2s ease forwards;
     animation-delay: 2.5s;
     transition: text-shadow 1.5s ease;
-  }
-  .tagline.glow {
-    animation: tagGlow 3s ease-in-out infinite;
-  }
-  @keyframes tagGlow {
-    0%, 100% { text-shadow: 0 0 15px rgba(201, 168, 76, 0.15); }
-    50% { text-shadow: 0 0 30px rgba(201, 168, 76, 0.3), 0 0 60px rgba(201, 168, 76, 0.1); }
   }
 
   @keyframes tagReveal {
@@ -337,11 +307,33 @@ const glowMat = new THREE.PointsMaterial({
 const glowPoints = new THREE.Points(glowGeo, glowMat);
 scene.add(glowPoints);
 
-// TEXT GLOW - enable after all CSS animations complete
-setTimeout(() => {
-  document.querySelector('.logo')?.classList.add('glow');
-  document.querySelector('.tagline')?.classList.add('glow');
-}, 4200);
+// TEXT GLOW - soft pulsing glow via JS + CSS transition
+let glowPhase = 0;
+setInterval(() => {
+  const logo = document.querySelector('.logo');
+  if (!logo) return;
+  glowPhase = (glowPhase + 1) % 100;
+  const t = (Math.sin(glowPhase * 0.06) + 1) / 2; // 0..1
+  const r1 = Math.round(10 + t * 30);
+  const r2 = Math.round(30 + t * 50);
+  const r3 = Math.round(60 + t * 80);
+  logo.style.textShadow = `
+    0 0 ${r1}px rgba(201, 168, 76, ${0.2 + t * 0.2}),
+    0 0 ${r2}px rgba(201, 168, 76, ${0.08 + t * 0.1}),
+    0 0 ${r3}px rgba(201, 168, 76, ${0.03 + t * 0.05})
+  `;
+  const span = logo.querySelector('span');
+  if (span) {
+    span.style.textShadow = `
+      0 0 ${15 + t * 35}px rgba(201, 168, 76, ${0.2 + t * 0.25}),
+      0 0 ${30 + t * 70}px rgba(201, 168, 76, ${0.1 + t * 0.15})
+    `;
+  }
+  const tag = document.querySelector('.tagline');
+  if (tag) {
+    tag.style.textShadow = `0 0 ${10 + t * 20}px rgba(201, 168, 76, ${0.1 + t * 0.2})`;
+  }
+}, 50);
 
 // ANIMATION
 let time = 0;
