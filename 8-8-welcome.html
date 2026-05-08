@@ -523,8 +523,8 @@
       под любой бизнес — всё в одном веб-приложении.
     </p>
     <div class="hero-actions">
-      <a href="#" class="btn btn-primary btn-lg">Создать аккаунт →</a>
-      <a href="#" class="btn btn-outline btn-lg">Смотреть демо</a>
+      <a href="#" class="btn btn-primary btn-lg">Создать аккаунт</a>
+      <a href="#" class="btn btn-outline btn-lg" href="javascript:void(0)" onclick="alert('Демо-версия появится скоро')">Смотреть демо</a>
     </div>
   </div>
 </section>
@@ -647,7 +647,7 @@
   <div class="container">
     <h2>Готовы навести порядок в учёте?</h2>
     <p>Попробуйте бесплатно, без привязки карты</p>
-    <a href="#" class="btn btn-primary btn-lg">Создать аккаунт →</a>
+    <a href="#" class="btn btn-primary btn-lg">Создать аккаунт</a>
   </div>
 </section>
 
@@ -667,7 +667,7 @@
     
     <!-- Форма -->
     <div id="regForm">
-      <h2>Создать аккаунт →</h2>
+      <h2>Создать аккаунт</h2>
       <p>Начните управлять бизнесом за 2 минуты</p>
       
       <div class="form-group">
@@ -704,7 +704,7 @@
         </select>
       </div>
 
-      <button class="btn btn-primary btn-block btn-lg" onclick="handleRegister()">Создать аккаунт →</button>
+      <button class="btn btn-primary btn-block btn-lg" onclick="handleRegister()">Создать аккаунт</button>
       
       <div class="modal-footer">
         Уже есть аккаунт? <a onclick="alert('Форма входа появится позже')">Войти</a>
@@ -843,10 +843,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('dashCompany').textContent = user.company;
   }
   
-  // Навешиваем открытие модалки на все кнопки регистрации
-  document.querySelectorAll('.open-reg').forEach(el => {
-    el.addEventListener('click', openReg);
-  });
+
 });
 
 // Закрытие по клику вне модалки
