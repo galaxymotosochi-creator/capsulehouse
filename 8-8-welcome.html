@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8:8 — Универсальный учёт для бизнеса</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🔢</text></svg>">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --primary: #1983dd;
+    --primary-rgb: 25, 131, 221;
+    --primary-dark: #1469b1;
+    --body-bg: #f8f9fa;
+    --body-color: #212529;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+    --border-radius: 0.75rem;
+    --border-color: #dee2e6;
+    --shadow: 0 .5rem 1rem rgba(0,0,0,.08);
+    --hero-bg: #eaf5ff;
+    --success: #35a916;
+    --success-bg: #dcfce7;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-500: #6c757d;
+    --gray-600: #495057;
+    --muted: rgba(33,37,41,0.5);
+    --white: #fff;
+    --font-size-root: 17px;
+  }
+
+  html { font-size: var(--font-size-root); }
+  body {
+    font-family: var(--font);
+    background: var(--body-bg);
+    color: var(--body-color);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { color: var(--primary-dark); }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    padding: 0.85rem 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--body-color);
+    text-decoration: none;
+  }
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .logo span { color: var(--primary); }
+
+  .nav { display: flex; align-items: center; gap: 1rem; }
+  .nav a {
+    color: var(--body-color);
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 0.4rem 0.6rem;
+    transition: color 0.15s;
+  }
+  .nav a:hover { color: var(--primary); }
+
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  .btn-outline:hover {
+    background: rgba(var(--primary-rgb), 0.08);
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.25);
+  }
+  .btn-primary:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.35);
+    transform: translateY(-1px);
+  }
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    border-radius: var(--border-radius);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--hero-bg);
+    padding: 5rem 0 4rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--body-color);
+    margin-bottom: 1rem;
+  }
+  .hero p {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    max-width: 640px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--success-bg);
+    color: #166534;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ===== FEATURES ===== */
+  .features {
+    padding: 4rem 0;
+  }
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .feature-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.1);
+  }
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    background: var(--hero-bg);
+    border-radius: 0.6rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  .feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .feature-card p {
+    font-size: 0.9rem;
+    color: var(--gray-500);
+    line-height: 1.5;
+  }
+
+  /* ===== PRESETS ===== */
+  .presets {
+    padding: 4rem 0;
+    background: var(--white);
+  }
+  .presets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .preset-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1.2rem 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background: var(--gray-100);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--body-color);
+    text-decoration: none;
+  }
+  .preset-card:hover {
+    border-color: var(--primary);
+    background: var(--hero-bg);
+    transform: translateY(-1px);
+  }
+  .preset-icon { font-size: 1.8rem; }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials {
+    padding: 4rem 0;
+  }
+  .testimonial-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .testimonial-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--gray-600);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .testimonial-author {
+    font-weight: 500;
+    color: var(--body-color);
+  }
+  .testimonial-role {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ===== CTA BANNER ===== */
+  .cta-banner {
+    padding: 3.5rem 0;
+    background: var(--primary);
+    text-align: center;
+    color: var(--white);
+  }
+  .cta-banner h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .cta-banner p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+  }
+  .cta-banner .btn-primary {
+    background: var(--white);
+    color: var(--primary);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .cta-banner .btn-primary:hover {
+    background: var(--gray-100);
+    transform: translateY(-1px);
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero p { font-size: 1rem; }
+    .nav { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .presets-grid { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 0 1rem; }
+    .header-inner { padding: 0 1rem; }
+  }
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.5rem; }
+    .presets-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .btn-lg { font-size: 0.9rem; padding: 0.6rem 1.5rem; }
+    .section-title { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">8:8</span>
+      <span>8</span>:8
+    </a>
+
+    <nav class="nav">
+      <a href="#">Возможности</a>
+      <a href="#">Пресеты</a>
+      <a href="#">Тарифы</a>
+      <a href="#">Поддержка</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="#" class="btn btn-outline">Вход</a>
+      <a href="#" class="btn btn-primary">Регистрация</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">✨ Новинка — AI-помощник для бизнеса</div>
+    <h1>Универсальный учёт<br>для вашего бизнеса</h1>
+    <p>
+      Склад, финансы, продажи, сканер штрихкодов, гибкие роли и готовые пресеты 
+      под любой бизнес — всё в одном веб-приложении.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary btn-lg">Создать аккаунт</a>
+      <a href="#" class="btn btn-outline btn-lg">Смотреть демо</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features">
+  <div class="container">
+    <h2 class="section-title">Всё для управления бизнесом</h2>
+    <p class="section-sub">Учитывайте товары, деньги и сотрудников в одном окне</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Склад и остатки</h3>
+        <p>Приход, расход, перемещение, инвентаризация. Автоматический расчёт остатков в реальном времени.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Финансы и прибыль</h3>
+        <p>Себестоимость, наценка, выручка, чистая прибыль. Полная картина по каждому товару и проекту.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📷</div>
+        <h3>Сканер штрихкодов</h3>
+        <p>Сканируйте камерой телефона — мгновенное оприходование, продажа и поиск по базе.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Гибкие роли</h3>
+        <p>Основатель, управляющий, кладовщик, финансист — настройте права доступа для каждого.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Пресеты бизнеса</h3>
+        <p>Выберите свой тип бизнеса — категории, единицы измерения и настройки уже готовы.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Отчёты и аналитика</h3>
+        <p>ABC-анализ, динамика продаж, прибыль по категориям. Всё в наглядных графиках.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRESETS ===== -->
+<section class="presets">
+  <div class="container">
+    <h2 class="section-title">Выберите ваш бизнес</h2>
+    <p class="section-sub">Или настройте всё вручную под свои задачи</p>
+
+    <div class="presets-grid">
+      <div class="preset-card">
+        <span class="preset-icon">🏪</span>
+        Продуктовый магазин
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">👗</span>
+        Магазин одежды
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">💐</span>
+
+        Цветочный магазин
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">🏠</span>
+        Строительство
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">📚</span>
+        Книжный магазин
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">🔧</span>
+        Автозапчасти
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">💊</span>
+        Аптека
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">☕</span>
+        Кафе / кофейня
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">💍</span>
+        Ювелирный магазин
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">✂️</span>
+        Сфера услуг
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">📱</span>
+        Интернет-магазин
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+  <div class="container">
+    <div class="testimonial-card">
+      <p>«Раньше вели учёт в Excel и бумажках. 8:8 заменил всё — склад, финансы, отчёты. А сканер штрихкодов с телефона вообще спасение для склада.»</p>
+      <div class="testimonial-author">Алексей П.</div>
+      <div class="testimonial-role">Владелец строительного магазина</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Готовы навести порядок в учёте?</h2>
+    <p>Попробуйте бесплатно, без привязки карты</p>
+    <a href="#" class="btn btn-primary btn-lg">Создать аккаунт</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    &copy; 2026 8:8 — Универсальная система учёта для бизнеса
+  </div>
+</footer>
+
+</body>
+</html>
