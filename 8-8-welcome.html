@@ -419,6 +419,40 @@
   .btn-block { width: 100%; }
   .modal-footer { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--gray-500); }
   .modal-footer a { cursor: pointer; }
+  .biz-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+  .biz-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.45rem 0.3rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--white);
+    color: var(--body-color);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .biz-tile:hover {
+    border-color: var(--primary);
+    background: var(--hero-bg);
+  }
+  .biz-tile.selected {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--white);
+  }
+  @media (max-width: 480px) {
+    .biz-grid { grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
+    .biz-tile { font-size: 0.7rem; padding: 0.35rem 0.2rem; }
+  }
 
   /* ===== SUCCESS SCREEN ===== */
   .success-screen { text-align: center; padding: 1rem 0; }
@@ -687,21 +721,22 @@
       
       <div class="form-group">
         <label>Ваш бизнес</label>
-        <select id="regBusiness">
-          <option value="">Выберите...</option>
-          <option value="store">Магазин</option>
-          <option value="clothing">Одежда и обувь</option>
-          <option value="flowers">Цветочный магазин</option>
-          <option value="construction">Строительство</option>
-          <option value="books">Книжный магазин</option>
-          <option value="autoparts">Автозапчасти</option>
-          <option value="pharmacy">Аптека</option>
-          <option value="cafe">Кафе / кофейня</option>
-          <option value="jewelry">Ювелирный магазин</option>
-          <option value="services">Сфера услуг</option>
-          <option value="online">Интернет-магазин</option>
-          <option value="other">Другое</option>
-        </select>
+        <div class="biz-grid" id="bizGrid">
+          <div class="biz-tile" data-value="store" onclick="selectBiz(this)">🏪 Магазин</div>
+          <div class="biz-tile" data-value="clothing" onclick="selectBiz(this)">👕 Одежда</div>
+          <div class="biz-tile" data-value="flowers" onclick="selectBiz(this)">💐 Цветы</div>
+          <div class="biz-tile" data-value="construction" onclick="selectBiz(this)">🏠 Стройка</div>
+          <div class="biz-tile" data-value="books" onclick="selectBiz(this)">📚 Книги</div>
+          <div class="biz-tile" data-value="autoparts" onclick="selectBiz(this)">🔧 Авто</div>
+          <div class="biz-tile" data-value="pharmacy" onclick="selectBiz(this)">💊 Аптека</div>
+          <div class="biz-tile" data-value="cafe" onclick="selectBiz(this)">☕ Кафе</div>
+          <div class="biz-tile" data-value="jewelry" onclick="selectBiz(this)">💍 Ювелирка</div>
+          <div class="biz-tile" data-value="services" onclick="selectBiz(this)">✂️ Услуги</div>
+          <div class="biz-tile" data-value="online" onclick="selectBiz(this)">📱 Онлайн</div>
+          <div class="biz-tile" data-value="other" onclick="selectBiz(this)">⋯ Другое</div>
+        </div>
+        <input type="hidden" id="regBusiness" value="">
+        <div class="hint" id="bizHint" style="opacity:0">Выберите тип бизнеса</div>
       </div>
 
       <button class="btn btn-primary btn-block btn-lg" onclick="handleRegister()">Создать аккаунт</button>
@@ -771,6 +806,13 @@
 
 <script>
 // ===== РЕГИСТРАЦИЯ =====
+function selectBiz(el) {
+  document.querySelectorAll('.biz-tile').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('regBusiness').value = el.dataset.value;
+  document.getElementById('bizHint').style.opacity = '0';
+}
+
 function openReg() {
   document.getElementById('regModal').classList.add('active');
 }
@@ -786,6 +828,8 @@ function handleRegister() {
   
   // Простейшая валидация
   if (!email || !pass || !company || !business) {
+    document.getElementById('bizHint').style.opacity = business ? '0' : '1';
+    if (!email) { document.getElementById('regEmail').focus(); return; }
     alert('Заполните все поля');
     return;
   }
