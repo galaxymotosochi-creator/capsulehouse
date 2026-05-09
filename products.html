@@ -153,28 +153,30 @@
 
     
     <div class="page" id="page-products">
-      <div class="toolbar">
-        <h2>Товары и услуги</h2>
-        <button class="btn btn-primary btn-sm" onclick="showAddProduct()">+ Добавить товар</button>
+      <!-- Список товаров -->
+      <div id="productListView">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+          <h1 style="font-size:1.3rem;font-weight:600">Товары и услуги</h1>
+          <button class="btn btn-primary btn-sm" onclick="showAddProduct()">+ Добавить товар</button>
+        </div>
+
+        <div id="productList"></div>
+        <div class="empty" id="emptyState">
+          <div style="font-size:2.5rem;margin-bottom:.5rem;opacity:.3">&#9744;</div>
+          <p>У вас пока нет товаров</p>
+          <button class="btn btn-primary btn-sm" onclick="showAddProduct()" style="margin-top:.5rem">Добавить первый товар</button>
+        </div>
       </div>
 
-      <div id="productList"></div>
-      <div class="empty" id="emptyState">
-        <div class="big">&#9744;</div>
-        <p>У вас пока нет товаров</p>
-        <button class="btn btn-primary btn-sm" onclick="showAddProduct()" style="margin-top:.5rem">Добавить первый товар</button>
-      </div>
-    </div>
+      <!-- Форма добавления товара -->
+      <div id="productFormView" style="display:none">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem">
+          <button class="btn btn-outline btn-sm" onclick="hideAddProduct()" style="padding:.3rem .6rem;font-size:1rem">&#8592;</button>
+          <h1 style="font-size:1.3rem;font-weight:600">Новый товар</h1>
+        </div>
 
-    <!-- Modal: Add product -->
-    <div class="modal-overlay" id="productModal">
-      <div class="modal" style="max-width:500px">
-        <button class="modal-close" onclick="closeProductModal()">&times;</button>
-        <h2>Новый товар</h2>
-        <p style="margin-bottom:1rem">Заполните информацию о товаре</p>
-
-        <div class="f2">
-          <div class="form-group full">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;background:var(--white);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);border:1px solid var(--border);max-width:600px">
+          <div class="form-group" style="grid-column:1/-1">
             <label>Название товара *</label>
             <input type="text" id="pName" placeholder="Например, Доска обрезная 50х150">
           </div>
@@ -199,35 +201,39 @@
               <option value="м³">м³</option>
               <option value="кг">кг</option>
               <option value="л">л</option>
-              <option value="м">м</option>
             </select>
           </div>
           <div class="form-group">
             <label>Цена закупки</label>
-            <input type="number" id="pCost" placeholder="0" min="0">
+            <input type="number" id="pCost" placeholder="0" min="0" step="0.01">
           </div>
           <div class="form-group">
             <label>Цена продажи</label>
-            <input type="number" id="pPrice" placeholder="0" min="0" oninput="calcMargin()">
+            <input type="number" id="pPrice" placeholder="0" min="0" step="0.01" oninput="calcMargin()">
           </div>
           <div class="form-group">
-            <label>Наценка %</label>
-            <input type="text" id="pMargin" readonly style="background:var(--body-bg);font-weight:600">
+            <label>Наценка</label>
+            <div style="display:flex;align-items:center;gap:.5rem">
+              <input type="text" id="pMargin" readonly style="background:var(--body-bg);font-weight:600;flex:1">
+              <span style="font-size:.85rem;color:var(--muted)">%</span>
+            </div>
           </div>
           <div class="form-group">
             <label>Штрихкод</label>
-            <input type="text" id="pBarcode" placeholder="Введите или отсканируйте">
+            <input type="text" id="pBarcode" placeholder="Введите код">
           </div>
-          <div class="form-group full">
-            <label>Фото</label>
+          <div class="form-group" style="grid-column:1/-1">
+            <label>Фото товара</label>
             <div class="photo-upload" id="photoBox" onclick="document.getElementById('pPhoto').click()">
-              <span id="photoLabel">+ Нажмите чтобы добавить фото</span>
+              <span id="photoLabel">+ Нажмите, чтобы загрузить фото</span>
             </div>
             <input type="file" id="pPhoto" accept="image/*" style="display:none" onchange="handlePhoto(event)">
           </div>
+          <div style="grid-column:1/-1;display:flex;gap:.75rem;margin-top:.5rem">
+            <button class="btn btn-primary btn-lg" onclick="saveProduct()" style="flex:1">Сохранить товар</button>
+            <button class="btn btn-outline btn-lg" onclick="hideAddProduct()" style="flex:1">Отмена</button>
+          </div>
         </div>
-
-        <button class="btn btn-primary btn-block btn-lg" onclick="saveProduct()" style="margin-top:.5rem">Сохранить товар</button>
       </div>
     </div>
 <div class="tip">
@@ -280,14 +286,17 @@ function showAddProduct() {
   document.getElementById('pPrice').value = '';
   document.getElementById('pMargin').value = '';
   document.getElementById('pBarcode').value = '';
-  document.getElementById('photoLabel').textContent = '+ Нажмите чтобы добавить фото';
+  document.getElementById('photoLabel').textContent = '+ Нажмите, чтобы загрузить фото';
   document.getElementById('photoBox').classList.remove('has-photo');
   photoData = '';
-  document.getElementById('productModal').classList.add('active');
+  document.getElementById('productListView').style.display = 'none';
+  document.getElementById('productFormView').style.display = 'block';
 }
 
-function closeProductModal() {
-  document.getElementById('productModal').classList.remove('active');
+function hideAddProduct() {
+  document.getElementById('productFormView').style.display = 'none';
+  document.getElementById('productListView').style.display = 'block';
+  renderProducts();
 }
 
 function calcMargin() {
@@ -329,7 +338,7 @@ function saveProduct() {
   });
   
   localStorage.setItem('products8', JSON.stringify(products));
-  closeProductModal();
+  hideAddProduct();
   renderProducts();
 }
 
