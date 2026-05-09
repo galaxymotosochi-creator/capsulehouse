@@ -190,40 +190,59 @@
 
       <!-- Форма -->
       <div id="productFormView" style="display:none">
-        <button class="back-link" onclick="hideAddProduct()">&#8592; Назад к списку</button>
-        <h1 style="font-size:1.3rem;font-weight:600;margin-bottom:1.25rem">Новый товар</h1>
-        <div class="form-card" style="max-width:600px">
-          <div class="form-grid">
-            <div class="span2">
-              <label>Название товара *</label>
-              <input type="text" id="pName" placeholder="Например, Доска обрезная 50x150">
+        <div style="background:#fff;border-radius:.75rem;padding:2rem;box-shadow:0 .5rem 1rem rgba(0,0,0,.08);border:1px solid #dee2e6;max-width:520px">
+          <button class="back-link" onclick="hideAddProduct()" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:#6c757d;cursor:pointer;margin-bottom:1rem;background:none;border:none;font-family:inherit;padding:0">&larr; Назад к списку</button>
+          <h1 style="font-size:1.3rem;font-weight:600;margin-bottom:.25rem">Новый товар</h1>
+          <div style="font-size:.85rem;color:#6c757d;margin-bottom:1.25rem">Заполните информацию о товаре</div>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+            <div style="grid-column:1/-1">
+              <label style="display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem">Название товара *</label>
+              <input type="text" id="pName" placeholder="Доска обрезная 50x150" style="width:100%;padding:.65rem .85rem;font-family:inherit;font-size:.85rem;border:1px solid #dee2e6;border-radius:.75rem;outline:none">
             </div>
             <div>
-              <label>Категория</label>
-              <select id="pCat">
-                <option value="">Без категории</option>
-                <option>Пиломатериалы</option>
-                <option>Крепеж</option>
-                <option>Сантехника</option>
-                <option>Электрика</option>
-                <option>Отделка</option>
-                <option>Инструмент</option>
+              <label style="display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem">Категория</label>
+              <select id="pCat" style="width:100%;padding:.65rem .85rem;font-family:inherit;font-size:.85rem;border:1px solid #dee2e6;border-radius:.75rem;outline:none;background:#fff">
+                <option>Без категории</option><option>Пиломатериалы</option><option>Крепеж</option><option>Сантехника</option><option>Электрика</option><option>Отделка</option><option>Инструмент</option>
               </select>
             </div>
             <div>
-              <label>Единица измерения</label>
-              <select id="pUnit">
+              <label style="display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem">Единица</label>
+              <select id="pUnit" style="width:100%;padding:.65rem .85rem;font-family:inherit;font-size:.85rem;border:1px solid #dee2e6;border-radius:.75rem;outline:none;background:#fff">
                 <option>шт</option><option>м</option><option>м2</option><option>м3</option><option>кг</option><option>л</option>
               </select>
             </div>
             <div>
-              <label>Цена закупки</label>
-              <input type="number" id="pCost" placeholder="0" min="0">
+              <label style="display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem">Цена закупки</label>
+              <input type="number" id="pCost" placeholder="0" min="0" style="width:100%;padding:.65rem .85rem;font-family:inherit;font-size:.85rem;border:1px solid #dee2e6;border-radius:.75rem;outline:none">
             </div>
             <div>
-              <label>Цена продажи</label>
-              <input type="number" id="pPrice" placeholder="0" min="0" oninput="calcMargin()">
+              <label style="display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem">Цена продажи</label>
+              <input type="number" id="pPrice" placeholder="0" min="0" oninput="calcMargin()" style="width:100%;padding:.65rem .85rem;font-family:inherit;font-size:.85rem;border:1px solid #dee2e6;border-radius:.75rem;outline:none">
             </div>
+            <div>
+              <label style="display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem">Наценка</label>
+              <input type="text" id="pMargin" readonly style="width:100%;padding:.65rem .85rem;font-family:inherit;font-size:.85rem;border:1px solid #dee2e6;border-radius:.75rem;outline:none;background:#f8f9fa">
+            </div>
+            <div>
+              <label style="display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem">Штрихкод</label>
+              <input type="text" id="pBarcode" placeholder="Введите код" style="width:100%;padding:.65rem .85rem;font-family:inherit;font-size:.85rem;border:1px solid #dee2e6;border-radius:.75rem;outline:none">
+            </div>
+            <div style="grid-column:1/-1">
+              <label style="display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem">Фото</label>
+              <div onclick="document.getElementById('pPhoto').click()" style="border:2px dashed #dee2e6;border-radius:.75rem;padding:1.5rem;text-align:center;cursor:pointer;color:#6c757d;font-size:.85rem">
+                <span id="photoLabel">+ Нажмите для загрузки фото</span>
+              </div>
+              <input type="file" id="pPhoto" accept="image/*" style="display:none" onchange="handlePhoto(event)">
+            </div>
+          </div>
+          
+          <div style="display:flex;gap:.75rem;margin-top:1rem">
+            <button class="btn btn-primary" onclick="saveProduct()" style="flex:1;font-size:.9rem;padding:.7rem">Сохранить товар</button>
+            <button class="btn btn-outline" onclick="hideAddProduct()" style="flex:1;font-size:.9rem;padding:.7rem">Отмена</button>
+          </div>
+        </div>
+      </div>
             <div>
               <label>Наценка</label>
               <input type="text" id="pMargin" readonly style="background:var(--body-bg);font-weight:600">
