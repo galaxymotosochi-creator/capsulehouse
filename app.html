@@ -77,6 +77,9 @@
 </style>
 </head>
 <body>
+<button class="sidebar-open-btn" id="menuBtn" onclick="toggle()">&#9776;</button>
+<div class="sidebar-overlay" id="overlay" onclick="toggle()"></div>
+
 
 
 
@@ -339,6 +342,11 @@ function deleteProduct(idx) {
     localStorage.setItem('products8', JSON.stringify(products));
     renderProducts();
   }
+}
+
+function toggle(){
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("show");
 }
 
 document.addEventListener('DOMContentLoaded', function() {
