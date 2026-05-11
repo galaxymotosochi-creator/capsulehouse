@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>888.ESTATE — Золотой туман</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600;700&family=Montserrat:wght@200;300;400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070707;overflow:hidden;height:100vh;font-family:'Cormorant Garamond',serif;color:#fff}
+#bg{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
+.v{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;background:radial-gradient(ellipse at center,transparent 20%,rgba(0,0,0,0.85) 100%)}
+.f{position:fixed;background:rgba(201,168,76,0.06);z-index:1;animation:fa 2.5s ease forwards;animation-delay:2.5s;opacity:0}
+.f-t,.f-b{left:30px;right:30px;height:1px}.f-l,.f-r{top:30px;bottom:30px;width:1px}
+.f-t{top:30px}.f-b{bottom:30px}.f-l{left:30px}.f-r{right:30px}
+@keyframes fa{to{opacity:1}}
+.overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;pointer-events:none}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2rem,11vw,10rem);letter-spacing:0.35em;color:#fff;opacity:0;animation:lr 2.5s ease forwards;animation-delay:1s;line-height:1;white-space:nowrap}
+.logo br{display:none}
+.logo span{color:#c9a84c;font-weight:700;text-shadow:0 0 80px rgba(201,168,76,0.2)}
+@keyframes lr{0%{opacity:0;transform:scale(0.92);filter:blur(3px)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+.tag{font-family:'Montserrat',sans-serif;font-weight:200;font-size:clamp(0.65rem,1.1vw,1rem);letter-spacing:0.7em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:clamp(10px,2vh,20px);opacity:0;animation:tr 2s ease forwards;animation-delay:2.5s}
+@keyframes tr{0%{opacity:0;transform:translateY(15px)}100%{opacity:1;transform:translateY(0)}}
+.gl{width:0;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:clamp(12px,2vh,24px) auto clamp(10px,1.5vh,16px);animation:le 2s ease forwards;animation-delay:3.2s}
+@keyframes le{to{width:clamp(60px,8vw,120px)}}
+.sub{font-family:'Montserrat',sans-serif;font-weight:200;font-size:clamp(0.5rem,0.85vw,0.8rem);letter-spacing:0.4em;color:rgba(255,255,255,0.3);opacity:0;animation:tr 2s ease forwards;animation-delay:3.8s}
+.sh{position:fixed;bottom:clamp(20px,4vh,50px);left:50%;transform:translateX(-50%);z-index:3;opacity:0;animation:tr 2s ease forwards;animation-delay:4.5s;text-align:center}
+.sh span{display:block;font-family:'Montserrat',sans-serif;font-size:clamp(0.45rem,0.5vw,0.55rem);letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.sh .m{width:clamp(14px,1.5vw,18px);height:clamp(22px,2.5vw,28px);border:1px solid rgba(201,168,76,0.3);border-radius:9px;margin:0 auto;position:relative}
+.sh .m::after{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:2px;height:5px;background:#c9a84c;border-radius:2px;animation:w 1.5s ease infinite}
+@keyframes w{0%{opacity:1;transform:translateX(-50%)translateY(0)}100%{opacity:0;transform:translateX(-50%)translateY(8px)}}
+@media(max-width:768px){
+  .f-t,.f-b{left:15px;right:15px}.f-l,.f-r{top:15px;bottom:15px}
+  .logo{font-size:clamp(1.6rem,9vw,5rem);letter-spacing:0.15em}
+  .tag{font-size:clamp(0.5rem,1.8vw,0.75rem);letter-spacing:0.35em}
+  .sub{font-size:clamp(0.4rem,1.5vw,0.6rem);letter-spacing:0.25em}
+}
+@media(max-width:480px){
+  .logo{font-size:clamp(1.4rem,7.5vw,2.5rem);letter-spacing:0.1em}
+}
+</style></head><body>
+<canvas id="bg"></canvas><div class="v"></div>
+<div class="f f-t"></div><div class="f f-b"></div><div class="f f-l"></div><div class="f f-r"></div>
+<div class="overlay">
+<div class="logo"><span>888</span>.ESTATE</div>
+<div class="tag">Премиальная недвижимость</div>
+<div class="gl"></div>
+<div class="sub">Сочи · Красная Поляна · Побережье</div>
+</div>
+<div class="sh"><span>Листайте</span><div class="m"></div></div>
+<script>
+const canvas=document.getElementById('bg'),ctx=canvas.getContext('2d');
+let W,H;function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+
+// === STARS ===
+const stars=[];
+for(let i=0;i<200;i++){
+  stars.push({
+    x:Math.random()*W,y:Math.random()*H*0.6,
+    r:0.3+Math.random()*1.2,o:0.1+Math.random()*0.4,
+    sp:0.002+Math.random()*0.005,ph:Math.random()*Math.PI*2
+  });
+}
+
+// === DUST PARTICLES (small gold dots) ===
+const dust=[];
+for(let i=0;i<200;i++){
+  dust.push({
+    x:Math.random()*W,y:Math.random()*H,
+    vx:(Math.random()-0.5)*0.15,vy:-(0.1+Math.random()*0.3),
+    r:0.5+Math.random()*2,o:0.05+Math.random()*0.25,
+    ph:Math.random()*Math.PI*2,sp:0.2+Math.random()*0.5
+  });
+}
+
+// === SPARKLES (bright short-lived flashes) ===
+const sparkles=[];
+const maxSpark=40;
+for(let i=0;i<maxSpark;i++){
+  sparkles.push({
+    x:Math.random()*W,y:Math.random()*H*0.8,
+    r:0.5+Math.random()*2.5,alive:Math.random()>0.5,
+    life:0,maxLife:30+Math.random()*60,
+    ph:Math.random()*Math.PI*2,phase:Math.random()*200,
+    sp:0.3+Math.random()*0.7,size:(Math.random()>0.5)?2:4
+  });
+}
+
+// === LARGE GLOW ORBS ===
+const orbs=[];
+for(let i=0;i<10;i++){
+  orbs.push({
+    x:W*0.1+Math.random()*W*0.8,y:H*0.1+Math.random()*H*0.6,
+    r:30+Math.random()*90,o:0.008+Math.random()*0.025,
+    vx:(Math.random()-0.5)*0.12,vy:(Math.random()-0.5)*0.12,
+    ph:Math.random()*Math.PI*2,sp:0.15+Math.random()*0.4
+  });
+}
+
+// === LIGHT RAYS ===
+const rays=[];
+for(let i=0;i<6;i++){
+  const x=Math.random()*W*0.8+W*0.1;
+  rays.push({x,width:20+Math.random()*80,o:0.003+Math.random()*0.01,sp:0.08+Math.random()*0.15,ph:Math.random()*Math.PI*2});
+}
+
+// === BOTTOM WARM GLOW ===
+function drawBottomGlow(){
+  const grad=ctx.createRadialGradient(W/2,H,W*0.05,W/2,H+40,W*0.7);
+  grad.addColorStop(0,'rgba(201,168,76,0.06)');
+  grad.addColorStop(0.5,'rgba(180,140,70,0.02)');
+  grad.addColorStop(1,'rgba(201,168,76,0)');
+  ctx.fillStyle=grad;ctx.fillRect(0,H-80,W,80);
+}
+
+let time=0;
+function draw(){
+  time+=0.004;
+  // Background
+  ctx.fillStyle='#070707';ctx.fillRect(0,0,W,H);
+  
+  // Subtle gradient overlay
+  const bg=ctx.createRadialGradient(W/2,H*0.3,W*0.2,W/2,H*0.3,W*0.8);
+  bg.addColorStop(0,'rgba(25,18,8,0.3)');
+  bg.addColorStop(1,'rgba(7,7,7,0)');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  
+  // Bottom warm glow
+  drawBottomGlow();
+  
+  // Light rays
+  for(const r of rays){
+    ctx.save();
+    ctx.globalAlpha=r.o*(0.6+0.4*Math.sin(time*r.sp+r.ph));
+    const grad=ctx.createLinearGradient(r.x,0,r.x-30+r.width*0.5,H*0.5);
+    grad.addColorStop(0,'rgba(201,168,76,0.025)');
+    grad.addColorStop(0.5,'rgba(180,140,70,0.01)');
+    grad.addColorStop(1,'rgba(201,168,76,0)');
+    ctx.fillStyle=grad;
+    ctx.beginPath();
+    ctx.moveTo(r.x-10,0);
+    ctx.lineTo(r.x+20,0);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+  
+  // Large glow orbs
+  for(const o of orbs){
+    o.x+=o.vx;o.y+=o.vy;
+    if(o.x<-100)o.x=W+100;if(o.x>W+100)o.x=-100;
+    if(o.y<-100)o.y=H+100;if(o.y>H+100)o.y=-100;
+    const t=o.o*(0.7+0.3*Math.sin(time*o.sp+o.ph));
+    const g=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);
+    g.addColorStop(0,`rgba(201,168,76,${t*0.6})`);
+    g.addColorStop(0.4,`rgba(180,150,80,${t*0.25})`);
+    g.addColorStop(1,`rgba(180,150,80,0)`);
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,Math.PI*2);ctx.fill();
+  }
+  
+  // Stars
+  for(const s of stars){
+    const t=s.o*(0.5+0.5*Math.sin(time*s.sp+s.ph));
+    ctx.globalAlpha=t;
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  
+  // Dust particles (golden fog)
+  for(const d of dust){
+    d.x+=d.vx;d.y+=d.vy;
+    if(d.y<-10){d.y=H+10;d.x=Math.random()*W}
+    if(d.x<-10)d.x=W+10;if(d.x>W+10)d.x=-10;
+    d.vy+=Math.sin(time*0.5+d.ph)*0.0005;
+    const t=d.o*(0.3+0.7*(0.5+0.5*Math.sin(time*d.sp+d.ph)));
+    const g=ctx.createRadialGradient(d.x,d.y,0,d.x,d.y,d.r*2);
+    g.addColorStop(0,`rgba(255,230,180,${t*0.9})`);
+    g.addColorStop(0.6,`rgba(255,200,120,${t*0.3})`);
+    g.addColorStop(1,`rgba(255,200,120,0)`);
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.x,d.y,d.r*2,0,Math.PI*2);ctx.fill();
+  }
+  
+  // === SPARKLES (bright flashes) ===
+  for(const s of sparkles){
+    if(!s.alive){
+      if(Math.floor(time*10+s.phase)%(40+Math.floor(s.ph))===0){
+        s.alive=true;s.life=0;
+        s.x=Math.random()*W;s.y=Math.random()*H*0.75;
+        s.r=0.5+Math.random()*3;
+      }
+      continue;
+    }
+    s.life++;
+    const progress=s.life/s.maxLife;
+    const alpha=progress<0.2?progress/0.2:1-(progress-0.2)/0.8;
+    if(s.life>=s.maxLife||alpha<=0){s.alive=false;continue;}
+    
+    const px=s.x+(Math.random()-0.5)*0.5;
+    const py=s.y+(Math.random()-0.5)*0.5;
+    const br=alpha*alpha;
+    
+    if(s.size===4){
+      // Starburst (4-point cross)
+      ctx.save();
+      ctx.translate(px,py);
+      ctx.globalAlpha=br*0.9;
+      const sl=s.r*(0.8+0.4*br);
+      for(let a=0;a<4;a++){
+        const ang=a*Math.PI/2;
+        ctx.strokeStyle='rgba(255,240,200,0.9)';
+        ctx.lineWidth=1+br;
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(Math.cos(ang)*sl,Math.sin(ang)*sl);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    
+    // Glow halo
+    const g=ctx.createRadialGradient(px,py,0,px,py,s.r*3*br);
+    g.addColorStop(0,`rgba(255,240,200,${br*0.7})`);
+    g.addColorStop(0.5,`rgba(201,168,76,${br*0.3})`);
+    g.addColorStop(1,`rgba(201,168,76,0)`);
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(px,py,s.r*3*br,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  
+  requestAnimationFrame(draw);
+}
+draw();
+</script></body></html>

@@ -1,0 +1,920 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-11T12:49:37.083Z",
+  "entries": {
+    "memory:memory/2026-05-08.md:348:370": {
+      "key": "memory:memory/2026-05-08.md:348:370",
+      "path": "memory/2026-05-08.md",
+      "startLine": 348,
+      "endLine": 370,
+      "source": "memory",
+      "snippet": "law/workspace/musk/site/demos/888-hero-arch-canvas.html` — Architectural Frame - `/root/.openclaw/workspace/musk/site/demos/888-hero-city-canvas.html` — City of Light",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.86754712164402,
+      "maxScore": 0.43785214424133295,
+      "firstRecalledAt": "2026-05-08T12:28:27.588Z",
+      "lastRecalledAt": "2026-05-08T20:01:20.379Z",
+      "queryHashes": [
+        "93f146f626d3",
+        "ab3e6a086ad0"
+      ],
+      "recallDays": [
+        "2026-05-08"
+      ],
+      "conceptTags": [
+        "law",
+        "musk",
+        "site",
+        "demos",
+        "hero",
+        "arch",
+        "canvas.html",
+        "architectural"
+      ]
+    },
+    "memory:memory/2026-05-08.md:1:38": {
+      "key": "memory:memory/2026-05-08.md:1:38",
+      "path": "memory/2026-05-08.md",
+      "startLine": 1,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "# Memory — 8 May 2026 ## Session Summary Завершена работа над 3 вариантами главной страницы 888.ESTATE с разными анимированными фонами в секции hero. ## Completed This Session - [x] hero-3d/index.html — полностью записан и проверен (3D-сетка за курсором, canvas, чистый JS) - [x] Все 3 варианта залиты на GitHub и доступны по GitHub Pages - [x] Ссылки предоставлены Юлии Валерьевне для выбора ## Links Delivered - Золотая пыль: https://galaxymotosochi-creator.github.io/capsulehouse/designs/hero-particles/ - Живой градиент: https://galaxymotosochi-creator.github.io/capsulehouse/designs/hero-gradient/ - 3D-сетка: https://galaxymotosochi-creator.github.io/capsulehouse/designs/hero-3d/ ## Next -",
+      "recallCount": 8,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 4.4015948133571925,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-08T12:28:27.588Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "93f146f626d3",
+        "ab3e6a086ad0",
+        "6fa4a5f39b5c",
+        "042834886e04",
+        "1883352b50d4",
+        "eda3c4349458",
+        "f204a303337a",
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-08",
+        "2026-05-09",
+        "2026-05-10",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "888.estate",
+        "hero-3d/index.html",
+        "3d-сетка",
+        "may",
+        "summary",
+        "завершена",
+        "работа",
+        "над"
+      ]
+    },
+    "memory:memory/2026-05-07.md:1:39": {
+      "key": "memory:memory/2026-05-07.md:1:39",
+      "path": "memory/2026-05-07.md",
+      "startLine": 1,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "# 2026-05-07 — Memory Flush ## Session Summary Bootstrap завершён. Илон настроен. Созданы IDENTITY.md, USER.md. SOUL.md принят как есть (обсуждение пропущено). ## Key Task: 4 Design Variants for 888.ESTATE Марк поставил задачу сделать 4 варианта дизайна главной страницы-каталога премиальных модульных домов. ### Data - 30 моделей в массиве `H` формата `{n, a, p, s}` - 9 серий: AC, V, PX, E, X, T, FT, Z, M9 - Цены в ₽, макс. 5 239 894 ₽ - Названия серий в объекте `SN` ### Delivered Все 4 файла лежат в `site/designs/`: 1. **black-gold/index.html** — тёмная тема, золотой акцент, Playfair Display + Inter, бутик-стиль 2. **eco-nature/index.html** — природные тона (green/sand), мягкие скругле",
+      "recallCount": 10,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 5.086126002669335,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-08T12:28:27.588Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "93f146f626d3",
+        "ab3e6a086ad0",
+        "6fa4a5f39b5c",
+        "042834886e04",
+        "1883352b50d4",
+        "e22ed47c47ad",
+        "16fc1cc49f9b",
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-08",
+        "2026-05-09",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "identity.md",
+        "user.md",
+        "soul.md",
+        "888.estate",
+        "страницы-каталога",
+        "site/designs",
+        "black-gold/index.html",
+        "бутик-стиль"
+      ]
+    },
+    "memory:memory/2026-05-08.md:238:262": {
+      "key": "memory:memory/2026-05-08.md:238:262",
+      "path": "memory/2026-05-08.md",
+      "startLine": 238,
+      "endLine": 262,
+      "source": "memory",
+      "snippet": "- Технология: Three.js (CDN: https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js) - Эффект: звёздное поле, 2 слоя тумана (fog), редкие золотые частицы кружатся в темноте - URL: https://htmlpreview.github.io/?https://raw.githubusercontent.com/galaxymotosochi-creator/capsulehouse/main/demos/888-hero-dramatic.html ### Variant 4 — Dramatic \"Архитектурный Wireframe\" (saved) - Файл: `/root/.openclaw/workspace/musk/site/demos/888-hero-arch.html` - Технология: Three.js - Эффект: 3D-сцена с wireframe зданием (башня с пирамидальной вершиной), мерцающие золотые частицы, звёздное поле, сетка-пол, туман - URL: https://htmlpreview.github.io/?https://raw.githubusercontent.com/galaxymotosochi-",
+      "recallCount": 7,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 4.357676541805267,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-08T12:28:27.588Z",
+      "lastRecalledAt": "2026-05-11T12:49:37.083Z",
+      "queryHashes": [
+        "93f146f626d3",
+        "ab3e6a086ad0",
+        "e22ed47c47ad",
+        "16fc1cc49f9b",
+        "f61a19b71c80",
+        "bba572f30299",
+        "5cced37e48a9"
+      ],
+      "recallDays": [
+        "2026-05-08",
+        "2026-05-09",
+        "2026-05-10",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "three.js",
+        "cdn.jsdelivr.net/npm/three",
+        "0.170.0/build/three.module.js",
+        "htmlpreview.github.io",
+        "3d-сцена",
+        "сетка-пол",
+        "технология",
+        "cdn"
+      ]
+    },
+    "memory:memory/2026-05-08.md:69:96": {
+      "key": "memory:memory/2026-05-08.md:69:96",
+      "path": "memory/2026-05-08.md",
+      "startLine": 69,
+      "endLine": 96,
+      "source": "memory",
+      "snippet": "- Эффект: звёздное поле, 2 слоя тумана (fog), редкие золотые частицы кружатся в темноте - URL: https://htmlpreview.github.io/?https://raw.githubusercontent.com/galaxymotosochi-creator/capsulehouse/main/demos/888-hero-dramatic.html ### Variant 4 — Dramatic \"Архитектурный Wireframe\" (saved) - Файл: `/root/.openclaw/workspace/musk/site/demos/888-hero-arch.html` - Технология: Three.js - Эффект: 3D-сцена с wireframe зданием (башня с пирамидальной вершиной), мерцающие золотые частицы, звёздное поле, сетка-пол, туман - URL: https://htmlpreview.github.io/?https://raw.githubusercontent.com/galaxymotosochi-creator/capsulehouse/main/demos/888-hero-arch.html ### Deployment - Репозиторий: `galaxymotoso",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.4411366641521455,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-08T12:28:27.588Z",
+      "lastRecalledAt": "2026-05-11T12:49:37.083Z",
+      "queryHashes": [
+        "93f146f626d3",
+        "e22ed47c47ad",
+        "16fc1cc49f9b",
+        "bba572f30299",
+        "5cced37e48a9"
+      ],
+      "recallDays": [
+        "2026-05-08",
+        "2026-05-09",
+        "2026-05-10",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "htmlpreview.github.io",
+        "three.js",
+        "3d-сцена",
+        "сетка-пол",
+        "эффект",
+        "звёздное",
+        "поле",
+        "слоя"
+      ]
+    },
+    "memory:memory/2026-05-08.md:367:391": {
+      "key": "memory:memory/2026-05-08.md:367:391",
+      "path": "memory/2026-05-08.md",
+      "startLine": 367,
+      "endLine": 391,
+      "source": "memory",
+      "snippet": "- `/root/.openclaw/workspace/musk/site/demos/888-hero-fog-canvas.html` — Golden Fog (рабочий локально) - `/root/.openclaw/workspace/musk/site/demos/888-hero-vortex-canvas.html` — Golden Vortex - `/root/.openclaw/workspace/musk/site/demos/888-hero-arch-canvas.html` — Architectural Frame - `/root/.openclaw/workspace/musk/site/demos/888-hero-city-canvas.html` — City of Light - `/root/.openclaw/workspace/musk/site/demos/888-hero-dramatic-glow.html` (Three.js, может не работать) - `/root/.openclaw/workspace/musk/site/demos/888-hero-dramatic-vortex.html` (Three.js, может не работать) - `/root/.openclaw/workspace/musk/site/demos/888-hero-arch-glow.html` (Three.js, может не работать) - `/ --- ## Se",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.9170470446348189,
+      "maxScore": 0.4954351752996444,
+      "firstRecalledAt": "2026-05-08T12:28:27.588Z",
+      "lastRecalledAt": "2026-05-09T13:23:14.044Z",
+      "queryHashes": [
+        "93f146f626d3",
+        "f61a19b71c80"
+      ],
+      "recallDays": [
+        "2026-05-08",
+        "2026-05-09"
+      ],
+      "conceptTags": [
+        "three.js",
+        "root",
+        "openclaw",
+        "musk",
+        "site",
+        "demos",
+        "hero",
+        "fog"
+      ]
+    },
+    "memory:memory/2026-05-08.md:283:305": {
+      "key": "memory:memory/2026-05-08.md:283:305",
+      "path": "memory/2026-05-08.md",
+      "startLine": 283,
+      "endLine": 305,
+      "source": "memory",
+      "snippet": "ent.com/galaxymotosochi-creator/capsulehouse/main/demos/888-hero-arch-canvas.html **4. City of Light** — `888-hero-city-canvas.html`",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4240945070981979,
+      "maxScore": 0.4240945070981979,
+      "firstRecalledAt": "2026-05-08T20:01:20.379Z",
+      "lastRecalledAt": "2026-05-08T20:01:20.379Z",
+      "queryHashes": [
+        "ab3e6a086ad0"
+      ],
+      "recallDays": [
+        "2026-05-08"
+      ],
+      "conceptTags": [
+        "888-hero-city-canvas.html",
+        "ent.com",
+        "galaxymotosochi",
+        "creator",
+        "capsulehouse",
+        "demos",
+        "hero",
+        "arch"
+      ]
+    },
+    "memory:memory/2026-05-08.md:301:327": {
+      "key": "memory:memory/2026-05-08.md:301:327",
+      "path": "memory/2026-05-08.md",
+      "startLine": 301,
+      "endLine": 327,
+      "source": "memory",
+      "snippet": "шно отправлены пользователю как финальные 4) ### Next Steps (expected) - [ ] Дождаться отзыва по 4 Canvas 2D вариантам - [ ] Выбрать финальный вариант",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.8960325866937637,
+      "maxScore": 0.45875013172626494,
+      "firstRecalledAt": "2026-05-09T11:30:22.070Z",
+      "lastRecalledAt": "2026-05-09T11:30:33.543Z",
+      "queryHashes": [
+        "6fa4a5f39b5c",
+        "1883352b50d4"
+      ],
+      "recallDays": [
+        "2026-05-09"
+      ],
+      "conceptTags": [
+        "шно",
+        "отправлены",
+        "пользователю",
+        "как",
+        "финальные",
+        "steps",
+        "expected",
+        "дождаться"
+      ]
+    },
+    "memory:memory/2026-05-08.md:131:157": {
+      "key": "memory:memory/2026-05-08.md:131:157",
+      "path": "memory/2026-05-08.md",
+      "startLine": 131,
+      "endLine": 157,
+      "source": "memory",
+      "snippet": "шно отправлены пользователю как финальные 4) ### Next Steps (expected) - [ ] Дождаться отзыва по 4 Canvas 2D вариантам - [ ] Выбрать финальный вариант",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.43728245496749873,
+      "maxScore": 0.43728245496749873,
+      "firstRecalledAt": "2026-05-09T11:30:22.070Z",
+      "lastRecalledAt": "2026-05-09T11:30:22.070Z",
+      "queryHashes": [
+        "6fa4a5f39b5c"
+      ],
+      "recallDays": [
+        "2026-05-09"
+      ],
+      "conceptTags": [
+        "шно",
+        "отправлены",
+        "пользователю",
+        "как",
+        "финальные",
+        "steps",
+        "expected",
+        "дождаться"
+      ]
+    },
+    "memory:memory/2026-05-08.md:523:561": {
+      "key": "memory:memory/2026-05-08.md:523:561",
+      "path": "memory/2026-05-08.md",
+      "startLine": 523,
+      "endLine": 561,
+      "source": "memory",
+      "snippet": "- Локальный файл синтаксически корректен - Кэш raw.githubusercontent.com — вероятная причина ## Memory Flush — 2026-05-08 15:50 UTC ### Status Pre-compaction memory flush. Key context stored. ### Project: 888.ESTATE — Premium HTML page generation #### Current State - Attempting to generate an improved HTML page via Kimi K2.6 API - Multiple attempts consumed API credits with limited success due to: - Kimi's high reasoning overhead (40-70% of token budget spent on reasoning_content) - Timeout issues with large prompts - Truncation of generated code - User (Юлия Валерьевна) expressed frustration about wasted tokens #### What Exists on Disk - `/root/.openclaw/workspace/musk/kimi-partic",
+      "recallCount": 6,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.296253803372383,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-09T11:30:22.070Z",
+      "lastRecalledAt": "2026-05-11T00:42:15.561Z",
+      "queryHashes": [
+        "6fa4a5f39b5c",
+        "042834886e04",
+        "1883352b50d4",
+        "e22ed47c47ad",
+        "eda3c4349458",
+        "f27dcc6a17da"
+      ],
+      "recallDays": [
+        "2026-05-09",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "raw.githubusercontent.com",
+        "pre-compaction",
+        "888.estate",
+        "k2.6",
+        "40-70",
+        "reasoning-content",
+        "локальный",
+        "файл"
+      ]
+    },
+    "memory:memory/2026-05-08.md:667:698": {
+      "key": "memory:memory/2026-05-08.md:667:698",
+      "path": "memory/2026-05-08.md",
+      "startLine": 667,
+      "endLine": 698,
+      "source": "memory",
+      "snippet": "- server: Python http.server running on port 8080 in workspace ## Configuration - MCP server: threejs-devtools-mcp configured in OpenClaw config - API keys: Kimi K2.6 (moonshot), DeepSeek, Telegram bot active - GitHub Pages: https://galaxymotosochi-creator.github.io/capsulehouse/ - Chrome: chromium-browser (snap) - Playwright: installed with playwright-python ## Pending - Screenshot testing of falling-house.html (in progress — playwright script written but execution interrupted by compaction) - User approval of the result - Possible GitHub Pages deployment ## Screen Capture Attempts - Playwright screenshot script `/tmp/screenshot_fall.py` created but execution blocked by memory flush cont",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.40721175670623777,
+      "maxScore": 0.40721175670623777,
+      "firstRecalledAt": "2026-05-09T11:30:25.193Z",
+      "lastRecalledAt": "2026-05-09T11:30:25.193Z",
+      "queryHashes": [
+        "042834886e04"
+      ],
+      "recallDays": [
+        "2026-05-09"
+      ],
+      "conceptTags": [
+        "http.server",
+        "threejs-devtools-mcp",
+        "k2.6",
+        "chromium-browser",
+        "playwright-python",
+        "falling-house.html",
+        "tmp/screenshot-fall.py",
+        "server"
+      ]
+    },
+    "memory:memory/2026-05-08.md:554:585": {
+      "key": "memory:memory/2026-05-08.md:554:585",
+      "path": "memory/2026-05-08.md",
+      "startLine": 554,
+      "endLine": 585,
+      "source": "memory",
+      "snippet": "- Strategy: assemble from existing pieces + write remaining code directly #### Files That Need to Be Created 1. Complete particles.js (finish the truncated Kimi output) 2. Main hero HTML page with: - Dark background (#070707), gold accents (#c9a84c) - Canvas particle fog effect - Second screen with property cards - Responsive (768px, 480px, 360px) - Fonts: Cormorant Garamond + Montserrat - No external dependencies (except Google Fonts) - Smooth scroll ## Continued flush The tool write restriction is in effect — I can only write to memory/2026-05-08.md during this pre-compaction memory flush turn. I cannot write the actual page files. ### What I need to do next turn 1.",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.165836355357426,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-09T11:30:25.193Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "042834886e04",
+        "f27dcc6a17da",
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-09",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "particles.js",
+        "memory/2026-05-08.md",
+        "pre-compaction",
+        "strategy",
+        "assemble",
+        "existing",
+        "pieces",
+        "write"
+      ]
+    },
+    "memory:memory/2026-05-08.md:691:726": {
+      "key": "memory:memory/2026-05-08.md:691:726",
+      "path": "memory/2026-05-08.md",
+      "startLine": 691,
+      "endLine": 726,
+      "source": "memory",
+      "snippet": "3. Playwright installed for screenshot capture 4. Need to test the animation and show user the result 5. Offer GitHub Pages deployment if approved # Final Memory Dump — 2026-05-08 ## Project State - **threejs-devtools-mcp**: Installed globally (v0.4.1), MCP server configured in OpenClaw - **Skill threejs-3d-site**: Created at `skills/threejs-3d-site/SKILL.md` - **falling-house.html**: Complete page with gravity fall, canvas sky removal, particles, shake, glow - **Testing**: Blocked by memory flush context — screenshots not yet captured ## What User Asked 1. Install 3D dev tools — ✅ DONE 2. Create falling house landing with their photo — ✅ HTML READY, pending visual test ## Next - Take scr",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4024976551532745,
+      "maxScore": 0.4024976551532745,
+      "firstRecalledAt": "2026-05-09T11:30:25.193Z",
+      "lastRecalledAt": "2026-05-09T11:30:25.193Z",
+      "queryHashes": [
+        "042834886e04"
+      ],
+      "recallDays": [
+        "2026-05-09"
+      ],
+      "conceptTags": [
+        "threejs-devtools-mcp",
+        "v0.4.1",
+        "threejs-3d-site",
+        "skills/threejs-3d-site/skill.md",
+        "falling-house.html",
+        "playwright",
+        "installed",
+        "screenshot"
+      ]
+    },
+    "memory:memory/2026-05-08.md:497:533": {
+      "key": "memory:memory/2026-05-08.md:497:533",
+      "path": "memory/2026-05-08.md",
+      "startLine": 497,
+      "endLine": 533,
+      "source": "memory",
+      "snippet": "- **Статус**: пользователь всё ещё видит чёрный экран (кэш raw.githubusercontent.com или другая проблема) - Локально файл корректен, синтаксических ошибок нет - Также обнаружено: лучи света рисуют линию (не треугольник) — `ctx.fill()` на линии с нулевой площадью не визуализируется --- ## Session 5 — 7 catalog variants (ночь 8 мая) ### Context Юлия Валерьевна: «Пока я сплю, можешь подготовить под этот стиль несколько вариантов страницы каталога, приготовь вариантов 6-7 разных». ### Created (all pushed, commit 4b52f66) 1. `demos/888-catalog-classic-grid.html` — сетка 3 колонки, фильтры 2. `demos/888-catalog-list-view.html` — горизонтальные карточки + описание 3. `demos/888-catalog-masonry.",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.9438317269086836,
+      "maxScore": 0.49931318461894986,
+      "firstRecalledAt": "2026-05-09T11:30:33.543Z",
+      "lastRecalledAt": "2026-05-09T13:23:05.915Z",
+      "queryHashes": [
+        "1883352b50d4",
+        "e22ed47c47ad",
+        "eda3c4349458",
+        "16fc1cc49f9b"
+      ],
+      "recallDays": [
+        "2026-05-09"
+      ],
+      "conceptTags": [
+        "raw.githubusercontent.com",
+        "ctx.fill",
+        "6-7",
+        "demos/888-catalog-list-view.html",
+        "demos/888-catalog-masonry",
+        "статус",
+        "пользователь",
+        "всё"
+      ]
+    },
+    "memory:memory/2026-05-08.md:170:205": {
+      "key": "memory:memory/2026-05-08.md:170:205",
+      "path": "memory/2026-05-08.md",
+      "startLine": 170,
+      "endLine": 205,
+      "source": "memory",
+      "snippet": "- 3 старых прототипа на GitHub Pages: hero-particles, hero-gradient, hero-3d # Memory — 8 May 2026 ## Session Summary Завершена работа над 3 вариантами главной страницы 888.ESTATE с разными анимированными фонами в секции hero. ## Completed This Session - [x] hero-3d/index.html — полностью записан и проверен (3D-сетка за курсором, canvas, чистый JS) - [x] Все 3 варианта залиты на GitHub и доступны по GitHub Pages - [x] Ссылки предоставлены Юлии Валерьевне для выбора ## Links Delivered - Золотая пыль: https://galaxymotosochi-creator.github.io/capsulehouse/designs/hero-particles/ - Живой градиент: https://galaxymotosochi-creator.github.io/capsulehouse/designs/hero-gradient/ - 3D-сетка: https",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.702731251716343,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-09T11:30:33.543Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "1883352b50d4",
+        "eda3c4349458",
+        "f204a303337a",
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-09",
+        "2026-05-10",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "hero-particles",
+        "hero-gradient",
+        "hero-3d",
+        "888.estate",
+        "hero-3d/index.html",
+        "3d-сетка",
+        "старых",
+        "прототипа"
+      ]
+    },
+    "memory:memory/2026-05-08.md:386:417": {
+      "key": "memory:memory/2026-05-08.md:386:417",
+      "path": "memory/2026-05-08.md",
+      "startLine": 386,
+      "endLine": 417,
+      "source": "memory",
+      "snippet": "4. `demos/888-catalog-carousel.html` — горизонтальный слайдер, кнопки/точки 5. `demos/888-catalog-split.html` — левая панель (фильтры + список) + карта с пинами 6. `demos/888-catalog-minimal.html` — строки с нумерацией, минимализм 7. `demos/888-catalog-featured.html` — большой featured + сетка ### Hero-fog bug (unresolved) После улучшений Variant 1 пользователь видит чёрный экран. Скрипт локально корректен. Конкатенация `ctx ctx.closePath()` исправлена. Вероятная причина: кэш raw.githubusercontent.com. # Memory — 8 May 2026 ## Session Summary Завершена работа над 3 вариантами главной страницы 888.ESTATE с разными анимированными фонами в секции hero. ## Completed This Session - [x] hero-3d",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3.2506779830181163,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-09T12:21:36.188Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "e22ed47c47ad",
+        "16fc1cc49f9b",
+        "f61a19b71c80",
+        "f204a303337a",
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-09",
+        "2026-05-10",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "demos/888-catalog-carousel.html",
+        "кнопки/точки",
+        "demos/888-catalog-split.html",
+        "demos/888-catalog-minimal.html",
+        "demos/888-catalog-featured.html",
+        "hero-fog",
+        "ctx.closepath",
+        "raw.githubusercontent.com"
+      ]
+    },
+    "memory:memory/2026-05-08.md:319:354": {
+      "key": "memory:memory/2026-05-08.md:319:354",
+      "path": "memory/2026-05-08.md",
+      "startLine": 319,
+      "endLine": 354,
+      "source": "memory",
+      "snippet": "идит чёрный экран (без анимации) через htmlpreview.github.io **Первая попытка фикса**: Обнаружена конкатенация строк в JS (`ctx ctx.closePath()` → опечатка при записи файла). Файл переписан и залит заново (коммит `5a0511d`).",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.9554096341133117,
+      "maxScore": 0.47770481705665585,
+      "firstRecalledAt": "2026-05-09T12:26:23.199Z",
+      "lastRecalledAt": "2026-05-09T12:26:23.199Z",
+      "queryHashes": [
+        "eda3c4349458"
+      ],
+      "recallDays": [
+        "2026-05-09"
+      ],
+      "conceptTags": [
+        "htmlpreview.github.io",
+        "ctx.closepath",
+        "идит",
+        "чёрный",
+        "экран",
+        "без",
+        "анимации",
+        "через"
+      ]
+    },
+    "memory:memory/2026-05-08.md:197:226": {
+      "key": "memory:memory/2026-05-08.md:197:226",
+      "path": "memory/2026-05-08.md",
+      "startLine": 197,
+      "endLine": 226,
+      "source": "memory",
+      "snippet": "- [x] Ссылки предоставлены Юлии Валерьевне для выбора ## Links Delivered - Золотая пыль: https://galaxymotosochi-creator.github.io/capsulehouse/designs/hero-particles/ - Живой градиент: https://galaxymotosochi-creator.github.io/capsulehouse/designs/hero-gradient/ - 3D-сетка: https://galaxymotosochi-creator.github.io/capsulehouse/designs/hero-3d/ --- ## Session 2 — Hero Animations Deep Dive (позже 8 мая) ### Context User сказала \"это уже ближе\" к 3 первым вариантам (hero-particles, hero-gradient, hero-3d). Запросила идеи анимаций кроме \"падающих точек\" для hero-экрана 888.ESTATE. ### Key user feedback - **\"Ну вот кстати это уже ближе!\"** — реакция на 3 первых героя - **\"Давай поиграем с",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.740394648797357,
+      "maxScore": 0.730751255042398,
+      "firstRecalledAt": "2026-05-09T13:23:05.915Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "16fc1cc49f9b",
+        "f61a19b71c80",
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-09",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "3d-сетка",
+        "hero-particles",
+        "hero-gradient",
+        "hero-3d",
+        "hero-экрана",
+        "888.estate",
+        "ссылки",
+        "предоставлены"
+      ]
+    },
+    "memory:memory/2026-05-08.md:410:449": {
+      "key": "memory:memory/2026-05-08.md:410:449",
+      "path": "memory/2026-05-08.md",
+      "startLine": 410,
+      "endLine": 449,
+      "source": "memory",
+      "snippet": "r/capsulehouse/main/demos/888-hero-premium.html ### Variant 2 — Premium \"Барханы\" (Canvas)",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5004452615976334,
+      "maxScore": 0.5004452615976334,
+      "firstRecalledAt": "2026-05-09T13:23:14.044Z",
+      "lastRecalledAt": "2026-05-09T13:23:14.044Z",
+      "queryHashes": [
+        "f61a19b71c80"
+      ],
+      "recallDays": [
+        "2026-05-09"
+      ],
+      "conceptTags": [
+        "capsulehouse",
+        "demos",
+        "hero",
+        "premium.html",
+        "variant",
+        "premium",
+        "барханы",
+        "canvas"
+      ]
+    },
+    "memory:memory/2026-05-08.md:88:120": {
+      "key": "memory:memory/2026-05-08.md:88:120",
+      "path": "memory/2026-05-08.md",
+      "startLine": 88,
+      "endLine": 120,
+      "source": "memory",
+      "snippet": "- Responsive: breakpoint 768px ### User's other ideas (not yet built) - Живые линии — линии сами рисуются как чертёж будущего дома - Тени/свет — имитация движения солнца, меняющего освещение - Маятник — ритмичное покачивание минималистичных элементов - Morphing blob — аморфные фигуры перетекают друг в друга ### Next - [ ] Дождаться отзыва Юлии Валерьевны по всем 4 вариантам - [ ] После выбора — доработать выбранный вариант, интегрировать в полную страницу - [ ] Возможна следующая серия идей по анимациям --- ## Session 3 — Three.js Unreliable from Russia → Full Canvas 2D Rewrite ### Context После того, как Юлия Валерьевна выбрала варианты 3 и 4 (Dramatic), я усилил их эффектами: UnrealB",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.4938336491584778,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-09T13:23:14.044Z",
+      "lastRecalledAt": "2026-05-11T12:49:37.083Z",
+      "queryHashes": [
+        "f61a19b71c80",
+        "5cced37e48a9"
+      ],
+      "recallDays": [
+        "2026-05-09",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "тени/свет",
+        "three.js",
+        "responsive",
+        "breakpoint",
+        "768px",
+        "user's",
+        "other",
+        "ideas"
+      ]
+    },
+    "memory:memory/2026-05-08.md:626:654": {
+      "key": "memory:memory/2026-05-08.md:626:654",
+      "path": "memory/2026-05-08.md",
+      "startLine": 626,
+      "endLine": 654,
+      "source": "memory",
+      "snippet": "- Hero: золотое «888.ESTATE» с туманным градиентом, навигация, иконки соцсетей, индикатор скролла - Canvas частицы: 110 золотых частиц + 8 светящихся орбов, отталкивание от мыши, линии связи между частицами - Второй экран: «Пространства, где хочется жить» с 3 карточками (Архитектура, Расположение, Сервис) с Intersection Observer анимацией - Адаптивность: 768px, 480px, 360px - Google Fonts: Cormorant Garamond + Montserrat - Без внешних зависимостей (кроме Google Fonts) - Навбар с blur при скролле - Scroll indicator с анимацией **20 проверок пройдены ✅** ### Lesson Learned about Kimi - Для работы с изображениями (image reading) Kimi идеален — $0.01/call, качественное описание - Для генерации",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.760014783517897,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-10T12:19:33.565Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "f204a303337a",
+        "f27dcc6a17da",
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-10",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "888.estate",
+        "0.01/call",
+        "hero",
+        "золотое",
+        "estate",
+        "туманным",
+        "градиентом",
+        "навигация"
+      ]
+    },
+    "memory:memory/2026-05-08.md:598:628": {
+      "key": "memory:memory/2026-05-08.md:598:628",
+      "path": "memory/2026-05-08.md",
+      "startLine": 598,
+      "endLine": 628,
+      "source": "memory",
+      "snippet": "- Пополнено: $10 cash + $5 бонус = $15 - API-ключ: `sk-FZyNdOmacccOnttH3ZSdEpQo1YjiFUaJ4ZTTBnq0F8XjScg2` - Провайдер добавлен в конфиг OpenClaw как `moonshot/kimi-k2.6` - Gateway перезапущен, модель подтверждена в логах **Проблемы с Kimi:** 1. **Высокое потребление на reasoning**: 40-70% токенов уходит на reasoning_content 2. **Таймауты**: большие промпты (>100 токенов) с max_tokens=60000 не отвечают за 180-300s 3. **Обрезание кода**: все успешные ответы с `finish_reason: length` — код неполный 4. **Пустые ответы**: несколько запросов вернули 0 chars content при 18272 reasoning tokens **Что Kimi успел сгенерировать:** - Particles canvas скрипт (~8000 chars, 118 строк, обрезан на середине `",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.759764197473041,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-10T12:19:33.565Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "f204a303337a",
+        "f27dcc6a17da",
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-10",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "gateway",
+        "api-ключ",
+        "moonshot/kimi-k2.6",
+        "40-70",
+        "reasoning-content",
+        "max-tokens",
+        "180-300s",
+        "finish-reason"
+      ]
+    },
+    "memory:memory/2026-05-09.md:1:16": {
+      "key": "memory:memory/2026-05-09.md:1:16",
+      "path": "memory/2026-05-09.md",
+      "startLine": 1,
+      "endLine": 16,
+      "source": "memory",
+      "snippet": "# 9 May 2026 — Второй проект: 8:8 ## 8:8 — Универсальный учёт для бизнеса - **Отдельный проект** холдинга 888.ESTATE - ERP-система: склад, финансы, продажи, сканер штрихкодов, гибкие роли, пресеты бизнеса - Сайт: https://capsulehouse-alpha.vercel.app/ (пока на Vercel) - Код лежит в `site/` репозитория capsulehouse (возможно нужен отдельный репозиторий) - Технологии: чистый HTML/CSS/JS, Canvas, Google Fonts - Деплой: Vercel, настроен, Framework Preset = Other ## TODO по 8:8 - [ ] Уточнить GitHub-репозиторий (отдельный или в capsulehouse?) - [ ] Привязать домен - [ ] Дальнейшие доработки по запросу",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 4,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-10T12:19:33.565Z",
+      "lastRecalledAt": "2026-05-11T12:49:37.083Z",
+      "queryHashes": [
+        "f204a303337a",
+        "bba572f30299",
+        "8cd3595cd11d",
+        "5cced37e48a9"
+      ],
+      "recallDays": [
+        "2026-05-10",
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "888.estate",
+        "erp-система",
+        "capsulehouse-alpha.vercel.app",
+        "html/css/js",
+        "github-репозиторий",
+        "may",
+        "второй",
+        "проект"
+      ]
+    },
+    "memory:memory/2026-05-08.md:576:604": {
+      "key": "memory:memory/2026-05-08.md:576:604",
+      "path": "memory/2026-05-08.md",
+      "startLine": 576,
+      "endLine": 604,
+      "source": "memory",
+      "snippet": "- Tagline, scroll indicator - Second screen with property showcase cards - Google Fonts (Cormorant Garamond + Montserrat) - Responsive: 768px, 480px, 360px - Smooth scroll - No external deps except Google Fonts ### Completed JS code (ready to write) The complete particles.js is: - Kimi's code up to line 118 - Plus my completion: repel force calculation on mouse hover, draw() method with glow orbs, connectLines function for particle connections, animate() with requestAnimationFrame, 110 particles + 8 golden orbs initialization ### Lesson learned Kimi K2.6 uses ~40-70% of token budget on reasoning_content. For code generation, keep prompts under 100 tokens, max_tokens=2048-",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-11T00:42:15.561Z",
+      "lastRecalledAt": "2026-05-11T00:42:15.561Z",
+      "queryHashes": [
+        "f27dcc6a17da"
+      ],
+      "recallDays": [
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "particles.js",
+        "k2.6",
+        "40-70",
+        "reasoning-content",
+        "max-tokens",
+        "tagline",
+        "scroll",
+        "indicator"
+      ]
+    },
+    "memory:memory/2026-05-08.md:650:676": {
+      "key": "memory:memory/2026-05-08.md:650:676",
+      "path": "memory/2026-05-08.md",
+      "startLine": 650,
+      "endLine": 676,
+      "source": "memory",
+      "snippet": "- Installed npm package threejs-devtools-mcp v0.4.1 globally - Created skill at `/root/.openclaw/workspace/musk/skills/threejs-3d-site/SKILL.md` - Appended MCP server `threejs-devtools-mcp` to OpenClaw config with `npx -y threejs-devtools-mcp` - User then requested a falling house landing page for 888.ESTATE - User sent a house photo (1280x549 JPEG) - Created complete HTML page at `/root/.openclaw/workspace/musk/falling-house.html` (93KB, base64-embedded image) - Features: gravity fall animation, canvas-based sky removal, dust particles, shake, glow burst, gold text on dark (#070707) bg - Fonts: Cormorant Garamond + Montserrat - Tagline: \"Премиальная недвижимость у моря\" - Attempted browser",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-11T00:42:15.561Z",
+      "lastRecalledAt": "2026-05-11T00:42:15.561Z",
+      "queryHashes": [
+        "f27dcc6a17da"
+      ],
+      "recallDays": [
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "threejs-devtools-mcp",
+        "v0.4.1",
+        "888.estate",
+        "base64-embedded",
+        "canvas-based",
+        "installed",
+        "npm",
+        "package"
+      ]
+    },
+    "memory:memory/2026-05-10.md:1:45": {
+      "key": "memory:memory/2026-05-10.md:1:45",
+      "path": "memory/2026-05-10.md",
+      "startLine": 1,
+      "endLine": 45,
+      "source": "memory",
+      "snippet": "# 10 мая 2026 (воскресенье) — Большая сессия: 8:8 касса ## Проект **bizaccount** (https://bizaccount.vercel.app / dash-v2.html) - Репозиторий: galaxymotosochi-creator/bizaccount- - Путь: /root/.openclaw/workspace/bizaccount/ - SSH деплой: 88-app-key (git@github.com, galaxymotosochi-creator) - Основной файл: dash-v2.html (единый SPA ~160 КБ) ## Что сделано за сессию ### Редизайн и логика кассы - **PIN**: макс 4 цифры, анимация тряски при ошибке, мастер PIN 8888 - **Открытие смены**: экран с полем суммы и живым временем - **Смена не закрывается** при нажатии \"Назад\" — остаётся открытой - **Проверка открытой смены** при входе — если есть, сразу в кассу - **Закрытие смены** через шестерёнку ⚙",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-11T11:59:57.945Z",
+      "lastRecalledAt": "2026-05-11T11:59:57.945Z",
+      "queryHashes": [
+        "8cd3595cd11d"
+      ],
+      "recallDays": [
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "bizaccount.vercel.app",
+        "dash-v2.html",
+        "openclaw/workspace/bizaccount",
+        "88-app-key",
+        "github.com",
+        "galaxymotosochi-creator",
+        "мая",
+        "воскресенье"
+      ]
+    },
+    "memory:memory/2026-05-08.md:442:479": {
+      "key": "memory:memory/2026-05-08.md:442:479",
+      "path": "memory/2026-05-08.md",
+      "startLine": 442,
+      "endLine": 479,
+      "source": "memory",
+      "snippet": "- **Dramatic** (тёмный #070707, золото #c9a84c) → Three.js-based - 4 варианта созданы (2 Premium + 2 Dramatic) ### Variant 1 — Premium \"Золотые пылинки\" (Canvas) - `demos/888-hero-premium.html` - URL: https://htmlpreview.github.io/?https://raw.githubusercontent.com/galaxymotosochi-creator/capsulehouse/main/demos/888-hero-premium.html ### Variant 2 — Premium \"Барханы\" (Canvas) - `demos/888-hero-dunes.html` - URL: https://htmlpreview.github.io/?https://raw.githubusercontent.com/galaxymotosochi-creator/capsulehouse/main/demos/888-hero-dunes.html ### Variant 3 — Dramatic \"Туман + Искры\" (Three.js) - `demos/888-hero-dramatic.html` - URL: https://htmlpreview.github.io/?https://raw.githubusercon",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-11T12:49:37.083Z",
+      "lastRecalledAt": "2026-05-11T12:49:37.083Z",
+      "queryHashes": [
+        "5cced37e48a9"
+      ],
+      "recallDays": [
+        "2026-05-11"
+      ],
+      "conceptTags": [
+        "three.js-based",
+        "demos/888-hero-premium.html",
+        "htmlpreview.github.io",
+        "demos/888-hero-dunes.html",
+        "three.js",
+        "demos/888-hero-dramatic.html",
+        "raw.githubusercon",
+        "dramatic"
+      ]
+    }
+  }
+}

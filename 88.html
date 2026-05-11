@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8:8 — Универсальный учёт для бизнеса</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🔢</text></svg>">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --primary: #1983dd;
+    --primary-rgb: 25, 131, 221;
+    --primary-dark: #1469b1;
+    --body-bg: #f8f9fa;
+    --body-color: #212529;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+    --border-radius: 0.75rem;
+    --border-color: #dee2e6;
+    --shadow: 0 .5rem 1rem rgba(0,0,0,.08);
+    --hero-bg: #eaf5ff;
+    --success: #35a916;
+    --success-bg: #dcfce7;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-500: #6c757d;
+    --gray-600: #495057;
+    --muted: rgba(33,37,41,0.5);
+    --white: #fff;
+    --font-size-root: 17px;
+  }
+
+  html { font-size: var(--font-size-root); }
+  body {
+    font-family: var(--font);
+    background: var(--body-bg);
+    color: var(--body-color);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { color: var(--primary-dark); }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    padding: 0.85rem 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--body-color);
+    text-decoration: none;
+  }
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .logo span { color: var(--primary); }
+
+  .nav { display: flex; align-items: center; gap: 1rem; }
+  .nav a {
+    color: var(--body-color);
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 0.4rem 0.6rem;
+    transition: color 0.15s;
+  }
+  .nav a:hover { color: var(--primary); }
+
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  .btn-outline:hover {
+    background: rgba(var(--primary-rgb), 0.08);
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.25);
+  }
+  .btn-primary:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.35);
+    transform: translateY(-1px);
+  }
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    border-radius: var(--border-radius);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--hero-bg);
+    padding: 5rem 0 4rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--body-color);
+    margin-bottom: 1rem;
+  }
+  .hero p {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    max-width: 640px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--success-bg);
+    color: #166534;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ===== FEATURES ===== */
+  .features {
+    padding: 4rem 0;
+  }
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .feature-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.1);
+  }
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    background: var(--hero-bg);
+    border-radius: 0.6rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  .feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .feature-card p {
+    font-size: 0.9rem;
+    color: var(--gray-500);
+    line-height: 1.5;
+  }
+
+  /* ===== PRESETS ===== */
+  .presets {
+    padding: 4rem 0;
+    background: var(--white);
+  }
+  .presets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .preset-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1.2rem 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background: var(--gray-100);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--body-color);
+    text-decoration: none;
+  }
+  .preset-card:hover {
+    border-color: var(--primary);
+    background: var(--hero-bg);
+    transform: translateY(-1px);
+  }
+  .preset-icon { font-size: 1.8rem; }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials {
+    padding: 4rem 0;
+  }
+  .testimonial-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .testimonial-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--gray-600);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .testimonial-author {
+    font-weight: 500;
+    color: var(--body-color);
+  }
+  .testimonial-role {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ===== CTA BANNER ===== */
+  .cta-banner {
+    padding: 3.5rem 0;
+    background: var(--primary);
+    text-align: center;
+    color: var(--white);
+  }
+  .cta-banner h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .cta-banner p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+  }
+  .cta-banner .btn-primary {
+    background: var(--white);
+    color: var(--primary);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .cta-banner .btn-primary:hover {
+    background: var(--gray-100);
+    transform: translateY(-1px);
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero p { font-size: 1rem; }
+    .nav { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .presets-grid { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 0 1rem; }
+    .header-inner { padding: 0 1rem; }
+  }
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.5rem; }
+    .presets-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .btn-lg { font-size: 0.9rem; padding: 0.6rem 1.5rem; }
+    .section-title { font-size: 1.4rem; }
+  }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.2);
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-close {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--gray-500);
+    padding: 0;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--body-color); }
+  .modal h2 { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .modal p { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: var(--body-color);
+  }
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    font-family: var(--font);
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--white);
+    color: var(--body-color);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+  }
+  .form-group .hint { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
+  .btn-block { width: 100%; }
+  .modal-footer { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--gray-500); }
+  .modal-footer a { cursor: pointer; }
+  .biz-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+  .biz-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.45rem 0.3rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--white);
+    color: var(--body-color);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .biz-tile:hover {
+    border-color: var(--primary);
+    background: var(--hero-bg);
+  }
+  .biz-tile.selected {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--white);
+  }
+  @media (max-width: 480px) {
+    .biz-grid { grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
+    .biz-tile { font-size: 0.7rem; padding: 0.35rem 0.2rem; }
+  }
+
+  /* ===== SUCCESS SCREEN ===== */
+  .success-screen { text-align: center; padding: 1rem 0; }
+  .success-screen .check {
+    width: 4rem; height: 4rem;
+    background: var(--success-bg);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .success-screen h3 { font-size: 1.3rem; font-weight: 500; margin-bottom: 0.3rem; }
+
+  /* ===== DASHBOARD ===== */
+  .app-view { display: none; }
+  .app-view.active { display: block; }
+  .landing-view { display: block; }
+  .landing-view.hidden { display: none; }
+  .dash-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dash-body {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
+  .dash-body h1 { font-size: 1.5rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .dash-body .sub { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .dash-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .dash-card:hover { transform: translateY(-2px); }
+  .dash-card .icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+  .dash-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .dash-card p { font-size: 0.8rem; color: var(--gray-500); }
+
+  /* ===== DASHBOARD LAYOUT ===== */
+  .dash-layout {
+    display: flex;
+    height: 100vh;
+  }
+  .sidebar {
+    width: var(--sidebar-width);
+    background: var(--white);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .sidebar-logo-mark {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+  }
+  .sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem 0;
+  }
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.85rem;
+    color: var(--body-color);
+    cursor: pointer;
+    transition: all 0.1s;
+    text-decoration: none;
+    border-radius: 0;
+    border-left: 3px solid transparent;
+  }
+  .sidebar-item:hover { background: var(--gray-100); }
+  .sidebar-item.active {
+    background: var(--hero-bg);
+    border-left-color: var(--primary);
+    color: var(--primary);
+    font-weight: 500;
+  }
+  .s-icon { width: 1.2rem; text-align: center; font-size: 0.9rem; }
+  .sidebar-footer { padding: 0.8rem 1.2rem; border-top: 1px solid var(--border-color); }
+  .dash-main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+  .dash-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 2rem; background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .dash-content { padding: 1.5rem 2rem; flex: 1; }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--white); border-radius: var(--border-radius);
+    padding: 1.2rem 1.5rem; box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 0.3rem; }
+  .stat-value { font-size: 1.6rem; font-weight: 600; color: var(--body-color); }
+  .quick-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem; margin-bottom: 1.5rem;
+  }
+  .quick-card {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: var(--white); border-radius: var(--border-radius);
+    padding: 1rem 1.2rem; box-shadow: var(--shadow);
+    border: 1px solid var(--border-color); cursor: pointer;
+    transition: transform 0.15s; font-size: 0.9rem; font-weight: 500;
+  }
+  .quick-card:hover { transform: translateY(-1px); box-shadow: 0 .3rem .6rem rgba(0,0,0,.1); }
+  .quick-icon {
+    width: 2rem; height: 2rem; display: inline-flex;
+    align-items: center; justify-content: center;
+    background: var(--hero-bg); border-radius: 0.5rem;
+    font-size: 1.1rem; font-weight: 600; color: var(--primary);
+  }
+  .dash-page h1 { font-size: 1.4rem; font-weight: 500; margin-bottom: 1.2rem; }
+  @media (max-width: 768px) {
+    .sidebar { width: 60px; }
+    .sidebar-item span:not(.s-icon) { display: none; }
+    .sidebar-item { justify-content: center; padding: 0.7rem; }
+    .sidebar-logo { text-align: center; }
+    .sidebar-footer { display: none; }
+    .dash-content { padding: 1rem; }
+    .dash-topbar { padding: 0.6rem 1rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .dash-tip {
+    background: var(--hero-bg);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    border: 1px solid rgba(var(--primary-rgb), 0.15);
+  }
+
+  .dash-tip .tip-icon { font-size: 1.2rem; }
+</style>
+</head>
+<body>
+
+<div id="landingView">
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">8:8</span>
+      <span>8</span>:8
+    </a>
+
+    <nav class="nav">
+      <a href="#">Возможности</a>
+      <a href="#">Пресеты</a>
+      <a href="#">Тарифы</a>
+      <a href="#">Поддержка</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="#" class="btn btn-outline">Вход</a>
+      <button class="btn btn-primary" onclick="openReg()">Регистрация</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">✨ Новинка — AI-помощник для бизнеса</div>
+    <h1>Универсальный учёт<br>для вашего бизнеса</h1>
+    <p>
+      Склад, финансы, продажи, сканер штрихкодов, гибкие роли и готовые пресеты 
+      под любой бизнес — всё в одном веб-приложении.
+    </p>
+    <div class="hero-actions">
+      <button class="btn btn-primary btn-lg" onclick="openReg()">Создать аккаунт</button>
+      <button class="btn btn-primary btn-lg" onclick="demoLogin()" style="background:var(--success);box-shadow:0 2px 8px rgba(53,169,22,0.25)">Войти в демо</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features">
+  <div class="container">
+    <h2 class="section-title">Всё для управления бизнесом</h2>
+    <p class="section-sub">Учитывайте товары, деньги и сотрудников в одном окне</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Склад и остатки</h3>
+        <p>Приход, расход, перемещение, инвентаризация. Автоматический расчёт остатков в реальном времени.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Финансы и прибыль</h3>
+        <p>Себестоимость, наценка, выручка, чистая прибыль. Полная картина по каждому товару и проекту.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📷</div>
+        <h3>Сканер штрихкодов</h3>
+        <p>Сканируйте камерой телефона — мгновенное оприходование, продажа и поиск по базе.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Гибкие роли</h3>
+        <p>Основатель, управляющий, кладовщик, финансист — настройте права доступа для каждого.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Пресеты бизнеса</h3>
+        <p>Выберите свой тип бизнеса — категории, единицы измерения и настройки уже готовы.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Отчёты и аналитика</h3>
+        <p>ABC-анализ, динамика продаж, прибыль по категориям. Всё в наглядных графиках.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRESETS ===== -->
+<section class="presets">
+  <div class="container">
+    <h2 class="section-title">Выберите ваш бизнес</h2>
+    <p class="section-sub">Или настройте всё вручную под свои задачи</p>
+
+    <div class="presets-grid">
+      <div class="preset-card">
+        <span class="preset-icon">🏪</span>
+        Магазин
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">👗</span>
+        Магазин одежды
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">💐</span>
+
+        Цветочный магазин
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">🏠</span>
+        Строительство
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">📚</span>
+        Книжный магазин
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">🔧</span>
+        Автозапчасти
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">💊</span>
+        Аптека
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">☕</span>
+        Кафе / кофейня
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">💍</span>
+        Ювелирный магазин
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">✂️</span>
+        Сфера услуг
+      </div>
+      <div class="preset-card">
+        <span class="preset-icon">📱</span>
+        Интернет-магазин
+      </div>
+      <div class="preset-card" style="opacity:0.5;border-style:dashed">
+        <span class="preset-icon">⋯</span>
+        И другие
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+  <div class="container">
+    <div class="testimonial-card">
+      <p>«Раньше вели учёт в Excel и бумажках. 8:8 заменил всё — склад, финансы, отчёты. А сканер штрихкодов с телефона вообще спасение для склада.»</p>
+      <div class="testimonial-author">Алексей П.</div>
+      <div class="testimonial-role">Владелец строительного магазина</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Готовы навести порядок в учёте?</h2>
+    <p>Попробуйте бесплатно, без привязки карты</p>
+    <button class="btn btn-primary btn-lg" onclick="openReg()">Создать аккаунт</button>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    &copy; 2026 8:8 — Универсальная система учёта для бизнеса
+  </div>
+</footer>
+
+</div><!-- /landingView -->
+
+<!-- ===== МОДАЛКА ВХОДА ===== -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('loginModal').classList.remove('active')">&times;</button>
+    <h2>Войти</h2>
+    <p>Используйте email и пароль, указанные при регистрации</p>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="loginEmail" placeholder="your@email.com">
+    </div>
+    <div class="form-group">
+      <label>Пароль</label>
+      <input type="password" id="loginPass" placeholder="Ваш пароль">
+    </div>
+    <button class="btn btn-primary btn-block btn-lg" onclick="handleLogin()">Войти</button>
+    <div class="modal-footer">
+      Нет аккаунта? <a onclick="closeReg();document.getElementById('loginModal').classList.remove('active');openReg()">Зарегистрироваться</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== МОДАЛКА РЕГИСТРАЦИИ ===== -->
+<div class="modal-overlay" id="regModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeReg()">&times;</button>
+    
+    <!-- Форма -->
+    <div id="regForm">
+      <h2>Создать аккаунт</h2>
+      <p>Начните управлять бизнесом за 2 минуты</p>
+      
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="regEmail" placeholder="your@email.com" autocomplete="email">
+      </div>
+      
+      <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" id="regPass" placeholder="Не менее 6 символов" autocomplete="new-password">
+      </div>
+      
+      <div class="form-group">
+        <label>Название компании</label>
+        <input type="text" id="regCompany" placeholder="Моя компания">
+      </div>
+      
+      <div class="form-group">
+        <label>Ваш бизнес</label>
+        <div class="biz-grid" id="bizGrid">
+          <div class="biz-tile" data-value="store" onclick="selectBiz(this)">🏪 Магазин</div>
+          <div class="biz-tile" data-value="clothing" onclick="selectBiz(this)">👕 Одежда</div>
+          <div class="biz-tile" data-value="flowers" onclick="selectBiz(this)">💐 Цветы</div>
+          <div class="biz-tile" data-value="construction" onclick="selectBiz(this)">🏠 Стройка</div>
+          <div class="biz-tile" data-value="books" onclick="selectBiz(this)">📚 Книги</div>
+          <div class="biz-tile" data-value="autoparts" onclick="selectBiz(this)">🔧 Авто</div>
+          <div class="biz-tile" data-value="pharmacy" onclick="selectBiz(this)">💊 Аптека</div>
+          <div class="biz-tile" data-value="cafe" onclick="selectBiz(this)">☕ Кафе</div>
+          <div class="biz-tile" data-value="jewelry" onclick="selectBiz(this)">💍 Ювелирка</div>
+          <div class="biz-tile" data-value="services" onclick="selectBiz(this)">✂️ Услуги</div>
+          <div class="biz-tile" data-value="online" onclick="selectBiz(this)">📱 Онлайн</div>
+          <div class="biz-tile" data-value="other" onclick="selectBiz(this)">⋯ Другое</div>
+        </div>
+        <input type="hidden" id="regBusiness" value="">
+        <div class="hint" id="bizHint" style="opacity:0">Выберите тип бизнеса</div>
+      </div>
+
+      <button class="btn btn-primary btn-block btn-lg" onclick="handleRegister()">Создать аккаунт</button>
+      
+      <div class="modal-footer">
+        Уже есть аккаунт? <a onclick="alert('Форма входа появится позже')">Войти</a>
+      </div>
+    </div>
+
+    <!-- Успех -->
+    <div id="regSuccess" style="display:none">
+      <div class="success-screen">
+        <div class="check">✅</div>
+        <h3>Добро пожаловать!</h3>
+        <p style="color:var(--gray-500);margin-bottom:1.5rem">Ваш аккаунт создан. Уже всё готово для первого товара.</p>
+        <button class="btn btn-primary btn-block btn-lg" onclick="goToDashboard()">Перейти в дашборд</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ДАШБОРД ===== -->
+<div class="app-view" id="dashboardView">
+  <div class="dash-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-mark">8:8</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-item active" onclick="switchPage('dashboard', this)">
+          <span class="s-icon">&#9783;</span>
+          <span>Панель управления</span>
+        </a>
+        <a class="sidebar-item" onclick="switchPage('products', this)">
+          <span class="s-icon">&#9744;</span>
+          <span>Товары и услуги</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Категории - в разработке')">
+          <span class="s-icon">&#9776;</span>
+          <span>Категории</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Клиенты - в разработке')">
+          <span class="s-icon">&#9787;</span>
+          <span>Клиенты</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Поставщики - в разработке')">
+          <span class="s-icon">&#9881;</span>
+          <span>Поставщики</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Закупки - в разработке')">
+          <span class="s-icon">&#8593;</span>
+          <span>Закупки</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Продажи / Касса - в разработке')">
+          <span class="s-icon">&#36;</span>
+          <span>Продажи / Касса</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Возвраты - в разработке')">
+          <span class="s-icon">&#8634;</span>
+          <span>Возвраты</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Магазины - в разработке')">
+          <span class="s-icon">&#9733;</span>
+          <span>Магазины</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Смены - в разработке')">
+          <span class="s-icon">&#9201;</span>
+          <span>Смены</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Счета - в разработке')">
+          <span class="s-icon">&#9998;</span>
+          <span>Счета</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Документы - в разработке')">
+          <span class="s-icon">&#9997;</span>
+          <span>Документы</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Сотрудники - в разработке')">
+          <span class="s-icon">&#9898;</span>
+          <span>Сотрудники</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Роли и доступы - в разработке')">
+          <span class="s-icon">&#9913;</span>
+          <span>Роли и доступы</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Отчеты - в разработке')">
+          <span class="s-icon">&#8730;</span>
+          <span>Отчеты</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Настройки - в разработке')">
+          <span class="s-icon">&#9881;</span>
+          <span>Настройки</span>
+        </a>
+        <a class="sidebar-item" onclick="alert('Корзина - в разработке')">
+          <span class="s-icon">&#9899;</span>
+          <span>Корзина</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div style="font-size:0.75rem;color:var(--gray-500)" id="dashEmail"></div>
+        <button class="btn btn-sm btn-outline" onclick="handleLogout()" style="margin-top:0.3rem">Выйти</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="dash-main">
+      <div class="dash-topbar">
+        <span id="dashCompany" style="font-weight:600;font-size:1rem"></span>
+        <span style="font-size:0.8rem;color:var(--gray-500)" id="dashDate"></span>
+      </div>
+      <div class="dash-content">
+        <div class="dash-page" id="page-dashboard">
+          <h1>Панель управления</h1>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Выручка сегодня</div>
+              <div class="stat-value">0 &#8381;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Товаров на складе</div>
+              <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Прибыль</div>
+              <div class="stat-value">0 &#8381;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Клиентов</div>
+              <div class="stat-value">0</div>
+            </div>
+          </div>
+          <div class="quick-grid">
+            <div class="quick-card" onclick="alert('Добавить товар')">
+              <span class="quick-icon">+</span>
+              <span>Добавить товар</span>
+            </div>
+            <div class="quick-card" onclick="alert('Новая продажа')">
+              <span class="quick-icon">+</span>
+              <span>Новая продажа</span>
+            </div>
+            <div class="quick-card" onclick="alert('Закупка')">
+              <span class="quick-icon">+</span>
+              <span>Закупка</span>
+            </div>
+            <div class="quick-card" onclick="alert('Новый клиент')">
+              <span class="quick-icon">+</span>
+              <span>Новый клиент</span>
+            </div>
+          </div>
+          <div class="dash-tip">
+            <span>Начните с добавления товаров на склад. После этого сможете оформлять продажи и следить за прибылью.</span>
+          </div>
+        </div>
+        <div class="dash-page" id="page-products" style="display:none">
+          <h1>Товары и услуги</h1>
+          <p style="color:var(--gray-500)">Список товаров и услуг появится здесь</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</div><!-- /landingView -->
+
+<!-- ===== МОДАЛКА ВХОДА ===== -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('loginModal').classList.remove('active')">&times;</button>
+    <h2>Войти</h2>
+    <p>Используйте email и пароль, указанные при регистрации</p>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="loginEmail" placeholder="your@email.com">
+    </div>
+    <div class="form-group">
+      <label>Пароль</label>
+      <input type="password" id="loginPass" placeholder="Ваш пароль">
+    </div>
+    <button class="btn btn-primary btn-block btn-lg" onclick="handleLogin()">Войти</button>
+    <div class="modal-footer">
+      Нет аккаунта? <a onclick="closeReg();document.getElementById('loginModal').classList.remove('active');openReg()">Зарегистрироваться</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== МОДАЛКА РЕГИСТРАЦИИ ===== -->
+<div class="modal-overlay" id="regModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeReg()">&times;</button>
+    
+    <!-- Форма -->
+    <div id="regForm">
+      <h2>Создать аккаунт</h2>
+      <p>Начните управлять бизнесом за 2 минуты</p>
+      
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="regEmail" placeholder="your@email.com" autocomplete="email">
+      </div>
+      
+      <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" id="regPass" placeholder="Не менее 6 символов" autocomplete="new-password">
+      </div>
+      
+      <div class="form-group">
+        <label>Название компании</label>
+        <input type="text" id="regCompany" placeholder="Моя компания">
+      </div>
+      
+      <div class="form-group">
+        <label>Ваш бизнес</label>
+        <div class="biz-grid" id="bizGrid">
+          <div class="biz-tile" data-value="store" onclick="selectBiz(this)">🏪 Магазин</div>
+          <div class="biz-tile" data-value="clothing" onclick="selectBiz(this)">👕 Одежда</div>
+          <div class="biz-tile" data-value="flowers" onclick="selectBiz(this)">💐 Цветы</div>
+          <div class="biz-tile" data-value="construction" onclick="selectBiz(this)">🏠 Стройка</div>
+          <div class="biz-tile" data-value="books" onclick="selectBiz(this)">📚 Книги</div>
+          <div class="biz-tile" data-value="autoparts" onclick="selectBiz(this)">🔧 Авто</div>
+          <div class="biz-tile" data-value="pharmacy" onclick="selectBiz(this)">💊 Аптека</div>
+          <div class="biz-tile" data-value="cafe" onclick="selectBiz(this)">☕ Кафе</div>
+          <div class="biz-tile" data-value="jewelry" onclick="selectBiz(this)">💍 Ювелирка</div>
+          <div class="biz-tile" data-value="services" onclick="selectBiz(this)">✂️ Услуги</div>
+          <div class="biz-tile" data-value="online" onclick="selectBiz(this)">📱 Онлайн</div>
+          <div class="biz-tile" data-value="other" onclick="selectBiz(this)">⋯ Другое</div>
+        </div>
+        <input type="hidden" id="regBusiness" value="">
+        <div class="hint" id="bizHint" style="opacity:0">Выберите тип бизнеса</div>
+      </div>
+
+      <button class="btn btn-primary btn-block btn-lg" onclick="handleRegister()">Создать аккаунт</button>
+      
+      <div class="modal-footer">
+        Уже есть аккаунт? <a onclick="alert('Форма входа появится позже')">Войти</a>
+      </div>
+    </div>
+
+    <!-- Успех -->
+    <div id="regSuccess" style="display:none">
+      <div class="success-screen">
+        <div class="check">✅</div>
+        <h3>Добро пожаловать!</h3>
+        <p style="color:var(--gray-500);margin-bottom:1.5rem">Ваш аккаунт создан. Уже всё готово для первого товара.</p>
+        <button class="btn btn-primary btn-block btn-lg" onclick="goToDashboard()">Перейти в дашборд</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ДАШБОРД ===== -->
+<div class="app-view" id="dashboardView">
+  <div class="dash-header">
+    <a href="#" class="logo" style="font-size:1.2rem">
+      <span class="logo-mark" style="width:1.8rem;height:1.8rem;font-size:0.8rem">8:8</span>
+      <span>8</span>:8
+    </a>
+    <div style="display:flex;gap:0.5rem;align-items:center">
+      <span style="font-size:0.85rem;color:var(--gray-500)" id="dashEmail"></span>
+      <button class="btn btn-outline" style="padding:0.3rem 0.8rem;font-size:0.8rem" onclick="handleLogout()">Выйти</button>
+    </div>
+  </div>
+  <div class="dash-body">
+    <h1>Доброе утро!</h1>
+    <div class="sub" id="dashCompany"></div>
+    
+    <div class="dash-grid">
+      <div class="dash-card" onclick="alert('Склад — в разработке')">
+        <div class="icon">📦</div>
+        <h3>Склад</h3>
+        <p>Добавьте первый товар</p>
+      </div>
+      <div class="dash-card" onclick="alert('Продажи — в разработке')">
+        <div class="icon">💰</div>
+        <h3>Продажи</h3>
+        <p>Оформите первую продажу</p>
+      </div>
+      <div class="dash-card" onclick="alert('Финансы — в разработке')">
+        <div class="icon">📊</div>
+        <h3>Финансы</h3>
+        <p>Посмотрите отчёты</p>
+      </div>
+      <div class="dash-card" onclick="alert('Сотрудники — в разработке')">
+        <div class="icon">👥</div>
+        <h3>Команда</h3>
+        <p>Пригласите сотрудников</p>
+      </div>
+    </div>
+
+    <div class="dash-tip">
+      <span class="tip-icon">💡</span>
+      <span>Подсказка: Начните с добавления товаров на склад. После этого сможете оформлять продажи и следить за прибылью.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== РЕГИСТРАЦИЯ =====
+function selectBiz(el) {
+  document.querySelectorAll('.biz-tile').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('regBusiness').value = el.dataset.value;
+  document.getElementById('bizHint').style.opacity = '0';
+}
+
+function switchPage(page, el) {
+  document.querySelectorAll('.sidebar-item').forEach(function(i) { i.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.dash-page').forEach(function(p) { p.style.display = 'none'; });
+  var target = document.getElementById('page-' + page);
+  if (target) target.style.display = 'block';
+}
+
+
+function showLogin() {
+  document.getElementById('loginModal').classList.add('active');
+}
+
+function handleLogin() {
+  var email = document.getElementById('loginEmail').value.trim();
+  var pass = document.getElementById('loginPass').value;
+  var user = JSON.parse(localStorage.getItem('user8'));
+  if (user && user.email === email && user.password === pass) {
+    document.getElementById('loginModal').classList.remove('active');
+    goToDashboard();
+  } else {
+    alert('Неверный email или пароль');
+  }
+}
+
+function demoLogin() {
+  var demo = {
+    email: 'demo@8-8.app',
+    password: 'demo123',
+    company: 'Демо-компания',
+    business: 'construction',
+    role: 'founder',
+    createdAt: new Date().toISOString()
+  };
+  localStorage.setItem('user8', JSON.stringify(demo));
+  goToDashboard();
+}
+function openReg() {
+  document.getElementById('regModal').classList.add('active');
+}
+function closeReg() {
+  document.getElementById('regModal').classList.remove('active');
+}
+
+function handleRegister() {
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const company = document.getElementById('regCompany').value.trim();
+  const business = document.getElementById('regBusiness').value;
+  
+  // Простейшая валидация
+  if (!email || !pass || !company || !business) {
+    document.getElementById('bizHint').style.opacity = business ? '0' : '1';
+    if (!email) { document.getElementById('regEmail').focus(); return; }
+    alert('Заполните все поля');
+    return;
+  }
+  if (pass.length < 6) {
+    alert('Пароль должен быть не менее 6 символов');
+    return;
+  }
+  if (!email.includes('@')) {
+    alert('Введите корректный email');
+    return;
+  }
+  
+  // Сохраняем
+  const user = {
+    email: email,
+    password: pass,
+    company: company,
+    business: business,
+    createdAt: new Date().toISOString(),
+    role: 'founder'
+  };
+  localStorage.setItem('user8', JSON.stringify(user));
+  
+  // Показываем успех
+  document.getElementById('regForm').style.display = 'none';
+  document.getElementById('regSuccess').style.display = 'block';
+}
+
+function goToDashboard() {
+  document.getElementById('loginModal').classList.remove('active');
+  closeReg();
+  const user = JSON.parse(localStorage.getItem('user8'));
+  if (!user) return;
+  
+  document.getElementById('landingView').classList.add('hidden');
+  document.getElementById('dashboardView').classList.add('active');
+  document.getElementById('dashEmail').textContent = user.email;
+  document.getElementById('dashCompany').textContent = user.company;
+    document.getElementById('dashDate').textContent = new Date().toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// ===== ВХОД / ВЫХОД =====
+function handleLogout() {
+  if (confirm('Выйти из аккаунта?')) {
+    document.getElementById('dashboardView').classList.remove('active');
+    document.getElementById('landingView').classList.remove('hidden');
+  }
+}
+
+// ===== АВТО-ВХОД если есть сессия =====
+window.addEventListener('DOMContentLoaded', () => {
+  const user = JSON.parse(localStorage.getItem('user8'));
+  if (user) {
+    document.getElementById('landingView').classList.add('hidden');
+    document.getElementById('dashboardView').classList.add('active');
+    document.getElementById('dashEmail').textContent = user.email;
+    document.getElementById('dashCompany').textContent = user.company;
+    document.getElementById('dashDate').textContent = new Date().toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  }
+  
+
+});
+
+// Закрытие по клику вне модалки
+document.getElementById('regModal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeReg();
+});
+</script>
+
+</body>
+</html>
