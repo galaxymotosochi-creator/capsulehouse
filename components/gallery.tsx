@@ -3,12 +3,12 @@
 import { useEffect, useRef } from "react";
 
 const gallery = [
-  { src: "/about-photo-1.jpg", alt: "Интерьер капсульного дома", span: "col-span-2 row-span-2" },
-  { src: "/about-photo-2.jpg", alt: "Экстерьер на природе", span: "" },
-  { src: "/about-photo-3.jpg", alt: "Панорамные окна", span: "" },
-  { src: "/about-photo-4.jpg", alt: "Современная кухня", span: "col-span-2" },
+  { src: "/about-photo-1.jpg", alt: "Капсульный дом на природе", span: "md:col-span-2 md:row-span-2" },
+  { src: "/about-photo-2.jpg", alt: "Интерьер гостиной", span: "" },
+  { src: "/about-photo-3.jpg", alt: "Панорамные окна с видом", span: "" },
+  { src: "/about-photo-4.jpg", alt: "Современная кухня", span: "md:col-span-2" },
   { src: "/about-photo-5.jpg", alt: "Уютная спальня", span: "" },
-  { src: "/about-photo-6.jpg", alt: "Терраса с видом", span: "" },
+  { src: "/about-photo-6.jpg", alt: "Терраса с видом на горы", span: "" },
 ];
 
 export function Gallery() {
@@ -39,26 +39,27 @@ export function Gallery() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-32 md:py-40 bg-secondary/30">
+    <section ref={sectionRef} className="py-32 md:py-40">
       <div className="container">
         {/* Section Header */}
         <div className="text-center mb-16">
+          <p className="text-accent text-sm font-medium tracking-wide uppercase mb-4">Галерея</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight">
-            Галерея
+            Реальные фото
           </h2>
-          <p className="mt-6 text-xl text-muted-foreground">
-            Реальные фотографии наших домов
+          <p className="mt-6 text-xl text-muted-foreground max-w-xl mx-auto">
+            Наши дома в реальных условиях. Посмотрите, как они выглядят изнутри и снаружи.
           </p>
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {gallery.map((item, index) => (
             <div
               key={index}
-              className={`gallery-item opacity-0 group relative overflow-hidden rounded-2xl bg-muted cursor-pointer ${item.span}`}
+              className={`gallery-item opacity-0 group relative overflow-hidden rounded-2xl md:rounded-3xl bg-secondary cursor-pointer ${item.span}`}
             >
-              <div className="aspect-square">
+              <div className={`${item.span.includes("row-span-2") ? "aspect-square" : "aspect-[4/3]"}`}>
                 <img
                   src={item.src}
                   alt={item.alt}
@@ -66,8 +67,8 @@ export function Gallery() {
                 />
               </div>
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p className="absolute bottom-4 left-4 right-4 text-white text-sm font-medium">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 md:p-6">
+                <p className="text-white text-sm md:text-base font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                   {item.alt}
                 </p>
               </div>
