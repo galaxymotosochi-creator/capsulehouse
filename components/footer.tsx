@@ -7,14 +7,12 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <Link href="/" className="text-2xl font-serif font-bold tracking-tight">
-              <span className="bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">
-                GALAXY HOUSE
-              </span>
+            <Link href="/" className="text-xl font-semibold tracking-tight">
+              GALAXY HOUSE
             </Link>
             <p className="mt-4 text-muted-foreground max-w-sm leading-relaxed">
-              Современные капсульные дома премиум-класса из Китая с полным циклом услуг 
-              от консультации до установки.
+              Капсульные дома премиум-класса с доставкой по всей России.
+              Современный дизайн, умные технологии, честный сервис.
             </p>
           </div>
 
@@ -29,7 +27,7 @@ export function Footer() {
                 Преимущества
               </a>
               <a href="#process" className="text-muted-foreground hover:text-foreground transition-colors">
-                Как мы работаем
+                Как это работает
               </a>
               <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
                 Контакты
@@ -47,7 +45,7 @@ export function Footer() {
               <a href="mailto:info@galaxyhouse.ru" className="hover:text-foreground transition-colors">
                 info@galaxyhouse.ru
               </a>
-              <p>г. Уссурийск, ул. Главная, 1</p>
+              <p>г. Уссурийск</p>
             </div>
           </div>
         </div>
@@ -55,7 +53,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} GALAXY HOUSE. Все права защищены.
+            {new Date().getFullYear()} GALAXY HOUSE. Все права защищены.
           </p>
           <div className="flex gap-6 text-sm">
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">

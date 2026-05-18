@@ -10,7 +10,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -19,24 +19,25 @@ export function Header() {
   const navLinks = [
     { href: "#catalog", label: "Каталог" },
     { href: "#advantages", label: "Преимущества" },
-    { href: "#process", label: "Как мы работаем" },
+    { href: "#process", label: "Как это работает" },
     { href: "#contact", label: "Контакты" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm py-4"
-          : "bg-transparent py-6"
+          ? "glass border-b border-border/50 py-3"
+          : "bg-transparent py-5"
       }`}
     >
       <div className="container">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-2xl font-serif font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">
-              GALAXY HOUSE
-            </span>
+          <Link 
+            href="/" 
+            className="text-xl font-semibold tracking-tight transition-opacity hover:opacity-70"
+          >
+            GALAXY HOUSE
           </Link>
 
           {/* Desktop Navigation */}
@@ -45,38 +46,41 @@ export function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-foreground/80 hover:text-accent transition-colors relative group"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
             <a
               href="#contact"
-              className="btn btn-primary text-sm"
+              className="btn btn-primary text-sm px-5 py-2"
             >
-              Оставить заявку
+              Заказать
             </a>
           </nav>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 hover:bg-secondary rounded-full transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border p-4 flex flex-col gap-4">
+        <div 
+          className={`md:hidden absolute top-full left-0 right-0 glass border-b border-border/50 overflow-hidden transition-all duration-300 ${
+            isMobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <nav className="p-6 flex flex-col gap-4">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-base font-medium py-2"
+                className="text-lg py-2 hover:text-accent transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
@@ -84,13 +88,13 @@ export function Header() {
             ))}
             <a
               href="#contact"
-              className="btn btn-primary text-center"
+              className="btn btn-primary text-center mt-2"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Оставить заявку
+              Заказать
             </a>
           </nav>
-        )}
+        </div>
       </div>
     </header>
   );

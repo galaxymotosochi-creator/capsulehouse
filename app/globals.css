@@ -1,31 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  /* Color System - Noble Green Palette */
-  --color-background: #f8faf8;
-  --color-foreground: #1a2e1a;
-  --color-card: #ffffff;
-  --color-card-foreground: #1a2e1a;
-  --color-primary: #2d5a3d;
-  --color-primary-foreground: #f8faf8;
-  --color-secondary: #e8f0e8;
-  --color-secondary-foreground: #1a2e1a;
-  --color-muted: #d4e4d4;
-  --color-muted-foreground: #4a6b4a;
-  --color-accent: #8bc34a;
-  --color-accent-foreground: #1a2e1a;
-  --color-border: #c8dcc8;
-  --color-ring: #8bc34a;
+  /* Apple-inspired Color System - Clean & Minimal */
+  --color-background: #ffffff;
+  --color-foreground: #1d1d1f;
+  --color-card: #fbfbfd;
+  --color-card-foreground: #1d1d1f;
+  --color-primary: #1d1d1f;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f5f5f7;
+  --color-secondary-foreground: #1d1d1f;
+  --color-muted: #86868b;
+  --color-muted-foreground: #86868b;
+  --color-accent: #0071e3;
+  --color-accent-foreground: #ffffff;
+  --color-border: #d2d2d7;
+  --color-ring: #0071e3;
   
   /* Typography */
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "SF Pro Display", "Inter", system-ui, sans-serif;
+  --font-serif: "SF Pro Display", "Inter", system-ui, sans-serif;
   
-  /* Radius */
-  --radius: 0.5rem;
-  --radius-sm: 0.25rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  /* Radius - Apple uses subtle rounding */
+  --radius: 0.875rem;
+  --radius-sm: 0.5rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
 }
 
 @layer base {
@@ -37,33 +37,169 @@
     @apply bg-background text-foreground antialiased;
   }
   
-  h1, h2, h3 {
-    @apply font-serif;
+  ::selection {
+    @apply bg-accent/20;
   }
 }
 
 @layer components {
   .container {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-6xl px-6 lg:px-8;
   }
   
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-medium transition-all duration-300;
   }
   
   .btn-primary {
-    @apply bg-primary text-primary-foreground hover:opacity-90;
+    @apply bg-accent text-accent-foreground hover:brightness-110 active:scale-[0.98];
   }
   
   .btn-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-muted;
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 active:scale-[0.98];
   }
   
   .btn-outline {
-    @apply border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground;
+    @apply border border-accent bg-transparent text-accent hover:bg-accent hover:text-accent-foreground active:scale-[0.98];
   }
-  
-  .btn-accent {
-    @apply bg-accent text-accent-foreground hover:opacity-90;
+}
+
+/* Apple-style animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 113, 227, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 113, 227, 0.5);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* Initially hidden for animation */
+.animate-on-scroll {
+  opacity: 0;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Glass effect */
+.glass {
+  @apply bg-white/70 backdrop-blur-xl;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-accent via-blue-400 to-accent bg-clip-text text-transparent bg-[length:200%_auto];
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
   }
 }
