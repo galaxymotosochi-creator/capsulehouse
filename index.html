@@ -13,5 +13,72 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Комплектация V11 -->
+    <div id="equipment-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:999;justify-content:center;align-items:flex-start;padding:2rem 1rem;overflow-y:auto">
+      <div style="background:#fff;max-width:600px;width:100%;margin:auto;border-radius:12px;padding:1.5rem;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.2)">
+        <button onclick="document.getElementById('equipment-modal').style.display='none'" style="position:absolute;top:.75rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:#999">&times;</button>
+        <div id="equipment-content"></div>
+      </div>
+    </div>
+
+    <script>
+    // Данные комплектации
+    var eqData = {
+      sections: [
+        {title: '🏠 ДОМ', items: ['Отделка под ключ','Каркас из оцинкованной стали','Обшивка из авиационного алюминия','Защита от УФ','Теплоизоляция и гидроизоляция','Стеклянные стены: закаленное стекло LOW-E','Окна с алюминиевыми рамами и сеткой','Душевая, туалет, раковина, смарт-зеркало','Умный замок, дверь из нержавейки','LED освещение, электропроводка, щиток','Канализация, водоподготовка, водоснабжение','Розетки с умным управлением']},
+        {title: 'ТЕХНИКА (варианты)', text: 'Водонагреватель, кондиционеры, вытяжка, умный дом, раздвигатели штор, подогрев пола, HD-проектор, кофемашина, микроволновка, холодильник, телевизор, варочная панель.'},
+        {title: 'МЕБЕЛЬ (варианты)', text: 'Диван, журнальный столик, обеденный стол, ТВ-тумба, кровать, шкаф-кровать, диван-кровать, гардероб, шкаф, шторы, кухонный гарнитур, барная стойка.'}
+      ]
+    };
+
+    function openEquipment() {
+      var content = document.getElementById('equipment-content');
+      var html = '';
+      for (var i = 0; i < eqData.sections.length; i++) {
+        var s = eqData.sections[i];
+        html += '<div style="margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #eee">';
+        html += '<strong style="color:#c9a84c;font-size:.9rem">' + s.title + '</strong>';
+        if (s.items) {
+          html += '<ul style="margin:.3rem 0 0;padding-left:1.2rem;font-size:.82rem">';
+          for (var j = 0; j < s.items.length; j++) {
+            html += '<li style="margin-bottom:.1rem">' + s.items[j] + '</li>';
+          }
+          html += '</ul>';
+        } else {
+          html += '<p style="margin:.3rem 0 0;font-size:.82rem">' + s.text + '</p>';
+        }
+        html += '</div>';
+      }
+      content.innerHTML = html;
+      document.getElementById('equipment-modal').style.display = 'flex';
+    }
+
+    // Ждём появления карточки и добавляем кнопку
+    function addEquipmentButton() {
+      var cards = document.querySelectorAll('.house-card__cta');
+      for (var i = 0; i < cards.length; i++) {
+        if (cards[i].textContent.trim() === 'Подробнее') {
+          // Проверяем, не добавили ли уже кнопку
+          if (!cards[i].previousElementSibling || cards[i].previousElementSibling.textContent.trim() !== 'Комплектация') {
+            var btn = document.createElement('button');
+            btn.className = 'house-card__cta';
+            btn.style.cssText = 'margin-right:.5rem;cursor:pointer;background:none;border:1px solid var(--color-accent);color:var(--color-accent);border-radius:6px;padding:.35rem .75rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn.textContent = 'Комплектация';
+            btn.onmouseover = function(){this.style.background='var(--color-accent)';this.style.color='#fff'};
+            btn.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
+            btn.onclick = function(e){e.stopPropagation();openEquipment()};
+            cards[i].parentNode.insertBefore(btn, cards[i]);
+          }
+        }
+      }
+    }
+
+    // Наблюдатель за изменениями DOM
+    var observer = new MutationObserver(function() { addEquipmentButton(); });
+    observer.observe(document.getElementById('root'), { childList: true, subtree: true });
+    setTimeout(addEquipmentButton, 1000);
+    setTimeout(addEquipmentButton, 3000);
+    </script>
   </body>
 </html>
