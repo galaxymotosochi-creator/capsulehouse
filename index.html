@@ -118,6 +118,8 @@
       var cards = document.querySelectorAll('.house-card__cta');
       for (var i = 0; i < cards.length; i++) {
         if (cards[i].textContent.trim() === 'Подробнее') {
+          cards[i].textContent = 'Рассчитать стоимость';
+          cards[i].href = cards[i].href || '#';
           // Проверяем, не добавили ли уже кнопку
           if (!cards[i].previousElementSibling || cards[i].previousElementSibling.textContent.trim() !== 'Доставка') {
             var btn = document.createElement('button');
@@ -154,8 +156,8 @@
     // Наблюдатель за изменениями DOM
     var observer = new MutationObserver(function() { addEquipmentButton(); });
     observer.observe(document.getElementById('root'), { childList: true, subtree: true });
-    setTimeout(addEquipmentButton, 1000);
-    setTimeout(addEquipmentButton, 3000);
+    setTimeout(function(){addEquipmentButton();var els=document.querySelectorAll('.house-card__cta');for(var i=0;i<els.length;i++){if(els[i].textContent.trim()==='Подробнее'){els[i].textContent='Рассчитать стоимость'}}},1000);
+    setTimeout(function(){addEquipmentButton();var els=document.querySelectorAll('.house-card__cta');for(var i=0;i<els.length;i++){if(els[i].textContent.trim()==='Подробнее'){els[i].textContent='Рассчитать стоимость'}}},3000);
     </script>
   </body>
 </html>
