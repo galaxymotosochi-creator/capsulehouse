@@ -25,6 +25,12 @@
     <script>
     // Данные комплектации
     var eqData = {
+      paymentSections: [
+        {title: 'Заключение контракта:', items: ['Напрямую с фабрикой (вы контрактодержатель и импортер)', 'С нашим российским юр.лицом (все вопросы берем на себя)']},
+        {title: 'Способы оплаты:', items: ['Безналичный платеж (оплата на р/с)', 'Наличными (в одном из наших офисов)', 'Альтернативные способы (уточняйте у менеджера)']},
+        {title: 'Порядок оплаты:', items: ['50% — авансовый платеж для начала производства', '50% — после производства и инспекции в Китае']},
+        {title: '', text: 'Если у вас есть необходимость согласовать индивидуальные условия поставки — уточняйте у персонального менеджера.'}
+      ],
       deliverySections: [
         {title: 'Способы доставки (виды транспорта):', items: ['Авто (евро-фуры, низкорамный тралл, контейнеровоз)', 'ЖД (контейнеры 20HQ, 40HQ, 40FR)', 'Море (контейнеры 20HQ, 40HQ, 40FR)', 'Мультимодальная доставка']},
         {title: 'Доставка домов возможна в контейнерах:', items: ['20HQ', '40HQ', '40FR (открытая платформа)']},
@@ -46,6 +52,28 @@
       var html = '';
       for (var i = 0; i < eqData.deliverySections.length; i++) {
         var s = eqData.deliverySections[i];
+        html += '<div style="margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #eee">';
+        if (s.title) html += '<strong style="color:#333;font-size:.9rem">' + s.title + '</strong>';
+        if (s.items) {
+          html += '<ul style="margin:.3rem 0 0;padding-left:1.2rem;font-size:.82rem">';
+          for (var j = 0; j < s.items.length; j++) {
+            html += '<li style="margin-bottom:.1rem">' + s.items[j] + '</li>';
+          }
+          html += '</ul>';
+        } else if (s.text) {
+          html += '<p style="margin:.3rem 0 0;font-size:.82rem;color:#666">' + s.text + '</p>';
+        }
+        html += '</div>';
+      }
+      content.innerHTML = html;
+      document.getElementById('equipment-modal').style.display = 'flex';
+    }
+
+    function openPayment() {
+      var content = document.getElementById('equipment-content');
+      var html = '';
+      for (var i = 0; i < eqData.paymentSections.length; i++) {
+        var s = eqData.paymentSections[i];
         html += '<div style="margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #eee">';
         if (s.title) html += '<strong style="color:#333;font-size:.9rem">' + s.title + '</strong>';
         if (s.items) {
@@ -109,6 +137,15 @@
             btn2.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
             btn2.onclick = function(e){e.stopPropagation();openDelivery()};
             cards[i].parentNode.insertBefore(btn2, cards[i]);
+
+            var btn3 = document.createElement('button');
+            btn3.className = 'house-card__cta';
+            btn3.style.cssText = 'margin-right:.5rem;cursor:pointer;background:none;border:1px solid var(--color-accent);color:var(--color-accent);border-radius:6px;padding:.35rem .75rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn3.textContent = 'Оплата';
+            btn3.onmouseover = function(){this.style.background='var(--color-accent)';this.style.color='#fff'};
+            btn3.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
+            btn3.onclick = function(e){e.stopPropagation();openPayment()};
+            cards[i].parentNode.insertBefore(btn3, cards[i]);
           }
         }
       }
