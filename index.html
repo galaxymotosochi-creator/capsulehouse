@@ -156,8 +156,58 @@
     // Наблюдатель за изменениями DOM
     var observer = new MutationObserver(function() { addEquipmentButton(); });
     observer.observe(document.getElementById('root'), { childList: true, subtree: true });
-    setTimeout(function(){addEquipmentButton();var els=document.querySelectorAll('.house-card__cta');for(var i=0;i<els.length;i++){if(els[i].textContent.trim()==='Подробнее'){els[i].textContent='Рассчитать стоимость'}}},1000);
-    setTimeout(function(){addEquipmentButton();var els=document.querySelectorAll('.house-card__cta');for(var i=0;i<els.length;i++){if(els[i].textContent.trim()==='Подробнее'){els[i].textContent='Рассчитать стоимость'}}},3000);
+    setTimeout(function(){
+      addEquipmentButton();
+      var els=document.querySelectorAll('.house-card__cta');
+      for(var i=0;i<els.length;i++){
+        if(els[i].textContent.trim()==='Подробнее'){
+          els[i].textContent='Рассчитать стоимость';
+          els[i].style.flex='1';
+          els[i].style.textAlign='center';
+          els[i].style.minWidth='0';
+        }
+      }
+      // Выравниваем все кнопки в footer
+      var footers=document.querySelectorAll('.house-card__footer');
+      for(var i=0;i<footers.length;i++){
+        footers[i].style.gap='.3rem';
+        footers[i].style.flexWrap='wrap';
+        var btns=footers[i].querySelectorAll('button,.house-card__cta');
+        for(var j=0;j<btns.length;j++){
+          btns[j].style.flex='1';
+          btns[j].style.textAlign='center';
+          btns[j].style.fontSize='.75rem';
+          btns[j].style.padding='.35rem .4rem';
+          btns[j].style.minWidth='0';
+          btns[j].style.whiteSpace='nowrap';
+        }
+      }
+    },1000);
+    setTimeout(function(){
+      addEquipmentButton();
+      var els=document.querySelectorAll('.house-card__cta');
+      for(var i=0;i<els.length;i++){
+        if(els[i].textContent.trim()==='Подробнее'){
+          els[i].textContent='Рассчитать стоимость';
+          els[i].style.flex='1';
+          els[i].style.textAlign='center';
+        }
+      }
+      var footers=document.querySelectorAll('.house-card__footer');
+      for(var i=0;i<footers.length;i++){
+        footers[i].style.gap='.3rem';
+        footers[i].style.flexWrap='wrap';
+        var btns=footers[i].querySelectorAll('button,.house-card__cta');
+        for(var j=0;j<btns.length;j++){
+          btns[j].style.flex='1';
+          btns[j].style.textAlign='center';
+          btns[j].style.fontSize='.75rem';
+          btns[j].style.padding='.35rem .4rem';
+          btns[j].style.minWidth='0';
+          btns[j].style.whiteSpace='nowrap';
+        }
+      }
+    },3000);
     </script>
   </body>
 </html>
