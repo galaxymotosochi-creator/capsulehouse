@@ -154,53 +154,54 @@
     }
 
         // Проверка каждые 2 секунды
-    var layoutTimer = setInterval(function(){
-      addEquipmentButton();
-      var els=document.querySelectorAll('.house-card__cta');
-      for(var i=0;i<els.length;i++){
-        if(els[i].textContent.trim()==='Подробнее'){
-          els[i].textContent='Рассчитать стоимость';
-          els[i].style.background='none';
-          els[i].style.backgroundColor='transparent';
-          els[i].style.color='#333';
-          els[i].style.border='1px solid #ccc';
-          els[i].style.borderRadius='6px';
-          els[i].style.padding='.3rem .6rem';
-          els[i].style.fontSize='.82rem';
-        }
-      }
-      // Оборачиваем кнопки в контейнер (цена слева, кнопки справа)
+    function fixHomePage(){
       var footers=document.querySelectorAll('.house-card__footer');
       for(var i=0;i<footers.length;i++){
+        if(footers[i].classList.contains('btn-fixed')) continue;
+        
         footers[i].style.justifyContent='space-between';
         footers[i].style.alignItems='center';
-        var wrap=footers[i].querySelector('.btn-group');
-        if(!wrap){
-          wrap=document.createElement('div');
-          wrap.className='btn-group';
-          wrap.style.cssText='display:flex;gap:4px;align-items:center;flex-wrap:wrap';
-          var btns=footers[i].querySelectorAll('button,.house-card__cta');
-          for(var j=0;j<btns.length;j++){
-            btns[j].style.fontSize='.82rem';
-            btns[j].style.padding='.35rem 0';
-            btns[j].style.whiteSpace='nowrap';
-            wrap.appendChild(btns[j]);
-          }
-          if(wrap.children.length>0) footers[i].appendChild(wrap);
+        
+        // Меняем текст Подробнее на Рассчитать стоимость
+        var link=footers[i].querySelector('.house-card__cta');
+        if(link && link.textContent.trim()==='Подробнее'){
+          link.textContent='Рассчитать стоимость';
         }
-      }
-      // Возвращаем padding для Рассчитать стоимость
-      var calcBtns=document.querySelectorAll('.house-card__cta');
-      for(var i=0;i<calcBtns.length;i++){
-        if(calcBtns[i].textContent.trim()==='Рассчитать стоимость'){
-          calcBtns[i].style.background='none';
-          calcBtns[i].style.backgroundColor='transparent';
-          calcBtns[i].style.color='#333';
-          calcBtns[i].style.border='1px solid #ccc';
-          calcBtns[i].style.borderRadius='6px';
-          calcBtns[i].style.padding='.3rem .6rem';
+        if(!link) continue;
+        
+        // Создаём обёртку и добавляем кнопки
+        var wrap=document.createElement('div');
+        wrap.className='btn-group';
+        wrap.style.cssText='display:flex;gap:4px;align-items:center;flex-wrap:wrap';
+        
+        var btns=['Комплектация','Доставка','Оплата'];
+        var handlers=[openEquipment,openDelivery,openPayment];
+        for(var j=0;j<btns.length;j++){
+          var btn=document.createElement('button');
+          btn.textContent=btns[j];
+          btn.style.cssText='cursor:pointer;background:none;border:1px solid #ccc;color:#333;border-radius:6px;padding:.3rem .6rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+          btn.onmouseover=function(){this.style.borderColor='#999'};
+          btn.onmouseout=function(){this.style.borderColor='#ccc'};
+          btn.onclick=(function(h){return function(e){e.stopPropagation();h()}})(handlers[j]);
+          wrap.appendChild(btn);
         }
+        
+        // Стилизуем Рассчитать стоимость и помещаем в обёртку
+        link.style.background='none';
+        link.style.backgroundColor='transparent';
+        link.style.color='#333';
+        link.style.border='1px solid #ccc';
+        link.style.borderRadius='6px';
+        link.style.padding='.3rem .6rem';
+        link.style.fontSize='.82rem';
+        wrap.appendChild(link);
+        
+        footers[i].appendChild(wrap);
+        footers[i].classList.add('btn-fixed');
       }
-    }, 2000);</script>
+    }
+    
+    fixHomePage();
+    setInterval(fixHomePage, 2000);
   </body>
 </html>
