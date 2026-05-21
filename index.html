@@ -160,6 +160,10 @@
       for(var i=0;i<els.length;i++){
         if(els[i].textContent.trim()==='Подробнее'){
           els[i].textContent='Рассчитать стоимость';
+          els[i].style.background='none';
+          els[i].style.backgroundColor='transparent';
+          els[i].style.color='var(--color-accent)';
+          els[i].style.border='none';
           els[i].style.padding='.35rem .8rem';
           els[i].style.letterSpacing='.02em';
         }
@@ -188,6 +192,10 @@
       var calcBtns=document.querySelectorAll('.house-card__cta');
       for(var i=0;i<calcBtns.length;i++){
         if(calcBtns[i].textContent.trim()==='Рассчитать стоимость'){
+          calcBtns[i].style.background='none';
+          calcBtns[i].style.backgroundColor='transparent';
+          calcBtns[i].style.color='var(--color-accent)';
+          calcBtns[i].style.border='none';
           calcBtns[i].style.padding='.35rem .8rem';
         }
       }
