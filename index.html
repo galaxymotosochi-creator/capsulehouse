@@ -295,6 +295,11 @@
     }
     
     try{fixHomePageCapsule()}catch(e){}
-    setInterval(function(){try{fixHomePageCapsule()}catch(e){}}, 2000);
+    // MutationObserver — срабатывает только когда React меняет DOM
+    var obs = new MutationObserver(function(){
+      var ftrs = document.querySelectorAll('.house-card__footer:not(.btn-fixed-capsule)');
+      if(ftrs.length) fixHomePageCapsule();
+    });
+    obs.observe(document.getElementById('root'), {childList:true, subtree:true});
   </body>
 </html>
