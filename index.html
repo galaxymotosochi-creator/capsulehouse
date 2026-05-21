@@ -29,7 +29,7 @@
       .vs-info{padding:.8rem 1rem}
       .vs-info h4{font-size:.85rem;font-weight:600;color:#1a1a1a;margin:0 0 .1rem}
       .vs-info span{font-size:.75rem;color:#999}
-      .vm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:1rem}
+      .vs-card.wide{grid-column:span 2}.vs-card.wide .vs-prev{aspect-ratio:16/9}.vm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:1rem}
       .vm.active{display:flex}
       .vm video{max-height:90vh;border-radius:12px}.vm video::-webkit-media-controls-download-button{display:none!important}.vm video::-internal-media-controls-download-button{display:none!important}
       .vm-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;z-index:10000}
@@ -56,7 +56,7 @@
       if(g && g.children.length===0){
         for(var i=0;i<v.length;i++){
           var d = document.createElement('div');
-          d.className = 'vs-card';
+          d.className = 'vs-card' + (i===v.length-1?' wide':'');
           d.innerHTML = '<div class="vs-prev"' + (v[i][3]?' style="background-image:url('+v[i][3]+');background-size:cover;background-position:center"':'') + '><div class="vs-pb"><svg viewBox="0 0 24 24" width="24" height="24"><polygon points="5 3 19 12 5 21 5 3" fill="#fff"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
           d.onclick = (function(idx){return function(){
             var src = v[idx][2];
