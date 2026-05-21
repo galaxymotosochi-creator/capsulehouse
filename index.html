@@ -21,7 +21,6 @@
       .vs-hdr h2{font-size:1.5rem;font-weight:700;color:#1a1a1a;margin:0 0 .5rem}
       .vs-hdr p{font-size:.9rem;color:#888;margin:0}
       .vs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-      .vs-grid .wide{grid-column:span 2}
       .vs-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer}
       .vs-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1)}
       .vs-prev{position:relative;aspect-ratio:9/16;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);display:flex;align-items:center;justify-content:center}
@@ -34,7 +33,7 @@
       .vm.active{display:flex}
       .vm video{max-height:90vh;border-radius:12px}
       .vm-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;z-index:10000}
-      @media(max-width:640px){.vs-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}.vs-grid .wide{grid-column:span 1}}
+      @media(max-width:640px){.vs-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}}
     </style>
 
     <section class="vs">
@@ -57,7 +56,7 @@
       if(!g) return;
       for(var i=0;i<v.length;i++){
         var d = document.createElement('div');
-        d.className = 'vs-card' + (i===0?' wide':'');
+        d.className = 'vs-card';
         d.innerHTML = '<div class="vs-prev"><div class="vs-pb"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#c9a84c"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
         d.onclick = function(){document.getElementById('vmModal').classList.add('active');};
         g.appendChild(d);
