@@ -124,28 +124,28 @@
           if (!cards[i].previousElementSibling || cards[i].previousElementSibling.textContent.trim() !== 'Доставка') {
             var btn = document.createElement('button');
             btn.className = 'house-card__cta';
-            btn.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-accent);border-radius:0;padding:0;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn.style.cssText = 'cursor:pointer;background:none;border:1px solid #ccc;color:#333;border-radius:6px;padding:.3rem .6rem;font-size:.82rem;font-family:inherit;transition:all .2s';
             btn.textContent = 'Комплектация';
-            btn.onmouseover = function(){this.style.background='var(--color-accent)';this.style.color='#fff'};
-            btn.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
+            btn.onmouseover = function(){this.style.borderColor='#999'};
+            btn.onmouseout = function(){this.style.borderColor='#ccc'};
             btn.onclick = function(e){e.stopPropagation();openEquipment()};
             cards[i].parentNode.insertBefore(btn, cards[i]);
             
             var btn2 = document.createElement('button');
             btn2.className = 'house-card__cta';
-            btn2.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-accent);border-radius:0;padding:0;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn2.style.cssText = 'cursor:pointer;background:none;border:1px solid #ccc;color:#333;border-radius:6px;padding:.3rem .6rem;font-size:.82rem;font-family:inherit;transition:all .2s';
             btn2.textContent = 'Доставка';
-            btn2.onmouseover = function(){this.style.background='var(--color-accent)';this.style.color='#fff'};
-            btn2.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
+            btn2.onmouseover = function(){this.style.borderColor='#999'};
+            btn2.onmouseout = function(){this.style.borderColor='#ccc'};
             btn2.onclick = function(e){e.stopPropagation();openDelivery()};
             cards[i].parentNode.insertBefore(btn2, cards[i]);
 
             var btn3 = document.createElement('button');
             btn3.className = 'house-card__cta';
-            btn3.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-accent);border-radius:0;padding:0;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn3.style.cssText = 'cursor:pointer;background:none;border:1px solid #ccc;color:#333;border-radius:6px;padding:.3rem .6rem;font-size:.82rem;font-family:inherit;transition:all .2s';
             btn3.textContent = 'Оплата';
-            btn3.onmouseover = function(){this.style.background='var(--color-accent)';this.style.color='#fff'};
-            btn3.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
+            btn3.onmouseover = function(){this.style.borderColor='#999'};
+            btn3.onmouseout = function(){this.style.borderColor='#ccc'};
             btn3.onclick = function(e){e.stopPropagation();openPayment()};
             cards[i].parentNode.insertBefore(btn3, cards[i]);
           }
@@ -162,10 +162,11 @@
           els[i].textContent='Рассчитать стоимость';
           els[i].style.background='none';
           els[i].style.backgroundColor='transparent';
-          els[i].style.color='var(--color-accent)';
-          els[i].style.border='none';
-          els[i].style.padding='.35rem .8rem';
-          els[i].style.letterSpacing='.02em';
+          els[i].style.color='#333';
+          els[i].style.border='1px solid #ccc';
+          els[i].style.borderRadius='6px';
+          els[i].style.padding='.3rem .6rem';
+          els[i].style.fontSize='.82rem';
         }
       }
       // Оборачиваем кнопки в контейнер (цена слева, кнопки справа)
@@ -180,7 +181,7 @@
           wrap.style.cssText='display:flex;gap:4px;align-items:center;flex-wrap:wrap';
           var btns=footers[i].querySelectorAll('button,.house-card__cta');
           for(var j=0;j<btns.length;j++){
-            btns[j].style.fontSize='.8rem';
+            btns[j].style.fontSize='.82rem';
             btns[j].style.padding='.35rem 0';
             btns[j].style.whiteSpace='nowrap';
             wrap.appendChild(btns[j]);
@@ -194,9 +195,10 @@
         if(calcBtns[i].textContent.trim()==='Рассчитать стоимость'){
           calcBtns[i].style.background='none';
           calcBtns[i].style.backgroundColor='transparent';
-          calcBtns[i].style.color='var(--color-accent)';
-          calcBtns[i].style.border='none';
-          calcBtns[i].style.padding='.35rem .8rem';
+          calcBtns[i].style.color='#333';
+          calcBtns[i].style.border='1px solid #ccc';
+          calcBtns[i].style.borderRadius='6px';
+          calcBtns[i].style.padding='.3rem .6rem';
         }
       }
     }, 2000);</script>
