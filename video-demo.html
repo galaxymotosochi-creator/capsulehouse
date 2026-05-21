@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Inter,-apple-system,sans-serif;background:#f8f8f8;padding:2rem}
-.container{max-width:900px;margin:0 auto}
+.container{max-width:700px;margin:0 auto}
 
 /* Заголовок секции */
 .section-header{text-align:center;margin-bottom:2rem}
@@ -15,10 +15,10 @@ body{font-family:Inter,-apple-system,sans-serif;background:#f8f8f8;padding:2rem}
 .section-header p{font-size:.9rem;color:#666}
 
 /* Блок видео */
-.video-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);cursor:pointer;transition:box-shadow .3s}
+.video-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);cursor:pointer;transition:box-shadow .3s;max-width:400px;margin:0 auto}
 .video-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.15)}
 
-.video-preview{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center}
+.video-preview{position:relative;aspect-ratio:3/4;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);display:flex;align-items:center;justify-content:center}
 
 /* Плей-кнопка */
 .play-btn{width:72px;height:72px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s;box-shadow:0 4px 20px rgba(0,0,0,.3)}
@@ -33,7 +33,7 @@ body{font-family:Inter,-apple-system,sans-serif;background:#f8f8f8;padding:2rem}
 /* Модалка */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;padding:1rem}
 .modal.active{display:flex}
-.modal video{max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.modal video{max-height:90vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
 .modal-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .modal-close:hover{background:rgba(255,255,255,.3)}
 
