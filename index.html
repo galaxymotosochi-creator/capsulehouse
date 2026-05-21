@@ -63,6 +63,7 @@
             if(src){
               document.getElementById('vmPlayer').querySelector('source').src = src;
               document.getElementById('vmPlayer').load();
+              document.getElementById('vmPlayer').play();
             }
             document.getElementById('vmModal').classList.add('active');
           }})(i);
