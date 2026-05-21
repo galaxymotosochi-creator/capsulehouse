@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>888.ESTATE — Видео</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,-apple-system,sans-serif;background:#f8f8f8;padding:2rem}
+.container{max-width:900px;margin:0 auto}
+
+/* Заголовок секции */
+.section-header{text-align:center;margin-bottom:2rem}
+.section-header h2{font-size:1.5rem;font-weight:700;color:#1a1a1a;margin-bottom:.5rem}
+.section-header p{font-size:.9rem;color:#666}
+
+/* Блок видео */
+.video-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);cursor:pointer;transition:box-shadow .3s}
+.video-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.15)}
+
+.video-preview{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center}
+
+/* Плей-кнопка */
+.play-btn{width:72px;height:72px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.video-card:hover .play-btn{transform:scale(1.1)}
+.play-btn svg{margin-left:4px;width:28px;height:28px;fill:#c9a84c}
+
+/* Текст под видео */
+.video-info{padding:1.2rem 1.5rem}
+.video-info h3{font-size:1.05rem;font-weight:600;color:#1a1a1a;margin-bottom:.3rem}
+.video-info p{font-size:.85rem;color:#888;line-height:1.5}
+
+/* Модалка */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;padding:1rem}
+.modal.active{display:flex}
+.modal video{max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.modal-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.15);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.modal-close:hover{background:rgba(255,255,255,.3)}
+
+/* Контент для примера */
+.demo-content{padding-top:2rem}
+.demo-content h2{font-size:1.2rem;color:#333;margin-bottom:1rem}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.demo-card{background:#fff;border-radius:12px;padding:1.5rem;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.demo-card .icon{font-size:2rem;margin-bottom:.5rem}
+.demo-card h4{font-size:.95rem;color:#1a1a1a}
+.demo-card p{font-size:.8rem;color:#888;margin-top:.3rem}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Примерный контекст: Hero (для понимания) -->
+  <div style="background:#1a1a2e;border-radius:16px;padding:3rem 2rem;text-align:center;color:#fff;margin-bottom:3rem">
+    <p style="font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:2px">ГЛАВНЫЙ ЭКРАН / HERO</p>
+    <h1 style="font-size:1.8rem;margin-top:.5rem">888.ESTATE</h1>
+    <p style="color:#aaa;margin-top:.5rem">Капсульные дома нового поколения</p>
+  </div>
+
+  <!-- Новая секция видео -->
+  <div class="section-header">
+    <h2>Смотрите в действии</h2>
+    <p>Видео-презентация нашего производства и готовых проектов</p>
+  </div>
+
+  <div class="video-card" onclick="openVideo()">
+    <div class="video-preview">
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <div class="video-info">
+      <h3>Обзор капсульного дома V11</h3>
+      <p>Производство, доставка и монтаж — полный цикл</p>
+    </div>
+  </div>
+
+  <!-- Далее каталог домов (для контекста) -->
+  <div class="demo-content">
+    <h2>Популярные модели</h2>
+    <div class="demo-grid">
+      <div class="demo-card"><div class="icon">🏠</div><h4>V11</h4><p>38 м², 2 комнаты</p></div>
+      <div class="demo-card"><div class="icon">🏠</div><h4>Galaxy M2</h4><p>22 м², 2-3 места</p></div>
+      <div class="demo-card"><div class="icon">🏠</div><h4>Galaxy L1</h4><p>35 м², 3-4 места</p></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Модалка -->
+<div class="modal" id="videoModal" onclick="closeVideo(event)">
+  <button class="modal-close" onclick="closeVideo(event)">&times;</button>
+  <video controls id="siteVideo">
+    <source src="" type="video/mp4">
+  </video>
+</div>
+
+<script>
+function openVideo(){
+  var modal = document.getElementById('videoModal');
+  modal.classList.add('active');
+  // Здесь будет подставляться реальное видео
+}
+
+function closeVideo(e){
+  var modal = document.getElementById('videoModal');
+  if(e.target === modal || e.target.classList.contains('modal-close')){
+    modal.classList.remove('active');
+    var video = document.getElementById('siteVideo');
+    video.pause();
+  }
+}
+</script>
+
+</body>
+</html>
