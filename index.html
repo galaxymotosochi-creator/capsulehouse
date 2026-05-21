@@ -36,7 +36,7 @@
       @media(max-width:640px){.vs-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}}
     </style>
 
-    <section class="vs">
+    <section class="vs" style="display:none">
       <div class="vs-hdr">
         <h2>Видеообзоры</h2>
         <p>Смотрите наши дома в действии</p>
@@ -76,7 +76,7 @@
       }
     }
     // Ждём пока React отрендерит
-    setTimeout(function(){initVideo();}, 500);
+    setTimeout(function(){document.querySelector('.vs').style.display='';initVideo();}, 500);
     setInterval(function(){
       var vs = document.querySelector('.vs');
       var hero = document.querySelector('.hero');
