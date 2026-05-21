@@ -51,14 +51,21 @@
 
     <script>
     function initVideo(){
-      var v = [['Обзор дома V11','Экскурсия по дому'],['Производство','Как делают наши дома'],['Доставка и монтаж','Процесс установки'],['Интерьер V11','Внутреннее пространство'],['Отзыв клиента','Реальный опыт']];
+      var v = [['Обзор дома V11','Экскурсия по дому','videos/v11-overview.mp4'],['Производство','Как делают наши дома',''],['Доставка и монтаж','Процесс установки',''],['Интерьер V11','Внутреннее пространство',''],['Отзыв клиента','Реальный опыт','']];
       var g = document.getElementById('vsGrid');
       if(g && g.children.length===0){
         for(var i=0;i<v.length;i++){
           var d = document.createElement('div');
           d.className = 'vs-card';
           d.innerHTML = '<div class="vs-prev"><div class="vs-pb"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#c9a84c"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
-          d.onclick = function(){document.getElementById('vmModal').classList.add('active');};
+          d.onclick = function(){
+          var src = v[i][2];
+          if(src){
+            document.getElementById('vmPlayer').querySelector('source').src = src;
+            document.getElementById('vmPlayer').load();
+          }
+          document.getElementById('vmModal').classList.add('active');
+        };
           g.appendChild(d);
         }
       }
