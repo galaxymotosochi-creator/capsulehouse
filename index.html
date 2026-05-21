@@ -124,7 +124,7 @@
           if (!cards[i].previousElementSibling || cards[i].previousElementSibling.textContent.trim() !== 'Доставка') {
             var btn = document.createElement('button');
             btn.className = 'house-card__cta';
-            btn.style.cssText = 'margin-right:.5rem;cursor:pointer;background:none;border:1px solid var(--color-accent);color:var(--color-accent);border-radius:6px;padding:.35rem .75rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn.style.cssText = 'cursor:pointer;background:none;border:1px solid var(--color-accent);color:var(--color-accent);border-radius:6px;padding:.35rem .75rem;font-size:.82rem;font-family:inherit;transition:all .2s';
             btn.textContent = 'Комплектация';
             btn.onmouseover = function(){this.style.background='var(--color-accent)';this.style.color='#fff'};
             btn.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
@@ -133,7 +133,7 @@
             
             var btn2 = document.createElement('button');
             btn2.className = 'house-card__cta';
-            btn2.style.cssText = 'margin-right:.5rem;cursor:pointer;background:none;border:1px solid var(--color-accent);color:var(--color-accent);border-radius:6px;padding:.35rem .75rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn2.style.cssText = 'cursor:pointer;background:none;border:1px solid var(--color-accent);color:var(--color-accent);border-radius:6px;padding:.35rem .75rem;font-size:.82rem;font-family:inherit;transition:all .2s';
             btn2.textContent = 'Доставка';
             btn2.onmouseover = function(){this.style.background='var(--color-accent)';this.style.color='#fff'};
             btn2.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
@@ -142,7 +142,7 @@
 
             var btn3 = document.createElement('button');
             btn3.className = 'house-card__cta';
-            btn3.style.cssText = 'margin-right:.5rem;cursor:pointer;background:none;border:1px solid var(--color-accent);color:var(--color-accent);border-radius:6px;padding:.35rem .75rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn3.style.cssText = 'cursor:pointer;background:none;border:1px solid var(--color-accent);color:var(--color-accent);border-radius:6px;padding:.35rem .75rem;font-size:.82rem;font-family:inherit;transition:all .2s';
             btn3.textContent = 'Оплата';
             btn3.onmouseover = function(){this.style.background='var(--color-accent)';this.style.color='#fff'};
             btn3.onmouseout = function(){this.style.background='none';this.style.color='var(--color-accent)'};
@@ -162,9 +162,9 @@
       for(var i=0;i<els.length;i++){
         if(els[i].textContent.trim()==='Подробнее'){
           els[i].textContent='Рассчитать стоимость';
-          els[i].style.flex='1';
-          els[i].style.textAlign='center';
-          els[i].style.minWidth='0';
+          
+          
+          
         }
       }
       // Выравниваем все кнопки в footer
@@ -174,11 +174,11 @@
         footers[i].style.flexWrap='wrap';
         var btns=footers[i].querySelectorAll('button,.house-card__cta');
         for(var j=0;j<btns.length;j++){
-          btns[j].style.flex='1';
-          btns[j].style.textAlign='center';
+          
+          
           btns[j].style.fontSize='.75rem';
           btns[j].style.padding='.35rem .4rem';
-          btns[j].style.minWidth='0';
+          
           btns[j].style.whiteSpace='nowrap';
         }
       }
@@ -189,8 +189,8 @@
       for(var i=0;i<els.length;i++){
         if(els[i].textContent.trim()==='Подробнее'){
           els[i].textContent='Рассчитать стоимость';
-          els[i].style.flex='1';
-          els[i].style.textAlign='center';
+          
+          
         }
       }
       var footers=document.querySelectorAll('.house-card__footer');
@@ -199,11 +199,11 @@
         footers[i].style.flexWrap='wrap';
         var btns=footers[i].querySelectorAll('button,.house-card__cta');
         for(var j=0;j<btns.length;j++){
-          btns[j].style.flex='1';
-          btns[j].style.textAlign='center';
+          
+          
           btns[j].style.fontSize='.75rem';
           btns[j].style.padding='.35rem .4rem';
-          btns[j].style.minWidth='0';
+          
           btns[j].style.whiteSpace='nowrap';
         }
       }
