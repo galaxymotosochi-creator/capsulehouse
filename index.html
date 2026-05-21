@@ -51,7 +51,7 @@
     </div>
 
     <script>
-    (function(){
+    document.addEventListener('DOMContentLoaded', function(){
       var v = [['Обзор дома V11','Экскурсия по дому'],['Производство','Как делают наши дома'],['Доставка и монтаж','Процесс установки'],['Интерьер V11','Внутреннее пространство'],['Отзыв клиента','Реальный опыт']];
       var g = document.getElementById('vsGrid');
       if(!g) return;
@@ -62,7 +62,7 @@
         d.onclick = function(){document.getElementById('vmModal').classList.add('active');};
         g.appendChild(d);
       }
-    })();
+    });
     </script>
 
     <!-- Комплектация V11 -->
