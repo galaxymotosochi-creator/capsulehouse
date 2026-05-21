@@ -14,6 +14,57 @@
   <body>
     <div id="root"></div>
 
+    <!-- Секция видео -->
+    <style>
+      .vs{padding:3rem 1.5rem;max-width:1200px;margin:0 auto}
+      .vs-hdr{text-align:center;margin-bottom:2rem}
+      .vs-hdr h2{font-size:1.5rem;font-weight:700;color:#1a1a1a;margin:0 0 .5rem}
+      .vs-hdr p{font-size:.9rem;color:#888;margin:0}
+      .vs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+      .vs-grid .wide{grid-column:span 2}
+      .vs-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer}
+      .vs-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1)}
+      .vs-prev{position:relative;aspect-ratio:9/16;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);display:flex;align-items:center;justify-content:center}
+      .vs-pb{width:60px;height:60px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center}
+      .vs-pb svg{width:22px;height:22px;fill:#c9a84c}
+      .vs-info{padding:.8rem 1rem}
+      .vs-info h4{font-size:.85rem;font-weight:600;color:#1a1a1a;margin:0 0 .1rem}
+      .vs-info span{font-size:.75rem;color:#999}
+      .vm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:1rem}
+      .vm.active{display:flex}
+      .vm video{max-height:90vh;border-radius:12px}
+      .vm-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;z-index:10000}
+      @media(max-width:640px){.vs-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}.vs-grid .wide{grid-column:span 1}}
+    </style>
+
+    <section class="vs">
+      <div class="vs-hdr">
+        <h2>Видеообзоры</h2>
+        <p>Смотрите наши дома в действии</p>
+      </div>
+      <div class="vs-grid" id="vsGrid"></div>
+    </section>
+
+    <div class="vm" id="vmModal">
+      <button class="vm-close" onclick="document.getElementById('vmModal').classList.remove('active')">&times;</button>
+      <video controls id="vmPlayer"><source src="" type="video/mp4"></video>
+    </div>
+
+    <script>
+    (function(){
+      var v = [['Обзор дома V11','Экскурсия по дому'],['Производство','Как делают наши дома'],['Доставка и монтаж','Процесс установки'],['Интерьер V11','Внутреннее пространство'],['Отзыв клиента','Реальный опыт']];
+      var g = document.getElementById('vsGrid');
+      if(!g) return;
+      for(var i=0;i<v.length;i++){
+        var d = document.createElement('div');
+        d.className = 'vs-card' + (i===0?' wide':'');
+        d.innerHTML = '<div class="vs-prev"><div class="vs-pb"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#c9a84c"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
+        d.onclick = function(){document.getElementById('vmModal').classList.add('active');};
+        g.appendChild(d);
+      }
+    })();
+    </script>
+
     <!-- Комплектация V11 -->
     <div id="equipment-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:999;justify-content:center;align-items:flex-start;padding:2rem 1rem;overflow-y:auto">
       <div style="background:#fff;max-width:600px;width:100%;margin:auto;border-radius:12px;padding:1.5rem;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.2)">
@@ -22,36 +73,9 @@
       </div>
     </div>
 
-    <!-- Видеогалерея (вставляется через скрипт после hero) -->
-    <style>
-      .video-section{padding:3rem 0;background:#fff}
-      .video-section .container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
-      .video-section .section-header{text-align:center;margin-bottom:2rem}
-      .video-section .section-header h2{font-size:1.5rem;font-weight:700;color:#1a1a1a;margin-bottom:.5rem}
-      .video-section .section-header p{font-size:.9rem;color:#888}
-      .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-      .video-grid .wide{grid-column:span 2}
-      .video-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;transition:transform .2s,box-shadow .2s}
-      .video-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
-      .video-preview{position:relative;aspect-ratio:9/16;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);display:flex;align-items:center;justify-content:center}
-      .play-btn{width:60px;height:60px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s;box-shadow:0 4px 15px rgba(0,0,0,.3)}
-      .video-card:hover .play-btn{transform:scale(1.08)}
-      .play-btn svg{margin-left:3px;width:22px;height:22px;fill:#c9a84c}
-      .video-info{padding:.8rem 1rem}
-      .video-info h4{font-size:.85rem;font-weight:600;color:#1a1a1a;margin-bottom:.1rem}
-      .video-info span{font-size:.75rem;color:#999}
-      #videoModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:1rem}
-      #videoModal.active{display:flex}
-      #videoModal video{max-height:90vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
-      #videoModal .modal-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10000}
-      @media(max-width:640px){.video-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}.video-grid .wide{grid-column:span 1}}
-    </style>
 
-    <!-- Модалка видео -->
-    <div id="videoModal">
-      <button class="modal-close" onclick="document.getElementById('videoModal').classList.remove('active')">&times;</button>
-      <video controls id="videoPlayer"><source src="" type="video/mp4"></video>
-    </div>
+
+
 
     <script>
     // Данные комплектации
@@ -185,30 +209,6 @@
     }
 
         // Проверка каждые 2 секунды
-    function insertVideoSection(){
-      if(document.getElementById('videoSection')) return;
-      var c = document.querySelector('.section--light');
-      if(!c) return;
-      var h = '<section id="videoSection" class="video-section"><div class="container"><div class="section-header"><h2>Видеообзоры</h2><p>Смотрите наши дома в действии</p></div><div class="video-grid" id="videoGrid"></div></div></section>';
-      c.insertAdjacentHTML('beforebegin', h);
-      var vids = [
-        ['Обзор дома V11','Экскурсия по дому'],
-        ['Производство','Как делают наши дома'],
-        ['Доставка и монтаж','Процесс установки'],
-        ['Интерьер V11','Внутреннее пространство'],
-        ['Отзыв клиента','Реальный опыт']
-      ];
-      var grid = document.getElementById('videoGrid');
-      if(!grid) return;
-      for(var i=0;i<vids.length;i++){
-        var d = document.createElement('div');
-        d.className = 'video-card' + (i===0?' wide':'');
-        d.innerHTML = '<div class="video-preview"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#c9a84c"/></svg></div></div><div class="video-info"><h4>' + vids[i][0] + '</h4><span>' + vids[i][1] + '</span></div>';
-        d.onclick = (function(j){return function(){document.getElementById('videoModal').classList.add('active');}})(i);
-        grid.appendChild(d);
-      }
-    }
-    
     function fixHomePage(){
       var footers=document.querySelectorAll('.house-card__footer');
       for(var i=0;i<footers.length;i++){
@@ -256,7 +256,6 @@
     }
     
     try{fixHomePage()}catch(e){}
-    try{insertVideoSection()}catch(e){}
-    setInterval(function(){try{fixHomePage()}catch(e){}try{insertVideoSection()}catch(e){}}, 2000);
+    setInterval(function(){try{fixHomePage()}catch(e){}}, 2000);
   </body>
 </html>
