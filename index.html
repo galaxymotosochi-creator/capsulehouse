@@ -186,33 +186,26 @@
 
         // Проверка каждые 2 секунды
     function insertVideoSection(){
-      var housesSection = document.querySelector('.section--light') || document.querySelector('.houses-grid');
-      if(housesSection && !document.getElementById('videoSection')){
-        var section = document.createElement('section');
-        section.id = 'videoSection';
-        section.className = 'video-section';
-        section.innerHTML = '<div class="container"><div class="section-header"><h2>Видеообзоры</h2><p>Смотрите наши дома в действии</p></div><div class="video-grid" id="videoGrid"></div></div>';
-        housesSection.parentNode.insertBefore(section, housesSection);
-        
-        var videos = [
-          {title:'Обзор дома V11',sub:'Экскурсия по дому'},
-          {title:'Производство',sub:'Как делают наши дома'},
-          {title:'Доставка и монтаж',sub:'Процесс установки'},
-          {title:'Интерьер V11',sub:'Внутреннее пространство'},
-          {title:'Отзыв клиента',sub:'Реальный опыт'}
-        ];
-        var grid = document.getElementById('videoGrid');
-        if(!grid) return;
-        for(var i=0;i<videos.length;i++){
-          var v=videos[i];
-          var card=document.createElement('div');
-          card.className='video-card'+(i===0?' wide':'');
-          card.innerHTML='<div class="video-preview"><div class="play-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div><div class="video-info"><h4>'+v.title+'</h4><span>'+v.sub+'</span></div>';
-          card.onclick=(function(idx){return function(){
-            document.getElementById('videoModal').classList.add('active');
-          }})(i);
-          grid.appendChild(card);
-        }
+      if(document.getElementById('videoSection')) return;
+      var c = document.querySelector('.section--light');
+      if(!c) return;
+      var h = '<section id="videoSection" class="video-section"><div class="container"><div class="section-header"><h2>Видеообзоры</h2><p>Смотрите наши дома в действии</p></div><div class="video-grid" id="videoGrid"></div></div></section>';
+      c.insertAdjacentHTML('beforebegin', h);
+      var vids = [
+        ['Обзор дома V11','Экскурсия по дому'],
+        ['Производство','Как делают наши дома'],
+        ['Доставка и монтаж','Процесс установки'],
+        ['Интерьер V11','Внутреннее пространство'],
+        ['Отзыв клиента','Реальный опыт']
+      ];
+      var grid = document.getElementById('videoGrid');
+      if(!grid) return;
+      for(var i=0;i<vids.length;i++){
+        var d = document.createElement('div');
+        d.className = 'video-card' + (i===0?' wide':'');
+        d.innerHTML = '<div class="video-preview"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#c9a84c"/></svg></div></div><div class="video-info"><h4>' + vids[i][0] + '</h4><span>' + vids[i][1] + '</span></div>';
+        d.onclick = (function(j){return function(){document.getElementById('videoModal').classList.add('active');}})(i);
+        grid.appendChild(d);
       }
     }
     
@@ -262,8 +255,8 @@
       }
     }
     
-    fixHomePage();
-    insertVideoSection();
-    setInterval(function(){fixHomePage();insertVideoSection();}, 2000);
+    try{fixHomePage()}catch(e){}
+    try{insertVideoSection()}catch(e){}
+    setInterval(function(){try{fixHomePage()}catch(e){}try{insertVideoSection()}catch(e){}}, 2000);
   </body>
 </html>
