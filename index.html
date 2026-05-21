@@ -153,10 +153,8 @@
       }
     }
 
-    // Наблюдатель за изменениями DOM
-    var observer = new MutationObserver(function() { addEquipmentButton(); });
-    observer.observe(document.getElementById('root'), { childList: true, subtree: true });
-    setTimeout(function(){
+        // Проверка каждые 2 секунды
+    var layoutTimer = setInterval(function(){
       addEquipmentButton();
       var els=document.querySelectorAll('.house-card__cta');
       for(var i=0;i<els.length;i++){
@@ -164,54 +162,28 @@
           els[i].textContent='Рассчитать стоимость';
           els[i].style.padding='.35rem .8rem';
           els[i].style.letterSpacing='.02em';
-
         }
       }
-      // Выравниваем все кнопки в footer
+      // Оборачиваем кнопки в контейнер (цена слева, кнопки справа)
       var footers=document.querySelectorAll('.house-card__footer');
       for(var i=0;i<footers.length;i++){
-        footers[i].style.gap='4px';
-          footers[i].style.justifyContent='space-between';
-        footers[i].style.flexWrap='wrap';
-        var btns=footers[i].querySelectorAll('button,.house-card__cta');
-        for(var j=0;j<btns.length;j++){
-          
-          
-          btns[j].style.fontSize='.75rem';
-          btns[j].style.padding='.35rem .4rem';
-          
-          btns[j].style.whiteSpace='nowrap';
+        footers[i].style.justifyContent='space-between';
+        footers[i].style.alignItems='center';
+        var wrap=footers[i].querySelector('.btn-group');
+        if(!wrap){
+          wrap=document.createElement('div');
+          wrap.className='btn-group';
+          wrap.style.cssText='display:flex;gap:4px;align-items:center;flex-wrap:wrap';
+          var btns=footers[i].querySelectorAll('button,.house-card__cta');
+          for(var j=0;j<btns.length;j++){
+            btns[j].style.fontSize='.75rem';
+            btns[j].style.padding='.35rem .4rem';
+            btns[j].style.whiteSpace='nowrap';
+            wrap.appendChild(btns[j]);
+          }
+          if(wrap.children.length>0) footers[i].appendChild(wrap);
         }
       }
-    },1000);
-    setTimeout(function(){
-      addEquipmentButton();
-      var els=document.querySelectorAll('.house-card__cta');
-      for(var i=0;i<els.length;i++){
-        if(els[i].textContent.trim()==='Подробнее'){
-          els[i].textContent='Рассчитать стоимость';
-          els[i].style.padding='.35rem .8rem';
-          els[i].style.letterSpacing='.02em';
-          
-          
-        }
-      }
-      var footers=document.querySelectorAll('.house-card__footer');
-      for(var i=0;i<footers.length;i++){
-        footers[i].style.gap='4px';
-          footers[i].style.justifyContent='space-between';
-        footers[i].style.flexWrap='wrap';
-        var btns=footers[i].querySelectorAll('button,.house-card__cta');
-        for(var j=0;j<btns.length;j++){
-          
-          
-          btns[j].style.fontSize='.75rem';
-          btns[j].style.padding='.35rem .4rem';
-          
-          btns[j].style.whiteSpace='nowrap';
-        }
-      }
-    },3000);
-    </script>
+    }, 2000);</script>
   </body>
 </html>
