@@ -35,6 +35,7 @@
       .vm-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;z-index:10000}
       @media(max-width:640px){.vs-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}}
       .vs-horiz{margin-top:1rem;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;background:#fff}.vs-horiz:hover{box-shadow:0 6px 20px rgba(0,0,0,.1)}.vs-horiz-prev{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);display:flex;align-items:center;justify-content:center}.vs-horiz-info{padding:.8rem 1rem}.vs-horiz-info h4{font-size:.85rem;font-weight:600;color:#1a1a1a;margin:0 0 .1rem}.vs-horiz-info span{font-size:.75rem;color:#999}
+      .house-card__btn-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0}.house-card__info-btn{cursor:pointer;background:rgba(0,0,0,.04);border:1px solid #ddd;border-radius:5px;color:#555;padding:2px 8px;font-size:11px;font-family:inherit;line-height:1.5;transition:all .15s}.house-card__info-btn:hover{background:rgba(0,0,0,.08);border-color:#999}
     </style>
 
     <section class="vs" style="display:none">
@@ -213,93 +214,6 @@
       document.getElementById('equipment-modal').style.display = 'flex';
     }
 
-    // Ждём появления карточки и добавляем кнопку
-    function addEquipmentButton() {
-      var cards = document.querySelectorAll('.house-card__cta');
-      for (var i = 0; i < cards.length; i++) {
-        if (cards[i].textContent.trim() === 'Подробнее') {
-          cards[i].textContent = 'Рассчитать стоимость'; cards[i].style.padding='.35rem .8rem'; cards[i].style.letterSpacing='.02em';
-          cards[i].href = cards[i].href || '#';
-          // Проверяем, не добавили ли уже кнопку
-          if (!cards[i].previousElementSibling || cards[i].previousElementSibling.textContent.trim() !== 'Доставка') {
-            var btn = document.createElement('button');
-            btn.className = 'house-card__cta';
-            btn.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-text-muted);padding:0;font-size:13px;font-family:inherit';
-            btn.textContent = 'Комплектация';
-            btn.onmouseover = function(){this.style.borderColor='#999'};
-            btn.onmouseout = function(){this.style.borderColor='#ccc'};
-            btn.onclick = function(e){e.stopPropagation();openEquipment()};
-            cards[i].parentNode.insertBefore(btn, cards[i]);
-            
-            var btn2 = document.createElement('button');
-            btn2.className = 'house-card__cta';
-            btn2.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-text-muted);padding:0;font-size:13px;font-family:inherit';
-            btn2.textContent = 'Доставка';
-            btn2.onmouseover = function(){this.style.borderColor='#999'};
-            btn2.onmouseout = function(){this.style.borderColor='#ccc'};
-            btn2.onclick = function(e){e.stopPropagation();openDelivery()};
-            cards[i].parentNode.insertBefore(btn2, cards[i]);
-
-            var btn3 = document.createElement('button');
-            btn3.className = 'house-card__cta';
-            btn3.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-text-muted);padding:0;font-size:13px;font-family:inherit';
-            btn3.textContent = 'Оплата';
-            btn3.onmouseover = function(){this.style.borderColor='#999'};
-            btn3.onmouseout = function(){this.style.borderColor='#ccc'};
-            btn3.onclick = function(e){e.stopPropagation();openPayment()};
-            cards[i].parentNode.insertBefore(btn3, cards[i]);
-          }
-        }
-      }
-    }
-
-        // Проверка каждые 2 секунды
-    function fixHomePageCapsule(){
-      var footers=document.querySelectorAll('.house-card__footer');
-      for(var i=0;i<footers.length;i++){
-        if(footers[i].classList.contains('btn-fixed-capsule')) continue;
-        
-        footers[i].style.justifyContent='space-between';
-        footers[i].style.alignItems='center';
-        
-        var link=footers[i].querySelector('.house-card__cta');
-        if(link && link.textContent.trim()==='Подробнее'){
-          link.textContent='Рассчитать стоимость';
-        }
-        if(!link) continue;
-        
-        // Обёртка для кнопок
-        var wrap=document.createElement('div');
-        wrap.style.cssText='display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 0 4px 0';
-        
-        var btns=['Комплектация','Доставка','Оплата'];
-        var handlers=[openEquipment,openDelivery,openPayment];
-        for(var j=0;j<btns.length;j++){
-          var btn=document.createElement('button');
-          btn.textContent=btns[j];
-          btn.style.cssText='cursor:pointer;background:rgba(0,0,0,.04);border:1px solid #ddd;border-radius:5px;color:#555;padding:2px 8px;font-size:11px;font-family:inherit;line-height:1.5;transition:all .15s';
-          btn.onmouseenter=function(){this.style.background='rgba(0,0,0,.08)';this.style.borderColor='#999'};
-          btn.onmouseleave=function(){this.style.background='rgba(0,0,0,.04)';this.style.borderColor='#ddd'};
-          btn.onclick=(function(h){return function(e){e.stopPropagation();h()}})(handlers[j]);
-          wrap.appendChild(btn);
-        }
-        
-        // Стилизуем Рассчитать стоимость
-        link.style.cssText='display:inline-block;cursor:pointer;background:none;border:1px solid #ddd;border-radius:5px;color:#555;padding:2px 8px;font-size:11px;font-family:inherit;line-height:1.5;text-decoration:none;transition:all .15s';
-        link.onmouseenter=function(){this.style.background='rgba(0,0,0,.08)';this.style.borderColor='#999'};
-        link.onmouseleave=function(){this.style.background='transparent';this.style.borderColor='#ddd'};
-        
-        footers[i].appendChild(wrap);
-        footers[i].classList.add('btn-fixed-capsule');
-      }
-    }
     
-    try{fixHomePageCapsule()}catch(e){}
-    // MutationObserver — срабатывает только когда React меняет DOM
-    var obs = new MutationObserver(function(){
-      var ftrs = document.querySelectorAll('.house-card__footer:not(.btn-fixed-capsule)');
-      if(ftrs.length) fixHomePageCapsule();
-    });
-    obs.observe(document.getElementById('root'), {childList:true, subtree:true});
   </body>
 </html>
