@@ -124,7 +124,7 @@
           if (!cards[i].previousElementSibling || cards[i].previousElementSibling.textContent.trim() !== 'Доставка') {
             var btn = document.createElement('button');
             btn.className = 'house-card__cta';
-            btn.style.cssText = 'cursor:pointer;background:none;border:1px solid #ccc;color:#333;border-radius:6px;padding:.3rem .6rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-text-muted);padding:0;font-size:13px;font-family:inherit';
             btn.textContent = 'Комплектация';
             btn.onmouseover = function(){this.style.borderColor='#999'};
             btn.onmouseout = function(){this.style.borderColor='#ccc'};
@@ -133,7 +133,7 @@
             
             var btn2 = document.createElement('button');
             btn2.className = 'house-card__cta';
-            btn2.style.cssText = 'cursor:pointer;background:none;border:1px solid #ccc;color:#333;border-radius:6px;padding:.3rem .6rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn2.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-text-muted);padding:0;font-size:13px;font-family:inherit';
             btn2.textContent = 'Доставка';
             btn2.onmouseover = function(){this.style.borderColor='#999'};
             btn2.onmouseout = function(){this.style.borderColor='#ccc'};
@@ -142,7 +142,7 @@
 
             var btn3 = document.createElement('button');
             btn3.className = 'house-card__cta';
-            btn3.style.cssText = 'cursor:pointer;background:none;border:1px solid #ccc;color:#333;border-radius:6px;padding:.3rem .6rem;font-size:.82rem;font-family:inherit;transition:all .2s';
+            btn3.style.cssText = 'cursor:pointer;background:none;border:none;color:var(--color-text-muted);padding:0;font-size:13px;font-family:inherit';
             btn3.textContent = 'Оплата';
             btn3.onmouseover = function(){this.style.borderColor='#999'};
             btn3.onmouseout = function(){this.style.borderColor='#ccc'};
@@ -179,9 +179,9 @@
         for(var j=0;j<btns.length;j++){
           var btn=document.createElement('button');
           btn.textContent=btns[j];
-          btn.style.cssText='cursor:pointer;background:none;border:1px solid #ccc;color:#333;border-radius:6px;padding:.3rem .6rem;font-size:.82rem;font-family:inherit;transition:all .2s';
-          btn.onmouseover=function(){this.style.borderColor='#999'};
-          btn.onmouseout=function(){this.style.borderColor='#ccc'};
+          btn.style.cssText='cursor:pointer;background:none;border:none;color:var(--color-text-muted);padding:0;font-size:13px;font-family:inherit';
+          btn.onmouseover=function(){this.style.color='#000'};
+          btn.onmouseout=function(){this.style.color='var(--color-text-muted)'};
           btn.onclick=(function(h){return function(e){e.stopPropagation();h()}})(handlers[j]);
           wrap.appendChild(btn);
         }
@@ -189,11 +189,10 @@
         // Стилизуем Рассчитать стоимость и помещаем в обёртку
         link.style.background='none';
         link.style.backgroundColor='transparent';
-        link.style.color='#333';
-        link.style.border='1px solid #ccc';
-        link.style.borderRadius='6px';
-        link.style.padding='.3rem .6rem';
-        link.style.fontSize='.82rem';
+        link.style.color='var(--color-text-muted)';
+        link.style.border='none';
+        link.style.padding='0';
+        link.style.fontSize='13px';
         wrap.appendChild(link);
         
         footers[i].appendChild(wrap);
