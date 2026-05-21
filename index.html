@@ -254,53 +254,47 @@
     }
 
         // Проверка каждые 2 секунды
-    function fixHomePage(){
+    function fixHomePageCapsule(){
       var footers=document.querySelectorAll('.house-card__footer');
       for(var i=0;i<footers.length;i++){
-        if(footers[i].classList.contains('btn-fixed')) continue;
+        if(footers[i].classList.contains('btn-fixed-capsule')) continue;
         
         footers[i].style.justifyContent='space-between';
         footers[i].style.alignItems='center';
         
-        // Меняем текст Подробнее на Рассчитать стоимость
         var link=footers[i].querySelector('.house-card__cta');
         if(link && link.textContent.trim()==='Подробнее'){
           link.textContent='Рассчитать стоимость';
         }
         if(!link) continue;
         
-        // Создаём обёртку и добавляем кнопки
+        // Обёртка для кнопок
         var wrap=document.createElement('div');
-        wrap.className='btn-group';
-        wrap.style.cssText='display:flex;gap:4px;align-items:center;flex-wrap:wrap';
+        wrap.style.cssText='display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 0 4px 0';
         
         var btns=['Комплектация','Доставка','Оплата'];
         var handlers=[openEquipment,openDelivery,openPayment];
         for(var j=0;j<btns.length;j++){
           var btn=document.createElement('button');
           btn.textContent=btns[j];
-          btn.style.cssText='cursor:pointer;background:none;border:none;color:var(--color-text-muted);padding:0;font-size:13px;font-family:inherit';
-          btn.onmouseover=function(){this.style.color='#000'};
-          btn.onmouseout=function(){this.style.color='var(--color-text-muted)'};
+          btn.style.cssText='cursor:pointer;background:rgba(0,0,0,.04);border:1px solid #ddd;border-radius:5px;color:#555;padding:2px 8px;font-size:11px;font-family:inherit;line-height:1.5;transition:all .15s';
+          btn.onmouseenter=function(){this.style.background='rgba(0,0,0,.08)';this.style.borderColor='#999'};
+          btn.onmouseleave=function(){this.style.background='rgba(0,0,0,.04)';this.style.borderColor='#ddd'};
           btn.onclick=(function(h){return function(e){e.stopPropagation();h()}})(handlers[j]);
           wrap.appendChild(btn);
         }
         
-        // Стилизуем Рассчитать стоимость и помещаем в обёртку
-        link.style.background='none';
-        link.style.backgroundColor='transparent';
-        link.style.color='var(--color-text-muted)';
-        link.style.border='none';
-        link.style.padding='0';
-        link.style.fontSize='13px';
-        wrap.appendChild(link);
+        // Стилизуем Рассчитать стоимость
+        link.style.cssText='display:inline-block;cursor:pointer;background:none;border:1px solid #ddd;border-radius:5px;color:#555;padding:2px 8px;font-size:11px;font-family:inherit;line-height:1.5;text-decoration:none;transition:all .15s';
+        link.onmouseenter=function(){this.style.background='rgba(0,0,0,.08)';this.style.borderColor='#999'};
+        link.onmouseleave=function(){this.style.background='transparent';this.style.borderColor='#ddd'};
         
         footers[i].appendChild(wrap);
-        footers[i].classList.add('btn-fixed');
+        footers[i].classList.add('btn-fixed-capsule');
       }
     }
     
-    try{fixHomePage()}catch(e){}
-    setInterval(function(){try{fixHomePage()}catch(e){}}, 2000);
+    try{fixHomePageCapsule()}catch(e){}
+    setInterval(function(){try{fixHomePageCapsule()}catch(e){}}, 2000);
   </body>
 </html>
