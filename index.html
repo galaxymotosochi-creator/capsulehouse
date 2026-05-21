@@ -24,7 +24,7 @@
       .vs-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer}
       .vs-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1)}
       .vs-prev{position:relative;aspect-ratio:9/16;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);display:flex;align-items:center;justify-content:center}
-      .vs-pb{width:60px;height:60px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center}
+      .vs-pb{width:60px;height:60px;background:rgba(0,0,0,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s}.vs-card:hover .vs-pb{transform:scale(1.1)}.vs-pb svg{width:24px;height:24px;fill:#fff;margin-left:3px}
       .vs-pb svg{width:22px;height:22px;fill:#c9a84c}
       .vs-info{padding:.8rem 1rem}
       .vs-info h4{font-size:.85rem;font-weight:600;color:#1a1a1a;margin:0 0 .1rem}
@@ -51,13 +51,13 @@
 
     <script>
     function initVideo(){
-      var v = [['Обзор дома V11','Экскурсия по дому','videos/v11-overview.mp4'],['Производство','Как делают наши дома',''],['Доставка и монтаж','Процесс установки',''],['Интерьер V11','Внутреннее пространство',''],['Отзыв клиента','Реальный опыт','']];
+      var v = [['Обзор дома V11','Экскурсия по дому','videos/v11-overview.mp4','images/v11-thumb.jpg'],['Производство','Как делают наши дома','',''],['Доставка и монтаж','Процесс установки','',''],['Интерьер V11','Внутреннее пространство','',''],['Отзыв клиента','Реальный опыт','','']];
       var g = document.getElementById('vsGrid');
       if(g && g.children.length===0){
         for(var i=0;i<v.length;i++){
           var d = document.createElement('div');
           d.className = 'vs-card';
-          d.innerHTML = '<div class="vs-prev"><div class="vs-pb"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#c9a84c"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
+          d.innerHTML = '<div class="vs-prev"' + (v[i][3]?' style="background-image:url('+v[i][3]+');background-size:cover;background-position:center"':'') + '><div class="vs-pb"><svg viewBox="0 0 24 24" width="24" height="24"><polygon points="5 3 19 12 5 21 5 3" fill="#fff"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
           d.onclick = function(){
           var src = v[i][2];
           if(src){
