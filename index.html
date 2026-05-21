@@ -50,18 +50,43 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function(){
+    function initVideo(){
       var v = [['Обзор дома V11','Экскурсия по дому'],['Производство','Как делают наши дома'],['Доставка и монтаж','Процесс установки'],['Интерьер V11','Внутреннее пространство'],['Отзыв клиента','Реальный опыт']];
       var g = document.getElementById('vsGrid');
-      if(!g) return;
-      for(var i=0;i<v.length;i++){
-        var d = document.createElement('div');
-        d.className = 'vs-card';
-        d.innerHTML = '<div class="vs-prev"><div class="vs-pb"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#c9a84c"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
-        d.onclick = function(){document.getElementById('vmModal').classList.add('active');};
-        g.appendChild(d);
+      if(g && g.children.length===0){
+        for(var i=0;i<v.length;i++){
+          var d = document.createElement('div');
+          d.className = 'vs-card';
+          d.innerHTML = '<div class="vs-prev"><div class="vs-pb"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#c9a84c"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
+          d.onclick = function(){document.getElementById('vmModal').classList.add('active');};
+          g.appendChild(d);
+        }
       }
-    });
+      // Перемещаем секцию под hero
+      var vs = document.querySelector('.vs');
+      var hero = document.querySelector('.hero');
+      if(vs && hero && vs.parentNode !== hero.parentNode){
+        var parent = hero.parentNode;
+        var next = hero.nextElementSibling;
+        if(next){
+          parent.insertBefore(vs, next);
+        } else {
+          parent.appendChild(vs);
+        }
+      }
+    }
+    // Ждём пока React отрендерит
+    setTimeout(function(){initVideo();}, 500);
+    setInterval(function(){
+      var vs = document.querySelector('.vs');
+      var hero = document.querySelector('.hero');
+      if(vs && hero && vs.previousElementSibling !== hero){
+        var parent = hero.parentNode;
+        var next = hero.nextElementSibling;
+        if(next) parent.insertBefore(vs, next);
+        else parent.appendChild(vs);
+      }
+    }, 2000);
     </script>
 
     <!-- Комплектация V11 -->
