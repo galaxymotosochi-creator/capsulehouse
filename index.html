@@ -31,7 +31,7 @@
       .vs-info span{font-size:.75rem;color:#999}
       .vm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:1rem}
       .vm.active{display:flex}
-      .vm video{max-height:90vh;border-radius:12px}
+      .vm video{max-height:90vh;border-radius:12px}.vm video::-webkit-media-controls-download-button{display:none!important}.vm video::-internal-media-controls-download-button{display:none!important}
       .vm-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;z-index:10000}
       @media(max-width:640px){.vs-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}}
     </style>
@@ -46,7 +46,7 @@
 
     <div class="vm" id="vmModal">
       <button class="vm-close" onclick="document.getElementById('vmModal').classList.remove('active')">&times;</button>
-      <video controls id="vmPlayer"><source src="" type="video/mp4"></video>
+      <video controls controlsList="nodownload" id="vmPlayer"><source src="" type="video/mp4"></video>
     </div>
 
     <script>
