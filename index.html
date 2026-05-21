@@ -29,11 +29,12 @@
       .vs-info{padding:.8rem 1rem}
       .vs-info h4{font-size:.85rem;font-weight:600;color:#1a1a1a;margin:0 0 .1rem}
       .vs-info span{font-size:.75rem;color:#999}
-      .vs-card.wide{grid-column:span 2}.vs-card.wide .vs-prev{aspect-ratio:16/9}.vm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:1rem}
+      .vm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:1rem}
       .vm.active{display:flex}
       .vm video{max-height:90vh;border-radius:12px}.vm video::-webkit-media-controls-download-button{display:none!important}.vm video::-internal-media-controls-download-button{display:none!important}
       .vm-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;z-index:10000}
       @media(max-width:640px){.vs-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}}
+      .vs-horiz{margin-top:1rem;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;background:#fff}.vs-horiz:hover{box-shadow:0 6px 20px rgba(0,0,0,.1)}.vs-horiz-prev{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);display:flex;align-items:center;justify-content:center}.vs-horiz-info{padding:.8rem 1rem}.vs-horiz-info h4{font-size:.85rem;font-weight:600;color:#1a1a1a;margin:0 0 .1rem}.vs-horiz-info span{font-size:.75rem;color:#999}
     </style>
 
     <section class="vs" style="display:none">
@@ -42,6 +43,10 @@
         <p>Смотрите наши дома в действии</p>
       </div>
       <div class="vs-grid" id="vsGrid"></div>
+      <div class="vs-horiz" id="vsHoriz">
+        <div class="vs-horiz-prev"><div class="vs-pb"><svg viewBox="0 0 24 24" width="24" height="24"><polygon points="5 3 19 12 5 21 5 3" fill="#fff"/></svg></div></div>
+        <div class="vs-horiz-info"><h4>Горизонтальный обзор</h4><span>Широкоформатное видео</span></div>
+      </div>
     </section>
 
     <div class="vm" id="vmModal">
@@ -51,12 +56,12 @@
 
     <script>
     function initVideo(){
-      var v = [['Обзор дома V11','Экскурсия по дому','videos/v11-overview.mp4','images/v11-thumb.jpg'],['Внутреннее пространство','Дом в цветущем саду','videos/petal-720.mp4','images/petal-thumb.jpg'],['Дом в саду','Вид снаружи','videos/petal3-720.mp4','images/petal3-thumb.jpg'],['Интерьер V11','Дизайн и уют','videos/petal4-720.mp4','images/petal4-thumb.jpg'],['Доставка и монтаж','Процесс установки','',''],['Горизонтальный обзор','','','']];
+      var v = [['Обзор дома V11','Экскурсия по дому','videos/v11-overview.mp4','images/v11-thumb.jpg'],['Внутреннее пространство','Дом в цветущем саду','videos/petal-720.mp4','images/petal-thumb.jpg'],['Дом в саду','Вид снаружи','videos/petal3-720.mp4','images/petal3-thumb.jpg'],['Интерьер V11','Дизайн и уют','videos/petal4-720.mp4','images/petal4-thumb.jpg'],['Доставка и монтаж','Процесс установки','',''],['Производство','Как делают наши дома','','']];
       var g = document.getElementById('vsGrid');
       if(g && g.children.length===0){
         for(var i=0;i<v.length;i++){
           var d = document.createElement('div');
-          d.className = 'vs-card' + (i===v.length-1?' wide':'');
+          d.className = 'vs-card';
           d.innerHTML = '<div class="vs-prev"' + (v[i][3]?' style="background-image:url('+v[i][3]+');background-size:cover;background-position:center"':'') + '><div class="vs-pb"><svg viewBox="0 0 24 24" width="24" height="24"><polygon points="5 3 19 12 5 21 5 3" fill="#fff"/></svg></div></div><div class="vs-info"><h4>' + v[i][0] + '</h4><span>' + v[i][1] + '</span></div>';
           d.onclick = (function(idx){return function(){
             var src = v[idx][2];
@@ -70,6 +75,10 @@
           g.appendChild(d);
         }
       }
+      // Клик по горизонтальной карточке
+      document.getElementById('vsHoriz').onclick = function(){
+        document.getElementById('vmModal').classList.add('active');
+      };
       // Перемещаем секцию под hero
       var vs = document.querySelector('.vs');
       var hero = document.querySelector('.hero');
