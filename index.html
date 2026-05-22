@@ -233,6 +233,19 @@
       .calc-btn--next{background:#000;color:#fff}
       .calc-btn--next:hover{background:#333}
       .calc-btn:disabled{opacity:.4;cursor:default}
+      /* Toggle switch */
+      .calc-option{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f0}
+      .calc-option:last-child{border-bottom:none}
+      .calc-option__label{font-size:14px;font-weight:500;color:#333}
+      .calc-option__price{font-size:13px;font-weight:500;transition:color .2s}
+      .calc-option__price--off{color:#ccc}
+      .calc-option__price--on{color:#000}
+      .calc-toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+      .calc-toggle input{opacity:0;width:0;height:0}
+      .calc-toggle__slider{position:absolute;inset:0;background:#ddd;border-radius:12px;cursor:pointer;transition:background .2s}
+      .calc-toggle__slider::before{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .2s}
+      .calc-toggle input:checked + .calc-toggle__slider{background:#000}
+      .calc-toggle input:checked + .calc-toggle__slider::before{transform:translateX(20px)}
     </style>
 
     <div class="calc-overlay" id="calcOverlay">
@@ -264,6 +277,25 @@
       'Итоговая стоимость'
     ];
 
+    // Данные V11
+    var calcModel = { name:'V11', area:38, basePrice:2224999 };
+    // Опции для шага 1
+    var calcOptions = [
+      { id:'warm-floor', label:'Тёплый пол', price:20000, on:false },
+      { id:'triple-glass', label:'Тройной стеклопакет', price:60000, on:false },
+      { id:'pipe-insulation', label:'Теплоизоляция труб', price:40000, on:false }
+    ];
+
+    function toggleOption(id) {
+      for (var i = 0; i < calcOptions.length; i++) {
+        if (calcOptions[i].id === id) {
+          calcOptions[i].on = !calcOptions[i].on;
+          break;
+        }
+      }
+      renderStep0();
+    }
+
     function openCalc() { document.getElementById('calcOverlay').classList.add('active'); renderCalc(); }
     function closeCalc() { document.getElementById('calcOverlay').classList.remove('active'); }
 
@@ -273,9 +305,37 @@
         s.classList.toggle('active', i === calcStep);
         s.classList.toggle('done', i < calcStep);
       });
-      document.getElementById('calcBody').innerHTML = '<h3 style="margin:0 0 .5rem;color:#333;font-size:15px;font-weight:600">' + calcTitles[calcStep] + '</h3><p style="color:#bbb;font-size:13px">Заполняется...</p>';
+      if (calcStep === 0) renderStep0();
+      else document.getElementById('calcBody').innerHTML = '<h3 style="margin:0 0 .5rem;color:#333;font-size:15px;font-weight:600">' + calcTitles[calcStep] + '</h3><p style="color:#bbb;font-size:13px">Заполняется...</p>';
       document.getElementById('calcPrev').disabled = calcStep === 0;
       document.getElementById('calcNext').textContent = calcStep === 3 ? 'Готово' : 'Далее';
+    }
+
+    function renderStep0() {
+      var html = '';
+      // Модель
+      html += '<div style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #eee">';
+      html += '<h3 style="margin:0 0 2px;color:#333;font-size:15px;font-weight:600">' + calcModel.name + '</h3>';
+      html += '<p style="margin:0;color:#888;font-size:13px">Площадь: ' + calcModel.area + ' м²</p>';
+      html += '</div>';
+      // Заголовок опций
+      html += '<p style="margin:0 0 4px;font-size:13px;font-weight:600;color:#555">Зимнее утепление</p>';
+      // Опции
+      for (var i = 0; i < calcOptions.length; i++) {
+        var o = calcOptions[i];
+        var priceClass = o.on ? 'calc-option__price--on' : 'calc-option__price--off';
+        var checked = o.on ? 'checked' : '';
+        html += '<div class="calc-option">';
+        html += '<span class="calc-option__label">' + o.label + '</span>';
+        html += '<div style="display:flex;align-items:center;gap:10px">';
+        html += '<span class="calc-option__price ' + priceClass + '">+' + o.price.toLocaleString('ru-RU') + '₽</span>';
+        html += '<label class="calc-toggle">';
+        html += '<input type="checkbox" ' + checked + ' onchange="toggleOption(\'' + o.id + '\')">';
+        html += '<span class="calc-toggle__slider"></span>';
+        html += '</label>';
+        html += '</div></div>';
+      }
+      document.getElementById('calcBody').innerHTML = html;
     }
 
     function nextStep() {
