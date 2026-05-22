@@ -215,5 +215,109 @@
     }
     </script>
 
+    <!-- ====== Калькулятор (тест) ====== -->
+    <style>
+      .calc-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;justify-content:center;align-items:center;padding:1rem}
+      .calc-overlay.active{display:flex}
+      .calc-modal{background:#fff;max-width:560px;width:100%;border-radius:12px;padding:2rem;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.2);max-height:90vh;overflow-y:auto}
+      .calc-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#999}
+      .calc-steps{display:flex;gap:8px;margin-bottom:1.5rem;justify-content:center}
+      .calc-step{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;background:#eee;color:#999;transition:all .2s}
+      .calc-step.active{background:#000;color:#fff}
+      .calc-step.done{background:#333;color:#fff}
+      .calc-body{min-height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#999;font-size:14px}
+      .calc-nav{display:flex;justify-content:space-between;margin-top:1.5rem;padding-top:1rem;border-top:1px solid #eee}
+      .calc-btn{padding:8px 20px;font-size:13px;font-weight:500;font-family:Inter,sans-serif;border-radius:8px;cursor:pointer;transition:all .15s;border:none}
+      .calc-btn--prev{background:#f0f0f0;color:#555}
+      .calc-btn--prev:hover{background:#e0e0e0}
+      .calc-btn--next{background:#000;color:#fff}
+      .calc-btn--next:hover{background:#333}
+      .calc-btn:disabled{opacity:.4;cursor:default}
+    </style>
+
+    <div class="calc-overlay" id="calcOverlay">
+      <div class="calc-modal">
+        <button class="calc-close" onclick="closeCalc()">&times;</button>
+        <div class="calc-steps" id="calcSteps">
+          <div class="calc-step active" data-step="0">1</div>
+          <div class="calc-step" data-step="1">2</div>
+          <div class="calc-step" data-step="2">3</div>
+          <div class="calc-step" data-step="3">4</div>
+        </div>
+        <div class="calc-body" id="calcBody">
+          <p style="color:#bbb">Здесь будет контент шага</p>
+        </div>
+        <div class="calc-nav">
+          <button class="calc-btn calc-btn--prev" id="calcPrev" onclick="prevStep()">Назад</button>
+          <button class="calc-btn calc-btn--next" id="calcNext" onclick="nextStep()">Далее</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    // ====== Логика калькулятора ======
+    var calcStep = 0;
+    var calcTitles = [
+      'Выбор модели и комплектации',
+      'Дополнительные опции',
+      'Доставка и налоги',
+      'Итоговая стоимость'
+    ];
+
+    function openCalc() { document.getElementById('calcOverlay').classList.add('active'); renderCalc(); }
+    function closeCalc() { document.getElementById('calcOverlay').classList.remove('active'); }
+
+    function renderCalc() {
+      var steps = document.querySelectorAll('.calc-step');
+      steps.forEach(function(s, i) {
+        s.classList.toggle('active', i === calcStep);
+        s.classList.toggle('done', i < calcStep);
+      });
+      document.getElementById('calcBody').innerHTML = '<h3 style="margin:0 0 .5rem;color:#333;font-size:15px;font-weight:600">' + calcTitles[calcStep] + '</h3><p style="color:#bbb;font-size:13px">Заполняется...</p>';
+      document.getElementById('calcPrev').disabled = calcStep === 0;
+      document.getElementById('calcNext').textContent = calcStep === 3 ? 'Готово' : 'Далее';
+    }
+
+    function nextStep() {
+      if (calcStep < 3) { calcStep++; renderCalc(); }
+      else closeCalc();
+    }
+
+    function prevStep() {
+      if (calcStep > 0) { calcStep--; renderCalc(); }
+    }
+
+    // ====== Добавляем тестовую кнопку на карточку V11 ======
+    setTimeout(function addTestBtn() {
+      // Ищем карточку V11 по ссылке с slug galaxy-s1
+      var link = document.querySelector('a[href="/capsulehouse/house/galaxy-s1"]');
+      if (!link) { link = document.querySelector('a[href$="galaxy-s1"]'); }
+      if (!link) { setTimeout(addTestBtn, 1000); return; }
+
+      // Ищем название дома внутри карточки
+      var card = link.closest('[class*="house-card"]') || link.closest('a, div, article');
+      if (!card) { setTimeout(addTestBtn, 1000); return; }
+
+      // Если кнопка уже есть — не добавляем
+      if (card.querySelector('.calc-test-btn')) return;
+
+      var testBtn = document.createElement('button');
+      testBtn.className = 'calc-test-btn';
+      testBtn.textContent = '🧪 Тест расчёта';
+      testBtn.onclick = function(e) { e.preventDefault(); e.stopPropagation(); openCalc(); };
+      testBtn.style.cssText = 'display:inline-block;padding:4px 12px;font-size:11px;font-weight:500;font-family:Inter,sans-serif;background:#f0f0f0;border:1px solid #ddd;border-radius:6px;color:#888;cursor:pointer;margin-top:4px;transition:all .15s';
+      testBtn.onmouseenter = function() { this.style.background = '#e0e0e0'; };
+      testBtn.onmouseleave = function() { this.style.background = '#f0f0f0'; };
+
+      // Вставляем после названия дома
+      var nameEl = card.querySelector('h3, h4, [class*="name"], [class*="title"]');
+      if (nameEl && nameEl.parentNode) {
+        nameEl.parentNode.insertBefore(testBtn, nameEl.nextSibling);
+      } else {
+        card.appendChild(testBtn);
+      }
+    }, 2000);
+    </script>
+
   </body>
 </html>
