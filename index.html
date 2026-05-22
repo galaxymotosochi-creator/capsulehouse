@@ -313,13 +313,13 @@
 
     function renderStep0() {
       var html = '';
-      // Модель
-      html += '<div style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #eee">';
-      html += '<h3 style="margin:0 0 2px;color:#333;font-size:15px;font-weight:600">' + calcModel.name + '</h3>';
+      // Модель по центру
+      html += '<div style="margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #eee;text-align:center">';
+      html += '<h3 style="margin:0 0 2px;color:#333;font-size:17px;font-weight:700">' + calcModel.name + '</h3>';
       html += '<p style="margin:0;color:#888;font-size:13px">Площадь: ' + calcModel.area + ' м²</p>';
       html += '</div>';
-      // Заголовок опций
-      html += '<p style="margin:0 0 4px;font-size:13px;font-weight:600;color:#555">Зимнее утепление</p>';
+      // Заголовок
+      html += '<p style="margin:0 0 12px;font-size:14px;font-weight:600;color:#000;text-align:center">ВЫБЕРИТЕ ЗИМНЕЕ УТЕПЛЕНИЕ КАПСУЛЫ</p>';
       // Опции
       for (var i = 0; i < calcOptions.length; i++) {
         var o = calcOptions[i];
@@ -328,7 +328,7 @@
         html += '<div class="calc-option">';
         html += '<span class="calc-option__label">' + o.label + '</span>';
         html += '<div style="display:flex;align-items:center;gap:10px">';
-        html += '<span class="calc-option__price ' + priceClass + '">+' + o.price.toLocaleString('ru-RU') + '₽</span>';
+        html += '<span class="calc-option__price ' + priceClass + '">+ ' + o.price.toLocaleString('ru-RU') + ' ₽</span>';
         html += '<label class="calc-toggle">';
         html += '<input type="checkbox" ' + checked + ' onchange="toggleOption(\'' + o.id + '\')">';
         html += '<span class="calc-toggle__slider"></span>';
