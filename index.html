@@ -558,36 +558,79 @@
     }
 
     function showLeadForm() {
-      var html = '';
-      html += '<p style="margin:0 0 12px;font-size:14px;font-weight:600;color:#000;text-align:center">Укажите Ваш бюджет и мы обязательно подберем для Вас варианты!</p>';
-      html += '<div style="display:flex;flex-direction:column;gap:10px">';
-      html += '<input type="text" id="leadBudget" placeholder="Бюджет" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
-      html += '<input type="text" id="leadName" placeholder="Имя" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
-      html += '<input type="tel" id="leadPhone" placeholder="Номер телефона" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
-      html += '</div>';
-      html += '<div style="display:flex;gap:8px;margin-top:16px">';
-      html += '<button onclick="closeCalc()" style="flex:1;padding:10px;font-size:13px;font-weight:500;font-family:Inter,sans-serif;border-radius:8px;border:1px solid #ddd;background:#fff;color:#555;cursor:pointer">Отмена</button>';
-      html += '<button id="leadSubmitBtn" onclick="submitLead()" style="flex:1;padding:10px;font-size:13px;font-weight:500;font-family:Inter,sans-serif;border-radius:8px;border:none;background:#000;color:#fff;cursor:pointer">Отправить</button>';
-      html += '</div>';
-      document.getElementById('calcBody').innerHTML = html;
+      // Скрываем шаги и навигацию
       document.getElementById('calcSteps').style.display = 'none';
       document.getElementById('calcNav').style.display = 'none';
+      // Первый вопрос
+      renderLeadQuestion();
     }
 
-    function submitLead() {
-      var budget = document.getElementById('leadBudget').value.trim();
-      var name = document.getElementById('leadName').value.trim();
+    function renderLeadQuestion() {
+      var html = '';
+      html += '<p style="margin:0 0 16px;font-size:14px;font-weight:600;color:#000;text-align:center">Насколько цена совпала с вашими ожиданиями?</p>';
+      html += '<div style="display:flex;flex-direction:column;gap:10px">';
+      html += '<button onclick="renderLeadMatch()" style="padding:14px;font-size:14px;font-weight:500;font-family:Inter,sans-serif;border-radius:10px;border:none;background:#000;color:#fff;cursor:pointer">Ожидания совпали</button>';
+      html += '<button onclick="renderLeadCheaper()" style="padding:14px;font-size:14px;font-weight:500;font-family:Inter,sans-serif;border-radius:10px;border:1px solid #ddd;background:#fff;color:#333;cursor:pointer">Думал(а), будет дешевле</button>';
+      html += '</div>';
+      document.getElementById('calcBody').innerHTML = html;
+    }
+
+    function renderLeadMatch() {
+      var html = '';
+      html += '<p style="margin:0 0 6px;font-size:15px;font-weight:700;color:#000;text-align:center">Отлично! Проверим доступность?</p>';
+      html += '<p style="margin:0 0 16px;font-size:13px;color:#888;text-align:center;line-height:1.5">Узнайте, есть ли эта модель в наличии на заводе или какие ближайшие даты производства</p>';
+      html += '<div style="display:flex;flex-direction:column;gap:10px">';
+      html += '<input type="tel" id="leadPhone" placeholder="Введите ваш телефон" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
+      html += '<select id="leadContact" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;cursor:pointer">';
+      html += '<option value="">Как удобнее с вами связаться?</option>';
+      html += '<option value="Позвонить">Позвонить</option>';
+      html += '<option value="Написать в MAX">Написать в MAX</option>';
+      html += '<option value="Написать в Telegram">Написать в Telegram</option>';
+      html += '<option value="Написать в WhatsApp">Написать в WhatsApp</option>';
+      html += '</select>';
+      html += '</div>';
+      html += '<button id="leadSubmitBtn" onclick="submitLead(\'match\')" style="width:100%;margin-top:16px;padding:12px;font-size:13px;font-weight:500;font-family:Inter,sans-serif;border-radius:8px;border:none;background:#000;color:#fff;cursor:pointer">Проверить наличие</button>';
+      document.getElementById('calcBody').innerHTML = html;
+    }
+
+    function renderLeadCheaper() {
+      var html = '';
+      html += '<p style="margin:0 0 6px;font-size:15px;font-weight:700;color:#000;text-align:center">Понимаем. Но это не просто стены</p>';
+      html += '<p style="margin:0 0 16px;font-size:13px;color:#555;text-align:center;line-height:1.6">В эту стоимость уже включены: готовая премиум-отделка, панорамное остекление, сантехника и система «Умный дом». Вы получаете готовый дом за 1 день без стройки на участке.</p>';
+      html += '<p style="margin:0 0 14px;font-size:14px;font-weight:500;color:#000;text-align:center">Но мы знаем как подобрать дом под ваш бюджет!</p>';
+      html += '<div style="display:flex;flex-direction:column;gap:10px">';
+      html += '<input type="text" id="leadBudget" placeholder="Бюджет" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
+      html += '<input type="tel" id="leadPhone" placeholder="Введите ваш телефон" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
+      html += '<select id="leadContact" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;cursor:pointer">';
+      html += '<option value="">Как удобнее с вами связаться?</option>';
+      html += '<option value="Позвонить">Позвонить</option>';
+      html += '<option value="Написать в MAX">Написать в MAX</option>';
+      html += '<option value="Написать в Telegram">Написать в Telegram</option>';
+      html += '<option value="Написать в WhatsApp">Написать в WhatsApp</option>';
+      html += '</select>';
+      html += '</div>';
+      html += '<button id="leadSubmitBtn" onclick="submitLead(\'cheaper\')" style="width:100%;margin-top:16px;padding:12px;font-size:13px;font-weight:500;font-family:Inter,sans-serif;border-radius:8px;border:none;background:#000;color:#fff;cursor:pointer">Получить спецпредложение</button>';
+      document.getElementById('calcBody').innerHTML = html;
+    }
+
+    function submitLead(type) {
       var phone = document.getElementById('leadPhone').value.trim();
+      var contact = document.getElementById('leadContact').value;
       
-      if (!name || !phone) {
-        alert('Заполните имя и номер телефона');
+      if (!phone || !contact) {
+        alert('Заполните телефон и выберите способ связи');
         return;
       }
       
-      // Собираем данные
-      var msg = '📋 НОВАЯ ЗАЯВКА\n\n';
-      msg += 'Модель: V11\n';
-      msg += 'Базовая: ' + calcModel.basePrice.toLocaleString('ru-RU') + ' ₽\n';
+      var budget = '';
+      if (type === 'cheaper') {
+        budget = document.getElementById('leadBudget').value.trim();
+      }
+      
+      // Собираем сообщение
+      var msg = '📋 НОВАЯ ЗАЯВКА\n';
+      msg += 'Ожидания: ' + (type === 'match' ? 'Совпали ✓' : 'Дешевле ✗') + '\n';
+      msg += 'Модель: V11 (' + calcModel.basePrice.toLocaleString('ru-RU') + ' ₽)\n';
       
       var opts = getTotalOptions();
       if (opts > 0) {
@@ -595,22 +638,21 @@
         var allOpts = [calcWinter, calcInterior];
         for (var s = 0; s < allOpts.length; s++) {
           for (var i = 0; i < allOpts[s].length; i++) {
-            if (allOpts[s][i].on) msg += '  • ' + allOpts[s][i].label + ': +' + allOpts[s][i].price.toLocaleString('ru-RU') + ' ₽\n';
+            if (allOpts[s][i].on) msg += '  • ' + allOpts[s][i].label + ' +' + allOpts[s][i].price.toLocaleString('ru-RU') + ' ₽\n';
           }
         }
       }
       
-      msg += 'Доставка по Китаю: 350 000 ₽\n';
+      msg += 'Доставка Китай: 350 000 ₽\n';
       if (calcSelectedCity) {
         msg += 'Доставка до ' + calcSelectedCity + ': ' + (120 * calcDist[calcSelectedCity]).toLocaleString('ru-RU') + ' ₽\n';
       }
       msg += 'Таможня: ' + getTaxAmount().toLocaleString('ru-RU') + ' ₽\n';
       msg += 'ИТОГО: ' + getGrandTotal().toLocaleString('ru-RU') + ' ₽\n\n';
-      msg += '👤 ' + name + '\n';
       msg += '📞 ' + phone + '\n';
+      msg += 'Связь: ' + contact + '\n';
       if (budget) msg += '💰 Бюджет: ' + budget + '\n';
       
-      // Отправка через Telegram API
       var btn = document.getElementById('leadSubmitBtn');
       if (btn) { btn.textContent = 'Отправка...'; btn.disabled = true; }
       
