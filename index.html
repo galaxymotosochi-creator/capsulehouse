@@ -325,13 +325,15 @@
         var o = calcOptions[i];
         var priceClass = o.on ? 'calc-option__price--on' : 'calc-option__price--off';
         var checked = o.on ? 'checked' : '';
-        html += '<div class="calc-option" style="display:flex;align-items:center;justify-content:space-between">';
-        html += '<span style="display:flex;align-items:center;gap:8px"><span class="calc-option__label">' + o.label + '</span><span class="calc-option__price ' + priceClass + '">+' + o.price.toLocaleString('ru-RU') + ' ₽</span></span>';
+        html += '<div class="calc-option">';
+        html += '<span class="calc-option__label">' + o.label + '</span>';
+        html += '<div style="display:flex;align-items:center;gap:10px">';
+        html += '<span class="calc-option__price ' + priceClass + '">+' + o.price.toLocaleString('ru-RU') + ' ₽</span>';
         html += '<label class="calc-toggle">';
         html += '<input type="checkbox" ' + checked + ' onchange="toggleOption(\'' + o.id + '\')">';
         html += '<span class="calc-toggle__slider"></span>';
         html += '</label>';
-        html += '</div>';
+        html += '</div></div>';
       }
       document.getElementById('calcBody').innerHTML = html;
     }
