@@ -510,18 +510,18 @@
           '<span style="font-weight:600;color:' + (cls || '#333') + '">' + val.toLocaleString('ru-RU') + ' ₽</span></div>';
       }
       
-      html += row(calcModel.name + ' (базовая):', calcModel.basePrice);
-      html += row('Доп. опции:', optionsTotal);
+      html += row(calcModel.name + ' (базовая): ', calcModel.basePrice);
+      html += row('Доп. опции: ', optionsTotal);
       if (calcSelectedCity) {
-        html += row('Доставка до ' + calcSelectedCity + ':', totalDel);
+        html += row('Доставка до ' + calcSelectedCity + ': ', totalDel);
       } else {
-        html += row('Доставка:', totalDel);
+        html += row('Доставка: ', totalDel);
       }
-      html += row('Таможенные пошлины и НДС:', tax);
+      html += row('Таможенные пошлины и НДС: ', tax);
       
       // Итог
       html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;margin-top:8px;font-size:16px;font-weight:700;border-top:2px solid #000">';
-      html += '<span>ИТОГО:</span>';
+      html += '<span>ИТОГО: </span>';
       html += '<span>' + grand.toLocaleString('ru-RU') + ' ₽</span>';
       html += '</div>';
       
