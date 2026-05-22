@@ -529,6 +529,33 @@
     }
 
     function nextStep() {
+      // Шаг 3 — проверка города
+      if (calcStep === 2) {
+        var input = document.getElementById('citySearch');
+        if (input) {
+          var val = input.value.trim();
+          if (val === '') {
+            alert('Введите Ваш город');
+            return;
+          }
+          // Если город не выбран или ввели другой — ищем
+          if (!calcSelectedCity || calcSelectedCity !== val) {
+            var found = null;
+            // Точное совпадение
+            for (var city in calcDist) {
+              if (city.toLowerCase() === val.toLowerCase()) { found = city; break; }
+            }
+            // Частичное
+            if (!found) {
+              for (var city in calcDist) {
+                if (city.toLowerCase().indexOf(val.toLowerCase()) !== -1) { found = city; break; }
+              }
+            }
+            if (found) { selectCity(found); }
+            else { alert('Город не найден. Уточните у менеджера'); return; }
+          }
+        }
+      }
       if (calcStep < 3) { calcStep++; renderCalc(); }
       else closeCalc();
     }
