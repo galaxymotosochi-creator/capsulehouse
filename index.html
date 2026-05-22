@@ -330,6 +330,7 @@
     }
 
     function renderStep0() {
+      var opts = getStepOptions(0);
       var html = '';
       // Модель по центру
       html += '<div style="margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #eee;text-align:center">';
@@ -339,8 +340,8 @@
       // Заголовок
       html += '<p style="margin:0 0 12px;font-size:14px;font-weight:600;color:#000;text-align:center">ВЫБЕРИТЕ ЗИМНЕЕ УТЕПЛЕНИЕ КАПСУЛЫ</p>';
       // Опции
-      for (var i = 0; i < calcOptions.length; i++) {
-        var o = calcOptions[i];
+      for (var i = 0; i < opts.length; i++) {
+        var o = opts[i];
         var priceClass = o.on ? 'calc-option__price--on' : 'calc-option__price--off';
         var checked = o.on ? 'checked' : '';
         html += '<div class="calc-option">';
