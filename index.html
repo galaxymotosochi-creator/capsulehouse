@@ -234,7 +234,7 @@
       .calc-btn--next:hover{background:#333}
       .calc-btn:disabled{opacity:.4;cursor:default}
       /* Toggle switch */
-      .calc-option{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f0}
+      .calc-option{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #f0f0f0}
       .calc-option:last-child{border-bottom:none}
       .calc-option__label{font-size:14px;font-weight:500;color:#333}
       .calc-option__price{font-size:13px;font-weight:500;transition:color .2s}
@@ -326,14 +326,12 @@
         var priceClass = o.on ? 'calc-option__price--on' : 'calc-option__price--off';
         var checked = o.on ? 'checked' : '';
         html += '<div class="calc-option">';
-        html += '<span class="calc-option__label">' + o.label + '</span>';
-        html += '<div style="display:flex;align-items:center;gap:10px">';
-        html += '<span class="calc-option__price ' + priceClass + '">+' + o.price.toLocaleString('ru-RU') + ' ₽</span>';
+        html += '<span style="white-space:nowrap;display:flex;align-items:center;gap:4px"><span class="calc-option__label">' + o.label + ' </span><span class="calc-option__price ' + priceClass + '">+' + o.price.toLocaleString('ru-RU') + ' ₽</span></span>';
         html += '<label class="calc-toggle">';
         html += '<input type="checkbox" ' + checked + ' onchange="toggleOption(\'' + o.id + '\')">';
         html += '<span class="calc-toggle__slider"></span>';
         html += '</label>';
-        html += '</div></div>';
+        html += '</div>';
       }
       document.getElementById('calcBody').innerHTML = html;
     }
