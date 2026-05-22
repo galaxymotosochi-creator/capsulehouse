@@ -215,29 +215,5 @@
     }
     </script>
 
-    <!-- Fallback: делегированные обработчики для кнопок Комплектация/Доставка/Оплата -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Ждём пока React отрендерит кнопки
-      var waitForButtons = setInterval(function() {
-        var btns = document.querySelectorAll('.house-card__info-btn[data-action]');
-        if (btns.length > 0) {
-          clearInterval(waitForButtons);
-          // Перехватываем клики через делегирование на body
-          document.body.addEventListener('click', function(e) {
-            var target = e.target.closest('.house-card__info-btn[data-action]');
-            if (!target) return;
-            var action = target.getAttribute('data-action');
-            if (action === 'equip') { e.preventDefault(); e.stopPropagation(); openEquipment(); }
-            else if (action === 'delivery') { e.preventDefault(); e.stopPropagation(); openDelivery(); }
-            else if (action === 'pay') { e.preventDefault(); e.stopPropagation(); openPayment(); }
-          }, true);
-        }
-      }, 200);
-      // Стоп через 10 секунд если не нашли
-      setTimeout(function() { clearInterval(waitForButtons); }, 10000);
-    });
-    </script>
-
   </body>
 </html>
