@@ -505,24 +505,24 @@
       html += '<p style="margin:0 0 16px;font-size:14px;font-weight:600;color:#000;text-align:center">ИТОГОВАЯ СТОИМОСТЬ</p>';
       
       function row(label, val, cls) {
-        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px">' +
-          '<span style="color:' + (cls || '#555') + '">' + label + '</span>' +
-          '<span style="font-weight:600;color:' + (cls || '#333') + '">' + val.toLocaleString('ru-RU') + ' ₽</span></div>';
+        return '<div style="display:table;width:100%;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px;line-height:1.5">' +
+          '<span style="display:table-cell;text-align:left;color:' + (cls || '#555') + '">' + label + '</span>' +
+          '<span style="display:table-cell;text-align:right;font-weight:600;color:' + (cls || '#333') + ';padding-left:8px;white-space:nowrap">' + val.toLocaleString('ru-RU') + ' ₽</span></div>';
       }
       
-      html += row(calcModel.name + ' (базовая): ', calcModel.basePrice);
-      html += row('Доп. опции: ', optionsTotal);
+      html += row(calcModel.name + ' (базовая):', calcModel.basePrice);
+      html += row('Доп. опции:', optionsTotal);
       if (calcSelectedCity) {
-        html += row('Доставка до ' + calcSelectedCity + ': ', totalDel);
+        html += row('Доставка до ' + calcSelectedCity + ':', totalDel);
       } else {
-        html += row('Доставка: ', totalDel);
+        html += row('Доставка:', totalDel);
       }
-      html += row('Таможенные пошлины и НДС: ', tax);
+      html += row('Таможенные пошлины и НДС:', tax);
       
       // Итог
-      html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;margin-top:8px;font-size:16px;font-weight:700;border-top:2px solid #000">';
-      html += '<span>ИТОГО: </span>';
-      html += '<span>' + grand.toLocaleString('ru-RU') + ' ₽</span>';
+      html += '<div style="display:table;width:100%;padding:14px 0;margin-top:8px;font-size:16px;font-weight:700;border-top:2px solid #000;line-height:1.5">';
+      html += '<span style="display:table-cell;text-align:left">ИТОГО:</span>';
+      html += '<span style="display:table-cell;text-align:right;padding-left:8px;white-space:nowrap">' + grand.toLocaleString('ru-RU') + ' ₽</span>';
       html += '</div>';
       
       document.getElementById('calcBody').innerHTML = html;
