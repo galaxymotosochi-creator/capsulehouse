@@ -373,6 +373,8 @@
 
     function selectCity(city) {
       calcSelectedCity = city;
+      var input = document.getElementById('citySearch');
+      if (input) input.value = city;
       renderCalc();
     }
 
@@ -445,16 +447,17 @@
       
       // Поиск города
       html += '<input type="text" id="citySearch" placeholder="Начните вводить город…" oninput="filterCities()" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;margin-bottom:4px;box-sizing:border-box">';
-      html += '<div id="cityList" style="max-height:180px;overflow-y:auto;border:1px solid #eee;border-radius:8px;margin-bottom:10px"></div>';
+      html += '<div id="cityList" style="max-height:180px;overflow-y:auto;border:1px solid #eee;border-radius:8px;margin-bottom:10px;text-align:left"></div>';
       
       // Если город выбран — результаты
       if (calcSelectedCity) {
         var rusDel = getRussiaDelivery();
+        var totalDel = rusDel + calcChinaDelivery;
         var tax = getTaxAmount();
         html += '<div style="padding:10px 12px;background:#f9f9f9;border-radius:8px;margin-bottom:8px">';
         html += '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">';
-        html += '<span style="color:#555">Доставка (' + calcDist[calcSelectedCity].toLocaleString('ru-RU') + ' км × 120 ₽)</span>';
-        html += '<span style="font-weight:600;color:#000">' + rusDel.toLocaleString('ru-RU') + ' ₽</span>';
+        html += '<span style="color:#555">Доставка</span>';
+        html += '<span style="font-weight:600;color:#000">' + totalDel.toLocaleString('ru-RU') + ' ₽</span>';
         html += '</div></div>';
         html += '<div style="padding:10px 12px;background:#f9f9f9;border-radius:8px;margin-bottom:8px">';
         html += '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">';
@@ -462,6 +465,11 @@
         html += '<span style="font-weight:600;color:#000">' + tax.toLocaleString('ru-RU') + ' ₽</span>';
         html += '</div></div>';
       }
+      
+      // Стикер
+      html += '<div style="margin-top:14px;padding:10px 12px;background:#fff7e6;border-radius:8px;font-size:12px;color:#b8860b;text-align:center;line-height:1.5">';
+      html += 'При заказе от 2 домов стоимость доставки делится на 2!<br>Уточняйте у менеджера';
+      html += '</div>';
       
       document.getElementById('calcBody').innerHTML = html;
       filterCities();
@@ -479,7 +487,7 @@
       var found = 0;
       for (var i = 0; i < cities.length; i++) {
         var c = cities[i];
-        if (q === '' || c.toLowerCase().indexOf(q) !== -1) {
+        if (q !== '' && c.toLowerCase().indexOf(q) !== -1) {
           var selectedClass = (c === calcSelectedCity) ? ' style="background:#f0f0f0"' : '';
           html += '<div' + selectedClass + ' onclick="selectCity(\'' + c + '\')" style="padding:8px 12px;cursor:pointer;font-size:13px;color:#333;border-bottom:1px solid #f0f0f0;transition:background .1s" onmouseenter="this.style.background=\'#f5f5f5\'" onmouseleave="this.style.background=\'\'">';
           html += '<span style="font-weight:500">' + c + '</span> <span style="color:#999;font-size:12px">' + calcDist[c].toLocaleString('ru-RU') + ' км</span>';
@@ -487,8 +495,10 @@
           found++;
         }
       }
-      if (found === 0) {
-        html += '<div style="padding:12px;font-size:12px;color:#999;text-align:center">Город не найден. <a href="#" onclick="alert(\'Уточните у менеджера: +7 (XXX) XXX-XX-XX\');return false" style="color:#333">Уточнить у менеджера</a></div>';
+      if (found === 0 && q !== '') {
+        html += '<div style="padding:12px;font-size:12px;color:#999;text-align:center">Город не найден. <a href="#" onclick="alert(\'Уточните у менеджера\');return false" style="color:#333">Уточнить у менеджера</a></div>';
+      } else if (q === '') {
+        html += '<div style="padding:12px;font-size:12px;color:#ccc;text-align:center">Начните вводить название города</div>';
       }
       list.innerHTML = html;
     }
