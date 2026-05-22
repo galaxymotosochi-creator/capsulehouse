@@ -514,6 +514,8 @@
       html += row('Доставка по Китаю', calcChinaDelivery);
       if (calcSelectedCity) {
         html += row('Доставка по России (' + calcSelectedCity + ')', rusDel);
+      } else {
+        html += row('Доставка по России (выберите город)', 0);
       }
       html += row('Таможенные пошлины 27%', tax);
       
