@@ -274,7 +274,7 @@
     var calcTitles = [
       'Выбор модели и комплектации',
       'Дополнительные опции',
-      'Доставка и налоги',
+      'Расчёт доставки',
       'Итоговая стоимость'
     ];
 
@@ -442,7 +442,7 @@
 
     function renderStep2() {
       var html = '';
-      html += '<p style="margin:0 0 16px;font-size:14px;font-weight:600;color:#000;text-align:center">ДОСТАВКА И НАЛОГИ</p>';
+      html += '<p style="margin:0 0 16px;font-size:14px;font-weight:600;color:#000;text-align:center">РАСЧЕТ ДОСТАВКИ</p>';
       
       html += '<p style="margin:0 0 8px;font-size:13px;color:#333">Выберите Ваш город или ближайший город от Вас</p>';
       
@@ -496,6 +496,7 @@
 
     function renderStep3() {
       var rusDel = getRussiaDelivery();
+      var totalDel = rusDel + calcChinaDelivery;
       var tax = getTaxAmount();
       var optionsTotal = getTotalOptions();
       var grand = getGrandTotal();
@@ -509,19 +510,18 @@
           '<span style="font-weight:600;color:' + (cls || '#333') + '">' + val.toLocaleString('ru-RU') + ' ₽</span></div>';
       }
       
-      html += row(calcModel.name + ' (базовая)', calcModel.basePrice);
-      html += row('Доп. опции', optionsTotal);
-      html += row('Доставка по Китаю', calcChinaDelivery);
+      html += row(calcModel.name + ' (базовая):', calcModel.basePrice);
+      html += row('Доп. опции:', optionsTotal);
       if (calcSelectedCity) {
-        html += row('Доставка по России (' + calcSelectedCity + ')', rusDel);
+        html += row('Доставка до ' + calcSelectedCity + ':', totalDel);
       } else {
-        html += row('Доставка по России (выберите город)', 0);
+        html += row('Доставка:', totalDel);
       }
-      html += row('Таможенные пошлины 27%', tax);
+      html += row('Таможенные пошлины и НДС:', tax);
       
       // Итог
       html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;margin-top:8px;font-size:16px;font-weight:700;border-top:2px solid #000">';
-      html += '<span>ИТОГО</span>';
+      html += '<span>ИТОГО:</span>';
       html += '<span>' + grand.toLocaleString('ru-RU') + ' ₽</span>';
       html += '</div>';
       
@@ -561,7 +561,14 @@
     }
 
     function prevStep() {
-      if (calcStep > 0) { calcStep--; renderCalc(); }
+      if (calcStep > 0) {
+        // Возврат с шага 4 на шаг 3 — сбрасываем город
+        if (calcStep === 3) {
+          calcSelectedCity = '';
+        }
+        calcStep--;
+        renderCalc();
+      }
     }
 
     // ====== Добавляем тестовую кнопку на карточку V11 ======
