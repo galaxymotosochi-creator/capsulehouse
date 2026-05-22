@@ -279,21 +279,38 @@
 
     // Данные V11
     var calcModel = { name:'V11', area:38, basePrice:2224999 };
-    // Опции для шага 1
-    var calcOptions = [
+    // Опции для шага 1 — зимнее утепление
+    var calcWinter = [
       { id:'warm-floor', label:'Тёплый пол', price:20000, on:false },
       { id:'triple-glass', label:'Тройной стеклопакет', price:60000, on:false },
       { id:'pipe-insulation', label:'Теплоизоляция труб', price:40000, on:false }
     ];
+    // Опции для шага 2 — интерьер
+    var calcInterior = [
+      { id:'kitchen', label:'Кухня (вытяжка, столешница, индукционная плита)', price:74900, on:false },
+      { id:'sofa', label:'Диван для отдыха', price:20900, on:false },
+      { id:'bed-storage', label:'Кровать с ящиком для хранения + матрас', price:74900, on:false },
+      { id:'bed-brand', label:'Фирменная кровать + матрас', price:33900, on:false },
+      { id:'curtains', label:'Шторы', price:33900, on:false },
+      { id:'projector', label:'Проектор + передние моторизованные рулонные шторы', price:20900, on:false }
+    ];
+
+    // Какой массив опций активен на текущем шаге
+    function getStepOptions(step) {
+      if (step === 0) return calcWinter;
+      if (step === 1) return calcInterior;
+      return [];
+    }
 
     function toggleOption(id) {
-      for (var i = 0; i < calcOptions.length; i++) {
-        if (calcOptions[i].id === id) {
-          calcOptions[i].on = !calcOptions[i].on;
+      var opts = getStepOptions(calcStep);
+      for (var i = 0; i < opts.length; i++) {
+        if (opts[i].id === id) {
+          opts[i].on = !opts[i].on;
           break;
         }
       }
-      renderStep0();
+      renderCalc();
     }
 
     function openCalc() { document.getElementById('calcOverlay').classList.add('active'); renderCalc(); }
@@ -306,6 +323,7 @@
         s.classList.toggle('done', i < calcStep);
       });
       if (calcStep === 0) renderStep0();
+      else if (calcStep === 1) renderStep1();
       else document.getElementById('calcBody').innerHTML = '<h3 style="margin:0 0 .5rem;color:#333;font-size:15px;font-weight:600">' + calcTitles[calcStep] + '</h3><p style="color:#bbb;font-size:13px">Заполняется...</p>';
       document.getElementById('calcPrev').disabled = calcStep === 0;
       document.getElementById('calcNext').textContent = calcStep === 3 ? 'Готово' : 'Далее';
@@ -323,6 +341,27 @@
       // Опции
       for (var i = 0; i < calcOptions.length; i++) {
         var o = calcOptions[i];
+        var priceClass = o.on ? 'calc-option__price--on' : 'calc-option__price--off';
+        var checked = o.on ? 'checked' : '';
+        html += '<div class="calc-option">';
+        html += '<span style="white-space:nowrap;display:flex;align-items:center;gap:4px"><span class="calc-option__label">' + o.label + ' </span><span class="calc-option__price ' + priceClass + '">+' + o.price.toLocaleString('ru-RU') + ' ₽</span></span>';
+        html += '<label class="calc-toggle">';
+        html += '<input type="checkbox" ' + checked + ' onchange="toggleOption(\'' + o.id + '\')">';
+        html += '<span class="calc-toggle__slider"></span>';
+        html += '</label>';
+        html += '</div>';
+      }
+      document.getElementById('calcBody').innerHTML = html;
+    }
+
+    function renderStep1() {
+      var opts = getStepOptions(1);
+      var html = '';
+      // Заголовок
+      html += '<p style="margin:0 0 12px;font-size:14px;font-weight:600;color:#000;text-align:center">ВЫБЕРИТЕ ИНТЕРЬЕР КАПСУЛЫ</p>';
+      // Опции
+      for (var i = 0; i < opts.length; i++) {
+        var o = opts[i];
         var priceClass = o.on ? 'calc-option__price--on' : 'calc-option__price--off';
         var checked = o.on ? 'checked' : '';
         html += '<div class="calc-option">';
