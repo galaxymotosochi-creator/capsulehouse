@@ -295,6 +295,31 @@
       { id:'projector', label:'Проектор + передние моторизованные рулонные шторы', price:20900, on:false }
     ];
 
+    // Расстояния от Уссурийска до городов
+    var calcDist = {
+      'Владивосток':112,'Артём':70,'Находка':220,'Хабаровск':740,'Биробиджан':820,
+      'Комсомольск-на-Амуре':930,'Благовещенск':1530,'Чита':2800,'Улан-Удэ':3400,
+      'Иркутск':3700,'Красноярск':4600,'Абакан':4800,'Новокузнецк':4900,'Кемерово':5000,
+      'Томск':5200,'Новосибирск':5300,'Барнаул':5400,'Омск':5800,'Тюмень':6300,
+      'Челябинск':6700,'Екатеринбург':6800,'Сургут':6800,'Пермь':7100,'Уфа':7200,
+      'Ижевск':7300,'Оренбург':7400,'Самара':7500,'Тольятти':7550,'Казань':7600,
+      'Ульяновск':7700,'Киров':7700,'Чебоксары':7750,'Саратов':7800,'Йошкар-Ола':7800,
+      'Саранск':7900,'Волгоград':8000,'Пенза':8000,'Нижний Новгород':8000,
+      'Сыктывкар':8000,'Тамбов':8200,'Элиста':8300,'Липецк':8300,'Рязань':8400,
+      'Воронеж':8400,'Москва':8500,'Владимир':8500,'Астрахань':8500,'Ярославль':8600,
+      'Тула':8600,'Тверь':8700,'Кострома':8700,'Иваново':8700,'Калуга':8700,
+      'Орёл':8700,'Ростов-на-Дону':8700,'Брянск':8800,'Курск':8800,'Вологда':8800,
+      'Белгород':8900,'Смоленск':9000,'Краснодар':9000,'Ставрополь':9100,'Майкоп':9100,
+      'Новороссийск':9200,'Черкесск':9300,'Сочи':9300,'Нальчик':9400,'Владикавказ':9500,
+      'Грозный':9600,'Махачкала':9700,'Санкт-Петербург':9200,'Великий Новгород':9300,
+      'Псков':9400,'Архангельск':9500,'Петрозаводск':9700,'Калининград':10200,'Мурманск':11000,
+      'Симферополь':9500,'Севастополь':9600
+    };
+    // Выбранный город и константы
+    var calcSelectedCity = '';
+    var calcChinaDelivery = 350000;
+    var calcTaxRate = 0.27;
+
     // Какой массив опций активен на текущем шаге
     function getStepOptions(step) {
       if (step === 0) return calcWinter;
@@ -316,6 +341,41 @@
     function openCalc() { document.getElementById('calcOverlay').classList.add('active'); renderCalc(); }
     function closeCalc() { document.getElementById('calcOverlay').classList.remove('active'); }
 
+    function getTotalOptions() {
+      var total = 0;
+      var steps = [calcWinter, calcInterior];
+      for (var s = 0; s < steps.length; s++) {
+        for (var i = 0; i < steps[s].length; i++) {
+          if (steps[s][i].on) total += steps[s][i].price;
+        }
+      }
+      return total;
+    }
+
+    function getTaxBase() {
+      return calcModel.basePrice + getTotalOptions() + calcChinaDelivery;
+    }
+
+    function getRussiaDelivery() {
+      if (calcSelectedCity && calcDist[calcSelectedCity]) {
+        return 120 * calcDist[calcSelectedCity];
+      }
+      return 0;
+    }
+
+    function getTaxAmount() {
+      return Math.round(getTaxBase() * calcTaxRate);
+    }
+
+    function getGrandTotal() {
+      return calcModel.basePrice + getTotalOptions() + calcChinaDelivery + getRussiaDelivery() + getTaxAmount();
+    }
+
+    function selectCity(city) {
+      calcSelectedCity = city;
+      renderCalc();
+    }
+
     function renderCalc() {
       var steps = document.querySelectorAll('.calc-step');
       steps.forEach(function(s, i) {
@@ -324,7 +384,8 @@
       });
       if (calcStep === 0) renderStep0();
       else if (calcStep === 1) renderStep1();
-      else document.getElementById('calcBody').innerHTML = '<h3 style="margin:0 0 .5rem;color:#333;font-size:15px;font-weight:600">' + calcTitles[calcStep] + '</h3><p style="color:#bbb;font-size:13px">Заполняется...</p>';
+      else if (calcStep === 2) renderStep2();
+      else if (calcStep === 3) renderStep3();
       document.getElementById('calcPrev').disabled = calcStep === 0;
       document.getElementById('calcNext').textContent = calcStep === 3 ? 'Готово' : 'Далее';
     }
@@ -373,6 +434,89 @@
         html += '</label>';
         html += '</div>';
       }
+      document.getElementById('calcBody').innerHTML = html;
+    }
+
+    function renderStep2() {
+      var html = '';
+      // Заголовок
+      html += '<p style="margin:0 0 16px;font-size:14px;font-weight:600;color:#000;text-align:center">ДОСТАВКА И НАЛОГИ</p>';
+      
+      // Доставка по Китаю
+      html += '<div style="padding:10px 12px;background:#f9f9f9;border-radius:8px;margin-bottom:12px">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">';
+      html += '<span style="color:#555">Доставка по Китаю</span>';
+      html += '<span style="font-weight:600;color:#000">' + calcChinaDelivery.toLocaleString('ru-RU') + ' ₽</span>';
+      html += '</div></div>';
+      
+      // Выбор города
+      html += '<p style="margin:0 0 8px;font-size:13px;font-weight:500;color:#333">Доставка по России (120 ₽/км):</p>';
+      html += '<select id="citySelect" onchange="selectCity(this.value)" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;cursor:pointer;margin-bottom:8px">';
+      html += '<option value="">— Выберите город —</option>';
+      // Добавляем города, отсортированные по расстоянию
+      var cities = [];
+      for (var city in calcDist) { cities.push(city); }
+      cities.sort(function(a,b){return calcDist[a]-calcDist[b];});
+      for (var i = 0; i < cities.length; i++) {
+        var c = cities[i];
+        var selected = (c === calcSelectedCity) ? ' selected' : '';
+        html += '<option value="' + c + '"' + selected + '>' + c + ' — ' + calcDist[c].toLocaleString('ru-RU') + ' км</option>';
+      }
+      html += '</select>';
+      
+      // Результаты доставки по России
+      var rusDel = getRussiaDelivery();
+      if (calcSelectedCity) {
+        html += '<div style="padding:10px 12px;background:#f9f9f9;border-radius:8px;margin-bottom:12px">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">';
+        html += '<span style="color:#555">' + calcSelectedCity + ' (' + calcDist[calcSelectedCity].toLocaleString('ru-RU') + ' км × 120 ₽)</span>';
+        html += '<span style="font-weight:600;color:#000">' + rusDel.toLocaleString('ru-RU') + ' ₽</span>';
+        html += '</div></div>';
+      }
+      
+      // Таможенные пошлины
+      html += '<p style="margin:14px 0 8px;font-size:13px;font-weight:500;color:#333">Таможенные пошлины (27%):</p>';
+      html += '<div style="padding:10px 12px;background:#fafafa;border-radius:8px;margin-bottom:4px;font-size:12px;color:#888;line-height:1.6">';
+      html += 'База: ' + calcModel.basePrice.toLocaleString('ru-RU') + ' ₽ (дом) + ' + getTotalOptions().toLocaleString('ru-RU') + ' ₽ (опции) + 350 000 ₽ (доставка Китай)</div>';
+      var tax = getTaxAmount();
+      html += '<div style="padding:10px 12px;background:#f9f9f9;border-radius:8px;margin-bottom:12px">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">';
+      html += '<span style="color:#555">27% (5% пошлина + 22% НДС)</span>';
+      html += '<span style="font-weight:600;color:' + (tax > 0 ? '#000' : '#ccc') + '">' + tax.toLocaleString('ru-RU') + ' ₽</span>';
+      html += '</div></div>';
+      
+      document.getElementById('calcBody').innerHTML = html;
+    }
+
+    function renderStep3() {
+      var rusDel = getRussiaDelivery();
+      var tax = getTaxAmount();
+      var optionsTotal = getTotalOptions();
+      var grand = getGrandTotal();
+      
+      var html = '';
+      html += '<p style="margin:0 0 16px;font-size:14px;font-weight:600;color:#000;text-align:center">ИТОГОВАЯ СТОИМОСТЬ</p>';
+      
+      function row(label, val, cls) {
+        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px">' +
+          '<span style="color:' + (cls || '#555') + '">' + label + '</span>' +
+          '<span style="font-weight:600;color:' + (cls || '#333') + '">' + val.toLocaleString('ru-RU') + ' ₽</span></div>';
+      }
+      
+      html += row(calcModel.name + ' (базовая)', calcModel.basePrice);
+      html += row('Доп. опции', optionsTotal);
+      html += row('Доставка по Китаю', calcChinaDelivery);
+      if (calcSelectedCity) {
+        html += row('Доставка по России (' + calcSelectedCity + ')', rusDel);
+      }
+      html += row('Таможенные пошлины 27%', tax);
+      
+      // Итог
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;margin-top:8px;font-size:16px;font-weight:700;border-top:2px solid #000">';
+      html += '<span>ИТОГО</span>';
+      html += '<span>' + grand.toLocaleString('ru-RU') + ' ₽</span>';
+      html += '</div>';
+      
       document.getElementById('calcBody').innerHTML = html;
     }
 
