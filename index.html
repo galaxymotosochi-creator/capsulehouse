@@ -261,7 +261,7 @@
         <div class="calc-body" id="calcBody">
           <p style="color:#bbb">Здесь будет контент шага</p>
         </div>
-        <div class="calc-nav">
+        <div class="calc-nav" id="calcNav">
           <button class="calc-btn calc-btn--prev" id="calcPrev" onclick="prevStep()">Назад</button>
           <button class="calc-btn calc-btn--next" id="calcNext" onclick="nextStep()">Далее</button>
         </div>
@@ -538,14 +538,11 @@
             alert('Введите Ваш город');
             return;
           }
-          // Если город не выбран или ввели другой — ищем
           if (!calcSelectedCity || calcSelectedCity !== val) {
             var found = null;
-            // Точное совпадение
             for (var city in calcDist) {
               if (city.toLowerCase() === val.toLowerCase()) { found = city; break; }
             }
-            // Частичное
             if (!found) {
               for (var city in calcDist) {
                 if (city.toLowerCase().indexOf(val.toLowerCase()) !== -1) { found = city; break; }
@@ -557,7 +554,84 @@
         }
       }
       if (calcStep < 3) { calcStep++; renderCalc(); }
-      else closeCalc();
+      else showLeadForm();
+    }
+
+    function showLeadForm() {
+      var html = '';
+      html += '<p style="margin:0 0 12px;font-size:14px;font-weight:600;color:#000;text-align:center">Укажите Ваш бюджет и мы обязательно подберем для Вас варианты!</p>';
+      html += '<div style="display:flex;flex-direction:column;gap:10px">';
+      html += '<input type="text" id="leadBudget" placeholder="Бюджет" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
+      html += '<input type="text" id="leadName" placeholder="Имя" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
+      html += '<input type="tel" id="leadPhone" placeholder="Номер телефона" style="width:100%;padding:10px 12px;font-size:13px;font-family:Inter,sans-serif;border:1px solid #ddd;border-radius:8px;color:#333;background:#fff;box-sizing:border-box">';
+      html += '</div>';
+      html += '<div style="display:flex;gap:8px;margin-top:16px">';
+      html += '<button onclick="closeCalc()" style="flex:1;padding:10px;font-size:13px;font-weight:500;font-family:Inter,sans-serif;border-radius:8px;border:1px solid #ddd;background:#fff;color:#555;cursor:pointer">Отмена</button>';
+      html += '<button id="leadSubmitBtn" onclick="submitLead()" style="flex:1;padding:10px;font-size:13px;font-weight:500;font-family:Inter,sans-serif;border-radius:8px;border:none;background:#000;color:#fff;cursor:pointer">Отправить</button>';
+      html += '</div>';
+      document.getElementById('calcBody').innerHTML = html;
+      document.getElementById('calcSteps').style.display = 'none';
+      document.getElementById('calcNav').style.display = 'none';
+    }
+
+    function submitLead() {
+      var budget = document.getElementById('leadBudget').value.trim();
+      var name = document.getElementById('leadName').value.trim();
+      var phone = document.getElementById('leadPhone').value.trim();
+      
+      if (!name || !phone) {
+        alert('Заполните имя и номер телефона');
+        return;
+      }
+      
+      // Собираем данные
+      var msg = '📋 НОВАЯ ЗАЯВКА\n\n';
+      msg += 'Модель: V11\n';
+      msg += 'Базовая: ' + calcModel.basePrice.toLocaleString('ru-RU') + ' ₽\n';
+      
+      var opts = getTotalOptions();
+      if (opts > 0) {
+        msg += 'Опции:\n';
+        var allOpts = [calcWinter, calcInterior];
+        for (var s = 0; s < allOpts.length; s++) {
+          for (var i = 0; i < allOpts[s].length; i++) {
+            if (allOpts[s][i].on) msg += '  • ' + allOpts[s][i].label + ': +' + allOpts[s][i].price.toLocaleString('ru-RU') + ' ₽\n';
+          }
+        }
+      }
+      
+      msg += 'Доставка по Китаю: 350 000 ₽\n';
+      if (calcSelectedCity) {
+        msg += 'Доставка до ' + calcSelectedCity + ': ' + (120 * calcDist[calcSelectedCity]).toLocaleString('ru-RU') + ' ₽\n';
+      }
+      msg += 'Таможня: ' + getTaxAmount().toLocaleString('ru-RU') + ' ₽\n';
+      msg += 'ИТОГО: ' + getGrandTotal().toLocaleString('ru-RU') + ' ₽\n\n';
+      msg += '👤 ' + name + '\n';
+      msg += '📞 ' + phone + '\n';
+      if (budget) msg += '💰 Бюджет: ' + budget + '\n';
+      
+      // Отправка через Telegram API
+      var btn = document.getElementById('leadSubmitBtn');
+      if (btn) { btn.textContent = 'Отправка...'; btn.disabled = true; }
+      
+      fetch('/api/lead', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ message: msg })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.ok) {
+          document.getElementById('calcBody').innerHTML = '<p style="text-align:center;color:#333;font-size:15px;font-weight:600;padding:40px 0">✅ Спасибо!<br><span style="font-size:13px;font-weight:400;color:#888">Мы свяжемся с Вами в ближайшее время</span></p>';
+        } else {
+          alert('Ошибка отправки. Попробуйте позже.');
+          if (btn) { btn.textContent = 'Отправить'; btn.disabled = false; }
+        }
+      })
+      .catch(function(){
+        alert('Ошибка отправки. Попробуйте позже.');
+        if (btn) { btn.textContent = 'Отправить'; btn.disabled = false; }
+      });
     }
 
     function prevStep() {
