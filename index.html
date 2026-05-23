@@ -656,10 +656,10 @@
       var btn = document.getElementById('leadSubmitBtn');
       if (btn) { btn.textContent = 'Отправка...'; btn.disabled = true; }
       
-      fetch('/api/lead', {
+      fetch('https://api.telegram.org/bot8897088321:AAFNTxJYvbyC8Q7zY4eUh33hvmH4cSQMzZw/sendMessage', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ message: msg })
+        body: JSON.stringify({ chat_id: 5368408796, text: msg })
       })
       .then(function(r){ return r.json(); })
       .then(function(d){
