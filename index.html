@@ -27,6 +27,39 @@
       .hero__overlay { background: transparent !important; }
       #root { position: relative; z-index: 2; background: transparent; }
 
+      /* Стеклянные кнопки */
+      .btn-contact-manager {
+        background: rgba(255,255,255,0.08) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(255,255,255,0.25) !important;
+        color: #fff !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        padding: var(--space-4) var(--space-6) !important;
+        border-radius: var(--radius-lg) !important;
+        transition: all .25s !important;
+      }
+      .btn-contact-manager:hover {
+        background: rgba(255,255,255,0.18) !important;
+        border-color: rgba(255,255,255,0.4) !important;
+      }
+      .btn-book {
+        background: rgba(255,255,255,0.08) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
+        color: #fff !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        border-radius: var(--radius-lg) !important;
+        transition: all .25s !important;
+      }
+      .btn-book:hover {
+        background: rgba(255,255,255,0.18) !important;
+        border-color: rgba(255,255,255,0.35) !important;
+      }
+
       /* Видео JS-крестфейд */
       .hero-video-fade { transition: none !important; }
     </style>
