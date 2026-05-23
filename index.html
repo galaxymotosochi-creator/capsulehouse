@@ -28,21 +28,6 @@
       #root { position: relative; z-index: 2; background: transparent; }
 
       /* Стеклянная кнопка */
-      a.btn-contact-manager {
-        background: rgba(255,255,255,0.08) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 1px solid rgba(255,255,255,0.25) !important;
-        color: #fff !important;
-        font-weight: 600 !important;
-        transition: all .25s !important;
-      }
-      a.btn-contact-manager:hover {
-        background: rgba(255,255,255,0.2) !important;
-        border-color: rgba(255,255,255,0.4) !important;
-        color: #fff !important;
-      }
-
       /* Видео JS-крестфейд */
       .hero-video-fade { transition: none !important; }
     </style>
@@ -807,34 +792,37 @@
         // Не меняем opacity — loop безрывный
       }
 
+      function replaceBtn() {
+        var btn = document.querySelector('a.btn-contact-manager');
+        if (!btn) return false;
+        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px">' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>' +
+          'Связаться в Telegram</span>';
+        btn.className = '';
+        btn.style.cssText = 'display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:999px;font-family:Inter,sans-serif;font-weight:600;font-size:15px;cursor:pointer;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-decoration:none;transition:all .25s';
+        return true;
+      }
+
       function showOnHome() {
         var p = location.hash || location.pathname;
         var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
         vw.style.display = isHome ? 'block' : 'none';
         ov.style.display = isHome ? 'block' : 'none';
-        // Прячем/восстанавливаем React-кнопку
-        var btn = document.querySelector('a.btn-contact-manager');
-        if (btn) {
-          if (isHome) {
-            // Стеклянная кнопка
-            btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px">' +
-              '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>' +
-              'Связаться в Telegram</span>';
-            btn.className = '';
-            btn.style.cssText = 'display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:999px;font-family:Inter,sans-serif;font-weight:600;font-size:15px;cursor:pointer;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-decoration:none;transition:all .25s';
-          } else {
-            // Восстанавливаем оригинал
-            btn.innerHTML = 'Связаться с менеджером';
-            btn.className = 'btn-contact-manager';
-            btn.style.cssText = '';
-          }
-        }
+        if (isHome) replaceBtn();
         if (isHome && video.paused) {
           video.style.opacity = 0;
           video.play().catch(function(){});
           fadeTo(1, FADE_MS);
         }
       }
+
+      // MutationObserver — ловит когда React создаёт/пересоздаёт кнопку
+      var obs = new MutationObserver(function(){
+        var p = location.hash || location.pathname;
+        var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
+        if (isHome) replaceBtn();
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
 
       video.addEventListener('loadeddata', onLoaded);
       video.addEventListener('ended', onEnded);
@@ -843,24 +831,6 @@
       showOnHome();
       window.addEventListener('hashchange', showOnHome);
       window.addEventListener('popstate', showOnHome);
-
-      // Догоняем React-рендер: каждые 200мс проверяем кнопку
-      var checkTimer = setInterval(function(){
-        var p = location.hash || location.pathname;
-        var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
-        var btn = document.querySelector('a.btn-contact-manager');
-        if (btn && isHome) {
-          btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px">' +
-            '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>' +
-            'Связаться в Telegram</span>';
-          btn.className = '';
-          btn.style.cssText = 'display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:999px;font-family:Inter,sans-serif;font-weight:600;font-size:15px;cursor:pointer;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-decoration:none;transition:all .25s';
-          clearInterval(checkTimer);
-        } else if (!isHome) {
-          clearInterval(checkTimer);
-        }
-      }, 200);
-      setTimeout(function(){ clearInterval(checkTimer); }, 10000);
 
       video.load();
     })();
