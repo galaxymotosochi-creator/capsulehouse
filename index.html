@@ -687,34 +687,20 @@
       }
     }
 
-    // ====== Добавляем тестовую кнопку на карточку V11 ======
-    setTimeout(function addTestBtn() {
-      // Ищем карточку V11 по ссылке с slug galaxy-s1
-      var link = document.querySelector('a[href="/capsulehouse/house/galaxy-s1"]');
-      if (!link) { link = document.querySelector('a[href$="galaxy-s1"]'); }
-      if (!link) { setTimeout(addTestBtn, 1000); return; }
-
-      // Ищем название дома внутри карточки
-      var card = link.closest('[class*="house-card"]') || link.closest('a, div, article');
-      if (!card) { setTimeout(addTestBtn, 1000); return; }
-
-      // Если кнопка уже есть — не добавляем
-      if (card.querySelector('.calc-test-btn')) return;
-
-      var testBtn = document.createElement('button');
-      testBtn.className = 'calc-test-btn';
-      testBtn.textContent = '🧪 Тест расчёта';
-      testBtn.onclick = function(e) { e.preventDefault(); e.stopPropagation(); openCalc(); };
-      testBtn.style.cssText = 'display:inline-block;padding:4px 12px;font-size:11px;font-weight:500;font-family:Inter,sans-serif;background:#f0f0f0;border:1px solid #ddd;border-radius:6px;color:#888;cursor:pointer;margin-top:4px;transition:all .15s';
-      testBtn.onmouseenter = function() { this.style.background = '#e0e0e0'; };
-      testBtn.onmouseleave = function() { this.style.background = '#f0f0f0'; };
-
-      // Вставляем после названия дома
-      var nameEl = card.querySelector('h3, h4, [class*="name"], [class*="title"]');
-      if (nameEl && nameEl.parentNode) {
-        nameEl.parentNode.insertBefore(testBtn, nameEl.nextSibling);
-      } else {
-        card.appendChild(testBtn);
+    // ====== Перенаправляем кнопку «Рассчитать стоимость» на калькулятор ======
+    setTimeout(function hijackCta() {
+      var btns = document.querySelectorAll('.house-card__cta');
+      if (btns.length === 0) { setTimeout(hijackCta, 1000); return; }
+      for (var i = 0; i < btns.length; i++) {
+        (function(btn) {
+          if (btn.getAttribute('data-cta-hooked')) return;
+          btn.setAttribute('data-cta-hooked', '1');
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openCalc();
+          });
+        })(btns[i]);
       }
     }, 2000);
     </script>
