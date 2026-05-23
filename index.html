@@ -10,6 +10,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script type="module" crossorigin src="assets/index-CguyBJZF.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-CTYFC3_u.css">
+    <!-- Стеклянная кнопка — поверх React CSS -->
+    <style>
+      a.btn-contact-manager {
+        background: rgba(255,255,255,0.07) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
+        color: #fff !important;
+        border-radius: 12px !important;
+        font-weight: 600 !important;
+        transition: all .25s !important;
+      }
+      a.btn-contact-manager:hover {
+        background: rgba(255,255,255,0.18) !important;
+        border-color: rgba(255,255,255,0.35) !important;
+        color: #fff !important;
+      }
+    </style>
   </head>
   <body>
     <!-- Видео-фон для Hero -->
@@ -27,7 +45,6 @@
       .hero__overlay { background: transparent !important; }
       #root { position: relative; z-index: 2; background: transparent; }
 
-      /* Стеклянная кнопка */
       /* Видео JS-крестфейд */
       .hero-video-fade { transition: none !important; }
     </style>
@@ -792,37 +809,17 @@
         // Не меняем opacity — loop безрывный
       }
 
-      function replaceBtn() {
-        var btn = document.querySelector('a.btn-contact-manager');
-        if (!btn) return false;
-        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px">' +
-          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>' +
-          'Связаться в Telegram</span>';
-        btn.className = '';
-        btn.style.cssText = 'display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:999px;font-family:Inter,sans-serif;font-weight:600;font-size:15px;cursor:pointer;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-decoration:none;transition:all .25s';
-        return true;
-      }
-
       function showOnHome() {
         var p = location.hash || location.pathname;
         var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
         vw.style.display = isHome ? 'block' : 'none';
         ov.style.display = isHome ? 'block' : 'none';
-        if (isHome) replaceBtn();
         if (isHome && video.paused) {
           video.style.opacity = 0;
           video.play().catch(function(){});
           fadeTo(1, FADE_MS);
         }
       }
-
-      // MutationObserver — ловит когда React создаёт/пересоздаёт кнопку
-      var obs = new MutationObserver(function(){
-        var p = location.hash || location.pathname;
-        var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
-        if (isHome) replaceBtn();
-      });
-      obs.observe(document.body, { childList: true, subtree: true });
 
       video.addEventListener('loadeddata', onLoaded);
       video.addEventListener('ended', onEnded);
