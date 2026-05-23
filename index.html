@@ -38,8 +38,8 @@
       .house-card__btn-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0}.house-card__info-btn{cursor:pointer;padding:8px 16px;font-size:13px;font-weight:500;font-family:Inter,sans-serif;background:rgba(0,0,0,.04);border:1px solid #ddd;border-radius:8px;color:#555;line-height:1.5;transition:none!important;outline:none!important;box-shadow:none!important;-webkit-tap-highlight-color:transparent!important;user-select:none!important}.house-card__info-btn:focus,.house-card__info-btn:focus-visible,.house-card__info-btn:active{outline:none!important;box-shadow:none!important;-webkit-tap-highlight-color:transparent!important;background:rgba(0,0,0,.04)!important;border-color:#ddd!important;color:#555!important}.house-card__info-btn:hover{background:rgba(0,0,0,.08);border-color:#999}
       @media(max-width:500px){
         .house-card__content{padding:12px 10px!important}
-        .house-card__title{font-size:15px!important;margin-bottom:8px!important}
-        .house-card__description{font-size:12px!important;margin-bottom:10px!important}
+        .house-card__title{font-size:24px!important;font-weight:600!important;margin-bottom:8px!important}
+        .house-card__description{font-size:15px!important;font-weight:400!important;margin-bottom:10px!important}
         .house-card__image{aspect-ratio:4/3!important}
         .house-card__badge{font-size:9px!important;padding:2px 8px!important;top:6px!important;left:6px!important}
         /* Specs: 2×2 плитки */
@@ -47,7 +47,7 @@
         .house-card__spec{background:#f5f5f5!important;border-radius:8px!important;padding:10px 6px!important;display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;gap:2px!important}
         .house-card__spec-label{font-size:10px!important;color:#999!important;font-weight:400!important}
         .house-card__spec-value{font-size:14px!important;color:#222!important;font-weight:700!important}
-        .house-card__spec.hidden-spec{display:none!important}
+        .house-card__spec.is-hidden{display:none}
         /* Кнопка "Ещё" */
         .specs-more-btn{display:block;width:100%;padding:10px;text-align:center;background:#f5f5f5;border:none;border-radius:8px;font-size:13px;font-weight:500;color:#555;cursor:pointer;margin:0 0 10px;font-family:Inter,sans-serif}
         .specs-more-btn:hover{background:#e8e8e8}
@@ -56,10 +56,10 @@
         .house-card__price{flex-direction:row!important;justify-content:space-between!important;width:100%!important}
         .house-card__price-value{font-size:17px!important}
         .house-card__price-label{font-size:12px!important}
-        /* Кнопки: 2 колонки */
+        /* Кнопки: 2 ряда по 2 */
         .house-card__btn-row{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important;width:100%!important}
         .house-card__info-btn{font-size:12px!important;padding:10px 6px!important;text-align:center!important;width:100%!important;margin:0!important}
-        .house-card__cta{font-size:12px!important;padding:10px 6px!important;text-align:center!important;width:100%!important;grid-column:1/-1!important;margin:0!important}
+        .house-card__cta{font-size:12px!important;padding:10px 6px!important;text-align:center!important;width:100%!important;margin:0!important}
       }
     </style>
 
@@ -737,16 +737,16 @@
         var specs = list.querySelectorAll('.house-card__spec');
         if (specs.length > 4) {
           for (var sj = 4; sj < specs.length; sj++) {
-            specs[sj].classList.add('hidden-spec');
+            specs[sj].classList.add('is-hidden');
           }
           var moreBtn = document.createElement('button');
           moreBtn.className = 'specs-more-btn';
           moreBtn.textContent = 'Ещё ' + (specs.length - 4) + ' характеристик';
           moreBtn.onclick = function() {
-            var hidden = this.parentNode.querySelectorAll('.hidden-spec');
+            var hidden = this.parentNode.querySelectorAll('.is-hidden');
             var show = this.textContent.indexOf('Скрыть') === -1;
             for (var h = 0; h < hidden.length; h++) {
-              hidden[h].style.display = show ? '' : 'none';
+              hidden[h].classList.toggle('is-hidden', !show);
             }
             this.textContent = show ? 'Скрыть' : 'Ещё ' + hidden.length + ' характеристик';
           };
