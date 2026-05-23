@@ -12,6 +12,26 @@
     <link rel="stylesheet" crossorigin href="assets/index-CTYFC3_u.css">
   </head>
   <body>
+    <!-- Видео-фон для Hero -->
+    <div id="heroVideoWrap" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden;pointer-events:none">
+      <video id="heroBgVideo" muted playsinline preload="auto"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260329_050842_be71947f-f16e-4a14-810c-06e83d23ddb5.mp4"
+        style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:115%;height:115%;object-fit:cover;object-position:center top;opacity:0">
+      </video>
+    </div>
+    <div id="heroOverlay" style="display:none;position:fixed;inset:0;z-index:1;background:linear-gradient(135deg,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.35) 50%,rgba(0,0,0,0.65) 100%);pointer-events:none"></div>
+
+    <style id="heroVideoStyles">
+      /* Показываем видео только на главной */
+      .hero { background: transparent !important; background-image: none !important; position: relative; z-index: 2; }
+      .hero__overlay { background: transparent !important; }
+      #heroVideoWrap { display: block !important; }
+      #heroOverlay { display: block !important; }
+
+      /* Видео JS-крестфейд */
+      .hero-video-fade { transition: none !important; }
+    </style>
+
     <div id="root"></div>
 
     <!-- Секция видео -->
@@ -733,6 +753,61 @@
         })(btns[i]);
       }
     }, 2000);
+    </script>
+
+    <!-- Hero Video Fade Logic -->
+    <script>
+    (function(){
+      var vw = document.getElementById('heroVideoWrap');
+      var video = document.getElementById('heroBgVideo');
+      if (!vw || !video) return;
+      var rAF = null, fadingOut = false;
+      var FADE_MS = 250, FADE_OUT_LEAD = 0.55;
+
+      function fadeTo(target, duration) {
+        if (rAF) { cancelAnimationFrame(rAF); rAF = null; }
+        var start = performance.now();
+        var currentOp = parseFloat(video.style.opacity) || 0;
+        var diff = target - currentOp;
+        function frame(now) {
+          var t = Math.min((now - start) / duration, 1);
+          video.style.opacity = currentOp + diff * (1 - Math.pow(1 - t, 3));
+          if (t < 1) { rAF = requestAnimationFrame(frame); }
+          else { video.style.opacity = target; rAF = null; }
+        }
+        rAF = requestAnimationFrame(frame);
+      }
+
+      function onLoaded() {
+        video.style.opacity = 0;
+        fadingOut = false;
+        video.play().catch(function(){});
+        fadeTo(1, FADE_MS);
+      }
+      function onTime() {
+        if (!fadingOut && !video.ended && video.duration) {
+          var remain = video.duration - video.currentTime;
+          if (remain <= FADE_OUT_LEAD && remain > 0) {
+            fadingOut = true;
+            fadeTo(0, FADE_MS);
+          }
+        }
+      }
+      function onEnded() {
+        video.style.opacity = 0;
+        setTimeout(function() {
+          video.currentTime = 0;
+          fadingOut = false;
+          video.play().catch(function(){});
+          fadeTo(1, FADE_MS);
+        }, 100);
+      }
+
+      video.addEventListener('loadeddata', onLoaded);
+      video.addEventListener('timeupdate', onTime);
+      video.addEventListener('ended', onEnded);
+      video.load();
+    })();
     </script>
 
   </body>
