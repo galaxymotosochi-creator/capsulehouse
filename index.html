@@ -27,8 +27,8 @@
       .hero__overlay { background: transparent !important; }
       #root { position: relative; z-index: 2; background: transparent; }
 
-      /* Стеклянная кнопка Оставить заявку */
-      section a.btn-contact-manager {
+      /* Стеклянная кнопка */
+      a.btn-contact-manager {
         background: rgba(255,255,255,0.08) !important;
         backdrop-filter: blur(12px) !important;
         -webkit-backdrop-filter: blur(12px) !important;
@@ -37,7 +37,7 @@
         font-weight: 600 !important;
         transition: all .25s !important;
       }
-      section a.btn-contact-manager:hover {
+      a.btn-contact-manager:hover {
         background: rgba(255,255,255,0.2) !important;
         border-color: rgba(255,255,255,0.4) !important;
         color: #fff !important;
@@ -837,6 +837,24 @@
       setTimeout(function(){ clearInterval(checkTimer); }, 5000);
 
       video.load();
+
+      // Glass button — force style on btn-contact-manager
+      (function(){
+        var t = setInterval(function(){
+          var b = document.querySelector('a.btn-contact-manager');
+          if (b) {
+            b.style.setProperty('background', 'rgba(255,255,255,0.08)', 'important');
+            b.style.setProperty('backdrop-filter', 'blur(12px)', 'important');
+            b.style.setProperty('-webkit-backdrop-filter', 'blur(12px)', 'important');
+            b.style.setProperty('border', '1px solid rgba(255,255,255,0.25)', 'important');
+            b.style.setProperty('color', '#fff', 'important');
+            b.style.setProperty('font-weight', '600', 'important');
+            b.style.setProperty('transition', 'all .25s', 'important');
+            clearInterval(t);
+          }
+        }, 200);
+        setTimeout(function(){ clearInterval(t); }, 8000);
+      })();
     })();
     </script>
 
