@@ -664,7 +664,7 @@
       .then(function(r){ return r.json(); })
       .then(function(d){
         if (d.ok) {
-          document.getElementById('calcBody').innerHTML = '<p style="text-align:center;color:#333;font-size:15px;font-weight:600;padding:40px 0">✅ Спасибо!<br><span style="font-size:13px;font-weight:400;color:#888">Мы свяжемся с Вами в ближайшее время</span></p>';
+          document.getElementById('calcBody').innerHTML = '<p style="text-align:center;color:#000;font-size:16px;font-weight:600;padding:50px 20px;line-height:1.7;margin:0">Спасибо!<br><span style="font-size:14px;font-weight:400;color:#666">Мы свяжемся с Вами в ближайшее время</span></p>';
         } else {
           alert('Ошибка отправки. Попробуйте позже.');
           if (btn) { btn.textContent = 'Отправить'; btn.disabled = false; }
