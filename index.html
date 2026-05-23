@@ -45,12 +45,9 @@
         /* Specs: 2×2 плитки */
         .house-card__specs{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important;margin:0 0 10px!important}
         .house-card__spec{background:#f5f5f5!important;border-radius:8px!important;padding:10px 6px!important;display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;gap:2px!important}
-        .house-card__spec-label{font-size:10px!important;color:#999!important;font-weight:400!important}
+        .house-card__spec-label{font-size:12px!important;color:#999!important;font-weight:400!important}
         .house-card__spec-value{font-size:14px!important;color:#222!important;font-weight:700!important}
-        .house-card__spec.is-hidden{display:none}
-        /* Кнопка "Ещё" */
-        .specs-more-btn{display:block;width:100%;padding:10px;text-align:center;background:#f5f5f5;border:none;border-radius:8px;font-size:13px;font-weight:500;color:#555;cursor:pointer;margin:0 0 10px;font-family:Inter,sans-serif}
-        .specs-more-btn:hover{background:#e8e8e8}
+        .house-card__spec:nth-child(n+5){display:none!important}
         /* Footer + цена */
         .house-card__footer{padding-top:6px!important;flex-direction:column!important;gap:6px!important}
         .house-card__price{flex-direction:row!important;justify-content:space-between!important;width:100%!important}
@@ -726,32 +723,6 @@
             openCalc();
           });
         })(btns[i]);
-      }
-      
-      // Кнопка "Ещё" для характеристик (на мобильных)
-      var specLists = document.querySelectorAll('.house-card__specs');
-      for (var si = 0; si < specLists.length; si++) {
-        var list = specLists[si];
-        if (list.getAttribute('data-specs-ready')) continue;
-        list.setAttribute('data-specs-ready', '1');
-        var specs = list.querySelectorAll('.house-card__spec');
-        if (specs.length > 4) {
-          for (var sj = 4; sj < specs.length; sj++) {
-            specs[sj].classList.add('is-hidden');
-          }
-          var moreBtn = document.createElement('button');
-          moreBtn.className = 'specs-more-btn';
-          moreBtn.textContent = 'Ещё ' + (specs.length - 4) + ' характеристик';
-          moreBtn.onclick = function() {
-            var hidden = this.parentNode.querySelectorAll('.is-hidden');
-            var show = this.textContent.indexOf('Скрыть') === -1;
-            for (var h = 0; h < hidden.length; h++) {
-              hidden[h].classList.toggle('is-hidden', !show);
-            }
-            this.textContent = show ? 'Скрыть' : 'Ещё ' + hidden.length + ' характеристик';
-          };
-          list.parentNode.insertBefore(moreBtn, list.nextSibling);
-        }
       }
     }, 2000);
     </script>
