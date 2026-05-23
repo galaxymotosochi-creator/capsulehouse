@@ -27,6 +27,21 @@
       .hero__overlay { background: transparent !important; }
       #root { position: relative; z-index: 2; background: transparent; }
 
+      /* Стеклянная кнопка Оставить заявку */
+      .btn-contact-manager {
+        background: rgba(255,255,255,0.08) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(255,255,255,0.25) !important;
+        color: #000 !important;
+        font-weight: 600 !important;
+        transition: all .25s !important;
+      }
+      .btn-contact-manager:hover {
+        background: rgba(255,255,255,0.2) !important;
+        border-color: rgba(255,255,255,0.4) !important;
+      }
+
       /* Видео JS-крестфейд */
       .hero-video-fade { transition: none !important; }
     </style>
