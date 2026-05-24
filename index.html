@@ -764,22 +764,7 @@
       }
     }
 
-    // ====== Перенаправляем кнопку «Рассчитать стоимость» на калькулятор ======
-    setTimeout(function hijackCta() {
-      var btns = document.querySelectorAll('.house-card__cta');
-      if (btns.length === 0) { setTimeout(hijackCta, 1000); return; }
-      for (var i = 0; i < btns.length; i++) {
-        (function(btn) {
-          if (btn.getAttribute('data-cta-hooked')) return;
-          btn.setAttribute('data-cta-hooked', '1');
-          btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            openCalc();
-          });
-        })(btns[i]);
-      }
-    }, 2000);
+
     </script>
 
     <!-- Hero Video — только на главной, безрывный loop -->
