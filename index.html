@@ -832,9 +832,12 @@
         ov.style.display = isHome ? 'block' : 'none';
         var gb = document.getElementById('heroGlassBtn');
         if (gb) gb.style.display = isHome ? 'block' : 'none';
-        // Прячем React-кнопку на главной
-        var rb = document.querySelector('a.btn-contact-manager');
-        if (rb && isHome) rb.remove();
+        // Прячем ВСЕ старые React-кнопки на главной (их 3)
+        if (isHome) {
+          ['a.btn-contact-manager', 'a.hero__telegram-btn', 'button.btn-book'].forEach(function(sel){
+            document.querySelectorAll(sel).forEach(function(el){ el.style.display = 'none'; });
+          });
+        }
         if (isHome && video.paused) {
           video.style.opacity = 0;
           video.play().catch(function(){});
@@ -850,16 +853,25 @@
       window.addEventListener('hashchange', showOnHome);
       window.addEventListener('popstate', showOnHome);
 
-      // Догоняем React: скрываем его кнопку на главной
-      var rt = setInterval(function(){
+      // Догоняем React: скрываем ВСЕ его кнопки на главной
+      function hideReactButtons() {
         var p = location.hash || location.pathname;
         var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
-        var rb = document.querySelector('a.btn-contact-manager');
-        if (rb) {
-          if (rb && isHome) { rb.remove(); clearInterval(rt); var rb2 = document.querySelector('a.btn-contact-manager'); if (rb2) rb2.remove(); }
+        if (isHome) {
+          ['a.btn-contact-manager', 'a.hero__telegram-btn', 'button.btn-book'].forEach(function(sel){
+            document.querySelectorAll(sel).forEach(function(el){ el.style.display = 'none'; });
+          });
         }
-      }, 300);
+      }
+      // Быстрый интервал на первое время
+      var rt = setInterval(hideReactButtons, 300);
       setTimeout(function(){ clearInterval(rt); }, 10000);
+      // MutationObserver — следит за изменениями в root и сразу чинит
+      var mo = new MutationObserver(hideReactButtons);
+      setTimeout(function(){
+        var root = document.getElementById('root');
+        if (root) mo.observe(root, { childList: true, subtree: true });
+      }, 1000);
 
       video.load();
     })();
