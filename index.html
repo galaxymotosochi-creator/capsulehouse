@@ -839,14 +839,12 @@
       window.addEventListener('hashchange', showOnHome);
       window.addEventListener('popstate', showOnHome);
 
-      // React Router не триггерит popstate при кликах по ссылкам
-      var lastUrl = location.href;
-      setInterval(function(){
-        if (location.href !== lastUrl) {
-          lastUrl = location.href;
-          showOnHome();
-        }
-      }, 200);
+      // Перехватываем pushState (React Router использует его для навигации)
+      var _pushState = history.pushState;
+      history.pushState = function(){
+        _pushState.apply(history, arguments);
+        showOnHome();
+      };
 
       video.load();
     })();
