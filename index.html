@@ -839,6 +839,13 @@
       window.addEventListener('hashchange', showOnHome);
       window.addEventListener('popstate', showOnHome);
 
+      // Следим за сменой страниц через React Router
+      var mo2 = new MutationObserver(function(){ showOnHome(); });
+      setTimeout(function(){
+        var root = document.getElementById('root');
+        if (root) mo2.observe(root, { childList: true, subtree: true, attributes: false });
+      }, 100);
+
       video.load();
     })();
     </script>
