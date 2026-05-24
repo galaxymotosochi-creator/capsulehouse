@@ -43,7 +43,7 @@
     <div id="heroVideoWrap" style="display:none;position:absolute;top:0;left:0;width:100%;height:100vh;z-index:0;overflow:hidden;pointer-events:none">
       <video id="heroBgVideo" muted playsinline preload="auto"
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260329_050842_be71947f-f16e-4a14-810c-06e83d23ddb5.mp4"
-        style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:115%;height:115%;object-fit:cover;object-position:center top;opacity:0">
+        style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:115%;height:115%;object-fit:cover;object-position:center top;opacity:1">
       </video>
     </div>
     <div id="heroOverlay" style="display:none;position:absolute;top:0;left:0;width:100%;height:100vh;z-index:1;background:linear-gradient(135deg,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.35) 50%,rgba(0,0,0,0.65) 100%);pointer-events:none"></div>
@@ -792,26 +792,6 @@
       var rAF = null;
       var FADE_MS = 250;
 
-      function fadeTo(target, duration) {
-        if (rAF) { cancelAnimationFrame(rAF); rAF = null; }
-        var start = performance.now();
-        var currentOp = parseFloat(video.style.opacity) || 0;
-        var diff = target - currentOp;
-        function frame(now) {
-          var t = Math.min((now - start) / duration, 1);
-          video.style.opacity = currentOp + diff * (1 - Math.pow(1 - t, 3));
-          if (t < 1) { rAF = requestAnimationFrame(frame); }
-          else { video.style.opacity = target; rAF = null; }
-        }
-        rAF = requestAnimationFrame(frame);
-      }
-
-      function onLoaded() {
-        video.style.opacity = 0;
-        video.play().catch(function(){});
-        fadeTo(1, FADE_MS);
-      }
-
       // Seamless loop — безрывный! без задержек и серых экранов
       function onEnded() {
         video.currentTime = 0;
@@ -820,31 +800,25 @@
       }
 
       function showOnHome() {
-        var p = location.hash || location.pathname;
-        var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
-        vw.style.display = isHome ? 'block' : 'none';
-        ov.style.display = isHome ? 'block' : 'none';
-        if (isHome && video.paused) {
-          video.style.opacity = 0;
+        var hero = document.querySelector('.hero');
+        var onHome = !!hero;
+        vw.style.display = onHome ? 'block' : 'none';
+        ov.style.display = onHome ? 'block' : 'none';
+        if (onHome && video.paused) {
           video.play().catch(function(){});
-          fadeTo(1, FADE_MS);
         }
       }
 
-      video.addEventListener('loadeddata', onLoaded);
       video.addEventListener('ended', onEnded);
       video.loop = false;
 
-      showOnHome();
-      window.addEventListener('hashchange', showOnHome);
-      window.addEventListener('popstate', showOnHome);
-
-      // Перехватываем pushState (React Router использует его для навигации)
-      var _pushState = history.pushState;
-      history.pushState = function(){
-        _pushState.apply(history, arguments);
-        showOnHome();
-      };
+      // Следим за появлением/исчезновением hero (React рендерит его только на главной)
+      var mo = new MutationObserver(showOnHome);
+      setTimeout(function(){
+        var root = document.getElementById('root');
+        if (root) mo.observe(root, { childList: true, subtree: true });
+        showOnHome(); // Первый запуск
+      }, 100);
 
       video.load();
     })();
