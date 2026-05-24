@@ -48,7 +48,8 @@
     </div>
     <div id="heroOverlay" style="display:none;position:absolute;top:0;left:0;width:100%;height:100vh;z-index:1;background:linear-gradient(135deg,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.35) 50%,rgba(0,0,0,0.65) 100%);pointer-events:none"></div>
     <!-- Стеклянная кнопка Telegram (поверх React, как в первой версии) -->
-    <div id="heroGlassBtn" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:auto;margin-top:180px">
+    <!-- Позиционирование и вставку в hero__actions делает showOnHome / MutationObserver -->
+    <div id="heroGlassBtn" style="display:none">
       <a href="https://t.me/iuliiashimanskaia" target="_blank" class="telegram-glass-btn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
         Telegram
@@ -830,6 +831,16 @@
           document.querySelectorAll(sel).forEach(function(el){ el.remove(); });
         });
       }
+      function insertGlassButton() {
+        var gb = document.getElementById('heroGlassBtn');
+        if (!gb) return;
+        // Если уже внутри hero__actions — не двигаем
+        if (gb.parentNode && gb.parentNode.classList && gb.parentNode.classList.contains('hero__actions')) return;
+        var actions = document.querySelector('.hero__actions');
+        if (actions) {
+          actions.appendChild(gb);
+        }
+      }
       function showOnHome() {
         var p = location.hash || location.pathname;
         var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
@@ -837,8 +848,10 @@
         ov.style.display = isHome ? 'block' : 'none';
         var gb = document.getElementById('heroGlassBtn');
         if (gb) gb.style.display = isHome ? 'block' : 'none';
-        // Удаляем ВСЕ старые React-кнопки на главной
-        if (isHome) removeReactButtons();
+        if (isHome) {
+          removeReactButtons();
+          insertGlassButton();
+        }
         if (isHome && video.paused) {
           video.style.opacity = 0;
           video.play().catch(function(){});
@@ -858,11 +871,14 @@
       // Быстрый интервал на первое время
       var rt = setInterval(removeReactButtons, 300);
       setTimeout(function(){ clearInterval(rt); }, 10000);
-      // MutationObserver — следит за появлением новых кнопок от React и сразу удаляет
+      // MutationObserver — следит за изменениями в root и чинит
       var mo = new MutationObserver(function(){
         var p = location.hash || location.pathname;
         var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
-        if (isHome) removeReactButtons();
+        if (isHome) {
+          removeReactButtons();
+          insertGlassButton();
+        }
       });
       setTimeout(function(){
         var root = document.getElementById('root');
