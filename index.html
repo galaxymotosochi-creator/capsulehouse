@@ -834,7 +834,7 @@
         if (gb) gb.style.display = isHome ? 'block' : 'none';
         // Прячем React-кнопку на главной
         var rb = document.querySelector('a.btn-contact-manager');
-        if (rb) rb.style.display = isHome ? 'none' : '';
+        if (rb && isHome) rb.remove();
         if (isHome && video.paused) {
           video.style.opacity = 0;
           video.play().catch(function(){});
@@ -856,8 +856,7 @@
         var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
         var rb = document.querySelector('a.btn-contact-manager');
         if (rb) {
-          rb.style.display = isHome ? 'none' : '';
-          if (isHome) clearInterval(rt);
+          if (rb && isHome) { rb.remove(); clearInterval(rt); var rb2 = document.querySelector('a.btn-contact-manager'); if (rb2) rb2.remove(); }
         }
       }, 300);
       setTimeout(function(){ clearInterval(rt); }, 10000);
