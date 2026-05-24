@@ -825,6 +825,11 @@
         // Не меняем opacity — loop безрывный
       }
 
+      function removeReactButtons() {
+        ['a.btn-contact-manager', 'a.hero__telegram-btn', 'button.btn-book'].forEach(function(sel){
+          document.querySelectorAll(sel).forEach(function(el){ el.remove(); });
+        });
+      }
       function showOnHome() {
         var p = location.hash || location.pathname;
         var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
@@ -832,12 +837,8 @@
         ov.style.display = isHome ? 'block' : 'none';
         var gb = document.getElementById('heroGlassBtn');
         if (gb) gb.style.display = isHome ? 'block' : 'none';
-        // Прячем ВСЕ старые React-кнопки на главной (их 3)
-        if (isHome) {
-          ['a.btn-contact-manager', 'a.hero__telegram-btn', 'button.btn-book'].forEach(function(sel){
-            document.querySelectorAll(sel).forEach(function(el){ el.style.display = 'none'; });
-          });
-        }
+        // Удаляем ВСЕ старые React-кнопки на главной
+        if (isHome) removeReactButtons();
         if (isHome && video.paused) {
           video.style.opacity = 0;
           video.play().catch(function(){});
@@ -853,21 +854,16 @@
       window.addEventListener('hashchange', showOnHome);
       window.addEventListener('popstate', showOnHome);
 
-      // Догоняем React: скрываем ВСЕ его кнопки на главной
-      function hideReactButtons() {
+      // Догоняем React: удаляем кнопки если React их пересоздал
+      // Быстрый интервал на первое время
+      var rt = setInterval(removeReactButtons, 300);
+      setTimeout(function(){ clearInterval(rt); }, 10000);
+      // MutationObserver — следит за появлением новых кнопок от React и сразу удаляет
+      var mo = new MutationObserver(function(){
         var p = location.hash || location.pathname;
         var isHome = p === '' || p === '/' || p === '#/' || p === '#/' || location.pathname === '/';
-        if (isHome) {
-          ['a.btn-contact-manager', 'a.hero__telegram-btn', 'button.btn-book'].forEach(function(sel){
-            document.querySelectorAll(sel).forEach(function(el){ el.style.display = 'none'; });
-          });
-        }
-      }
-      // Быстрый интервал на первое время
-      var rt = setInterval(hideReactButtons, 300);
-      setTimeout(function(){ clearInterval(rt); }, 10000);
-      // MutationObserver — следит за изменениями в root и сразу чинит
-      var mo = new MutationObserver(hideReactButtons);
+        if (isHome) removeReactButtons();
+      });
       setTimeout(function(){
         var root = document.getElementById('root');
         if (root) mo.observe(root, { childList: true, subtree: true });
