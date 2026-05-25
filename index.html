@@ -798,21 +798,26 @@
       if (!vw || !video) return;
       var rAF = null;
       var FADE_MS = 250;
+      var wasOnHome = false;  // чтобы не дёргать без необходимости
+      var posterWasHidden = false;
 
       // Seamless loop — безрывный! без задержек и серых экранов
       function onEnded() {
         video.currentTime = 0;
         video.play().catch(function(){});
-        // Не меняем opacity — loop безрывный
       }
 
       function showOnHome() {
         var hero = document.querySelector('.hero');
         var onHome = !!hero;
+        if (onHome === wasOnHome) return;
+        wasOnHome = onHome;
         if (onHome) {
           vw.style.display = 'block';
           ov.style.display = 'block';
-          if (poster) poster.style.opacity = '1';
+          if (poster && !posterWasHidden) {
+            poster.style.opacity = '1';
+          }
           if (video.paused) {
             video.style.opacity = '0';
             video.play().catch(function(){});
@@ -831,7 +836,8 @@
       function fadeInVideo() {
         function showVideo() {
           video.style.opacity = '1';
-          if (poster) {
+          if (poster && !posterWasHidden) {
+            posterWasHidden = true;
             setTimeout(function(){ poster.style.opacity = '0'; }, 100);
           }
         }
@@ -845,15 +851,16 @@
         }
       }
 
+      // Первый запуск
+      setTimeout(function(){ showOnHome(); }, 50);
       fadeInVideo();
 
       // Следим за появлением/исчезновением hero (React рендерит его только на главной)
       var mo = new MutationObserver(showOnHome);
-      setTimeout(function(){
-        var root = document.getElementById('root');
-        if (root) mo.observe(root, { childList: true, subtree: true });
-        showOnHome(); // Первый запуск
-      }, 100);
+      var root = document.getElementById('root');
+      if (root) {
+        mo.observe(root, { childList: true, subtree: true });
+      }
 
       video.load();
     })();
