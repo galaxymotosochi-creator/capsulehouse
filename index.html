@@ -40,10 +40,10 @@
   </head>
   <body>
     <!-- Видео-фон для Hero -->
-    <div id="heroVideoWrap" style="display:none;position:absolute;top:0;left:0;width:100%;height:100vh;z-index:0;overflow:hidden;pointer-events:none">
-      <video id="heroBgVideo" muted playsinline preload="auto"
+    <div id="heroVideoWrap" style="display:none;position:absolute;top:0;left:0;width:100%;height:100vh;z-index:0;overflow:hidden;pointer-events:none;background:#111 url('hero-poster.jpg') center top/cover no-repeat">
+      <video id="heroBgVideo" muted playsinline preload="auto" poster="hero-poster.jpg"
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260329_050842_be71947f-f16e-4a14-810c-06e83d23ddb5.mp4"
-        style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:115%;height:115%;object-fit:cover;object-position:center top;opacity:1">
+        style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:115%;height:115%;object-fit:cover;object-position:center top;opacity:0;transition:opacity .6s ease">
       </video>
     </div>
     <div id="heroOverlay" style="display:none;position:absolute;top:0;left:0;width:100%;height:100vh;z-index:1;background:linear-gradient(135deg,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.35) 50%,rgba(0,0,0,0.65) 100%);pointer-events:none"></div>
@@ -789,13 +789,31 @@
         var onHome = !!hero;
         vw.style.display = onHome ? 'block' : 'none';
         ov.style.display = onHome ? 'block' : 'none';
-        if (onHome && video.paused) {
-          video.play().catch(function(){});
+        if (onHome) {
+          if (video.paused) {
+            video.style.opacity = '0';
+            video.play().catch(function(){});
+          }
+          fadeInVideo();
         }
       }
 
       video.addEventListener('ended', onEnded);
       video.loop = false;
+
+      // Плавный фейд видео поверх постера
+      function fadeInVideo() {
+        if (video.readyState >= 3 || video.currentTime > 0) {
+          video.style.opacity = '1';
+        } else {
+          video.addEventListener('canplay', function onCan() {
+            video.style.opacity = '1';
+            video.removeEventListener('canplay', onCan);
+          }, { once: true });
+        }
+      }
+
+      fadeInVideo();
 
       // Следим за появлением/исчезновением hero (React рендерит его только на главной)
       var mo = new MutationObserver(showOnHome);
