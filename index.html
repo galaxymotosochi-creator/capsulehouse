@@ -196,17 +196,32 @@
       }
     }
     // Ждём пока React отрендерит
-    setTimeout(function(){document.querySelector('.vs').style.display='';initVideo();}, 500);
-    setInterval(function(){
+    setTimeout(function(){initVideo();}, 500);
+
+    // Показываем/скрываем секцию при переходе по страницам
+    var vsMo = new MutationObserver(function(){
       var vs = document.querySelector('.vs');
       var hero = document.querySelector('.hero');
-      if(vs && hero && vs.previousElementSibling !== hero){
-        var parent = hero.parentNode;
-        var next = hero.nextElementSibling;
-        if(next) parent.insertBefore(vs, next);
-        else parent.appendChild(vs);
+      if (vs) {
+        if (hero) {
+          vs.style.display = '';
+          // Перемещаем следом за hero только один раз
+          if (vs._placed) return;
+          var parent = hero.parentNode;
+          var next = hero.nextElementSibling;
+          if (next) parent.insertBefore(vs, next);
+          else parent.appendChild(vs);
+          vs._placed = true;
+        } else {
+          vs.style.display = 'none';
+          vs._placed = false;
+        }
       }
-    }, 2000);
+    });
+    setTimeout(function(){
+      var root = document.getElementById('root');
+      if (root) vsMo.observe(root, { childList: true, subtree: true });
+    }, 100);
     </script>
 
     <!-- Комплектация V11 -->
