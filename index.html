@@ -452,7 +452,7 @@
       renderCalc();
     }
 
-    function openCalc() { document.getElementById('calcOverlay').classList.add('active'); renderCalc(); }
+    function openCalc(name, price, area) { if(name){calcModel.name=name;calcModel.basePrice=price||calcModel.basePrice;calcModel.area=area||calcModel.area} document.getElementById('calcOverlay').classList.add('active'); renderCalc(); }
     function closeCalc() { document.getElementById('calcOverlay').classList.remove('active'); }
 
     function getTotalOptions() {
@@ -743,7 +743,7 @@
       // Собираем сообщение
       var msg = '📋 НОВАЯ ЗАЯВКА\n';
       msg += 'Ожидания: ' + (type === 'match' ? 'Совпали ✓' : 'Дешевле ✗') + '\n';
-      msg += 'Модель: V11 (' + calcModel.basePrice.toLocaleString('ru-RU') + ' ₽)\n';
+      msg += 'Модель: ' + calcModel.name + ' (' + calcModel.basePrice.toLocaleString('ru-RU') + ' ₽)\n';
       
       var opts = getTotalOptions();
       if (opts > 0) {
