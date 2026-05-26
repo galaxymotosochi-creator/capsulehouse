@@ -992,7 +992,7 @@
             if (key.startsWith('galaxy_leads')) {
               var data = JSON.parse(value);
               // Add referral if present in URL
-              var ref = new URLSearchParams(window.location.search).get('ref');
+              var ref = new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref');
               if (ref && !data.agentId) data.agentId = ref;
               if (data.agentId) {
                 db.collection('leads').doc(data.id).set(data);
