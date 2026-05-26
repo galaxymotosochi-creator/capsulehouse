@@ -1081,10 +1081,14 @@
             var agents = JSON.parse(value);
             if (Array.isArray(agents) && agents.length > 0) {
               var last = agents[agents.length - 1];
-              if (last && last.email && last.password) {
-                auth.createUserWithEmailAndPassword(last.email, last.password).catch(function(e) {
-                  if (e.code !== 'auth/email-already-in-use') console.error('Firebase Auth error:', e.code);
-                });
+              if (last && last.email) {
+                // Save to Firestore agents collection (for login sync)
+                db.collection('agents').doc(last.email).set(JSON.parse(JSON.stringify(last)));
+                if (last.password) {
+                  auth.createUserWithEmailAndPassword(last.email, last.password).catch(function(e) {
+                    if (e.code !== 'auth/email-already-in-use') console.error('Firebase Auth error:', e.code);
+                  });
+                }
                 setupAgent(last.email, last.fullName || last.name || last.email);
               }
             }
@@ -1097,17 +1101,20 @@
         } catch(e) { console.error('Firebase sync error:', e); }
       };      // Auto-load leads when page loads (check if agent is logged in)
       // Load existing agents from Firestore (for registration uniqueness check)
+      // Sync agents from Firestore (for login check) - fast
       function syncExistingAgents() {
-        if (!firebaseReady()) { setTimeout(syncExistingAgents, 1000); return; }
+        if (!firebaseReady()) { setTimeout(syncExistingAgents, 200); return; }
         db.collection('agents').get().then(function(snapshot) {
           var agents = [];
           snapshot.forEach(function(doc) { agents.push(doc.data()); });
           if (agents.length > 0) {
             localStorage.setItem('galaxy_agents', JSON.stringify(agents));
-            console.log('Existing agents synced from Firestore:', agents.length);
           }
-        }).catch(function(e) { console.log('Firestore agents sync error (first time):', e.message); });
+        }).catch(function() {});
       }
+      // Try immediately, retry quickly
+      syncExistingAgents();
+      setTimeout(syncExistingAgents, 500);
       setTimeout(syncExistingAgents, 1500);
 
       function checkAgent() {
