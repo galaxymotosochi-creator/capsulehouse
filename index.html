@@ -1221,9 +1221,8 @@
   if (!vid) { vid = Date.now().toString(36) + Math.random().toString(36).substr(2,9); localStorage.setItem('galaxy_visitor_id', vid); }
   
   // Get referral agent ID
-  var refCode = localStorage.getItem('galaxy_referral_code');
-  
   function track(type, data) {
+    var refCode = localStorage.getItem('galaxy_referral_code');
     if (!refCode) return;
     var id = Date.now().toString(36) + Math.random().toString(36).substr(2,5);
     var body = { type: type, agentId: refCode, visitorId: vid, data: data || {}, createdAt: new Date().toISOString() };
