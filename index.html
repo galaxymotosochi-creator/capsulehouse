@@ -965,12 +965,20 @@
       Storage.prototype.setItem = function(key, value) {
         origSetItem.call(this, key, value);
         try {
-          if (key && (key.startsWith('galaxy_agents') || key.startsWith('galaxy_dealers'))) {
-            var data = JSON.parse(value);
-            if (db) {
-              // Save to Firestore
+          if (key && db) {
+            if (key.startsWith('galaxy_agents') || key.startsWith('galaxy_dealers')) {
+              var data = JSON.parse(value);
               var collection = key.startsWith('galaxy_agents') ? 'agents' : 'dealers';
               db.collection(collection).doc(data.email || data.id).set(data);
+            }
+            if (key.startsWith('galaxy_leads')) {
+              var data = JSON.parse(value);
+              // Add referral if present in URL
+              var ref = new URLSearchParams(window.location.search).get('ref');
+              if (ref && !data.agentId) data.agentId = ref;
+              if (data.agentId) {
+                db.collection('leads').doc(data.id).set(data);
+              }
             }
           }
         } catch(e) { console.error('Firebase sync error:', e); }
