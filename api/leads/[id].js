@@ -4,13 +4,13 @@ let fb = null;
 function init() {
   if (fb) return fb;
   const key = process.env.FIREBASE_SERVICE_ACCOUNT;
-  if (!key) throw new Error('FIREBASE_SERVICE_ACCOUNT not set');
-  fb = admin.initializeApp({ credential: admin.credential.cert(JSON.parse(key)) });
+  if (!key) throw Error('FB key missing');
+  fb = admin.initializeApp({credential:admin.credential.cert(JSON.parse(key))});
   return fb;
 }
 
-function json(res, s, d) {
-  ['Access-Control-Allow-Origin','Access-Control-Allow-Methods','Access-Control-Allow-Headers'].forEach(h => res.setHeader(h,'*'));
+function json(res,s,d) {
+  ['Access-Control-Allow-Origin','Access-Control-Allow-Methods','Access-Control-Allow-Headers'].forEach(h=>res.setHeader(h,'*'));
   res.setHeader('Content-Type','application/json');
   return res.status(s).json(d);
 }
@@ -31,16 +31,36 @@ async function tg(lead, agent) {
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') { json(res,204,{}); return; }
   const { id } = req.query;
+  
   try {
+    // LOG THE FULL REQUEST FOR DEBUGGING
+    const bodyStr = JSON.stringify(req.body || {});
+    console.log('[LEAD] PUT id=' + id + ' body=' + bodyStr);
+    
     const db = init().firestore();
     if (req.method === 'PUT') {
       const body = typeof req.body === 'object' ? req.body : JSON.parse(req.body);
+      
+      // Log agentId specifically
+      console.log('[LEAD] agentId=' + JSON.stringify(body.agentId));
+      
       if (!body.name||!body.phone) return json(res,400,{ok:false,error:'Name+phone required'});
+      
+      // Save lead + more fields to help debug
       await db.collection('galaxy_leads').doc(id).set(body,{merge:true});
+      
+      // Find agent
       let a = null;
-      if (body.agentId) { const s = await db.collection('galaxy_agents').where('id','==',body.agentId).get(); if (!s.empty) a = s.docs[0].data(); }
+      if (body.agentId) { 
+        const s = await db.collection('galaxy_agents').where('id','==',body.agentId).get(); 
+        if (!s.empty) a = s.docs[0].data();
+        else console.log('[LEAD] Agent not found for id=' + body.agentId);
+      } else {
+        console.log('[LEAD] No agentId in body');
+      }
+      
       tg(body,a).catch(()=>{});
-      return json(res,200,{ok:true,id});
+      return json(res,200,{ok:true,id,agentIdReceived:body.agentId||null});
     }
     if (req.method === 'DELETE') { await db.collection('galaxy_leads').doc(id).delete(); return json(res,200,{ok:true}); }
     return json(res,405,{error:'Not allowed'});
