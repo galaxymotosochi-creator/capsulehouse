@@ -975,20 +975,56 @@
     setTimeout(patchReferralCode, 500);
 
     (function() {
-      // Load leads for current agent from Firestore
-      function syncAgentLeads() {
-        var agent = JSON.parse(localStorage.getItem('galaxy_user_firebase') || 'null');
-        var email = agent ? agent.email : (auth.currentUser ? auth.currentUser.email : null);
-        if (!email) {
-          var stored = JSON.parse(localStorage.getItem('galaxy_user') || '{}');
-          email = stored.email;
+      var ready = false;
+      function firebaseReady() {
+        if (ready) return true;
+        ready = typeof firebase !== 'undefined' && firebase.apps && firebase.apps().length > 0;
+        return ready;
+      }
+
+      // Save lead to Firestore when submitted
+      function saveLeadToFirestore(data) {
+        if (!firebaseReady()) return;
+        var ref = new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref') 
+               || new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('r');
+        
+        // Try to resolve short code to email
+        function doSave(agentEmail) {
+          data.agentId = agentEmail;
+          data.firebaseSaved = true;
+          data.createdAt = new Date().toISOString();
+          db.collection('leads').doc(data.id || data.phone + '_' + Date.now()).set(data)
+            .then(function() { console.log('Lead saved to Firestore for agent:', agentEmail); })
+            .catch(function(e) { console.error('Firestore save error:', e); });
         }
-        if (!email) return;
+
+        if (ref) {
+          if (ref.indexOf('@') > 0) {
+            doSave(ref);
+          } else {
+            db.collection('referrals').doc(ref).get().then(function(d) {
+              if (d.exists) doSave(d.data().email);
+              else console.log('Referral code not found:', ref);
+            }).catch(function(e) { console.error('Referral lookup error:', e); });
+          }
+        }
+      }
+
+      // Load leads for agent dashboard
+      function loadAgentLeads(email) {
+        if (!email || !firebaseReady()) return;
         localStorage.setItem('galaxy_user_refcode', email);
+        
+        // Get referral code
         db.collection('referrals').where('email', '==', email).get().then(function(snap) {
-          snap.forEach(function(d) { localStorage.setItem('galaxy_ref_code', d.id); });
+          snap.forEach(function(d) { 
+            localStorage.setItem('galaxy_ref_code', d.id);
+            patchReferralCode();
+          });
         });
-        db.collection('leads').where('agentId', '==', email).onSnapshot(function(snapshot) {
+
+        // Pull leads from Firestore
+        db.collection('leads').where('agentId', '==', email).get().then(function(snapshot) {
           var existing = JSON.parse(localStorage.getItem('galaxy_leads') || '[]');
           snapshot.forEach(function(doc) {
             var lead = doc.data();
@@ -997,77 +1033,36 @@
             else existing.push(lead);
           });
           localStorage.setItem('galaxy_leads', JSON.stringify(existing));
-        });
+          console.log('Leads loaded from Firestore:', existing.length);
+        }).catch(function(e) { console.error('Firestore load error:', e); });
       }
-      setTimeout(syncAgentLeads, 2000);
 
-      var origSetItem = Storage.prototype.setItem;
+      // Intercept localStorage saves
+      var _origSetItem = Storage.prototype.setItem;
       Storage.prototype.setItem = function(key, value) {
-        origSetItem.call(this, key, value);
+        _origSetItem.call(this, key, value);
         try {
-          if (key && db) {
-            if (key.startsWith('galaxy_agents') || key.startsWith('galaxy_dealers')) {
-              var data = JSON.parse(value);
-              var collection = key.startsWith('galaxy_agents') ? 'agents' : 'dealers';
-              db.collection(collection).doc(data.email || data.id).set(data);
-              // Generate short referral code for new agents
-              if (collection === 'agents' && data.email) {
-                var code = (data.name ? data.name.substring(0,2).toUpperCase() : 'AG') + Math.random().toString(36).substring(2,5).toUpperCase();
-                db.collection('referrals').doc(code).set({ email: data.email, name: data.name || '' });
-              }
+          if (key === 'galaxy_user' && firebaseReady()) {
+            var user = JSON.parse(value);
+            if (user && user.email && user.type === 'agent') {
+              loadAgentLeads(user.email);
             }
-            if (key.startsWith('galaxy_leads')) {
-              var data = JSON.parse(value);
-              // Add referral if present in URL
-              var ref = new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref') || new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('r');
-              if (ref && !data.agentId) {
-                // ref can be email OR short code
-                if (ref.indexOf('@') > 0) data.agentId = ref;
-                else {
-                  // Short code lookup
-                  db.collection('referrals').doc(ref).get().then(function(d) {
-                    if (d.exists) data.agentId = d.data().email;
-                  });
-                }
-              }
-              // Save lead with agentId
-              if (data.agentId) {
-                db.collection('leads').doc(data.id).set(data);
-              }
-            }
+          }
+          if (key === 'galaxy_leads' && firebaseReady()) {
+            var data = JSON.parse(value);
+            var lead = Array.isArray(data) ? data[data.length - 1] : data;
+            if (lead && lead.name && lead.phone) saveLeadToFirestore(lead);
           }
         } catch(e) { console.error('Firebase sync error:', e); }
       };
-      
-      // Google Auth button
-      window.googleLogin = function() {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider)
-          .then(function(result) {
-            alert('Вход выполнен: ' + result.user.email);
-            location.reload();
-          })
-          .catch(function(error) {
-            alert('Ошибка входа: ' + error.message);
-          });
-      };
-      
-      // Email/Password Register
-      window.emailRegister = function(email, password, name, type) {
-        auth.createUserWithEmailAndPassword(email, password)
-          .then(function(cred) {
-            return cred.user.updateProfile({ displayName: name });
-          })
-          .then(function() {
-            var data = { name: name, email: email, type: type || 'agent', createdAt: new Date().toISOString() };
-            db.collection(type === 'dealer' ? 'dealers' : 'agents').doc(email).set(data);
-            alert('Регистрация успешна!');
-            location.reload();
-          })
-          .catch(function(err) {
-            alert('Ошибка: ' + err.message);
-          });
-      };
+
+      // Auto-load leads when page loads (check if agent is logged in)
+      function checkAgent() {
+        if (!firebaseReady()) { setTimeout(checkAgent, 1000); return; }
+        var user = JSON.parse(localStorage.getItem('galaxy_user') || '{}');
+        if (user.email && user.type === 'agent') loadAgentLeads(user.email);
+      }
+      setTimeout(checkAgent, 2000);
     })();
   </script>
 </body>
