@@ -961,6 +961,24 @@
     <!-- Firebase sync -->
   <script>
     (function() {
+      // Load leads for current agent from Firestore
+      function syncAgentLeads() {
+        var agent = JSON.parse(localStorage.getItem('galaxy_user_firebase') || 'null');
+        if (!agent && !auth.currentUser) return;
+        var email = agent ? agent.email : auth.currentUser.email;
+        db.collection('leads').where('agentId', '==', email).onSnapshot(function(snapshot) {
+          var existing = JSON.parse(localStorage.getItem('galaxy_leads') || '[]');
+          snapshot.forEach(function(doc) {
+            var lead = doc.data();
+            var idx = existing.findIndex(function(l) { return l.id === lead.id; });
+            if (idx >= 0) existing[idx] = lead;
+            else existing.push(lead);
+          });
+          localStorage.setItem('galaxy_leads', JSON.stringify(existing));
+        });
+      }
+      setTimeout(syncAgentLeads, 2000);
+
       var origSetItem = Storage.prototype.setItem;
       Storage.prototype.setItem = function(key, value) {
         origSetItem.call(this, key, value);
