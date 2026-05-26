@@ -1,7 +1,19 @@
 {
   "version": 2,
-  "public": true,
   "github": {
     "silent": true
-  }
+  },
+  "builds": [
+    { "src": "api/lead.js", "use": "@vercel/node" },
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "assets/*.{js,css}", "use": "@vercel/static" },
+    { "src": "images/*.{jpg,png,svg}", "use": "@vercel/static" },
+    { "src": "*.{jpg,png,svg,ico,json}", "use": "@vercel/static" },
+    { "src": "videos/*.mp4", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
 }
