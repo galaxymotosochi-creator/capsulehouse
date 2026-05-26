@@ -1062,6 +1062,20 @@
           }
         } catch(e) { console.error('Firebase sync error:', e); }
       };      // Auto-load leads when page loads (check if agent is logged in)
+      // Load existing agents from Firestore (for registration uniqueness check)
+      function syncExistingAgents() {
+        if (!firebaseReady()) { setTimeout(syncExistingAgents, 1000); return; }
+        db.collection('agents').get().then(function(snapshot) {
+          var agents = [];
+          snapshot.forEach(function(doc) { agents.push(doc.data()); });
+          if (agents.length > 0) {
+            localStorage.setItem('galaxy_agents', JSON.stringify(agents));
+            console.log('Existing agents synced from Firestore:', agents.length);
+          }
+        }).catch(function(e) { console.log('Firestore agents sync error (first time):', e.message); });
+      }
+      setTimeout(syncExistingAgents, 1500);
+
       function checkAgent() {
         if (!firebaseReady()) { setTimeout(checkAgent, 1000); return; }
         var user = JSON.parse(localStorage.getItem('galaxy_user') || '{}');
