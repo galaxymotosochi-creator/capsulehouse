@@ -1101,21 +1101,29 @@
         } catch(e) { console.error('Firebase sync error:', e); }
       };      // Auto-load leads when page loads (check if agent is logged in)
       // Load existing agents from Firestore (for registration uniqueness check)
-      // Sync agents from Firestore (for login check) - fast
+      // Sync agents from Firestore (for login check) - immediate + on getItem
       function syncExistingAgents() {
-        if (!firebaseReady()) { setTimeout(syncExistingAgents, 200); return; }
+        if (!firebaseReady()) { setTimeout(syncExistingAgents, 100); return; }
         db.collection('agents').get().then(function(snapshot) {
           var agents = [];
           snapshot.forEach(function(doc) { agents.push(doc.data()); });
           if (agents.length > 0) {
-            localStorage.setItem('galaxy_agents', JSON.stringify(agents));
+            localStorage.setItem('galaxy_agents', JSON.stringify(agents));localStorage.setItem('galaxy_agents_firebase', JSON.stringify(agents));
           }
         }).catch(function() {});
       }
-      // Try immediately, retry quickly
+      // Override getItem for galaxy_user to sync agents before login check
+      var _getItem = Storage.prototype.getItem;
+      Storage.prototype.getItem = function(key) {
+        if (key === 'galaxy_user' || key === 'galaxy_agents') {
+          syncExistingAgents();
+        }
+        return _getItem.call(this, key);
+      };
+      // Run immediately
       syncExistingAgents();
-      setTimeout(syncExistingAgents, 500);
-      setTimeout(syncExistingAgents, 1500);
+      setTimeout(syncExistingAgents, 300);
+      setTimeout(syncExistingAgents, 1000);
 
       function checkAgent() {
         if (!firebaseReady()) { setTimeout(checkAgent, 1000); return; }
