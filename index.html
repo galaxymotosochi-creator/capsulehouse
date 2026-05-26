@@ -764,52 +764,78 @@
         budget = document.getElementById('leadBudget').value.trim();
       }
       
-      // Собираем сообщение
-      var msg = '📋 НОВАЯ ЗАЯВКА\n';
-      msg += 'Ожидания: ' + (type === 'match' ? 'Совпали ✓' : 'Дешевле ✗') + '\n';
-      msg += 'Модель: ' + calcModel.name + ' (' + calcModel.basePrice.toLocaleString('ru-RU') + ' ₽)\n';
+      // Читаем реферальный код
+      var refCode = localStorage.getItem('galaxy_referral_code');
+      var agentId = refCode || '';
       
-      var opts = getTotalOptions();
-      if (opts > 0) {
-        msg += 'Опции:\n';
-        var allOpts = [calcWinter, calcInterior];
-        for (var s = 0; s < allOpts.length; s++) {
-          for (var i = 0; i < allOpts[s].length; i++) {
-            if (allOpts[s][i].on) msg += '  • ' + allOpts[s][i].label + ' +' + allOpts[s][i].price.toLocaleString('ru-RU') + ' ₽\n';
-          }
+      // Генерируем ID заявки
+      var leadId = Date.now().toString(36) + Math.random().toString(36).substr(2,9);
+      
+      // Собираем опции
+      var selectedOptions = [];
+      var allOpts = [calcWinter, calcInterior];
+      for (var s = 0; s < allOpts.length; s++) {
+        for (var i = 0; i < allOpts[s].length; i++) {
+          if (allOpts[s][i].on) selectedOptions.push(allOpts[s][i].label);
         }
       }
       
-      msg += 'Доставка Китай: 350 000 ₽\n';
-      if (calcSelectedCity) {
-        msg += 'Доставка до ' + calcSelectedCity + ': ' + (120 * calcDist[calcSelectedCity]).toLocaleString('ru-RU') + ' ₽\n';
-      }
-      msg += 'Таможня: ' + getTaxAmount().toLocaleString('ru-RU') + ' ₽\n';
-      msg += 'ИТОГО: ' + getGrandTotal().toLocaleString('ru-RU') + ' ₽\n\n';
-      msg += '📞 ' + phone + '\n';
-      msg += 'Связь: ' + contact + '\n';
-      if (budget) msg += '💰 Бюджет: ' + budget + '\n';
+      // Данные заявки
+      var leadData = {
+        name: 'Заявка с калькулятора',
+        phone: phone,
+        city: calcSelectedCity || '',
+        houseName: calcModel.name,
+        houseCount: '1',
+        budgetPerHouse: String(getGrandTotal()),
+        source: 'calculator',
+        agentId: agentId,
+        contactMethod: contact,
+        budget: budget,
+        expectation: type === 'match' ? 'Совпали' : 'Дешевле',
+        selectedOptions: selectedOptions,
+        deliveryCity: calcSelectedCity,
+        totalPrice: getGrandTotal(),
+        status: 'new',
+        createdAt: new Date().toISOString()
+      };
       
       var btn = document.getElementById('leadSubmitBtn');
       if (btn) { btn.textContent = 'Отправка...'; btn.disabled = true; }
       
-      fetch('https://api.telegram.org/bot8897088321:AAFNTxJYvbyC8Q7zY4eUh33hvmH4cSQMzZw/sendMessage', {
-        method: 'POST',
+      // Сохраняем в Firestore через API
+      fetch('/api/leads/' + leadId, {
+        method: 'PUT',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ chat_id: 5368408796, text: msg })
+        body: JSON.stringify(leadData)
       })
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        if (d.ok) {
-          document.getElementById('calcBody').innerHTML = '<p style="text-align:center;color:#000;font-size:16px;font-weight:600;padding:50px 20px;line-height:1.7;margin:0">Спасибо!<br><span style="font-size:14px;font-weight:400;color:#666">Мы свяжемся с Вами в ближайшее время</span></p>';
-        } else {
-          alert('Ошибка отправки. Попробуйте позже.');
-          if (btn) { btn.textContent = 'Отправить'; btn.disabled = false; }
-        }
+      .then(function(){
+        document.getElementById('calcBody').innerHTML = '<p style="text-align:center;color:#000;font-size:16px;font-weight:600;padding:50px 20px;line-height:1.7;margin:0">Спасибо!<br><span style="font-size:14px;font-weight:400;color:#666">Мы свяжемся с Вами в ближайшее время</span></p>';
       })
       .catch(function(){
-        alert('Ошибка отправки. Попробуйте позже.');
-        if (btn) { btn.textContent = 'Отправить'; btn.disabled = false; }
+        // Fallback: отправляем напрямую в Telegram если API не ответил
+        var msg = '📋 НОВАЯ ЗАЯВКА\n';
+        msg += 'Ожидания: ' + (type === 'match' ? 'Совпали ✓' : 'Дешевле ✗') + '\n';
+        msg += 'Модель: ' + calcModel.name + ' (' + calcModel.basePrice.toLocaleString('ru-RU') + ' ₽)\n';
+        if (selectedOptions.length) msg += 'Опции: ' + selectedOptions.join(', ') + '\n';
+        msg += 'Доставка до ' + (calcSelectedCity || 'Уточняется') + '\n';
+        msg += 'ИТОГО: ' + getGrandTotal().toLocaleString('ru-RU') + ' ₽\n\n';
+        msg += '📞 ' + phone + '\n';
+        msg += 'Связь: ' + contact + '\n';
+        if (budget) msg += '💰 Бюджет: ' + budget + '\n';
+        if (agentId) msg += '\n👤 Агент: ID ' + agentId + '\n';
+        
+        fetch('https://api.telegram.org/bot8897088321:AAFNTxJYvbyC8Q7zY4eUh33hvmH4cSQMzZw/sendMessage', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ chat_id: 5368408796, text: msg })
+        }).then(function(){
+          document.getElementById('calcBody').innerHTML = '<p style="text-align:center;color:#000;font-size:16px;font-weight:600;padding:50px 20px;line-height:1.7;margin:0">Спасибо!<br><span style="font-size:14px;font-weight:400;color:#666">Мы свяжемся с Вами в ближайшее время</span></p>';
+        }).catch(function(){
+          alert('Ошибка отправки. Попробуйте позже.');
+          if (btn) { btn.textContent = 'Отправить'; btn.disabled = false; }
+        });
+      });
       });
     }
 
