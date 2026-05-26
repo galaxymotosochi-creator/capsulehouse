@@ -27,7 +27,7 @@
     if (!refCode) return;
     var id = Date.now().toString(36) + Math.random().toString(36).substr(2,5);
     var body = { type: type, agentId: refCode, visitorId: vid, data: data || {}, createdAt: new Date().toISOString() };
-    fetch('/api/activities/' + id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).catch(function(){});
+    try { fetch('/api/activities/' + id, { method: 'PUT', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e) {}
   }
   
   // Track Telegram button click
