@@ -1,4 +1,6 @@
 import admin from 'firebase-admin';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 let fbApp = null;
 function getFirebase() {
@@ -10,12 +12,11 @@ function getFirebase() {
     if (envKey) {
       serviceAccount = JSON.parse(envKey);
     } else {
-      const { readFileSync } = await import('fs');
-      const { join } = await import('path');
-      serviceAccount = JSON.parse(readFileSync(join(process.cwd(), 'capsulehouse-firebase-key.json'), 'utf-8'));
+      const keyPath = join(process.cwd(), 'capsulehouse-firebase-key.json');
+      serviceAccount = JSON.parse(readFileSync(keyPath, 'utf-8'));
     }
   } catch (e) {
-    throw new Error('Firebase config: ' + e.message);
+    throw new Error('Firebase: ' + e.message);
   }
   
   fbApp = admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
@@ -44,9 +45,9 @@ export default async function handler(req, res) {
   
   try {
     const firestore = getFirebase().firestore();
-    const snapshot = await firestore.collection('galaxy_agents').get();
+    const snap = await firestore.collection('galaxy_agents').get();
     const agents = [];
-    snapshot.forEach(doc => agents.push({ id: doc.id, ...doc.data() }));
+    snap.forEach(d => agents.push({ id: d.id, ...d.data() }));
     return json(res, 200, agents);
   } catch (err) {
     console.error(err);
