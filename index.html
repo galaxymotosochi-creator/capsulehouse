@@ -1069,19 +1069,40 @@
           if (key === 'galaxy_user' && firebaseReady()) {
             var user = JSON.parse(value);
             if (user && user.type === 'agent') {
-              // Find email from user data or galaxy_agents list
+              // Find email: check galaxy_agents first, then Firestore
+              function doSetup(agentEmail) {
+                if (!agentEmail) return;
+                if (user.email && user.password) {
+                  auth.createUserWithEmailAndPassword(user.email, user.password).catch(function(e) {
+                    if (e.code !== 'auth/email-already-in-use') console.error('Firebase Auth error:', e.code);
+                  });
+                }
+                setupAgent(agentEmail, user.name || agentEmail);
+              }
               var agentEmail = user.email;
               if (!agentEmail && user.id) {
                 var agents = JSON.parse(localStorage.getItem('galaxy_agents') || '[]');
                 var found = agents.find(function(a) { return a.id === user.id || a.email === user.id; });
                 if (found) agentEmail = found.email || found.id;
               }
-              if (user.email && user.password) {
-                auth.createUserWithEmailAndPassword(user.email, user.password).catch(function(e) {
-                  if (e.code !== 'auth/email-already-in-use') console.error('Firebase Auth error:', e.code);
+              if (agentEmail) { doSetup(agentEmail); }
+              else if (user.id) {
+                // Direct Firestore lookup
+                db.collection('agents').get().then(function(snap) {
+                  snap.forEach(function(doc) {
+                    var a = doc.data();
+                    if (a.id === user.id || a.email === user.id) {
+                      doSetup(a.email || a.id);
+                      // Also save to localStorage for future
+                      var all = JSON.parse(localStorage.getItem('galaxy_agents') || '[]');
+                      if (!all.find(function(x) { return x.email === a.email; })) {
+                        all.push(a);
+                        localStorage.setItem('galaxy_agents', JSON.stringify(all));
+                      }
+                    }
+                  });
                 });
               }
-              if (agentEmail) setupAgent(agentEmail, user.name || agentEmail);
             }
           }
           if (key === 'galaxy_agents' && firebaseReady()) {
