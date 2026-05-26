@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="assets/index-CguyBJZF.js?v=8"></script>
-    <link rel="stylesheet" crossorigin href="assets/index-CTYFC3_u.css?v=8">
+    <script type="module" crossorigin src="assets/index-CguyBJZF.js?v=9"></script>
+    <link rel="stylesheet" crossorigin href="assets/index-CTYFC3_u.css?v=9">
   </head>
   <body>
     <div id="root"></div>
@@ -48,106 +48,7 @@
 </script>
 
 
-<!-- Dashboard Activity Grouping -->
-<script>
-(function(){
-  function groupDashboard() {
-    var leadsSection = document.querySelector('.dashboard-tab:first-child');
-    var activitiesSection = document.querySelector('.dashboard-tab:nth-child(2)');
-    if (!leadsSection || !activitiesSection) return;
-    
-    // Get all leads from the table
-    var leads = [];
-    var leadsTable = leadsSection.querySelector('table');
-    if (leadsTable) {
-      leadsTable.querySelectorAll('tbody tr').forEach(function(tr) {
-        var tds = tr.querySelectorAll('td');
-        if (tds.length >= 3) {
-          leads.push({
-            date: tds[0].textContent.trim(),
-            name: tds[1].textContent.trim(),
-            phone: tds[2].textContent.trim(),
-            city: tds[3] ? tds[3].textContent.trim() : '',
-            type: 'lead'
-          });
-        }
-      });
-    }
-    
-    // Get all activities from the table
-    var activities = [];
-    var actTable = activitiesSection.querySelector('table');
-    if (actTable) {
-      actTable.querySelectorAll('tbody tr').forEach(function(tr) {
-        var tds = tr.querySelectorAll('td');
-        if (tds.length >= 2) {
-          activities.push({
-            date: tds[0].textContent.trim(),
-            type: tds[1].textContent.trim(),
-            details: tds[2] ? tds[2].textContent.trim() : ''
-          });
-        }
-      });
-    }
-    
-    // Combine and sort by date
-    var all = [];
-    var keyMap = {};
-    var keyCounter = 1;
-    
-    leads.forEach(function(l) {
-      var key = 'client_' + (keyCounter++);
-      if (!keyMap[key]) keyMap[key] = { clientId: key, items: [] };
-      keyMap[key].items.push({ time: l.date, text: '📋 Заявка: ' + l.name + ', ' + l.phone + (l.city ? ', ' + l.city : '') });
-    });
-    
-    activities.forEach(function(a) {
-      var key = 'client_' + (keyCounter++);
-      if (!keyMap[key]) keyMap[key] = { clientId: key, items: [] };
-      keyMap[key].items.push({ time: a.date, text: a.type + ' — ' + a.details });
-    });
-    
-    // Build grouped HTML
-    var html = '<div style="margin:0">';
-    var clientNum = 1;
-    for (var k in keyMap) {
-      var group = keyMap[k];
-      group.items.sort(function(a, b) { return a.time.localeCompare(b.time) || 0; });
-      html += '<div style="background:#f9f9f9;border-radius:10px;padding:12px;margin-bottom:12px">';
-      html += '<div style="font-weight:700;font-size:14px;color:#333;margin-bottom:6px">👤 Клиент #' + clientNum + '</div>';
-      html += '<div style="font-size:12px;color:#666">';
-      group.items.forEach(function(item) {
-        html += '<div style="padding:4px 0;border-bottom:1px solid #eee;display:flex;gap:8px">';
-        html += '<span style="color:#999;white-space:nowrap">' + item.time + '</span>';
-        html += '<span>' + item.text + '</span>';
-        html += '</div>';
-      });
-      html += '</div></div>';
-      clientNum++;
-    }
-    html += '</div>';
-    
-    if (clientNum === 1) {
-      html = '<div style="text-align:center;padding:2rem;color:#999">Пока нет активностей клиентов</div>';
-    }
-    
-    // Replace both sections
-    leadsSection.style.display = 'none';
-    activitiesSection.style.display = 'none';
-    
-    // Insert combined section after the second section
-    var combinedSection = document.createElement('div');
-    combinedSection.className = 'dashboard-tab';
-    combinedSection.innerHTML = '<h1 class="dashboard-tab__title" style="font-size:1.2rem;font-weight:700;margin-bottom:1rem;border-bottom:2px solid #eee;padding-bottom:.5rem">👥 Активности клиентов</h1>' + html;
-    activitiesSection.parentNode.insertBefore(combinedSection, activitiesSection.nextSibling);
-  }
-  
-  // Wait for React to render dashboard
-  setTimeout(groupDashboard, 2000);
-  // Also retry after 5s in case dashboard loads late
-  setTimeout(groupDashboard, 5000);
-})();
-</script>
+
 
 </body>
 </html>

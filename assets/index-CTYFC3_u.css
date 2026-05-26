@@ -2,26 +2,38 @@
 
 
 
-/* Dashboard: vertical layout - all sections in one column */
-.dashboard{display:block;padding-top:0}
+
+/* Dashboard - Agent */
+.dashboard{display:flex;min-height:100vh;padding-top:64px;background:var(--color-bg-light)}
 .dashboard__sidebar{display:none}
-.dashboard__content{margin-left:0;max-width:100%;padding:1rem}
-.dashboard-tab{padding:0;margin-bottom:2rem}
-.dashboard-tab__title{font-size:1.2rem;font-weight:700;margin-bottom:1rem;border-bottom:2px solid #eee;padding-bottom:.5rem}
-.dashboard-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2rem}
-.dashboard-section{margin-bottom:2rem}
-.dashboard-section__title{font-size:1rem;font-weight:600;color:#333;margin-bottom:.75rem}
-.dashboard-table-wrapper{overflow-x:auto}
-.dashboard-table{width:100%;border-collapse:collapse;font-size:13px}
-.dashboard-table th,.dashboard-table td{padding:.6rem;text-align:left;border-bottom:1px solid #eee}
-.dashboard-table th{background:#f8f8f8;font-weight:600;color:#555}
-.referral-link{display:flex;gap:.5rem;align-items:center}
-.referral-link__input{flex:1;padding:.5rem;border:1px solid #ddd;border-radius:6px;font-size:13px}
-.referral-link__btn{padding:.5rem 1rem;background:#000;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px}
-.dashboard-empty-state{padding:2rem;text-align:center;color:#999}
-.materials-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-.upgrade-card{background:#f9f9f9;border-radius:12px;padding:1.5rem}
-.dashboard__user,.dashboard__nav{display:none}
-@media(min-width:1024px){
-.dashboard__sidebar{display:none}
+.dashboard__content{flex:1;margin-left:0;padding:2rem;max-width:1100px}
+.dashboard-tab{background:#fff;border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dashboard-tab__title{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid #f0f0f0}
+.dashboard-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:0}
+@media(min-width:640px){.dashboard-stats{grid-template-columns:repeat(4,1fr)}}
+.dashboard-stat{background:linear-gradient(135deg,#f8f9ff,#fff);border:1px solid #eef0f5;border-radius:14px;padding:1rem 1.2rem;transition:box-shadow .2s}
+.dashboard-stat--highlight{background:linear-gradient(135deg,#1a1a2e,#2d2d44);border-color:#2d2d44}
+.dashboard-stat--highlight .dashboard-stat__value,.dashboard-stat--highlight .dashboard-stat__label{color:#fff!important}
+.dashboard-stat__value{font-size:1.4rem;font-weight:800;color:#1a1a1a;display:block;margin-bottom:2px}
+.dashboard-stat__label{font-size:.75rem;color:#888;font-weight:500;text-transform:uppercase;letter-spacing:.03em}
+.dashboard-section{margin-bottom:1.5rem}
+.dashboard-section__title{font-size:.95rem;font-weight:700;color:#1a1a1a;margin-bottom:.8rem}
+.dashboard-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.dashboard-table th{text-align:left;padding:.6rem .5rem;color:#888;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid #f0f0f0}
+.dashboard-table td{padding:.6rem .5rem;border-bottom:1px solid #f5f5f5;color:#333}
+.dashboard-table tr:last-child td{border-bottom:none}
+.dashboard-empty-state{text-align:center;color:#999;font-size:.85rem}
+.referral-link{display:flex;gap:8px;align-items:center}
+.referral-link__input{flex:1;padding:.55rem .8rem;border:1px solid #e0e0e0;border-radius:8px;font-size:.82rem;background:#fafafa;color:#333}
+.referral-link__btn{padding:.55rem 1.2rem;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer}
+.dashboard-empty-state__hint{font-size:.78rem;color:#bbb;margin-top:4px}
+.materials-grid{display:grid;gap:10px}
+.upgrade-card{background:#f8f9ff;border-radius:14px;padding:1.2rem;border:1px solid #eef0f5}
+.upgrade-card__title{font-weight:700;font-size:1rem;margin-bottom:.8rem}
+@media(max-width:768px){
+.dashboard{padding-top:56px}
+.dashboard__content{padding:1rem}
+.dashboard-stats{grid-template-columns:repeat(2,1fr);gap:8px}
+.dashboard-stat{padding:.8rem}
+.dashboard-stat__value{font-size:1.15rem}
 }
