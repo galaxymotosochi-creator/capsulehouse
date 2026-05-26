@@ -985,7 +985,8 @@
       // Save lead to Firestore when submitted
       function saveLeadToFirestore(data) {
         if (!firebaseReady()) return;
-        var ref = new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref') 
+        var ref = sessionStorage.getItem('ref_code') 
+               || new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref') 
                || new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('r');
         
         // Try to resolve short code to email
@@ -1098,6 +1099,27 @@
       }
       setTimeout(checkAgent, 2000);
     })();
+  </script>
+  <script>
+  // Сохраняем referral код в sessionStorage при переходе по ссылке
+  (function() {
+    var ref = new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('r')
+           || new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref');
+    if (ref) sessionStorage.setItem('ref_code', ref);
+  })();
+  // При клике на Telegram — передаём код через бота
+  document.body.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href*="t.me"], a[href*="telegram"]');
+    if (link) {
+      var refCode = sessionStorage.getItem('ref_code') 
+                 || new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('r')
+                 || new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref');
+      if (refCode) {
+        e.preventDefault();
+        window.open('https://t.me/capsulehouse2026_bot?start=ref_' + refCode, '_blank');
+      }
+    }
+  });
   </script>
 </body>
 </html>
