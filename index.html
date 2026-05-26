@@ -1068,13 +1068,20 @@
         try {
           if (key === 'galaxy_user' && firebaseReady()) {
             var user = JSON.parse(value);
-            if (user && user.email && user.password) {
-              auth.createUserWithEmailAndPassword(user.email, user.password).catch(function(e) {
-                if (e.code !== 'auth/email-already-in-use') {
-                  console.error('Firebase Auth error:', e.code);
-                }
-              });
-              if (user.type === 'agent') setupAgent(user.email, user.name || user.email);
+            if (user && user.type === 'agent') {
+              // Find email from user data or galaxy_agents list
+              var agentEmail = user.email;
+              if (!agentEmail && user.id) {
+                var agents = JSON.parse(localStorage.getItem('galaxy_agents') || '[]');
+                var found = agents.find(function(a) { return a.id === user.id || a.email === user.id; });
+                if (found) agentEmail = found.email || found.id;
+              }
+              if (user.email && user.password) {
+                auth.createUserWithEmailAndPassword(user.email, user.password).catch(function(e) {
+                  if (e.code !== 'auth/email-already-in-use') console.error('Firebase Auth error:', e.code);
+                });
+              }
+              if (agentEmail) setupAgent(agentEmail, user.name || agentEmail);
             }
           }
           if (key === 'galaxy_agents' && firebaseReady()) {
