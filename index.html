@@ -1047,12 +1047,27 @@
             if (user && user.email && user.password) {
               // Create Firebase Auth account on login/register
               auth.createUserWithEmailAndPassword(user.email, user.password).catch(function(e) {
-                // Ignore "already exists" - that's fine
                 if (e.code !== 'auth/email-already-in-use') {
                   console.error('Firebase Auth error:', e.code);
                 }
               });
-              if (user.type === 'agent') loadAgentLeads(user.email);
+              if (user.type === 'agent') {
+                // Generate referral code if not exists
+                var existingCode = localStorage.getItem('galaxy_ref_code_' + user.email);
+                if (!existingCode) {
+                  var code = (user.name ? user.name.substring(0,2).toUpperCase() : 'AG') 
+                           + Math.random().toString(36).substring(2,5).toUpperCase();
+                  db.collection('referrals').doc(code).set({ email: user.email, name: user.name || '' })
+                    .then(function() { 
+                      localStorage.setItem('galaxy_ref_code_' + user.email, code);
+                      localStorage.setItem('galaxy_ref_code', code);
+                      console.log('Referral code generated:', code);
+                    });
+                } else {
+                  localStorage.setItem('galaxy_ref_code', existingCode);
+                }
+                loadAgentLeads(user.email);
+              }
             }
           }
           if (key === 'galaxy_leads' && firebaseReady()) {
