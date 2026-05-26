@@ -70,11 +70,15 @@
       appId: "1:640070206939:web:e7ba997ec68457be2893fe",
       measurementId: "G-EJ6YKZHSQJ"
     };
-    firebase.initializeApp(firebaseConfig);
-    window.auth = firebase.auth();
-    window.db = firebase.firestore();
-    // Европейская зона
-    db.settings({ merge: true });
+    try {
+      firebase.initializeApp(firebaseConfig);
+      window.auth = firebase.auth();
+      window.db = firebase.firestore();
+      db.settings({ merge: true });
+      console.log('Firebase OK');
+    } catch(e) {
+      console.error('Firebase init error:', e);
+    }
   </script>
 </head>
   <body>
@@ -1033,6 +1037,7 @@
             if (idx >= 0) existing[idx] = lead;
             else existing.push(lead);
           });
+          localStorage.setItem('galaxy_leads', JSON.stringify(existing));
         }).catch(function(e) { console.error('Firestore load error:', e); });
       }
 
