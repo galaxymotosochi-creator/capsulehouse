@@ -982,7 +982,7 @@
       var ready = false;
       function firebaseReady() {
         if (ready) return true;
-        ready = typeof firebase !== 'undefined' && firebase.apps && firebase.apps().length > 0;
+        ready = typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length > 0;
         return ready;
       }
 
