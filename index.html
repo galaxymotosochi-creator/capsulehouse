@@ -56,7 +56,27 @@
         transform: translateY(-2px);
       }
     </style>
-  </head>
+    <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDOZnESPJRJlEf3HTYqNyv1O0mYUZoPJzc",
+      authDomain: "capsulehouse-1c0c9.firebaseapp.com",
+      projectId: "capsulehouse-1c0c9",
+      storageBucket: "capsulehouse-1c0c9.firebasestorage.app",
+      messagingSenderId: "640070206939",
+      appId: "1:640070206939:web:e7ba997ec68457be2893fe",
+      measurementId: "G-EJ6YKZHSQJ"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    // Европейская зона
+    db.settings({ merge: true });
+  </script>
+</head>
   <body>
     <!-- Видео-фон для Hero -->
     <div id="heroVideoWrap" style="display:none;position:absolute;top:0;left:0;width:100%;height:100vh;z-index:0;overflow:hidden;pointer-events:none;background:#111">
@@ -938,5 +958,54 @@
       });
     </script>
 
-  </body>
+    <!-- Firebase sync -->
+  <script>
+    (function() {
+      var origSetItem = Storage.prototype.setItem;
+      Storage.prototype.setItem = function(key, value) {
+        origSetItem.call(this, key, value);
+        try {
+          if (key && (key.startsWith('galaxy_agents') || key.startsWith('galaxy_dealers'))) {
+            var data = JSON.parse(value);
+            if (db) {
+              // Save to Firestore
+              var collection = key.startsWith('galaxy_agents') ? 'agents' : 'dealers';
+              db.collection(collection).doc(data.email || data.id).set(data);
+            }
+          }
+        } catch(e) { console.error('Firebase sync error:', e); }
+      };
+      
+      // Google Auth button
+      window.googleLogin = function() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+          .then(function(result) {
+            alert('Вход выполнен: ' + result.user.email);
+            location.reload();
+          })
+          .catch(function(error) {
+            alert('Ошибка входа: ' + error.message);
+          });
+      };
+      
+      // Email/Password Register
+      window.emailRegister = function(email, password, name, type) {
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(function(cred) {
+            return cred.user.updateProfile({ displayName: name });
+          })
+          .then(function() {
+            var data = { name: name, email: email, type: type || 'agent', createdAt: new Date().toISOString() };
+            db.collection(type === 'dealer' ? 'dealers' : 'agents').doc(email).set(data);
+            alert('Регистрация успешна!');
+            location.reload();
+          })
+          .catch(function(err) {
+            alert('Ошибка: ' + err.message);
+          });
+      };
+    })();
+  </script>
+</body>
 </html>
