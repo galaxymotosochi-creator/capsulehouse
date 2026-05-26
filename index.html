@@ -960,12 +960,34 @@
 
     <!-- Firebase sync -->
   <script>
+    // Patch referral link display with short code
+    function patchReferralCode() {
+      var code = localStorage.getItem('galaxy_ref_code');
+      if (!code) return;
+      var inputs = document.querySelectorAll('.referral-link__input');
+      inputs.forEach(function(inp) {
+        if (inp.value && inp.value.indexOf('ref=') > 0) {
+          inp.value = window.location.origin + window.location.pathname + '#/?r=' + code;
+        }
+      });
+    }
+    setInterval(patchReferralCode, 1000);
+    setTimeout(patchReferralCode, 500);
+
     (function() {
       // Load leads for current agent from Firestore
       function syncAgentLeads() {
         var agent = JSON.parse(localStorage.getItem('galaxy_user_firebase') || 'null');
-        if (!agent && !auth.currentUser) return;
-        var email = agent ? agent.email : auth.currentUser.email;
+        var email = agent ? agent.email : (auth.currentUser ? auth.currentUser.email : null);
+        if (!email) {
+          var stored = JSON.parse(localStorage.getItem('galaxy_user') || '{}');
+          email = stored.email;
+        }
+        if (!email) return;
+        localStorage.setItem('galaxy_user_refcode', email);
+        db.collection('referrals').where('email', '==', email).get().then(function(snap) {
+          snap.forEach(function(d) { localStorage.setItem('galaxy_ref_code', d.id); });
+        });
         db.collection('leads').where('agentId', '==', email).onSnapshot(function(snapshot) {
           var existing = JSON.parse(localStorage.getItem('galaxy_leads') || '[]');
           snapshot.forEach(function(doc) {
@@ -988,12 +1010,27 @@
               var data = JSON.parse(value);
               var collection = key.startsWith('galaxy_agents') ? 'agents' : 'dealers';
               db.collection(collection).doc(data.email || data.id).set(data);
+              // Generate short referral code for new agents
+              if (collection === 'agents' && data.email) {
+                var code = (data.name ? data.name.substring(0,2).toUpperCase() : 'AG') + Math.random().toString(36).substring(2,5).toUpperCase();
+                db.collection('referrals').doc(code).set({ email: data.email, name: data.name || '' });
+              }
             }
             if (key.startsWith('galaxy_leads')) {
               var data = JSON.parse(value);
               // Add referral if present in URL
-              var ref = new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref');
-              if (ref && !data.agentId) data.agentId = ref;
+              var ref = new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('ref') || new URLSearchParams(window.location.hash.split('?')[1]||window.location.search).get('r');
+              if (ref && !data.agentId) {
+                // ref can be email OR short code
+                if (ref.indexOf('@') > 0) data.agentId = ref;
+                else {
+                  // Short code lookup
+                  db.collection('referrals').doc(ref).get().then(function(d) {
+                    if (d.exists) data.agentId = d.data().email;
+                  });
+                }
+              }
+              // Save lead with agentId
               if (data.agentId) {
                 db.collection('leads').doc(data.id).set(data);
               }
