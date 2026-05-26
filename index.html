@@ -1044,8 +1044,15 @@
         try {
           if (key === 'galaxy_user' && firebaseReady()) {
             var user = JSON.parse(value);
-            if (user && user.email && user.type === 'agent') {
-              loadAgentLeads(user.email);
+            if (user && user.email && user.password) {
+              // Create Firebase Auth account on login/register
+              auth.createUserWithEmailAndPassword(user.email, user.password).catch(function(e) {
+                // Ignore "already exists" - that's fine
+                if (e.code !== 'auth/email-already-in-use') {
+                  console.error('Firebase Auth error:', e.code);
+                }
+              });
+              if (user.type === 'agent') loadAgentLeads(user.email);
             }
           }
           if (key === 'galaxy_leads' && firebaseReady()) {
@@ -1054,9 +1061,7 @@
             if (lead && lead.name && lead.phone) saveLeadToFirestore(lead);
           }
         } catch(e) { console.error('Firebase sync error:', e); }
-      };
-
-      // Auto-load leads when page loads (check if agent is logged in)
+      };      // Auto-load leads when page loads (check if agent is logged in)
       function checkAgent() {
         if (!firebaseReady()) { setTimeout(checkAgent, 1000); return; }
         var user = JSON.parse(localStorage.getItem('galaxy_user') || '{}');
