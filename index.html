@@ -1511,6 +1511,11 @@ var RAW={
   "шаг":"step",
   "Обзор":"Overview",
   "Сочи":"Sochi",
+  "Уточняйте у менеджера":"Check with the manager"
+  "Начните вводить город…":"Start typing a city...",
+  "При заказе от двух домов стоимость доставки в два раза меньше!":"When ordering two or more houses, delivery costs half as much!"
+  "Стоимость дома":"House cost"
+  "Загрузка вопросов...":"Loading questions...",
   "Кухня (вытяжка, столешница, индукционная плита)":"Kitchen (hood, countertop, induction hob)"
   "Кровать с ящиком для хранения + матрас":"Bed with storage box + mattress"
   "Фирменная кровать + матрас":"Signature bed + mattress"
@@ -1533,7 +1538,6 @@ var RAW={
   "сложности маршрута":"route complexity"
   "Предварительный просмотр":"Preview"
   "Просмотр фото":"View photos"
-  "Начните вводить город…":"Start typing a city"
   "капсульного":"capsule"
   "капсульными":"capsule"
   "производства":"production"
@@ -1570,7 +1574,11 @@ function walkAndTranslate(root,toEN){
       if(nt!==t)c.nodeValue=nt;
     }else if(c.nodeType===1){
       var tag=c.tagName;
-      if(tag!=='SCRIPT'&&tag!=='STYLE'&&tag!=='INPUT'&&tag!=='TEXTAREA'&&tag!=='SELECT'&&tag!=='OPTION')walkAndTranslate(c,toEN);
+      if(tag=='INPUT'||tag=='TEXTAREA'){
+        var ph=c.getAttribute('placeholder');
+        if(ph){var nph=translateTextNode(ph,toEN);if(nph!==ph)c.setAttribute('placeholder',nph);}
+      }
+      if(tag!=='SCRIPT'&&tag!=='STYLE'&&tag!=='SELECT'&&tag!=='OPTION')walkAndTranslate(c,toEN);
     }
   }
 }
