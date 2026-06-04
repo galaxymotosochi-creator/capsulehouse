@@ -1249,167 +1249,124 @@
 
 <!-- ====== I18N: Language Switcher ====== -->
 <script>
+// === i18n for KIT.MARKETS ===
 (function(){
-  var KEY='kit_lang';
-  var cur=localStorage.getItem(KEY)||(navigator.language&&navigator.language.indexOf('en')===0?'en':'ru');
-  var EN={
-"🔥 ХИТ ПРОДАЖ":"🔥 BESTSELLER","ХИТ ПРОДАЖ":"BESTSELLER","ЛЕТНИЙ ДОМ":"SUMMER HOUSE","ЗИМНИЙ ДОМ":"WINTER HOUSE",
-"Для регионов без зимы":"For regions without winter","Для регионов с зимой":"For regions with winter",
-"Капсульные дома нового поколения":"Next-Generation Capsule Houses",
-"Современные решения для жизни, работы и бизнеса":"Modern solutions for living, working and business",
-"Оставить заявку":"Submit a request","Листайте вниз":"Scroll down",
-"Главная":"Home","Каталог":"Catalog","Стать агентом":"Become an Agent",
-"Бизнес-калькулятор":"Business Calculator","Мой кабинет":"My Account",
-"Выйти":"Log Out","Закрыть":"Close","Открыть меню":"Open Menu",
-"Популярные модели":"Popular Models",
-"Выберите идеальный капсульный дом для ваших задач":"Choose the perfect capsule house",
-"Смотреть весь каталог":"View Full Catalog","Лет на рынке":"Years on Market",
-"Доставленных домов":"Houses Delivered","Партнёров":"Partners","Регионов РФ":"Russian Regions",
-"Подробнее о компании":"More About Us",
-"Площадь:":"Area:","Длина:":"Length:","Ширина:":"Width:","Высота:":"Height:","Вес:":"Weight:",
-"Количество этажей:":"Floors:","Модель:":"Model:","Количество комнат:":"Rooms:",
-"Вместимость:":"Capacity:","Балкон:":"Balcony:","Зимний / летний вариант:":"Winter/Summer:",
-"Мощность:":"Power:","Минимальная температура:":"Min Temp:",
-"Максимальная температура:":"Max Temp:","Опционально":"Optional","Нет":"No","чел":"pers",
-"Просторный капсульный дом для семьи из 4 человек. Две комнаты, опциональный балкон, рассчитан на эксплуатацию в любых климатических условиях от -45°C до +45°C.":"Spacious capsule house for 4. Two rooms, optional balcony, for any climate.",
-"Компактный капсульный дом для 1-2 человек. Мини-пространство, зона кухни, для эксплуатации от -45°C до +45°C.":"Compact capsule house for 1-2. Mini-space, kitchen.",
-"Просторный капсульный дом для 2-3 человек. Уютное пространство, зона кухни, опциональный балкон, для эксплуатации от -45°C до +45°C.":"Spacious capsule house for 2-3. Cozy space, kitchen, optional balcony.",
-"Средний капсульный дом для семьи из 2-3 человек. Просторная комната, небольшая кухня, опциональный балкон.":"Medium capsule house for 2-3. Spacious room, small kitchen, optional balcony.",
-"Компактный капсульный дом для 2 человек. Уютная комната, зона кухни, опциональный балкон.":"Compact capsule house for 2. Cozy room, kitchen, optional balcony.",
-"Компактный капсульный дом для 1-2 человек. Уютное пространство, зона кухни, опциональный балкон.":"Compact capsule house for 1-2. Cozy space, kitchen, optional balcony.",
-"Мини-капсульный дом для 1-2 человек. Компактное пространство, зона кухни, опциональный балкон.":"Mini capsule house for 1-2. Compact space, kitchen, optional balcony.",
-"Тройной стеклопакет":"Triple Glazing",
-"Энергосберегающие стеклопакеты для зимнего использования":"Energy-saving glazing for winter",
-"Электрический тёплый пол":"Electric Heated Floor",
-"Комфортный обогрев всей площади дома":"Comfortable heating",
-"Теплоизоляция труб":"Pipe Insulation","Защита коммуникаций от замерзания":"Freeze Protection",
-"Шторы (текстиль)":"Curtains","Блэкаут-шторы для полной изоляции от света":"Blackout Curtains",
-"Кухня (вытяжка, столешница, встроенная индукционная панель)":"Kitchen (hood, hob)",
-"Полноценная кухня для комфортного проживания":"Full Kitchen",
-"Кровать-трансформер с матрасом":"Transformer Bed with Mattress",
-"Функциональное решение с дополнительным пространством":"Functional solution",
-"Брендовая кровать с матрасом":"Brand Bed with Mattress",
-"Ортопедический матрас и стильная кровать":"Orthopedic mattress and stylish bed",
-"Проектор + передний электророльставень":"Projector + Electric Shutter",
-"Домашний кинотеатр в вашем капсульном доме":"Home Theater",
-"Диван для отдыха":"Sofa","Компактный и удобный диван-трансформер":"Compact sofa",
-"Сколько времени занимает доставка?":"How long does delivery take?",
-"Доставка":"Delivery","Установка":"Installation","Эксплуатация":"Operation","Гарантия":"Warranty",
-"Нужен ли фундамент для капсульного дома?":"Is a foundation needed?",
-"Нет, капсульный дом устанавливается на регулируемые опоры.":"No, capsule house sits on adjustable supports.",
-"Можно ли использовать дом круглый год?":"Can the house be used year-round?",
-"Какие коммуникации нужно подключать?":"What utilities need connecting?",
-"Дом требует подключения электричества, водоснабжения и канализации.":"House needs electricity, water and sewerage.",
-"Есть ли гарантия на дом?":"Is there a warranty?",
-"Да, мы предоставляем гарантию 2 года на конструкцию дома и 1 год на инженерные системы.":"Yes, 2-year warranty on structure and 1 year on systems.",
-"Не нашли ответ на свой вопрос?":"Didn't find your question?",
-"Свяжитесь с нами, и мы с радостью поможем":"Contact us, we will help",
-"Связаться с нами":"Contact Us",
-"Загрузка вопросов...":"Loading questions...",
-"Вопросы пока не добавлены":"No questions yet",
-"О КОМПАНИИ":"ABOUT US",
-"Мы отобрали лучшие технологичные капсулы Китая":"We selected the best capsule houses from China",
-"Фото компании":"Company Photos","Сертификаты":"Certificates","Сертификат":"Certificate",
-"Как мы работаем":"How We Work","Консультация":"Consultation",
-"Помогаем выбрать оптимальную модель и комплектацию":"We help choose the best model",
-"Договор":"Contract","Производство":"Production",
-"СТАНЬТЕ АГЕНТОМ":"BECOME AN AGENT","АГЕНТ":"AGENT","ДИЛЕР":"DEALER",
-"Для физических лиц":"For individuals","Для юридических лиц":"For legal entities",
-"Стать партнёром":"Become a Partner","Узнать условия":"Learn Terms",
-"Ещё думаете?":"Still Thinking?","Получить консультацию":"Get a Consultation",
-"ПАРТНЕРСКАЯ ПРОГРАММА":"PARTNER PROGRAM",
-"максимальная комиссия":"maximum commission","Реферальная программа":"Referral Program",
-"Без обязательств по объёму":"No Volume Commitments","Маркетинговые материалы":"Marketing Materials",
-"Личный кабинет":"Personal Account","Рекомендация":"Referral",
-"от стоимости дома":"of house cost","Полный цикл":"Full Cycle",
-"Войти в кабинет":"Log In","Статус официального дилера":"Official Dealer Status",
-"Приоритет в регионе":"Regional Priority","Полная поддержка":"Full Support",
-"Стать дилером":"Become a Dealer","Сравнение условий":"Compare Terms",
-"Параметр":"Parameter","Статус":"Status",
-"Как это работает":"How It Works","Регистрация":"Registration",
-"Заполните форму регистрации и дождитесь подтверждения":"Fill in the form",
-"Обучение":"Training","Продажи":"Sales","Выплаты":"Payments",
-"Отправить заявку":"Submit Request",
-"Нажимая кнопку, вы соглашаетесь с обработкой персональных данных":"By clicking you agree to privacy policy",
-"Заявка отправлена!":"Request Sent!",
-"Наш менеджер свяжется с вами в ближайшее время":"Our manager will contact you",
-"Спасибо!":"Thank You!","Введите имя":"Enter your name","Введите телефон":"Enter your phone",
-"Введите город":"Enter your city","Телефон":"Phone","Город установки":"Installation City",
-"Рассчитать стоимость":"Calculate Cost",
-"Рассчитайте доходность вашего глэмпинга":"Calculate profitability",
-"Стоимость дома":"House Cost","Стоимость аренды в сутки":"Daily Rental Rate",
-"Загруженность в месяц (дней)":"Monthly Occupancy (days)",
-"Количество домов":"Number of Houses","Инвестиции":"Investment",
-"Доход в месяц":"Monthly Income","Доход в год":"Annual Income",
-"Срок окупаемости":"Payback Period","Комплектация":"Equipment","Оплата":"Payment",
-"Капсульные дома":"Capsule Houses","Модульные капсульные дома":"Modular Capsule Houses",
-"Презентация":"Presentation","Контакты":"Contacts",
-"Все права защищены":"All Rights Reserved","О компании":"About Us",
-"дом":"house","дома":"houses","домов":"houses",
-"Наши проекты":"Our Projects","Видеообзоры готовых решений":"Video Reviews",
-"Полноценный дом 28 м²":"Full-Size House 28 m²",
-"Вариант с кухней, спальней и балконом":"Option with kitchen, bedroom and balcony",
-"Назад":"Back","Далее":"Next",
-"Написать в Telegram":"Telegram","Написать в WhatsApp":"WhatsApp","Позвонить":"Call",
-"Уточнить у менеджера":"Ask manager","Проверить наличие":"Check availability",
-"ИТОГО:":"TOTAL:","ИТОГОВАЯ СТОИМОСТЬ":"FINAL COST",
-"Комиссия":"Commission","Площадь":"Area","Мои заявки":"My Requests","Всего заявок":"Total Requests",
-"Новых заявок":"New Requests","Новая":"New","В работе":"In Progress","Оплачено":"Paid",
-"Доставлено":"Delivered","Установлено":"Installed","Агентов":"Agents","Дилеров":"Dealers",
-"На модерации":"Under Review","Подробнее":"Details","Дата":"Date",
-"Стоимость дома:":"House Cost:","Доп. опции:":"Add. Options:",
-"Логистика и налоги:":"Logistics & Tax:","НДС и пошлина":"VAT & Duty",
-"Участок есть:":"Land available:","Сроки:":"Timeline:","Источник:":"Source:",
-"Закрыть меню":"Close Menu",
-"МЕНЮ":"MENU","КОНТАКТЫ":"CONTACTS"
-  };
-  function tr(el,to){
-    if(!el||!el.childNodes)return;
-    for(var i=0;i<el.childNodes.length;i++){
-      var c=el.childNodes[i];
-      if(c.nodeType===3){
-        var t=c.nodeValue;if(!t||!t.trim())continue;
-        for(var ru in EN){if(t.indexOf(ru)!==-1){c.nodeValue=t.split(ru).join(to?EN[ru]:ru);break;}}
-      }else if(c.nodeType===1){
-        var tag=c.tagName;
-        if(tag!=='SCRIPT'&&tag!=='STYLE'&&tag!=='INPUT'&&tag!=='TEXTAREA')tr(c,to);
-      }
+var K='kit_lang',cur=localStorage.getItem(K)||(navigator.language&&navigator.language.indexOf('en')===0?'en':'ru');
+var EN=[];function add(ru,en){EN.push({ru:ru,en:en});}
+add('\u0425\u0418\u0422 \u041f\u0420\u041e\u0414\u0410\u0416','BESTSELLER');
+add('\u041b\u0415\u0422\u041d\u0418\u0419 \u0414\u041e\u041c','SUMMER HOUSE');
+add('\u0417\u0418\u041c\u041d\u0418\u0419 \u0414\u041e\u041c','WINTER HOUSE');
+add('\u0414\u043b\u044f \u0440\u0435\u0433\u0438\u043e\u043d\u043e\u0432 \u0431\u0435\u0437 \u0437\u0438\u043c\u044b','For regions without winter');
+add('\u0414\u043b\u044f \u0440\u0435\u0433\u0438\u043e\u043d\u043e\u0432 \u0441 \u0437\u0438\u043c\u043e\u0439','For regions with winter');
+add('\u041a\u0430\u043f\u0441\u0443\u043b\u044c\u043d\u044b\u0435 \u0434\u043e\u043c\u0430 \u043d\u043e\u0432\u043e\u0433\u043e \u043f\u043e\u043a\u043e\u043b\u0435\u043d\u0438\u044f','Next-Generation Capsule Houses');
+add('\u0421\u043e\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u044f \u0434\u043b\u044f \u0436\u0438\u0437\u043d\u0438, \u0440\u0430\u0431\u043e\u0442\u044b \u0438 \u0431\u0438\u0437\u043d\u0435\u0441\u0430','Modern solutions for living, working and business');
+add('\u041e\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0437\u0430\u044f\u0432\u043a\u0443','Submit a request');
+add('\u041b\u0438\u0441\u0442\u0430\u0439\u0442\u0435 \u0432\u043d\u0438\u0437','Scroll down');
+add('\u0413\u043b\u0430\u0432\u043d\u0430\u044f','Home');
+add('\u041a\u0430\u0442\u0430\u043b\u043e\u0433','Catalog');
+add('\u0421\u0442\u0430\u0442\u044c \u0430\u0433\u0435\u043d\u0442\u043e\u043c','Become an Agent');
+add('\u0411\u0438\u0437\u043d\u0435\u0441-\u043a\u0430\u043b\u044c\u043a\u0443\u043b\u044f\u0442\u043e\u0440','Business Calculator');
+add('\u041c\u043e\u0439 \u043a\u0430\u0431\u0438\u043d\u0435\u0442','My Account');
+add('\u0412\u044b\u0439\u0442\u0438','Log Out');
+add('\u0417\u0430\u043a\u0440\u044b\u0442\u044c','Close');
+add('\u041f\u043e\u043f\u0443\u043b\u044f\u0440\u043d\u044b\u0435 \u043c\u043e\u0434\u0435\u043b\u0438','Popular Models');
+add('\u0421\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0432\u0435\u0441\u044c \u043a\u0430\u0442\u0430\u043b\u043e\u0433','View Full Catalog');
+add('\u041b\u0435\u0442 \u043d\u0430 \u0440\u044b\u043d\u043a\u0435','Years on Market');
+add('\u0414\u043e\u0441\u0442\u0430\u0432\u043b\u0435\u043d\u043d\u044b\u0445 \u0434\u043e\u043c\u043e\u0432','Houses Delivered');
+add('\u041f\u0430\u0440\u0442\u043d\u0451\u0440\u043e\u0432','Partners');
+add('\u0420\u0435\u0433\u0438\u043e\u043d\u043e\u0432 \u0420\u0424','Russian Regions');
+add('\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435 \u043e \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438','More About Us');
+add('\u041f\u043b\u043e\u0449\u0430\u0434\u044c:','Area:');add('\u0414\u043b\u0438\u043d\u0430:','Length:');add('\u0428\u0438\u0440\u0438\u043d\u0430:','Width:');
+add('\u0412\u044b\u0441\u043e\u0442\u0430:','Height:');add('\u0412\u0435\u0441:','Weight:');add('\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u044d\u0442\u0430\u0436\u0435\u0439:','Floors:');
+add('\u041c\u043e\u0434\u0435\u043b\u044c:','Model:');add('\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043a\u043e\u043c\u043d\u0430\u0442:','Rooms:');
+add('\u0412\u043c\u0435\u0441\u0442\u0438\u043c\u043e\u0441\u0442\u044c:','Capacity:');add('\u0411\u0430\u043b\u043a\u043e\u043d:','Balcony:');
+add('\u0417\u0438\u043c\u043d\u0438\u0439 / \u043b\u0435\u0442\u043d\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442:','Winter/Summer:');
+add('\u041c\u043e\u0449\u043d\u043e\u0441\u0442\u044c:','Power:');add('\u041e\u043f\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e','Optional');add('\u041d\u0435\u0442','No');
+add('\u0447\u0435\u043b','pers');add('\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u044b','Contacts');
+add('\u0412\u0441\u0435 \u043f\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u044b','All Rights Reserved');
+add('\u0414\u043e\u0441\u0442\u0430\u0432\u043a\u0430','Delivery');add('\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430','Installation');
+add('\u042d\u043a\u0441\u043f\u043b\u0443\u0430\u0442\u0430\u0446\u0438\u044f','Operation');add('\u0413\u0430\u0440\u0430\u043d\u0442\u0438\u044f','Warranty');
+add('\u041a\u043e\u043c\u043f\u043b\u0435\u043a\u0442\u0430\u0446\u0438\u044f','Equipment');add('\u041e\u043f\u043b\u0430\u0442\u0430','Payment');
+add('\u041a\u0430\u043f\u0441\u0443\u043b\u044c\u043d\u044b\u0435 \u0434\u043e\u043c\u0430','Capsule Houses');
+add('\u041c\u043e\u0434\u0443\u043b\u044c\u043d\u044b\u0435 \u043a\u0430\u043f\u0441\u0443\u043b\u044c\u043d\u044b\u0435 \u0434\u043e\u043c\u0430','Modular Capsule Houses');
+add('\u041f\u0440\u0435\u0437\u0435\u043d\u0442\u0430\u0446\u0438\u044f','Presentation');add('\u041a\u043e\u043d\u0441\u0443\u043b\u044c\u0442\u0430\u0446\u0438\u044f','Consultation');
+add('\u0414\u043e\u0433\u043e\u0432\u043e\u0440','Contract');add('\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e','Production');
+add('\u0421\u0422\u0410\u041d\u042c\u0422\u0415 \u0410\u0413\u0415\u041d\u0422\u041e\u041c','BECOME AN AGENT');
+add('\u0410\u0413\u0415\u041d\u0422','AGENT');add('\u0414\u0418\u041b\u0415\u0420','DEALER');
+add('\u0414\u043b\u044f \u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u043b\u0438\u0446','For individuals');
+add('\u0414\u043b\u044f \u044e\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u043b\u0438\u0446','For legal entities');
+add('\u0421\u0442\u0430\u0442\u044c \u043f\u0430\u0440\u0442\u043d\u0451\u0440\u043e\u043c','Become a Partner');
+add('\u0423\u0437\u043d\u0430\u0442\u044c \u0443\u0441\u043b\u043e\u0432\u0438\u044f','Learn Terms');
+add('\u0415\u0449\u0451 \u0434\u0443\u043c\u0430\u0435\u0442\u0435?','Still Thinking?');
+add('\u041f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043a\u043e\u043d\u0441\u0443\u043b\u044c\u0442\u0430\u0446\u0438\u044e','Get a Consultation');
+add('\u041f\u0410\u0420\u0422\u041d\u0415\u0420\u0421\u041a\u0410\u042f \u041f\u0420\u041e\u0413\u0420\u0410\u041c\u041c\u0410','PARTNER PROGRAM');
+add('\u041b\u0438\u0447\u043d\u044b\u0439 \u043a\u0430\u0431\u0438\u043d\u0435\u0442','Personal Account');
+add('\u0420\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0430\u0446\u0438\u044f','Referral');
+add('\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u0437\u0430\u044f\u0432\u043a\u0443','Submit Request');
+add('\u0422\u0435\u043b\u0435\u0444\u043e\u043d','Phone');add('\u0413\u043e\u0440\u043e\u0434 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438','Installation City');
+add('\u0418\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0438','Investment');
+add('\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c \u0434\u043e\u043c\u0430','House cost');
+add('\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0434\u043e\u043c\u043e\u0432','Number of Houses');
+add('\u0414\u043e\u0445\u043e\u0434 \u0432 \u043c\u0435\u0441\u044f\u0446','Monthly Income');
+add('\u0414\u043e\u0445\u043e\u0434 \u0432 \u0433\u043e\u0434','Annual Income');
+add('\u0421\u0440\u043e\u043a \u043e\u043a\u0443\u043f\u0430\u0435\u043c\u043e\u0441\u0442\u0438','Payback Period');
+add('\u0434\u043e\u043c','house');add('\u0434\u043e\u043c\u0430','houses');add('\u0434\u043e\u043c\u043e\u0432','houses');
+add('\u041d\u0430\u0448\u0438 \u043f\u0440\u043e\u0435\u043a\u0442\u044b','Our Projects');
+add('\u041d\u0430\u0437\u0430\u0434','Back');add('\u0414\u0430\u043b\u0435\u0435','Next');
+add('\u0421\u043f\u0430\u0441\u0438\u0431\u043e!','Thank You!');
+add('\u0417\u0430\u044f\u0432\u043a\u0430 \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0430!','Request Sent!');
+add('\u041e\u043d\u043b\u0430\u0439\u043d-\u043a\u0430\u043b\u044c\u043a\u0443\u043b\u044f\u0442\u043e\u0440 \u0434\u043e\u0445\u043e\u0434\u043d\u043e\u0441\u0442\u0438','Profitability Calculator');
+add('\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c \u0430\u0440\u0435\u043d\u0434\u044b \u0432 \u0441\u0443\u0442\u043a\u0438','Daily Rental Rate');
+add('\u0417\u0430\u0433\u0440\u0443\u0436\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u0432 \u043c\u0435\u0441\u044f\u0446 (\u0434\u043d\u0435\u0439)','Monthly Occupancy (days)');
+add('\u0414\u043e\u0445\u043e\u0434 \u0432 \u043c\u0435\u0441\u044f\u0446','Monthly Income');
+add('\u0414\u043e\u0445\u043e\u0434 \u0432 \u0433\u043e\u0434','Annual Income');
+add('\u0421\u0440\u043e\u043a \u043e\u043a\u0443\u043f\u0430\u0435\u043c\u043e\u044
+function setLang(l){
+  cur=l;localStorage.setItem(K,l);
+  var root=document.getElementById('root');
+  if(l==='en'){
+    if(root)toEN(root);toEN(document.body);
+    var t=document.title;
+    for(var ru in d){if(t.indexOf(ru)!==-1){document.title=t.split(ru).join(d[ru]);break;}}
+  }else{
+    if(root)toRU(root);toRU(document.body);
+    var t=document.title;
+    for(var ru in d){
+      var en=d[ru];
+      if(en&&t.indexOf(en)!==-1){document.title=t.split(en).join(ru);break;}
     }
   }
-  function setLang(l){
-    cur=l;localStorage.setItem(KEY,l);
-    var r=document.getElementById('root');if(r)tr(r,l==='en');
-    tr(document.body,l==='en');
-    var t=document.title;
-    for(var ru in EN){if(t.indexOf(ru)!==-1){document.title=t.split(ru).join(l==='en'?EN[ru]:ru);break;}}
-  }
-  function addSwitcher(){
-    var d=document.createElement('div');d.id='kit-lang-switch';
-    d.style.cssText='position:fixed;top:10px;right:10px;z-index:99999;display:flex;gap:4px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border-radius:10px;padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.2)';
-    d.innerHTML='<button data-lang="ru" style="border:none;background:'+(cur==='ru'?'rgba(255,255,255,.25)':'transparent')+';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">\uD83C\uDDF7\uD83C\uDDFA RU</button><button data-lang="en" style="border:none;background:'+(cur==='en'?'rgba(255,255,255,.25)':'transparent')+';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">\uD83C\uDDEC\uD83C\uDDE7 EN</button>';
-    document.body.appendChild(d);
-    d.addEventListener('click',function(e){
-      var b=e.target.closest('[data-lang]');if(!b)return;
-      var l=b.getAttribute('data-lang');setLang(l);
-      var bs=d.querySelectorAll('[data-lang]');
-      for(var i=0;i<bs.length;i++){bs[i].style.background=bs[i].getAttribute('data-lang')===l?'rgba(255,255,255,.25)':'transparent';}
-    });
-  }
-  function init(){
-    addSwitcher();
-    if(cur==='en')setLang('en');
-  }
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(init,1500);});}
-  else{setTimeout(init,1500);}
-  var obs=new MutationObserver(function(){
-    if(tm)clearTimeout(tm);
-    tm=setTimeout(function(){if(cur==='en')setLang('en');},300);
+}
+function addSwitcher(){
+  var d2=document.createElement('div');d2.id='kit-lang-switch';
+  d2.style.cssText='position:fixed;top:10px;right:10px;z-index:99999;display:flex;gap:4px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border-radius:10px;padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.2)';
+  d2.innerHTML='<button data-lang="ru" style="border:none;background:'+(cur==='ru'?'rgba(255,255,255,.25)':'transparent')+';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">\uD83C\uDDF7\uD83C\uDDFA RU</button><button data-lang="en" style="border:none;background:'+(cur==='en'?'rgba(255,255,255,.25)':'transparent')+';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">\uD83C\uDDEC\uD83C\uDDE7 EN</button>';
+  document.body.appendChild(d2);
+  d2.addEventListener('click',function(e){
+    var b=e.target.closest('[data-lang]');if(!b)return;
+    var l=b.getAttribute('data-lang');setLang(l);
+    var bs=d2.querySelectorAll('[data-lang]');
+    for(var i=0;i<bs.length;i++){bs[i].style.background=bs[i].getAttribute('data-lang')===l?'rgba(255,255,255,.25)':'transparent';}
   });
-  setTimeout(function(){
-    var r=document.getElementById('root');if(r)obs.observe(r,{childList:true,subtree:true});
-    obs.observe(document.body,{childList:true,subtree:true});
-  },2000);
+}
+function init(){
+  addSwitcher();
+  if(cur==='en'){setTimeout(function(){setLang('en');},2000);}
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+else{setTimeout(init,500);}
+var tm=null;
+var obs=new MutationObserver(function(){
+  if(cur!=='en')return;
+  if(tm)clearTimeout(tm);
+  tm=setTimeout(function(){setLang('en');},400);
+});
+setTimeout(function(){
+  var r=document.getElementById('root');if(r)obs.observe(r,{childList:true,subtree:true});
+  obs.observe(document.body,{childList:true,subtree:true});
+},2000);
 })();
+
 </script>
 
 </body>
