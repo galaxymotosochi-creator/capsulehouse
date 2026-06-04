@@ -1249,17 +1249,68 @@
 
 <!-- ====== I18N: Language Switcher ====== -->
 <script>
-/* i18n for KIT.MARKETS - keep this minimal and working */
+/* i18n for KIT.MARKETS - v3 fixed word boundaries */
 (function(){
 var K='kit_lang',cur=localStorage.getItem(K)||'ru';
-var EN={
-  "ХИТ ПРОДАЖ":"BESTSELLER",
-  "ЛЕТНИЙ ДОМ":"SUMMER HOUSE",
-  "ЗИМНИЙ ДОМ":"WINTER HOUSE",
-  "Для регионов без зимы":"For regions without winter",
-  "Для регионов с зимой":"For regions with winter",
+// Dictionary - longer strings FIRST to avoid partial matches
+var RAW={
+  // Full phrases first (longer = matched first)
+  "Просторный капсульный дом для семьи из 4 человек. Две комнаты, опциональный балкон, рассчитан на эксплуатацию в любых климатических условиях от -45°C до +45°C.":"Spacious capsule house for a family of 4. Two rooms, optional balcony, designed for any climate -45°C to +45°C.",
+  "Компактный капсульный дом для 1-2 человек. Мини-пространство, зона кухни, для эксплуатации от -45°C до +45°C.":"Compact capsule house for 1-2 people. Mini-space, kitchen area, for -45°C to +45°C.",
+  "Просторный капсульный дом для 2-3 человек. Уютное пространство, зона кухни, опциональный балкон, для эксплуатации от -45°C до +45°C.":"Spacious capsule house for 2-3 people. Cozy space, kitchen area, optional balcony, for -45°C to +45°C.",
+  "Средний капсульный дом для семьи из 2-3 человек. Просторная комната, небольшая кухня, опциональный балкон, рассчитан на эксплуатацию в любых климатических условиях от -45°C до +45°C.":"Medium capsule house for 2-3 people. Spacious room, small kitchen, optional balcony, for any climate -45°C to +45°C.",
+  "Компактный капсульный дом для 2 человек. Уютная комната, зона кухни, опциональный балкон, для эксплуатации от -45°C до +45°C.":"Compact capsule house for 2 people. Cozy room, kitchen area, optional balcony, for -45°C to +45°C.",
+  "Компактный капсульный дом для 1-2 человек. Уютное пространство, зона кухни, опциональный балкон, для эксплуатации от -45°C до +45°C.":"Compact capsule house for 1-2 people. Cozy space, kitchen area, optional balcony, for -45°C to +45°C.",
+  "Мини-капсульный дом для 1-2 человек. Компактное пространство, зона кухни, опциональный балкон, для эксплуатации от -45°C до +45°C.":"Mini capsule house for 1-2 people. Compact space, kitchen area, optional balcony, for -45°C to +45°C.",
+  "ДОСТАВКА КАПСУЛЬНЫХ ДОМОВ НОВОГО ПОКОЛЕНИЯ ПОД КЛЮЧ":"TURNKEY DELIVERY OF NEXT-GEN CAPSULE HOUSES",
+  // Full words before partial
+  "человек":"people",
+  "человека":"people",
+  "Количество": "Quantity",
+  "Площадь:":"Area:",
+  "Длина:":"Length:",
+  "Ширина:":"Width:",
+  "Высота:":"Height:",
+  "Вес:":"Weight:",
+  "Количество этажей:":"Floors:",
+  "Модель:":"Model:",
+  "Количество комнат:":"Rooms:",
+  "Вместимость:":"Capacity:",
+  "Балкон:":"Balcony:",
+  "Зимний / летний вариант:":"Winter / Summer version:",
+  "Мощность:":"Power:",
+  "Минимальная температура:":"Min temperature:",
+  "Максимальная температура:":"Max temperature:",
+  "Опционально":"Optional",
+  "Нет":"No",
+  "кВт":"kW",
+  "капсульных":"capsule",
+  "капсульные":"capsule",
+  "капсульный":"capsule",
+  "капсульного":"capsule",
+  "капсульном":"capsule",
+  "капсульными":"capsule",
+  "домов":"houses",
+  "домами":"houses",
+  "дома":"house",
+  "домах":"house",
+  "домов":"houses",
+  "Дом:":"House:",
+  "дом":"house",
+  "ДОСТАВКА":"DELIVERY",
+  "Доставка":"Delivery",
+  "доставки":"delivery",
+  "доставку":"delivery",
+  "доставка":"delivery",
+  "доставке":"delivery",
+  "Производство":"Production",
+  "производства":"production",
+  "производство":"production",
+  "Производство:":"Production:",
+  "Delivery":"Delivery",
+  "Timeline:":"Timeline:",
   "Капсульные дома нового поколения":"Next-Generation Capsule Houses",
-  "Современные решения для жизни, работы и бизнеса":"Modern solutions",
+  "Современные решения для жизни, работы и бизнеса":"Modern solutions for living, working and business",
   "Оставить заявку":"Submit a request",
   "Листайте вниз":"Scroll down",
   "Главная":"Home",
@@ -1277,20 +1328,6 @@ var EN={
   "Партнёров":"Partners",
   "Регионов РФ":"Russian Regions",
   "Подробнее о компании":"More About Us",
-  "Площадь:":"Area:",
-  "Длина:":"Length:",
-  "Ширина:":"Width:",
-  "Высота:":"Height:",
-  "Вес:":"Weight:",
-  "Количество этажей:":"Floors:",
-  "Модель:":"Model:",
-  "Количество комнат:":"Rooms:",
-  "Вместимость:":"Capacity:",
-  "Балкон:":"Balcony:",
-  "Опционально":"Optional",
-  "Нет":"No",
-  "чел":"pers",
-  "кВт":"kW",
   "Контакты":"Contacts",
   "Все права защищены":"All Rights Reserved",
   "Доставка":"Delivery",
@@ -1318,18 +1355,13 @@ var EN={
   "ПАРТНЕРСКАЯ ПРОГРАММА":"PARTNER PROGRAM",
   "Личный кабинет":"Personal Account",
   "Рекомендация":"Referral",
+  "от стоимости дома":"of house cost",
   "Отправить заявку":"Submit Request",
   "Телефон":"Phone",
   "Город установки":"Installation City",
   "Инвестиции":"Investment",
   "Стоимость дома":"House cost",
   "Количество домов":"Number of Houses",
-  "Доход в месяц":"Monthly Income",
-  "Доход в год":"Annual Income",
-  "Срок окупаемости":"Payback Period",
-  "дом":"house",
-  "дома":"houses",
-  "домов":"houses",
   "Наши проекты":"Our Projects",
   "Видеообзоры готовых решений":"Video Reviews",
   "Назад":"Back",
@@ -1340,15 +1372,16 @@ var EN={
   "О КОМПАНИИ":"ABOUT US",
   "О компании":"About Us",
   "Фото компании":"Company Photos",
-  "Не нашли ответ на свой вопрос?":"Didnt find your question?",
+  "Не нашли ответ на свой вопрос?":"Did not find your question?",
   "Свяжитесь с нами":"Contact Us",
   "Рассчитать стоимость":"Calculate Cost",
+  "Рассчитайте доходность":"Calculate profitability",
   "Стоимость аренды в сутки":"Daily rental rate",
-  "Загруженность в месяц (дней)":"Occupancy days per month",
-  "Написать в Telegram":"Telegram",
-  "Написать в WhatsApp":"WhatsApp",
+  "Загруженность в месяц (дней)":"Occupancy (days per month)",
+  "Написать в Telegram":"Write to Telegram",
+  "Написать в WhatsApp":"Write to WhatsApp",
   "Позвонить":"Call",
-  "Уточнить у менеджера":"Ask manager",
+  "Уточнить у менеджера":"Ask a manager",
   "Проверить наличие":"Check availability",
   "ИТОГО:":"TOTAL:",
   "ИТОГОВАЯ СТОИМОСТЬ":"FINAL COST",
@@ -1367,9 +1400,9 @@ var EN={
   "Подробнее":"Details",
   "Дата":"Date",
   "Стоимость дома:":"House Cost:",
-  "Доп. опции:":"Add. Options:",
-  "Логистика и налоги:":"Logistics and Tax:",
-  "НДС и пошлина":"VAT and Duty",
+  "Доп. опции:":"Additional options:",
+  "Логистика и налоги:":"Logistics and tax:",
+  "НДС и пошлина":"VAT and duty",
   "Участок есть:":"Land available:",
   "Сроки:":"Timeline:",
   "Источник:":"Source:",
@@ -1377,53 +1410,139 @@ var EN={
   "КОНТАКТЫ":"CONTACTS",
   "Статус":"Status",
   "Параметр":"Parameter",
+  "Полный цикл":"Full Cycle",
   "Стать дилером":"Become a Dealer",
   "Войти в кабинет":"Log In",
-  "Введите ваше имя":"Enter your name",
   "Город":"City",
-  "Полноценный дом 28 м2":"Full-size house 28 m2",
-  "Вариант с кухней, спальней и балконом":"Kitchen bedroom balcony"
+  "Полноценный дом 28 м²":"Full-size house 28 m²",
+  "Вариант с кухней, спальней и балконом":"Option with kitchen, bedroom and balcony",
+  "Заключение контракта:":"Contract signing:",
+  "Способы оплаты:":"Payment methods:",
+  "Порядок оплаты:":"Payment procedure:",
+  "Способы доставки (виды транспорта):":"Delivery methods (transport types):",
+  "Доставка домов возможна в контейнерах:":"House delivery is possible in containers:",
+  "Состояние домов для доставки:":"House condition for delivery:",
+  "Этапы доставки:":"Delivery stages:",
+  "Отправка из Китая: подготовка, упаковка, экспортное оформление":"Shipment from China: preparation, packaging, export clearance",
+  "Получение в стране: таможня, СВХ":"Receipt in country: customs, temporary storage",
+  "Доставка на место установки":"Delivery to installation site",
+  "Монтаж, подключение, первый запуск":"Installation, connection, first startup",
+  "Производство:":"Production:",
+  "Доставка:":"Delivery:",
+  "Монтаж:":"Installation:",
+  "Сроки могут меняться":"Timelines may vary",
+  "Напрямую с фабрикой":"Directly from the factory",
+  "С нашим российским юр.лицом":"With our Russian legal entity",
+  "Безналичный платеж (оплата на р/с)":"Bank transfer (payment to account)",
+  "Наличными (в одном из наших офисов)":"Cash (at one of our offices)",
+  "Альтернативные способы (уточняйте у менеджера)":"Alternative methods (check with manager)",
+  "50% — авансовый платеж для начала производства":"50% — advance payment to start production",
+  "50% — после производства и инспекции в Китае":"50% — after production and inspection in China",
+  "ВЫБЕРИТЕ ЗИМНЕЕ УТЕПЛЕНИЕ КАПСУЛЫ":"SELECT WINTER INSULATION",
+  "ВЫБЕРИТЕ ИНТЕРЬЕР КАПСУЛЫ":"SELECT CAPSULE INTERIOR",
+  "РАСЧЕТ ДОСТАВКИ":"DELIVERY CALCULATION",
+  "Тёплый пол": "Heated floor",
+  "Тройной стеклопакет": "Triple glazing",
+  "Теплоизоляция труб": "Pipe insulation",
+  "ХИТ ПРОДАЖ":"BESTSELLER",
+  "ЛЕТНИЙ ДОМ":"SUMMER HOUSE",
+  "ЗИМНИЙ ДОМ":"WINTER HOUSE",
+  "Для регионов без зимы":"For regions without winter",
+  "Для регионов с зимой":"For regions with winter",
+  "Мы специализируемся на поставках инновационных капсульных домов из Китая.":"We specialize in supplying innovative capsule houses from China.",
+  "Наши дома сочетают в себе современный дизайн, функциональность и доступную цену.":"Our houses combine modern design, functionality and affordable prices.",
+  "Мы работаем напрямую с производителями, что позволяет гарантировать лучшие условия для наших клиентов.":"We work directly with manufacturers to guarantee the best terms for our clients.",
+  "Зарабатывайте на продаже капсульных домов.":"Earn by selling capsule houses.",
+  "Агентам — до":"Agents get up to",
+  "комиссии, дилерам — до":"commission, dealers up to",
+  "Авто (евро-фуры, низкорамный тралл, контейнеровоз)":"Truck (euro trucks, low-bed trailers, container carriers)",
+  "ЖД (контейнеры 20HQ, 40HQ, 40FR)":"Rail (containers 20HQ, 40HQ, 40FR)",
+  "Море (контейнеры 20HQ, 40HQ, 40FR)":"Sea (containers 20HQ, 40HQ, 40FR)",
+  "Мультимодальная доставка":"Multimodal delivery",
+  "20HQ":"20HQ",
+  "40HQ":"40HQ",
+  "40FR (открытая плат40FR (открытая платформа)":"40FR (open platform)",
+  "Полностью собранные «под ключ»":"Fully assembled turnkey",
+  "Если у вас есть необходимость согласовать индивидуальные условия поставки":"If you need to negotiate individual delivery terms",
+  "Отделка «под ключ»":"Turnkey finishing",
+  "Каркас из оцинкованной стали":"Galvanized steel frame",
+  "Обшивка из авиационного алюминия":"Aviation aluminum cladding",
+  "Защита от УФ":"UV protection",
+  "Теплоизоляция и гидроизоляция":"Thermal and waterproofing",
+  "Стеклянные стены: закаленное стекло LOW-E":"Glass walls: tempered LOW-E glass",
+  "Окна с алюминиевыми рамами и сеткой":"Windows with aluminum frames and mesh",
+  "Душевая, туалет, раковина, смарт-зеркало":"Shower, toilet, sink, smart mirror",
+  "Умный замок, дверь из нержавейки":"Smart lock, stainless steel door",
+  "LED освещение, электропроводка, щиток":"LED lighting, wiring, panel",
+  "Канализация, водоподготовка, водоснабжение":"Sewerage, water treatment, water supply",
+  "Розетки с умным управлением":"Sockets with smart control",
+  "Техника (варианты):":"Appliances (options):",
+  "Водонагреватель, кондиционеры, вытяжка":"Water heater, air conditioners, hood",
+  "умный дом":"smart home",
+  "раздвигатели штор, подогрев пола":"curtain openers, heated floor",
+  "HD-проектор, кофемашина, микроволновка":"HD projector, coffee machine, microwave",
+  "холодильник, телевизор, варочная панель.":"refrigerator, TV, hob.",
+  "Мебель (варианты):":"Furniture (options):",
+  "Диван, журнальный столик, обеденный стол":"Sofa, coffee table, dining table",
+  "ТВ-тумба, кровать, шкаф-кровать":"TV stand, bed, wall bed",
+  "диван-кровать, гардероб, шкаф, шторы":"sofa bed, wardrobe, closet, curtains",
+  "кухонный гарнитур, барная стойка.":"kitchen set, bar counter.",
+  "Количество человек":"Number of people",
+  "человек":"people",
+  "человека":"people",
+  "м²":"m²",
+  "м2":"m2",
+  "Шаг":"Step",
+  "шаг":"step",
+  "Обзор":"Overview",
+  "Сочи":"Sochi"
 };
 
-// Build reverse map (EN -> RU)
+// Sort keys by length (longest first) to avoid partial word matches
+var KEYS=Object.keys(RAW).sort(function(a,b){return b.length-a.length;});
+// Build EN dict (sorted) and REV dict
+var EN={};for(var i=0;i<KEYS.length;i++)EN[KEYS[i]]=RAW[KEYS[i]];
 var REV={};for(var r in EN)REV[EN[r]]=r;
 
-// Apply translation to text nodes
-function translate(root,toEN){
-  if(!root||!root.childNodes)return;
+function translateTextNode(text,toEN){
+  if(!text||!text.trim())return null;
   var dict=toEN?EN:REV;
-  var walk=function(el){
-    for(var i=0;i<el.childNodes.length;i++){
-      var c=el.childNodes[i];
-      if(c.nodeType===3){
-        var t=c.nodeValue;if(!t||!t.trim())continue;
-        for(var from in dict){
-          if(t.indexOf(from)!==-1){
-            c.nodeValue=t.split(from).join(dict[from]);
-            break;
-          }
-        }
-      }else if(c.nodeType===1){
-        var tag=c.tagName;
-        if(tag!=='SCRIPT'&&tag!=='STYLE'&&tag!=='INPUT'&&tag!=='TEXTAREA'&&tag!=='SELECT')walk(c);
-      }
+  var keys=toEN?KEYS:Object.keys(REV).sort(function(a,b){return b.length-a.length;});
+  var result=text;
+  for(var i=0;i<keys.length;i++){
+    var from=keys[i];
+    if(result.indexOf(from)!==-1){
+      result=result.split(from).join(dict[from]);
     }
-  };
-  walk(root);
+  }
+  return result;
+}
+
+function walkAndTranslate(root,toEN){
+  if(!root||!root.childNodes)return;
+  for(var i=0;i<root.childNodes.length;i++){
+    var c=root.childNodes[i];
+    if(c.nodeType===3){
+      var t=c.nodeValue;if(!t||!t.trim())continue;
+      var nt=translateTextNode(t,toEN);
+      if(nt!==t)c.nodeValue=nt;
+    }else if(c.nodeType===1){
+      var tag=c.tagName;
+      if(tag!=='SCRIPT'&&tag!=='STYLE'&&tag!=='INPUT'&&tag!=='TEXTAREA'&&tag!=='SELECT'&&tag!=='OPTION')walkAndTranslate(c,toEN);
+    }
+  }
 }
 
 function setLang(l){
   cur=l;localStorage.setItem(K,l);
   var root=document.getElementById('root');
   var isEn=l==='en';
-  if(root)translate(root,isEn);
-  translate(document.body,isEn);
+  if(root)walkAndTranslate(root,isEn);
+  walkAndTranslate(document.body,isEn);
   // Update title
   var t=document.title;
-  for(var from in EN){
-    if(isEn&&t.indexOf(from)!==-1){document.title=t.split(from).join(EN[from]);break;}
-    if(!isEn&&t.indexOf(EN[from])!==-1){document.title=t.split(EN[from]).join(from);break;}
-  }
+  var t2=translateTextNode(t,isEn);
+  if(t2!==t)document.title=t2;
 }
 
 function addSwitcher(){
@@ -1446,7 +1565,6 @@ function init(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
 else setTimeout(init,500);
 
-// Observer for React re-renders
 var tm=null;
 var obs=new MutationObserver(function(){
   if(cur!=='en')return;
