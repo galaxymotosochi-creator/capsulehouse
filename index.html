@@ -1247,8 +1247,246 @@
 })();
 </script>
 
+<!-- ====== I18N: Language Switcher ====== -->
+<script>
+(function(){
+  var STORAGE_KEY = 'kit_lang';
+  var currentLang = localStorage.getItem(STORAGE_KEY) || 'ru';
 
+  var dict = {
+    'Капсульные дома нового поколения': 'Next-Generation Capsule Houses',
+    'Современные решения для жизни, работы и бизнеса': 'Modern solutions for living, working and business',
+    'Оставить заявку': 'Submit a request',
+    'Капсульные дома под ключ в Россию': 'Turnkey capsule houses delivered to Russia',
+    'Доставка современных капсульных домов из Китая. Гарантия качества, полный цикл услуг, выгодные условия для партнеров': 'Modern capsule houses from China. Quality guaranteed, full service, favorable partner terms',
+    'Листайте вниз': 'Scroll down',
+    'Главная': 'Home',
+    'Каталог': 'Catalog',
+    'Стать агентом': 'Become an agent',
+    'Бизнес-калькулятор': 'Business calculator',
+    'Мой кабинет': 'My account',
+    'Выйти': 'Log out',
+    'Популярные модели': 'Popular models',
+    'Выберите идеальный капсульный дом для ваших задач': 'Choose the perfect capsule house for your needs',
+    'Смотреть весь каталог': 'View full catalog',
+    'Лет на рынке': 'Years on the market',
+    'Доставленных домов': 'Houses delivered',
+    'Партнёров': 'Partners',
+    'Подробнее о компании': 'More about the company',
+    'ХИТ ПРОДАЖ': 'BESTSELLER',
+    'ЛЕТНИЙ ДОМ': 'SUMMER HOUSE',
+    'ЗИМНИЙ ДОМ': 'WINTER HOUSE',
+    'Для регионов без зимы': 'For regions without winter',
+    'Для регионов с зимой': 'For regions with winter',
+    'Площадь:': 'Area:',
+    'Длина:': 'Length:',
+    'Ширина:': 'Width:',
+    'Высота:': 'Height:',
+    'Вес:': 'Weight:',
+    'Количество этажей:': 'Floors:',
+    'Модель:': 'Model:',
+    'Количество комнат:': 'Rooms:',
+    'Вместимость:': 'Capacity:',
+    'Балкон:': 'Balcony:',
+    'Опционально': 'Optional',
+    'Нет': 'No',
+    'чел': 'pers',
+    'м': 'm',
+    'кг': 'kg',
+    'кВт': 'kW',
+    'Рассчитать стоимость': 'Calculate cost',
+    'Рассчитайте доходность вашего глэмпинга или туристического комплекса': 'Calculate the profitability of your glamping or tourist complex',
+    'Стоимость дома': 'House cost',
+    'Стоимость аренды в сутки': 'Daily rental cost',
+    'Загруженность в месяц (дней)': 'Monthly occupancy (days)',
+    'Количество домов': 'Number of houses',
+    'Инвестиции': 'Investment',
+    'Доход в месяц': 'Monthly income',
+    'Доход в год': 'Annual income',
+    'Срок окупаемости': 'Payback period',
+    'Отправить заявку': 'Submit request',
+    'Нажимая кнопку, вы соглашаетесь с обработкой персональных данных': 'By clicking, you agree to the processing of personal data',
+    'Заявка отправлена!': 'Request sent!',
+    'Наш менеджер свяжется с вами в ближайшее время': 'Our manager will contact you shortly',
+    'Как удобнее с вами связаться?': 'How should we contact you?',
+    'Спасибо!': 'Thank you!',
+    'Консультация': 'Consultation',
+    'Договор': 'Contract',
+    'Производство': 'Production',
+    'Контакты': 'Contacts',
+    'Все права защищены': 'All rights reserved',
+    'Введите имя': 'Enter your name',
+    'Введите телефон': 'Enter your phone',
+    'Введите город': 'Enter your city',
+    'Телефон': 'Phone',
+    'Город установки': 'Installation city',
+    'Калькулятор': 'Calculator',
+    'Доставка': 'Delivery',
+    'О компании': 'About us',
+    'О КОМПАНИИ': 'ABOUT US',
+    'Сертификаты': 'Certificates',
+    'Сертификат': 'Certificate',
+    'Как мы работаем': 'How we work',
+    'СТАНЬТЕ АГЕНТОМ': 'BECOME AN AGENT',
+    'АГЕНТ': 'AGENT',
+    'ДИЛЕР': 'DEALER',
+    'Для физических лиц': 'For individuals',
+    'Для юридических лиц': 'For legal entities',
+    'Стать партнёром': 'Become a partner',
+    'Узнать условия': 'Learn terms',
+    'Ещё думаете?': 'Still thinking?',
+    'Получить консультацию': 'Get a consultation',
+    'ПАРТНЕРСКАЯ ПРОГРАММА': 'PARTNER PROGRAM',
+    'Войти в кабинет': 'Log in',
+    'Презентация': 'Presentation',
+    'Модульные капсульные дома': 'Modular capsule houses',
+    'Капсульные дома': 'Capsule houses',
+    'Гарантия': 'Warranty',
+    'Ответы на популярные вопросы о капсульных домах': 'Answers to popular questions about capsule houses',
+    'Не нашли ответ на свой вопрос?': 'Did not find your question?',
+    'Свяжитесь с нами, и мы с радостью поможем': 'Contact us, we will be happy to help',
+    'Связаться с нами': 'Contact us',
+    'Установка': 'Installation',
+    'Эксплуатация': 'Operation',
+    'Назад': 'Back',
+    'Далее': 'Next',
+    'Написать в Telegram': 'Write to Telegram',
+    'Написать в WhatsApp': 'Write to WhatsApp',
+    'Написать в MAX': 'Write to MAX',
+    'Позвонить': 'Call',
+    'Уточнить у менеджера': 'Ask a manager',
+    'Уточняйте у менеджера': 'Check with manager',
+    'Получить спецпредложение': 'Get special offer',
+    'Проверить наличие': 'Check availability',
+    'Отлично! Проверим доступность?': 'Great! Check availability?',
+    'Но мы знаем как подобрать дом под ваш бюджет!': 'But we know how to find a house for your budget!',
+    'Понимаем. Но это не просто стены': 'We understand. But it is not just walls',
+    'Думал(а), будет дешевле': 'I thought it would be cheaper',
+    'Ожидания совпали': 'Expectations matched',
+    'Насколько цена совпала с вашими ожиданиями?': 'Does the price match your expectations?',
+    'ВЫБЕРИТЕ ЗИМНЕЕ УТЕПЛЕНИЕ КАПСУЛЫ': 'SELECT WINTER INSULATION',
+    'ВЫБЕРИТЕ ИНТЕРЬЕР КАПСУЛЫ': 'SELECT CAPSULE INTERIOR',
+    'РАСЧЕТ ДОСТАВКИ': 'DELIVERY CALCULATION',
+    'ИТОГО:': 'TOTAL:',
+    'ИТОГОВАЯ СТОИМОСТЬ': 'FINAL COST',
+    'Выберите Ваш город или ближайший город от Вас': 'Select your city or the nearest city',
+    'Город не найден.': 'City not found.',
+    'Здесь будет контент шага': 'Step content will be here',
+    'Фото компании': 'Company photos',
+    'Сколько времени занимает доставка?': 'How long does delivery take?',
+    'Нужен ли фундамент для капсульного дома?': 'Is a foundation needed?',
+    'Можно ли использовать дом круглый год?': 'Can the house be used year-round?',
+    'Какие коммуникации нужно подключать?': 'What utilities need to be connected?',
+    'Есть ли гарантия на дом?': 'Is there a warranty?',
+    'Загрузка вопросов': 'Loading questions',
+    'Вопросы пока не добавлены': 'No questions added yet',
+    'Наши проекты': 'Our projects',
+    'Видеообзоры готовых решений': 'Video reviews of completed solutions',
+    'Полноценный дом 28 м²': 'Full-size house 28 m²',
+    'Вариант с кухней, спальней и балконом': 'Option with kitchen, bedroom and balcony',
+    'Комплектация': 'Equipment',
+    'Оплата': 'Payment',
+    'дом': 'house',
+    'дома': 'houses',
+    'домов': 'houses'
+  };
 
+  function saveOriginals() {
+    var els = document.querySelectorAll('[data-i18n]');
+    if (!els.length) return;
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (el.getAttribute('data-ru')) continue;
+      el.setAttribute('data-ru', el.innerHTML);
+    }
+  }
+
+  function translateNode(el, toEn) {
+    if (el.nodeType === 3) {
+      var text = el.nodeValue;
+      if (!text || !text.trim()) return;
+      for (var ru in dict) {
+        if (text.indexOf(ru) !== -1) {
+          el.nodeValue = text.split(ru).join(toEn ? dict[ru] : ru);
+          return;
+        }
+      }
+    } else if (el.nodeType === 1) {
+      // Skip script, style, svg
+      var tag = el.tagName;
+      if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'SVG' || tag === 'svg') return;
+      for (var i = 0; i < el.childNodes.length; i++) {
+        translateNode(el.childNodes[i], toEn);
+      }
+    }
+  }
+
+  function applyLang(lang) {
+    currentLang = lang;
+    localStorage.setItem(STORAGE_KEY, lang);
+    var root = document.getElementById('root');
+    if (root) {
+      saveOriginals();
+      translateNode(root, lang === 'en');
+    }
+    // Also translate everything outside root
+    translateNode(document.body, lang === 'en');
+    // Update title
+    var t = document.title;
+    for (var ru in dict) {
+      if (t.indexOf(ru) !== -1) {
+        document.title = t.split(ru).join(lang === 'en' ? dict[ru] : ru);
+        break;
+      }
+    }
+  }
+
+  function addSwitcher() {
+    var div = document.createElement('div');
+    div.id = 'kit-lang-switch';
+    div.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;display:flex;gap:4px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:10px;padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.2)';
+    div.innerHTML = '<button data-lang="ru" style="border:none;background:' + (currentLang==='ru'?'rgba(255,255,255,.25)':'transparent') + ';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">🇷🇺 RU</button><button data-lang="en" style="border:none;background:' + (currentLang==='en'?'rgba(255,255,255,.25)':'transparent') + ';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">🇬🇧 EN</button>';
+    document.body.appendChild(div);
+    div.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-lang]');
+      if (btn) {
+        var lang = btn.getAttribute('data-lang');
+        applyLang(lang);
+        // Update button styles
+        var btns = div.querySelectorAll('[data-lang]');
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].style.background = btns[i].getAttribute('data-lang') === lang ? 'rgba(255,255,255,.25)' : 'transparent';
+        }
+      }
+    });
+  }
+
+  // Init after DOM ready
+  function init() {
+    addSwitcher();
+    if (currentLang === 'en') {
+      applyLang('en');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(init, 1500); });
+  } else {
+    setTimeout(init, 1500);
+  }
+
+  // Watch for React re-renders
+  var observer = new MutationObserver(function() {
+    if (currentLang === 'en') {
+      applyLang('en');
+    }
+  });
+  setTimeout(function(){
+    var root = document.getElementById('root');
+    if (root) observer.observe(root, { childList: true, subtree: true });
+  }, 2000);
+})();
+</script>
 
 </body>
 </html>
