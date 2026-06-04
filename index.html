@@ -1250,241 +1250,165 @@
 <!-- ====== I18N: Language Switcher ====== -->
 <script>
 (function(){
-  var STORAGE_KEY = 'kit_lang';
-  var currentLang = localStorage.getItem(STORAGE_KEY) || 'ru';
-
-  var dict = {
-    'Капсульные дома нового поколения': 'Next-Generation Capsule Houses',
-    'Современные решения для жизни, работы и бизнеса': 'Modern solutions for living, working and business',
-    'Оставить заявку': 'Submit a request',
-    'Капсульные дома под ключ в Россию': 'Turnkey capsule houses delivered to Russia',
-    'Доставка современных капсульных домов из Китая. Гарантия качества, полный цикл услуг, выгодные условия для партнеров': 'Modern capsule houses from China. Quality guaranteed, full service, favorable partner terms',
-    'Листайте вниз': 'Scroll down',
-    'Главная': 'Home',
-    'Каталог': 'Catalog',
-    'Стать агентом': 'Become an agent',
-    'Бизнес-калькулятор': 'Business calculator',
-    'Мой кабинет': 'My account',
-    'Выйти': 'Log out',
-    'Популярные модели': 'Popular models',
-    'Выберите идеальный капсульный дом для ваших задач': 'Choose the perfect capsule house for your needs',
-    'Смотреть весь каталог': 'View full catalog',
-    'Лет на рынке': 'Years on the market',
-    'Доставленных домов': 'Houses delivered',
-    'Партнёров': 'Partners',
-    'Подробнее о компании': 'More about the company',
-    'ХИТ ПРОДАЖ': 'BESTSELLER',
-    'ЛЕТНИЙ ДОМ': 'SUMMER HOUSE',
-    'ЗИМНИЙ ДОМ': 'WINTER HOUSE',
-    'Для регионов без зимы': 'For regions without winter',
-    'Для регионов с зимой': 'For regions with winter',
-    'Площадь:': 'Area:',
-    'Длина:': 'Length:',
-    'Ширина:': 'Width:',
-    'Высота:': 'Height:',
-    'Вес:': 'Weight:',
-    'Количество этажей:': 'Floors:',
-    'Модель:': 'Model:',
-    'Количество комнат:': 'Rooms:',
-    'Вместимость:': 'Capacity:',
-    'Балкон:': 'Balcony:',
-    'Опционально': 'Optional',
-    'Нет': 'No',
-    'чел': 'pers',
-    'м': 'm',
-    'кг': 'kg',
-    'кВт': 'kW',
-    'Рассчитать стоимость': 'Calculate cost',
-    'Рассчитайте доходность вашего глэмпинга или туристического комплекса': 'Calculate the profitability of your glamping or tourist complex',
-    'Стоимость дома': 'House cost',
-    'Стоимость аренды в сутки': 'Daily rental cost',
-    'Загруженность в месяц (дней)': 'Monthly occupancy (days)',
-    'Количество домов': 'Number of houses',
-    'Инвестиции': 'Investment',
-    'Доход в месяц': 'Monthly income',
-    'Доход в год': 'Annual income',
-    'Срок окупаемости': 'Payback period',
-    'Отправить заявку': 'Submit request',
-    'Нажимая кнопку, вы соглашаетесь с обработкой персональных данных': 'By clicking, you agree to the processing of personal data',
-    'Заявка отправлена!': 'Request sent!',
-    'Наш менеджер свяжется с вами в ближайшее время': 'Our manager will contact you shortly',
-    'Как удобнее с вами связаться?': 'How should we contact you?',
-    'Спасибо!': 'Thank you!',
-    'Консультация': 'Consultation',
-    'Договор': 'Contract',
-    'Производство': 'Production',
-    'Контакты': 'Contacts',
-    'Все права защищены': 'All rights reserved',
-    'Введите имя': 'Enter your name',
-    'Введите телефон': 'Enter your phone',
-    'Введите город': 'Enter your city',
-    'Телефон': 'Phone',
-    'Город установки': 'Installation city',
-    'Калькулятор': 'Calculator',
-    'Доставка': 'Delivery',
-    'О компании': 'About us',
-    'О КОМПАНИИ': 'ABOUT US',
-    'Сертификаты': 'Certificates',
-    'Сертификат': 'Certificate',
-    'Как мы работаем': 'How we work',
-    'СТАНЬТЕ АГЕНТОМ': 'BECOME AN AGENT',
-    'АГЕНТ': 'AGENT',
-    'ДИЛЕР': 'DEALER',
-    'Для физических лиц': 'For individuals',
-    'Для юридических лиц': 'For legal entities',
-    'Стать партнёром': 'Become a partner',
-    'Узнать условия': 'Learn terms',
-    'Ещё думаете?': 'Still thinking?',
-    'Получить консультацию': 'Get a consultation',
-    'ПАРТНЕРСКАЯ ПРОГРАММА': 'PARTNER PROGRAM',
-    'Войти в кабинет': 'Log in',
-    'Презентация': 'Presentation',
-    'Модульные капсульные дома': 'Modular capsule houses',
-    'Капсульные дома': 'Capsule houses',
-    'Гарантия': 'Warranty',
-    'Ответы на популярные вопросы о капсульных домах': 'Answers to popular questions about capsule houses',
-    'Не нашли ответ на свой вопрос?': 'Did not find your question?',
-    'Свяжитесь с нами, и мы с радостью поможем': 'Contact us, we will be happy to help',
-    'Связаться с нами': 'Contact us',
-    'Установка': 'Installation',
-    'Эксплуатация': 'Operation',
-    'Назад': 'Back',
-    'Далее': 'Next',
-    'Написать в Telegram': 'Write to Telegram',
-    'Написать в WhatsApp': 'Write to WhatsApp',
-    'Написать в MAX': 'Write to MAX',
-    'Позвонить': 'Call',
-    'Уточнить у менеджера': 'Ask a manager',
-    'Уточняйте у менеджера': 'Check with manager',
-    'Получить спецпредложение': 'Get special offer',
-    'Проверить наличие': 'Check availability',
-    'Отлично! Проверим доступность?': 'Great! Check availability?',
-    'Но мы знаем как подобрать дом под ваш бюджет!': 'But we know how to find a house for your budget!',
-    'Понимаем. Но это не просто стены': 'We understand. But it is not just walls',
-    'Думал(а), будет дешевле': 'I thought it would be cheaper',
-    'Ожидания совпали': 'Expectations matched',
-    'Насколько цена совпала с вашими ожиданиями?': 'Does the price match your expectations?',
-    'ВЫБЕРИТЕ ЗИМНЕЕ УТЕПЛЕНИЕ КАПСУЛЫ': 'SELECT WINTER INSULATION',
-    'ВЫБЕРИТЕ ИНТЕРЬЕР КАПСУЛЫ': 'SELECT CAPSULE INTERIOR',
-    'РАСЧЕТ ДОСТАВКИ': 'DELIVERY CALCULATION',
-    'ИТОГО:': 'TOTAL:',
-    'ИТОГОВАЯ СТОИМОСТЬ': 'FINAL COST',
-    'Выберите Ваш город или ближайший город от Вас': 'Select your city or the nearest city',
-    'Город не найден.': 'City not found.',
-    'Здесь будет контент шага': 'Step content will be here',
-    'Фото компании': 'Company photos',
-    'Сколько времени занимает доставка?': 'How long does delivery take?',
-    'Нужен ли фундамент для капсульного дома?': 'Is a foundation needed?',
-    'Можно ли использовать дом круглый год?': 'Can the house be used year-round?',
-    'Какие коммуникации нужно подключать?': 'What utilities need to be connected?',
-    'Есть ли гарантия на дом?': 'Is there a warranty?',
-    'Загрузка вопросов': 'Loading questions',
-    'Вопросы пока не добавлены': 'No questions added yet',
-    'Наши проекты': 'Our projects',
-    'Видеообзоры готовых решений': 'Video reviews of completed solutions',
-    'Полноценный дом 28 м²': 'Full-size house 28 m²',
-    'Вариант с кухней, спальней и балконом': 'Option with kitchen, bedroom and balcony',
-    'Комплектация': 'Equipment',
-    'Оплата': 'Payment',
-    'дом': 'house',
-    'дома': 'houses',
-    'домов': 'houses'
+  var KEY='kit_lang';
+  var cur=localStorage.getItem(KEY)||(navigator.language&&navigator.language.indexOf('en')===0?'en':'ru');
+  var EN={
+"🔥 ХИТ ПРОДАЖ":"🔥 BESTSELLER","ХИТ ПРОДАЖ":"BESTSELLER","ЛЕТНИЙ ДОМ":"SUMMER HOUSE","ЗИМНИЙ ДОМ":"WINTER HOUSE",
+"Для регионов без зимы":"For regions without winter","Для регионов с зимой":"For regions with winter",
+"Капсульные дома нового поколения":"Next-Generation Capsule Houses",
+"Современные решения для жизни, работы и бизнеса":"Modern solutions for living, working and business",
+"Оставить заявку":"Submit a request","Листайте вниз":"Scroll down",
+"Главная":"Home","Каталог":"Catalog","Стать агентом":"Become an Agent",
+"Бизнес-калькулятор":"Business Calculator","Мой кабинет":"My Account",
+"Выйти":"Log Out","Закрыть":"Close","Открыть меню":"Open Menu",
+"Популярные модели":"Popular Models",
+"Выберите идеальный капсульный дом для ваших задач":"Choose the perfect capsule house",
+"Смотреть весь каталог":"View Full Catalog","Лет на рынке":"Years on Market",
+"Доставленных домов":"Houses Delivered","Партнёров":"Partners","Регионов РФ":"Russian Regions",
+"Подробнее о компании":"More About Us",
+"Площадь:":"Area:","Длина:":"Length:","Ширина:":"Width:","Высота:":"Height:","Вес:":"Weight:",
+"Количество этажей:":"Floors:","Модель:":"Model:","Количество комнат:":"Rooms:",
+"Вместимость:":"Capacity:","Балкон:":"Balcony:","Зимний / летний вариант:":"Winter/Summer:",
+"Мощность:":"Power:","Минимальная температура:":"Min Temp:",
+"Максимальная температура:":"Max Temp:","Опционально":"Optional","Нет":"No","чел":"pers",
+"Просторный капсульный дом для семьи из 4 человек. Две комнаты, опциональный балкон, рассчитан на эксплуатацию в любых климатических условиях от -45°C до +45°C.":"Spacious capsule house for 4. Two rooms, optional balcony, for any climate.",
+"Компактный капсульный дом для 1-2 человек. Мини-пространство, зона кухни, для эксплуатации от -45°C до +45°C.":"Compact capsule house for 1-2. Mini-space, kitchen.",
+"Просторный капсульный дом для 2-3 человек. Уютное пространство, зона кухни, опциональный балкон, для эксплуатации от -45°C до +45°C.":"Spacious capsule house for 2-3. Cozy space, kitchen, optional balcony.",
+"Средний капсульный дом для семьи из 2-3 человек. Просторная комната, небольшая кухня, опциональный балкон.":"Medium capsule house for 2-3. Spacious room, small kitchen, optional balcony.",
+"Компактный капсульный дом для 2 человек. Уютная комната, зона кухни, опциональный балкон.":"Compact capsule house for 2. Cozy room, kitchen, optional balcony.",
+"Компактный капсульный дом для 1-2 человек. Уютное пространство, зона кухни, опциональный балкон.":"Compact capsule house for 1-2. Cozy space, kitchen, optional balcony.",
+"Мини-капсульный дом для 1-2 человек. Компактное пространство, зона кухни, опциональный балкон.":"Mini capsule house for 1-2. Compact space, kitchen, optional balcony.",
+"Тройной стеклопакет":"Triple Glazing",
+"Энергосберегающие стеклопакеты для зимнего использования":"Energy-saving glazing for winter",
+"Электрический тёплый пол":"Electric Heated Floor",
+"Комфортный обогрев всей площади дома":"Comfortable heating",
+"Теплоизоляция труб":"Pipe Insulation","Защита коммуникаций от замерзания":"Freeze Protection",
+"Шторы (текстиль)":"Curtains","Блэкаут-шторы для полной изоляции от света":"Blackout Curtains",
+"Кухня (вытяжка, столешница, встроенная индукционная панель)":"Kitchen (hood, hob)",
+"Полноценная кухня для комфортного проживания":"Full Kitchen",
+"Кровать-трансформер с матрасом":"Transformer Bed with Mattress",
+"Функциональное решение с дополнительным пространством":"Functional solution",
+"Брендовая кровать с матрасом":"Brand Bed with Mattress",
+"Ортопедический матрас и стильная кровать":"Orthopedic mattress and stylish bed",
+"Проектор + передний электророльставень":"Projector + Electric Shutter",
+"Домашний кинотеатр в вашем капсульном доме":"Home Theater",
+"Диван для отдыха":"Sofa","Компактный и удобный диван-трансформер":"Compact sofa",
+"Сколько времени занимает доставка?":"How long does delivery take?",
+"Доставка":"Delivery","Установка":"Installation","Эксплуатация":"Operation","Гарантия":"Warranty",
+"Нужен ли фундамент для капсульного дома?":"Is a foundation needed?",
+"Нет, капсульный дом устанавливается на регулируемые опоры.":"No, capsule house sits on adjustable supports.",
+"Можно ли использовать дом круглый год?":"Can the house be used year-round?",
+"Какие коммуникации нужно подключать?":"What utilities need connecting?",
+"Дом требует подключения электричества, водоснабжения и канализации.":"House needs electricity, water and sewerage.",
+"Есть ли гарантия на дом?":"Is there a warranty?",
+"Да, мы предоставляем гарантию 2 года на конструкцию дома и 1 год на инженерные системы.":"Yes, 2-year warranty on structure and 1 year on systems.",
+"Не нашли ответ на свой вопрос?":"Didn't find your question?",
+"Свяжитесь с нами, и мы с радостью поможем":"Contact us, we will help",
+"Связаться с нами":"Contact Us",
+"Загрузка вопросов...":"Loading questions...",
+"Вопросы пока не добавлены":"No questions yet",
+"О КОМПАНИИ":"ABOUT US",
+"Мы отобрали лучшие технологичные капсулы Китая":"We selected the best capsule houses from China",
+"Фото компании":"Company Photos","Сертификаты":"Certificates","Сертификат":"Certificate",
+"Как мы работаем":"How We Work","Консультация":"Consultation",
+"Помогаем выбрать оптимальную модель и комплектацию":"We help choose the best model",
+"Договор":"Contract","Производство":"Production",
+"СТАНЬТЕ АГЕНТОМ":"BECOME AN AGENT","АГЕНТ":"AGENT","ДИЛЕР":"DEALER",
+"Для физических лиц":"For individuals","Для юридических лиц":"For legal entities",
+"Стать партнёром":"Become a Partner","Узнать условия":"Learn Terms",
+"Ещё думаете?":"Still Thinking?","Получить консультацию":"Get a Consultation",
+"ПАРТНЕРСКАЯ ПРОГРАММА":"PARTNER PROGRAM",
+"максимальная комиссия":"maximum commission","Реферальная программа":"Referral Program",
+"Без обязательств по объёму":"No Volume Commitments","Маркетинговые материалы":"Marketing Materials",
+"Личный кабинет":"Personal Account","Рекомендация":"Referral",
+"от стоимости дома":"of house cost","Полный цикл":"Full Cycle",
+"Войти в кабинет":"Log In","Статус официального дилера":"Official Dealer Status",
+"Приоритет в регионе":"Regional Priority","Полная поддержка":"Full Support",
+"Стать дилером":"Become a Dealer","Сравнение условий":"Compare Terms",
+"Параметр":"Parameter","Статус":"Status",
+"Как это работает":"How It Works","Регистрация":"Registration",
+"Заполните форму регистрации и дождитесь подтверждения":"Fill in the form",
+"Обучение":"Training","Продажи":"Sales","Выплаты":"Payments",
+"Отправить заявку":"Submit Request",
+"Нажимая кнопку, вы соглашаетесь с обработкой персональных данных":"By clicking you agree to privacy policy",
+"Заявка отправлена!":"Request Sent!",
+"Наш менеджер свяжется с вами в ближайшее время":"Our manager will contact you",
+"Спасибо!":"Thank You!","Введите имя":"Enter your name","Введите телефон":"Enter your phone",
+"Введите город":"Enter your city","Телефон":"Phone","Город установки":"Installation City",
+"Рассчитать стоимость":"Calculate Cost",
+"Рассчитайте доходность вашего глэмпинга":"Calculate profitability",
+"Стоимость дома":"House Cost","Стоимость аренды в сутки":"Daily Rental Rate",
+"Загруженность в месяц (дней)":"Monthly Occupancy (days)",
+"Количество домов":"Number of Houses","Инвестиции":"Investment",
+"Доход в месяц":"Monthly Income","Доход в год":"Annual Income",
+"Срок окупаемости":"Payback Period","Комплектация":"Equipment","Оплата":"Payment",
+"Капсульные дома":"Capsule Houses","Модульные капсульные дома":"Modular Capsule Houses",
+"Презентация":"Presentation","Контакты":"Contacts",
+"Все права защищены":"All Rights Reserved","О компании":"About Us",
+"дом":"house","дома":"houses","домов":"houses",
+"Наши проекты":"Our Projects","Видеообзоры готовых решений":"Video Reviews",
+"Полноценный дом 28 м²":"Full-Size House 28 m²",
+"Вариант с кухней, спальней и балконом":"Option with kitchen, bedroom and balcony",
+"Назад":"Back","Далее":"Next",
+"Написать в Telegram":"Telegram","Написать в WhatsApp":"WhatsApp","Позвонить":"Call",
+"Уточнить у менеджера":"Ask manager","Проверить наличие":"Check availability",
+"ИТОГО:":"TOTAL:","ИТОГОВАЯ СТОИМОСТЬ":"FINAL COST",
+"Комиссия":"Commission","Площадь":"Area","Мои заявки":"My Requests","Всего заявок":"Total Requests",
+"Новых заявок":"New Requests","Новая":"New","В работе":"In Progress","Оплачено":"Paid",
+"Доставлено":"Delivered","Установлено":"Installed","Агентов":"Agents","Дилеров":"Dealers",
+"На модерации":"Under Review","Подробнее":"Details","Дата":"Date",
+"Стоимость дома:":"House Cost:","Доп. опции:":"Add. Options:",
+"Логистика и налоги:":"Logistics & Tax:","НДС и пошлина":"VAT & Duty",
+"Участок есть:":"Land available:","Сроки:":"Timeline:","Источник:":"Source:",
+"Закрыть меню":"Close Menu",
+"МЕНЮ":"MENU","КОНТАКТЫ":"CONTACTS"
   };
-
-  function saveOriginals() {
-    var els = document.querySelectorAll('[data-i18n]');
-    if (!els.length) return;
-    for (var i = 0; i < els.length; i++) {
-      var el = els[i];
-      if (el.getAttribute('data-ru')) continue;
-      el.setAttribute('data-ru', el.innerHTML);
-    }
-  }
-
-  function translateNode(el, toEn) {
-    if (el.nodeType === 3) {
-      var text = el.nodeValue;
-      if (!text || !text.trim()) return;
-      for (var ru in dict) {
-        if (text.indexOf(ru) !== -1) {
-          el.nodeValue = text.split(ru).join(toEn ? dict[ru] : ru);
-          return;
-        }
-      }
-    } else if (el.nodeType === 1) {
-      // Skip script, style, svg
-      var tag = el.tagName;
-      if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'SVG' || tag === 'svg') return;
-      for (var i = 0; i < el.childNodes.length; i++) {
-        translateNode(el.childNodes[i], toEn);
+  function tr(el,to){
+    if(!el||!el.childNodes)return;
+    for(var i=0;i<el.childNodes.length;i++){
+      var c=el.childNodes[i];
+      if(c.nodeType===3){
+        var t=c.nodeValue;if(!t||!t.trim())continue;
+        for(var ru in EN){if(t.indexOf(ru)!==-1){c.nodeValue=t.split(ru).join(to?EN[ru]:ru);break;}}
+      }else if(c.nodeType===1){
+        var tag=c.tagName;
+        if(tag!=='SCRIPT'&&tag!=='STYLE'&&tag!=='INPUT'&&tag!=='TEXTAREA')tr(c,to);
       }
     }
   }
-
-  function applyLang(lang) {
-    currentLang = lang;
-    localStorage.setItem(STORAGE_KEY, lang);
-    var root = document.getElementById('root');
-    if (root) {
-      saveOriginals();
-      translateNode(root, lang === 'en');
-    }
-    // Also translate everything outside root
-    translateNode(document.body, lang === 'en');
-    // Update title
-    var t = document.title;
-    for (var ru in dict) {
-      if (t.indexOf(ru) !== -1) {
-        document.title = t.split(ru).join(lang === 'en' ? dict[ru] : ru);
-        break;
-      }
-    }
+  function setLang(l){
+    cur=l;localStorage.setItem(KEY,l);
+    var r=document.getElementById('root');if(r)tr(r,l==='en');
+    tr(document.body,l==='en');
+    var t=document.title;
+    for(var ru in EN){if(t.indexOf(ru)!==-1){document.title=t.split(ru).join(l==='en'?EN[ru]:ru);break;}}
   }
-
-  function addSwitcher() {
-    var div = document.createElement('div');
-    div.id = 'kit-lang-switch';
-    div.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;display:flex;gap:4px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:10px;padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.2)';
-    div.innerHTML = '<button data-lang="ru" style="border:none;background:' + (currentLang==='ru'?'rgba(255,255,255,.25)':'transparent') + ';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">🇷🇺 RU</button><button data-lang="en" style="border:none;background:' + (currentLang==='en'?'rgba(255,255,255,.25)':'transparent') + ';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">🇬🇧 EN</button>';
-    document.body.appendChild(div);
-    div.addEventListener('click', function(e) {
-      var btn = e.target.closest('[data-lang]');
-      if (btn) {
-        var lang = btn.getAttribute('data-lang');
-        applyLang(lang);
-        // Update button styles
-        var btns = div.querySelectorAll('[data-lang]');
-        for (var i = 0; i < btns.length; i++) {
-          btns[i].style.background = btns[i].getAttribute('data-lang') === lang ? 'rgba(255,255,255,.25)' : 'transparent';
-        }
-      }
+  function addSwitcher(){
+    var d=document.createElement('div');d.id='kit-lang-switch';
+    d.style.cssText='position:fixed;top:10px;right:10px;z-index:99999;display:flex;gap:4px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border-radius:10px;padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.2)';
+    d.innerHTML='<button data-lang="ru" style="border:none;background:'+(cur==='ru'?'rgba(255,255,255,.25)':'transparent')+';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">\uD83C\uDDF7\uD83C\uDDFA RU</button><button data-lang="en" style="border:none;background:'+(cur==='en'?'rgba(255,255,255,.25)':'transparent')+';color:#fff;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:15px;font-family:Inter,sans-serif;transition:all .15s">\uD83C\uDDEC\uD83C\uDDE7 EN</button>';
+    document.body.appendChild(d);
+    d.addEventListener('click',function(e){
+      var b=e.target.closest('[data-lang]');if(!b)return;
+      var l=b.getAttribute('data-lang');setLang(l);
+      var bs=d.querySelectorAll('[data-lang]');
+      for(var i=0;i<bs.length;i++){bs[i].style.background=bs[i].getAttribute('data-lang')===l?'rgba(255,255,255,.25)':'transparent';}
     });
   }
-
-  // Init after DOM ready
-  function init() {
+  function init(){
     addSwitcher();
-    if (currentLang === 'en') {
-      applyLang('en');
-    }
+    if(cur==='en')setLang('en');
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(init, 1500); });
-  } else {
-    setTimeout(init, 1500);
-  }
-
-  // Watch for React re-renders
-  var observer = new MutationObserver(function() {
-    if (currentLang === 'en') {
-      applyLang('en');
-    }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(init,1500);});}
+  else{setTimeout(init,1500);}
+  var obs=new MutationObserver(function(){
+    if(tm)clearTimeout(tm);
+    tm=setTimeout(function(){if(cur==='en')setLang('en');},300);
   });
   setTimeout(function(){
-    var root = document.getElementById('root');
-    if (root) observer.observe(root, { childList: true, subtree: true });
-  }, 2000);
+    var r=document.getElementById('root');if(r)obs.observe(r,{childList:true,subtree:true});
+    obs.observe(document.body,{childList:true,subtree:true});
+  },2000);
 })();
 </script>
 
